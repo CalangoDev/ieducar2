@@ -10,8 +10,20 @@ IEducar v2.0 é um sistema baseado na Versão 1.0 do IEducar, porem totalmente b
 Instalação
 ------------
 
+## Usando o Postgresql como SGDB
+
 Criar os schemas antes de rodar a Aplicação
 
 Schemas:
 - cadastro
 - historico
+
+
+Testes de Unidade
+-----------------
+
+## Rodandos os testes
+
+Exemplo de uso para o modulo Usuario:  
+
+phpunit -c module/Usuario/tests/phpunit.xml

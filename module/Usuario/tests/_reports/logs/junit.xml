@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="Usuario Test Suite" tests="9" assertions="26" failures="0" errors="0" time="1.148733">
-    <testsuite name="Usuario\Entity\PessoaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/PessoaTest.php" namespace="Usuario\Entity" fullPackage="Usuario.Entity" tests="9" assertions="26" failures="0" errors="0" time="1.148733">
-      <testcase name="testGetInputFilter" class="Usuario\Entity\PessoaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/PessoaTest.php" line="21" assertions="1" time="0.162976"/>
-      <testcase name="testInputFilterValid" class="Usuario\Entity\PessoaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/PessoaTest.php" line="32" assertions="14" time="0.179494"/>
-      <testcase name="testInsert" class="Usuario\Entity\PessoaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/PessoaTest.php" line="55" assertions="2" time="0.105656"/>
-      <testcase name="testeInsertNomeInvalido" class="Usuario\Entity\PessoaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/PessoaTest.php" line="81" assertions="2" time="0.140704"/>
-      <testcase name="testInputFilterInvalidoTipo" class="Usuario\Entity\PessoaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/PessoaTest.php" line="91" assertions="1" time="0.098059"/>
-      <testcase name="testInputFilterInvalidoDataRev" class="Usuario\Entity\PessoaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/PessoaTest.php" line="101" assertions="1" time="0.101198"/>
-      <testcase name="testInputFilterInvalidoUrl" class="Usuario\Entity\PessoaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/PessoaTest.php" line="111" assertions="1" time="0.113953"/>
-      <testcase name="testUpdate" class="Usuario\Entity\PessoaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/PessoaTest.php" line="126" assertions="3" time="0.117514"/>
-      <testcase name="testDelete" class="Usuario\Entity\PessoaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/PessoaTest.php" line="147" assertions="1" time="0.129179"/>
+  <testsuite name="Usuario Test Suite" tests="9" assertions="26" failures="0" errors="0" time="5.628459">
+    <testsuite name="Usuario\Entity\PessoaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/PessoaTest.php" namespace="Usuario\Entity" fullPackage="Usuario.Entity" tests="9" assertions="26" failures="0" errors="0" time="5.628459">
+      <testcase name="testGetInputFilter" class="Usuario\Entity\PessoaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/PessoaTest.php" line="21" assertions="1" time="3.635131"/>
+      <testcase name="testInputFilterValid" class="Usuario\Entity\PessoaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/PessoaTest.php" line="32" assertions="14" time="0.161369"/>
+      <testcase name="testInsert" class="Usuario\Entity\PessoaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/PessoaTest.php" line="55" assertions="2" time="0.264707"/>
+      <testcase name="testeInsertNomeInvalido" class="Usuario\Entity\PessoaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/PessoaTest.php" line="81" assertions="2" time="0.169986"/>
+      <testcase name="testInputFilterInvalidoTipo" class="Usuario\Entity\PessoaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/PessoaTest.php" line="91" assertions="1" time="0.150940"/>
+      <testcase name="testInputFilterInvalidoDataRev" class="Usuario\Entity\PessoaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/PessoaTest.php" line="101" assertions="1" time="0.267833"/>
+      <testcase name="testInputFilterInvalidoUrl" class="Usuario\Entity\PessoaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/PessoaTest.php" line="111" assertions="1" time="0.477453"/>
+      <testcase name="testUpdate" class="Usuario\Entity\PessoaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/PessoaTest.php" line="126" assertions="3" time="0.155974"/>
+      <testcase name="testDelete" class="Usuario\Entity\PessoaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/PessoaTest.php" line="147" assertions="1" time="0.345067"/>
     </testsuite>
   </testsuite>
 </testsuites>
