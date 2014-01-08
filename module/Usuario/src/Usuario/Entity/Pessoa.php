@@ -2,6 +2,7 @@
 namespace Usuario\Entity;
 
 use Core\Entity\Entity;
+use Core\Entity\EntityException;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\SequenceGenerator;
 use Doctrine\ORM\Mapping\PrePersist;
@@ -33,7 +34,7 @@ use Doctrine\ORM\Id\SequenceGenerator as SeqGen;
  * @ORM\HasLifecycleCallbacks
  * 
  */
-class Pessoa extends Entity implements InputFilterAwareInterface, EventSubscriber {	
+class Pessoa extends Entity implements EventSubscriber {	
 	
 	protected $inputFilter;    
 
@@ -174,7 +175,8 @@ class Pessoa extends Entity implements InputFilterAwareInterface, EventSubscribe
 	public function checkOperacao()
 	{
 		if (($this->operacao != "I") && ($this->operacao != "A") && ($this->operacao != "E"))
-			throw new \Exception("O atributo operacao recebeu um valor inválido: \"" . $this->operacao. "\"", 1);
+			//throw new \Exception("O atributo operacao recebeu um valor inválido: \"" . $this->operacao. "\"", 1);
+			throw new EntityException("O atributo operacao recebeu um valor inválido: \"" . $this->operacao. "\"", 1);
 	}
 	
 	/**
@@ -186,7 +188,7 @@ class Pessoa extends Entity implements InputFilterAwareInterface, EventSubscribe
 	public function checkOrigemGravacao()
 	{
 		if(($this->origem_gravacao != "M") && ($this->origem_gravacao != "U") && ($this->origem_gravacao != "C") && ($this->origem_gravacao != "O"))
-			throw new \Exception("O atributo origem_gravacao recebeu um valor inválido: \"" . $this->origem_gravacao. "\"", 1);
+			throw new EntityException("O atributo origem_gravacao recebeu um valor inválido: \"" . $this->origem_gravacao. "\"", 1);
 	}
 
 	/**
@@ -198,7 +200,7 @@ class Pessoa extends Entity implements InputFilterAwareInterface, EventSubscribe
 	public function checkTipo()
 	{
 		if(($this->tipo != "F") && ($this->tipo != "J"))
-			throw new \Exception("O atributo tipo recebeu um valor inválido: \"" . $this->tipo. "\"", 1);
+			throw new EntityException("O atributo tipo recebeu um valor inválido: \"" . $this->tipo. "\"", 1);
 	}
 
 	/**
@@ -210,7 +212,7 @@ class Pessoa extends Entity implements InputFilterAwareInterface, EventSubscribe
 	public function checkSituacao()
 	{
 		if(($this->situacao != "A") && ($this->situacao != "P") && ($this->situacao != "I"))
-			throw new \Exception("O atributo situacao recebeu um valor inválido: \"" . $this->situacao. "\"", 1);
+			throw new EntityException("O atributo situacao recebeu um valor inválido: \"" . $this->situacao. "\"", 1);
 	}
 
 	/**	 
@@ -338,13 +340,13 @@ class Pessoa extends Entity implements InputFilterAwareInterface, EventSubscribe
 		$this->idsis_cad = $data['idsis_cad'];
 		$this->idpes_rev = $data['idpes_rev'];
 		$this->idpes_cad = $data['idpes_cad'];
-	}
+	}	
 
-	public function setInputFilter(InputFilterInterface $inputFilter)
-	{
-		throw new \Exception("Not used");
-	}
-
+	/**
+	 * Configura os filtros dos campos da entidade
+	 * 
+	 * @return Zend\InputFilter\InputFilter
+	 */
 	public function getInputFilter()
 	{
 		if (!$this->inputFilter) {
@@ -353,6 +355,186 @@ class Pessoa extends Entity implements InputFilterAwareInterface, EventSubscribe
 
 			$inputFilter->add($factory->createInput(array(
 				'name' => 'id',
+				'required' => true,
+				'filters' => array(
+					array('name' => 'Int'),
+				),
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'nome',
+				'required' => true,
+				'filters'	=>	array(
+					array('name'	=>	'StripTags'),
+					array('name'	=>	'StringTrim'),
+				),
+				'validators' => array(
+					array(
+						'name' => 'StringLength',
+						'options' => array(
+							'encoding' => 'UTF-8',
+							'min' => 1,
+							'max' => 150,
+						),
+					),
+				),				
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'url',
+				'required' => false,
+				'filters' => array(
+					array('name' => 'StripTags'),
+					array('name' => 'StringTrim'),
+				),
+				'validators' => array(
+					array(
+						'name' => 'StringLength',
+						'options' => array(
+							'encoding' => 'UTF-8',
+							'min' => 1,
+							'max' => 150,
+						),
+					),
+				),
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'tipo',
+				'required' => true,
+				'filters' => array(
+					array('name' => 'StripTags'),
+					array('name' => 'StringTrim'),
+					array('name' => 'Alpha'),
+					array('name' => 'StringToUpper'),
+				),
+				'validators' => array(
+					array(
+						'name' => 'StringLength',
+						'options' => array(
+							'encoding' => 'UTF-8',
+							'min' => 1,
+							'max' => 1,
+						),
+					),
+				),
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'data_rev',
+				'required' => false,
+				'filters' => array(
+					array('name' => 'StripTags'),
+					array('name' => 'StringTrim'),
+				),
+				'validators' => array(
+					'name' => new \Zend\Validator\Date(),
+				),
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'email',
+				'required' => false,
+				'filters' => array(
+					array('name' => 'StripTags'),
+					array('name' => 'StringTrim'),
+				),
+				'validators' => array(
+					array(
+						'name' => 'EmailAddress',
+					),
+				),
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'situacao',
+				'required' => true,
+				'filters' => array(
+					array('name' => 'StripTags'),
+					array('name' => 'StringTrim'),
+					array('name' => 'Alpha'),
+					array('name' => 'StringToUpper'),
+				),
+				'validators' => array(
+					array(
+						'name' => 'StringLength',
+						'options' => array(
+							'encoding' => 'UTF-8',
+							'min' => 1,
+							'max' => 1,
+						),
+					),
+				),
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'origem_gravacao',
+				'required' => true,
+				'filters' => array(
+					array('name' => 'StripTags'),
+					array('name' => 'StringTrim'),
+					array('name' => 'Alpha'),
+					array('name' => 'StringToUpper'),
+				),
+				'validators' => array(
+					array(
+						'name' => 'StringLength',
+						'options' => array(
+							'encoding' => 'UTF-8',
+							'min' => 1,
+							'max' => 1,
+						),
+					),
+				),
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'operacao',
+				'required' => true,
+				'filters' => array(
+					array('name' => 'StripTags'),
+					array('name' => 'StringTrim'),
+					array('name' => 'Alpha'),
+					array('name' => 'StringToUpper'),
+				),
+				'validators' => array(
+					array(
+						'name' => 'StringLength',
+						'options' => array(
+							'encoding' => 'UTF-8',
+							'min' => 1,
+							'max' => 1,
+						),
+					),
+				),
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'idsis_rev',
+				'required' => false,
+				'filters' => array(
+					array('name' => 'Int'),
+				),
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'idsis_cad',
+				'required' => false,
+				'filters' => array(
+					array('name' => 'Int'),
+				),
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'idpes_rev',
+				'required' => true,
+				'filters' => array(
+					array('name' => 'Int'),
+				),
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'idpes_cad',
 				'required' => true,
 				'filters' => array(
 					array('name' => 'Int'),
