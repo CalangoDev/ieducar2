@@ -1,11 +1,11 @@
-Usuario\Entity\Pessoa
- [x] Get input filter
- [x] Input filter valid
- [x] Insert
- [x] e insert nome invalido
- [x] Input filter invalido tipo
- [x] Input filter invalido data rev
- [x] Input filter invalido url
- [x] Update
- [x] Delete
+PessoaController
+ [x] Pessoa index action
+ [x] Pessoa save action new request
+ [x] Pessoa save action update form request
+ [x] Pessoa save action post request
+ [x] Pessoa update action
+ [x] Pessoa save action invalid post request
+ [x] Pessoa invalid delete action
+ [x] Pessoa delete action
+ [x] Pessoa invalid id delete action
 

@@ -112,7 +112,9 @@ class Pessoa extends Entity implements EventSubscriber {
 
 	/**
 	 * @var  String $operacao I(?) ou A(?) ou E(?) - Não consegui identificar os significados, porem todos os registros são salvos 
-	 * como I
+	 * como I inserir?
+	 * como A alterar?
+	 * como E excluir?
 	 * 
 	 * @ORM\Column(type="string", length=1, nullable=false)
 	 */
@@ -383,6 +385,7 @@ class Pessoa extends Entity implements EventSubscriber {
 			$inputFilter->add($factory->createInput(array(
 				'name' => 'url',
 				'required' => false,
+				'allow_empty' => true,
 				'filters' => array(
 					array('name' => 'StripTags'),
 					array('name' => 'StringTrim'),
@@ -392,7 +395,7 @@ class Pessoa extends Entity implements EventSubscriber {
 						'name' => 'StringLength',
 						'options' => array(
 							'encoding' => 'UTF-8',
-							'min' => 1,
+							'min' => 0,
 							'max' => 150,
 						),
 					),
@@ -411,6 +414,7 @@ class Pessoa extends Entity implements EventSubscriber {
 				'validators' => array(
 					array(
 						'name' => 'StringLength',
+						false,
 						'options' => array(
 							'encoding' => 'UTF-8',
 							'min' => 1,
@@ -546,4 +550,12 @@ class Pessoa extends Entity implements EventSubscriber {
 
 		return $this->inputFilter;
 	}
+
+	public function removeInputFilter($input)
+    {        
+        $inputFilter    = new InputFilter();                        
+        $this->inputFilter->remove($input);
+        
+        return $this->inputFilter;
+    }
 }

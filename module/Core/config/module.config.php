@@ -9,5 +9,6 @@
 
 namespace Core;
 
-return array(    
+return array(
+	'di' => array()    
 );
