@@ -35,12 +35,11 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 	public function setup()
 	{
 		parent::setup();
-
+		
 		$config = include 'config/application.config.php';
-		$config['module_listener_options']['config_static_paths'] = array(getcwd() . '/config/test.config.php');
-
-		if (file_exists(__DIR__ . '/config/test.config.php')) {
-			$moduleConfig = include __DIR__ . '/config/test.config.php';
+		$config['module_listener_options']['config_static_paths'] = array(getcwd() . '/config/test.config.php');				
+		if (file_exists(__DIR__ . '/config/test.config.php')) {			
+			$moduleConfig = include __DIR__ . '/config/test.config.php';			
 			array_unshift($config['module_listener_options']['config_static_paths'], $moduleConfig);			
 		}
 
@@ -73,6 +72,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 					->setRouter($this->serviceManager->get('Router'));							
 		$this->em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
 		$this->createDatabase();
+		
 	}
 
 	public function tearDown()

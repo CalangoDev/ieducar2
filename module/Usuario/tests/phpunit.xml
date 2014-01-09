@@ -5,7 +5,7 @@
 >
 <!-- Mudar os nomes do Módulo -->
     <testsuites>
-        <testsuite name="Usuario Test Suite">
+        <testsuite name="Usuario Test Suite">            
             <directory>./</directory>
         </testsuite>
     </testsuites>

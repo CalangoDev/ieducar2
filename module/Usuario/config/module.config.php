@@ -75,7 +75,8 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Usuario\Controller\Index' => 'Usuario\Controller\IndexController'
+            'Usuario\Controller\Index' => 'Usuario\Controller\IndexController',
+            'Usuario\Controller\Pessoa' => 'Usuario\Controller\PessoaController'
         ),
     ),
     'view_manager' => array(

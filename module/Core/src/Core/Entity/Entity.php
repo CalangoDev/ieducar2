@@ -59,6 +59,31 @@ abstract class Entity implements InputFilterAwareInterface
     }
 
     /**
+     * Set all entity data based in an array with data
+     *
+     * @param array $data
+     * @return void
+     */
+    public function setData($data)
+    {
+        foreach($data as $key => $value) {
+            $this->__set($key, $value);
+        }
+    }
+
+    /**
+     * Return all entity data in array format
+     *
+     * @return array
+     */
+    public function getData()
+    {
+        $data = get_object_vars($this);
+        unset($data['inputFilter']);        
+        return array_filter($data);
+    }
+
+    /**
      * Entity filters
      *
      * @return InputFilter

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="Usuario Test Suite" tests="9" assertions="26" failures="0" errors="0" time="5.628459">
-    <testsuite name="Usuario\Entity\PessoaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/PessoaTest.php" namespace="Usuario\Entity" fullPackage="Usuario.Entity" tests="9" assertions="26" failures="0" errors="0" time="5.628459">
-      <testcase name="testGetInputFilter" class="Usuario\Entity\PessoaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/PessoaTest.php" line="21" assertions="1" time="3.635131"/>
-      <testcase name="testInputFilterValid" class="Usuario\Entity\PessoaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/PessoaTest.php" line="32" assertions="14" time="0.161369"/>
-      <testcase name="testInsert" class="Usuario\Entity\PessoaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/PessoaTest.php" line="55" assertions="2" time="0.264707"/>
-      <testcase name="testeInsertNomeInvalido" class="Usuario\Entity\PessoaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/PessoaTest.php" line="81" assertions="2" time="0.169986"/>
-      <testcase name="testInputFilterInvalidoTipo" class="Usuario\Entity\PessoaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/PessoaTest.php" line="91" assertions="1" time="0.150940"/>
-      <testcase name="testInputFilterInvalidoDataRev" class="Usuario\Entity\PessoaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/PessoaTest.php" line="101" assertions="1" time="0.267833"/>
-      <testcase name="testInputFilterInvalidoUrl" class="Usuario\Entity\PessoaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/PessoaTest.php" line="111" assertions="1" time="0.477453"/>
-      <testcase name="testUpdate" class="Usuario\Entity\PessoaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/PessoaTest.php" line="126" assertions="3" time="0.155974"/>
-      <testcase name="testDelete" class="Usuario\Entity\PessoaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/PessoaTest.php" line="147" assertions="1" time="0.345067"/>
+  <testsuite name="Usuario Test Suite" tests="9" assertions="28" failures="0" errors="0" time="1.179868">
+    <testsuite name="PessoaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/PessoaControllerTest.php" tests="9" assertions="28" failures="0" errors="0" time="1.179868">
+      <testcase name="testPessoaIndexAction" class="PessoaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/PessoaControllerTest.php" line="32" assertions="5" time="0.229229"/>
+      <testcase name="testPessoaSaveActionNewRequest" class="PessoaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/PessoaControllerTest.php" line="70" assertions="5" time="0.105381"/>
+      <testcase name="testPessoaSaveActionUpdateFormRequest" class="PessoaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/PessoaControllerTest.php" line="99" assertions="6" time="0.108551"/>
+      <testcase name="testPessoaSaveActionPostRequest" class="PessoaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/PessoaControllerTest.php" line="134" assertions="2" time="0.117980"/>
+      <testcase name="testPessoaUpdateAction" class="PessoaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/PessoaControllerTest.php" line="161" assertions="2" time="0.124579"/>
+      <testcase name="testPessoaSaveActionInvalidPostRequest" class="PessoaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/PessoaControllerTest.php" line="195" assertions="2" time="0.128615"/>
+      <testcase name="testPessoaInvalidDeleteAction" class="PessoaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/PessoaControllerTest.php" line="225" assertions="2" time="0.118150"/>
+      <testcase name="testPessoaDeleteAction" class="PessoaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/PessoaControllerTest.php" line="241" assertions="2" time="0.123815"/>
+      <testcase name="testPessoaInvalidIdDeleteAction" class="PessoaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/PessoaControllerTest.php" line="270" assertions="2" time="0.123568"/>
     </testsuite>
   </testsuite>
 </testsuites>
