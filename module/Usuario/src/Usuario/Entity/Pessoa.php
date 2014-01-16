@@ -10,8 +10,6 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
-use Usuario\Controller\IndexController;
-
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Event\PostFlushEventArgs;
 use Doctrine\Common\EventSubscriber;
@@ -34,7 +32,8 @@ use Doctrine\ORM\Id\SequenceGenerator as SeqGen;
  * @ORM\HasLifecycleCallbacks
  * 
  */
-class Pessoa extends Entity implements EventSubscriber {	
+class Pessoa extends Entity implements EventSubscriber 
+{	
 	
 	protected $inputFilter;    
 
@@ -138,7 +137,7 @@ class Pessoa extends Entity implements EventSubscriber {
 
 	/**
 	 * @var  Integer $idpes_cad Id da pessoa que efetuou o cadastro
-	 * 
+	 *       
 	 * @ORM\OneToMany(targetEntity="pessoa")
 	 * @ORM\JoinColumn(name="idpes_cad", referencedColumnName="idpes", onDelete="SET NULL")
 	 * @ORM\Column(type="integer", nullable=false)
