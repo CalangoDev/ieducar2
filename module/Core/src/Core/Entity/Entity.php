@@ -17,16 +17,20 @@ abstract class Entity implements InputFilterAwareInterface
      */
     protected $inputFilter = null;
 
+
+    /**
+     * Removido os metodos magicos, decisao tomada depois de pesquisa, sobre a lentidao em usar os metodos magicos
+     */
 	/**
 	 * Magic getter to expose protected properties.
 	 * 
 	 * @param string $property
 	 * @return  mixed
 	 */
-	public function __get($property)
-	{
-		return $this->$property;
-	}
+	// public function __get($property)
+	// {
+	// 	return $this->$property;
+	// }
 
 	/**
 	 * Magic setter to save protected properties.
@@ -34,10 +38,11 @@ abstract class Entity implements InputFilterAwareInterface
 	 * @param  string $property
 	 * @return  mixed $value
 	 */
-	public function __set($property, $value)
-	{		
-		$this->$property = $this->valid($property, $value);
-	}
+	// public function __set($property, $value)
+	// {
+ //        var_dump($property);
+	// 	$this->$property = $this->valid($property, $value);
+	// }
 
 	/**
 	 * Convert the object to an array
@@ -64,12 +69,12 @@ abstract class Entity implements InputFilterAwareInterface
      * @param array $data
      * @return void
      */
-    public function setData($data)
-    {
-        foreach($data as $key => $value) {
-            $this->__set($key, $value);
-        }
-    }
+    // public function setData($data)
+    // {
+    //     foreach($data as $key => $value) {
+    //         $this->__set($key, $value);
+    //     }
+    // }
 
     /**
      * Return all entity data in array format
@@ -78,6 +83,7 @@ abstract class Entity implements InputFilterAwareInterface
      */
     public function getData()
     {
+        var_dump("function getdata");
         $data = get_object_vars($this);
         unset($data['inputFilter']);        
         return array_filter($data);
@@ -99,7 +105,8 @@ abstract class Entity implements InputFilterAwareInterface
      * @return mixed
      */
     protected function valid($key, $value)
-    {
+    {    
+        //var_dump("KEY: " . $key . " VALUE: " . $value);
         if (!$this->getInputFilter())
             return $value;
 

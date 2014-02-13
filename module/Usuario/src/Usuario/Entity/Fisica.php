@@ -28,7 +28,8 @@ use Zend\InputFilter\InputFilterInterface;
  * @ORM\HasLifecycleCallbacks
  * 
  */
-class Fisica extends Entity implements EventSubscriber
+//class Fisica extends Entity implements EventSubscriber
+class Fisica extends Pessoa implements EventSubscriber
 {
 	public function getSubscribedEvents ()
     {
@@ -40,10 +41,19 @@ class Fisica extends Entity implements EventSubscriber
 	 * @var Int $id Identificador da entidade fisica
 	 * 
 	 * @ORM\Id
-	 * @ORM\Column(name="""idpes""", type="integer", nullable=false);
-	 * @ORM\OneToOne(targetEntity="Pessoa")
+	 * @ORM\Column(type="integer", nullable=false)
+	 * @ORM\GeneratedValue(strategy="SEQUENCE")
+	 * @SequenceGenerator(sequenceName="cadastro.seq_fisica", initialValue=1, allocationSize=1)	 
 	 */
 	protected $id;
+
+	/**
+	 * @var Pessoa $pessoa Entity Associada Pessoa
+	 * 
+	 * ORM\OneToOne(targetEntity="Pessoa", inversedBy="fisica")
+	 * ORM\JoinColumn(name="pessoa_id", referencedColumnName="idpes")
+	 */
+	//protected $pessoa;
 
 	/**
 	 * @var Datetime $data_nasc Data de nascimento
@@ -66,9 +76,9 @@ class Fisica extends Entity implements EventSubscriber
 	 * @ORM\PrePersist
 	 */
 	public function checkSexo()
-	{
-		if(($this->sexo != "M") && ($this->sexo != "F"))
-			throw new EntityException("O atributo sexo recebeu um valor inválido: \"" . $this->sexo. "\"", 1);
+	{			
+		if(($this->getSexo() != "M") && ($this->getSexo() != "F"))
+			throw new EntityException("O atributo sexo recebeu um valor inválido: \"" . $this->getSexo() . "\"", 1);
 	}
 
 
@@ -110,8 +120,10 @@ class Fisica extends Entity implements EventSubscriber
 	 */
 	public function checkNacionalidade()
 	{
-		if (($this->nacionalidade >= 1) && ($this->nacionalidade <= 3))			
-			throw new EntityException("O atributo nacionalidade recebeu um valor inválido: \"" . $this->nacionalidade. "\"", 1);
+		if ((($this->getNacionalidade() <= 0) || ($this->getNacionalidade() >= 4)) && ($this->getNacionalidade() != "")){			
+			throw new EntityException("O atributo nacionalidade recebeu um valor inválido: \"" . $this->getNacionalidade() . "\"", 1);
+		}		
+			
 	}
 	
 	/**
@@ -167,46 +179,53 @@ class Fisica extends Entity implements EventSubscriber
 
 	/**
 	 * @var  DateTime $data_rev Data de revisao
-	 * @ORM\Column(type="datetime", nullable=true)
+	 * ORM\Column(type="datetime", nullable=true)
+	 * heranca
 	 */
-	protected $data_rev;
+	//protected $data_rev;
 
 	/**
 	 * @var string $origem_gravacao	Origem da gravacao
-	 * @ORM\Column(type="string", length=1, nullable=false)
+	 * ORM\Column(type="string", length=1, nullable=false)
+	 * 
+	 * Heranca
 	 */
-	protected $origem_gravacao;
+	//protected $origem_gravacao;
 
 	/**
 	 * Funcao para checar se origem de gravacao é diferente de M, U, C ou O
 	 * @access  public
 	 * @return  Exception
-	 * @ORM\PrePersist
+	 * ORM\PrePersist
+	 * 
+	 * RETIRAR FUNCAO HERDADA DE PESSOA
 	 */
-	public function checkOrigemGravacao()
-	{
-		if(($this->origem_gravacao != "M") && ($this->origem_gravacao != "U") && ($this->origem_gravacao != "C") && ($this->origem_gravacao != "O"))
-			throw new EntityException("O atributo origem_gravacao recebeu um valor inválido: \"" . $this->origem_gravacao. "\"", 1);
-	}
+	// public function checkOrigemGravacao()
+	// {		
+	// 	if(($this->getOrigemGravacao() != "M") && ($this->getOrigemGravacao() != "U") && ($this->getOrigemGravacao() != "C") && ($this->getOrigemGravacao() != "O"))
+	// 		throw new EntityException("O atributo origem_gravacao recebeu um valor inválido: \"" . $this->OrigemGravacao(). "\"", 1);		
+	// }
 
 	/**
 	 * @var  DateTime $data_cad Data de cadastro
-	 * @ORM\Column(type="datetime", nullable=false)
+	 * ORM\Column(type="datetime", nullable=false)
+	 * heranca
 	 */
-	protected $data_cad;
+	//protected $data_cad;
 
 	/**
 	 * Função para gerar o timestamp para o atributo data_cad, é executada antes de salvar os dados no banco
 	 * @access  public
 	 * @return  void 
-	 * @ORM\PrePersist
+	 * ORM\PrePersist
+	 * heranca
 	 */
-	public function timestamp()
-	{
-		if (is_null($this->data_cad)) {
-			$this->data_cad = new \DateTime();
-		}		
-	}
+	// public function timestamp()
+	// {
+	// 	if (is_null($this->data_cad)) {
+	// 		$this->getDataCad() = new \DateTime();
+	// 	}		
+	// }
 
 	/**
 	 * @var  String $operacao I(?) ou A(?) ou E(?) - Não consegui identificar os significados, porem todos os registros são salvos 
@@ -214,35 +233,39 @@ class Fisica extends Entity implements EventSubscriber
 	 * como A alterar?
 	 * como E excluir?
 	 * 
-	 * @ORM\Column(type="string", length=1, nullable=false)
+	 * ORM\Column(type="string", length=1, nullable=false)
+	 * heranca
 	 */
-	protected $operacao;
+	//protected $operacao;
 
 	/**
 	 * Funcao para checar se a string de operacao é diferente de I, A ou E se sim remove a variavel $this->operacao
 	 * @access  public
 	 * @return  Exception 
-	 * @ORM\PrePersist
+	 * ORM\PrePersist
+	 * Heranca
 	 */
-	public function checkOperacao()
-	{
-		if (($this->operacao != "I") && ($this->operacao != "A") && ($this->operacao != "E"))			
-			throw new EntityException("O atributo operacao recebeu um valor inválido: \"" . $this->operacao. "\"", 1);
-	}
+	// public function checkOperacao()
+	// {
+	// 	if (($this->getOperacao != "I") && ($this->getOperacao != "A") && ($this->getOperacao != "E"))			
+	// 		throw new EntityException("O atributo operacao recebeu um valor inválido: \"" . $this->getOperacao . "\"", 1);
+	// }
 
 	/**
 	 * @var  Integer $idsis_rev - Id do Sistema porem o rev não consegui encontrar sentido
 	 * 
-	 * @ORM\Column(type="integer", nullable=true)
+	 * ORM\Column(type="integer", nullable=true)
+	 * heranca
 	 */
-	protected $idsis_rev;
+	//protected $idsis_rev;
 
 	/**
 	 * @var  Integer $idsis_cad - Id do sistema que cadastrou o usuario ver tabela acesso.sistema 
 	 * 	 
-	 * @ORM\Column(type="integer", nullable=false)
+	 * ORM\Column(type="integer", nullable=false)
+	 * heranca
 	 */
-	protected $idsis_cad;
+	//protected $idsis_cad;
 
 	/**
 	 * @var int $ref_cod_sistema	Referencia do codigo do sistema
@@ -260,6 +283,8 @@ class Fisica extends Entity implements EventSubscriber
 	/**
 	 * @var int $idpes_mae	Id Pessoa da Mae
 	 * 
+	 * @todo  verificar esse relacionamento
+	 * 
 	 * @ORM\Column(type="integer", nullable=true)
 	 * @ORM\ManyToOne(targetEntity="Pessoa")
 	 * @ORM\JoinColumn(name="idpes_mae", referencedColumnName="idpes", onDelete="SET NULL")
@@ -268,6 +293,8 @@ class Fisica extends Entity implements EventSubscriber
 
 	/**
 	 * @var int $idpes_pai Id pessoa do pai
+	 * 
+	 * @todo  verificar esse relacionamento
 	 * 
 	 * @ORM\Column(type="integer", nullable=true)
 	 * @ORM\ManyToOne(targetEntity="Pessoa")
@@ -278,6 +305,7 @@ class Fisica extends Entity implements EventSubscriber
 	/**
 	 * @var int $idpes_responsavel	Id da pessoa responsavel
 	 * 
+	 * @todo verificar esse relacionamento
 	 * @ORM\Column(type="integer", nullable=true)
 	 * @ORM\ManyToOne(targetEntity="Pessoa")
 	 * @ORM\JoinColumn(name="idpes_responsavel", referencedColumnName="idpes", onDelete="SET NULL")
@@ -287,6 +315,8 @@ class Fisica extends Entity implements EventSubscriber
 	/**
 	 * @var Int $idmun_nascimento Naturalidade obtem o id na tabela public.municipio
 	 * 
+	 * @todo falta ajustar esse relacionamento
+	 * 
 	 * @ORM\Column(type="integer", nullable=true)
 	 * @ORM\ManyToOne(targetEntity="Municipio")
 	 * @ORM\JoinColumn(name="idmun_nascimento", referencedColumnName="idmun", onDelete="NO ACTION")
@@ -295,7 +325,9 @@ class Fisica extends Entity implements EventSubscriber
 
 	/**
 	 * @var Int $idpais_estrangeiro	Armazena id do pais se for estrangeiro obtem o id na tabela public.pais
-	 * 	 
+	 * 
+	 * @todo falta ajustar esse relacionamento	 
+	 * 
 	 * @ORM\Column(type="integer", nullable=true)
 	 * @ORM\ManyToOne(targetEntity="Pais")
 	 * @ORM\JoinColumn(name="idpais_estrangeiro", referencedColumnName="idpais", onDelete="NO ACTION")
@@ -304,6 +336,8 @@ class Fisica extends Entity implements EventSubscriber
 
 	/**
 	 * @var Int $idesco	Código da Escola, chave estrangeira para o campo idesco na relacao cadastro.escolaridade	 
+	 * 
+	 * @todo falta ajustar esse relacionamento
 	 * 
 	 * @ORM\Column(type="integer", nullable=true)
 	 * @ORM\ManyToOne(targetEntity="Escolaridade")
@@ -314,6 +348,8 @@ class Fisica extends Entity implements EventSubscriber
 	/**
 	 * @var Int $ideciv Id do Estado Civil, chave estrangeira para o campo ideciv na relacao cadastro.estado_civil
 	 * 
+	 * @todo falta ajustar esse relacionamento
+	 * 
 	 * @ORM\Column(type="integer", nullable=true)
 	 * @ORM\ManyToOne(targetEntity="EstadoCivil")
 	 * @ORM\JoinColumn(name="ideciv", referencedColumnName="ideciv", onDelete="NO ACTION")
@@ -323,6 +359,8 @@ class Fisica extends Entity implements EventSubscriber
 	/**
 	 * @var int $idpes_con	Id Pessoa Conjugue
 	 * 
+	 * @todo falta ajustar esse relacionamento
+	 * 
 	 * @ORM\Column(type="integer", nullable=true)
 	 * @ORM\ManyToOne(targetEntity="Pessoa")
 	 * @ORM\JoinColumn(name="idpes_con", referencedColumnName="idpes", onDelete="SET NULL")
@@ -331,6 +369,8 @@ class Fisica extends Entity implements EventSubscriber
 
 	/**
 	 * @var int $idocup	ID da Ocupacao
+	 *
+	 * @todo falta ajustar esse relacionamento
 	 * 
 	 * @ORM\Column(type="integer", nullable=true)
 	 * @ORM\ManyToOne(targetEntity="Ocupacao")
@@ -341,29 +381,409 @@ class Fisica extends Entity implements EventSubscriber
 	/**
 	 * @var Int $idpes_rev Id da pessoa que esta fazendo a revisao no registro
 	 * 
-	 * @ORM\Column(type="integer", nullable=true)
-	 * @ORM\ManyToOne(targetEntity="Pessoa")
-	 * @ORM\JoinColumn(name="idpes_rev", referencedColumnName="idpes", onDelete="SET NULL")
+	 * ORM\Column(type="integer", nullable=true)
+	 * ORM\ManyToOne(targetEntity="Pessoa")
+	 * ORM\JoinColumn(name="idpes_rev", referencedColumnName="idpes", onDelete="SET NULL")
+	 * 
+	 * heranca
 	 */
-	protected $idpes_rev;
+	//protected $idpes_rev;
 
 	/**
 	 * @var int $idpes_cad	Id da Pessoa que efetuou o cadastro
 	 * 
-	 * @ORM\Column(type="integer", nullable=true)
-	 * @ORM\ManyToOne(targetEntity="Pessoa")
-	 * @ORM\JoinColumn(name="idpes_cad", referencedColumnName="idpes", onDelete="SET NULL")
+	 * ORM\Column(type="integer", nullable=true)
+	 * ORM\ManyToOne(targetEntity="Pessoa")
+	 * ORM\JoinColumn(name="idpes_cad", referencedColumnName="idpes", onDelete="SET NULL")
+	 * heranca
 	 */
-	protected $idpes_cad;
+	//protected $idpes_cad;
 
 	/**
 	 * @var int $ref_cod_religiao	Referencia de codigo da religiao
+	 * 
+	 * @todo falta ajustar esse relacionamento
 	 * 
 	 * @ORM\Column(type="integer", nullable=true)
 	 * @ORM\ManyToOne(targetEntity="Religiao")
 	 * @ORM\JoinColumn(name="ref_cod_religiao", referencedColumnName="cod_religiao", onDelete="NO ACTION")
 	 */
 	protected $ref_cod_religiao;
+
+
+	/**
+	 * getters and setters
+	 */
+		
+	public function getDataNasc()
+	{
+		return $this->data_nasc;
+	}
+
+	public function setDataNasc($value)
+	{
+		$this->data_nasc = $this->valid("data_nasc", $value);
+	}
+
+	public function getSexo()
+	{
+		return $this->sexo;
+	}
+
+	public function setSexo($value)
+	{
+		$this->sexo = $this->valid("sexo", $value);
+	}
+
+	public function getDataUniao()
+	{
+		return $this->data_uniao;
+	}
+
+	public function setDataUniao($value)
+	{
+		$this->data_uniao = $this->valid("data_uniao", $value);
+	}
+
+	public function getDataObito()
+	{
+		return $this->data_obito;
+	}
+
+	public function setDataObito($value)
+	{
+		return $this->data_obito = $this->valid("data_obito", $value);
+	}
+
+	public function getNacionalidade()
+	{
+		return $this->nacionalidade;
+	}
+
+	public function setNacionalidade($value)
+	{
+		$this->nacionalidade = $this->valid("nacionalidade", $value);
+	}
+
+	public function getDataChegadaBrasil()
+	{
+		return $this->data_chegada_brasil;
+	}
+
+	public function setDataChegadaBrasil($value)
+	{
+		$this->data_chegada_brasil = $this->valid("data_chegada_brasil", $value);
+	}
+
+	public function getUltimaEmpresa()
+	{
+		return $this->ultima_empresa;
+	}
+
+	public function setUltimaEmpresa($value)
+	{
+		$this->ultima_empresa = $this->valid("ultima_empresa", $value);
+	}
+
+	public function getNomeMae()
+	{
+		return $nome_mae;
+	}
+
+	public function setNomeMae($value)
+	{
+		$this->nome_mae = $this->valid("nome_mae", $value);
+	}
+
+	public function getNomePai()
+	{
+		return $nome_pai;
+	}
+
+	public function setNomePai($value)
+	{
+		$this->nome_pai = $this->valid("nome_pai", $value);
+	}
+
+	public function getNomeConjuge()
+	{
+		return $this->nome_conjuge;
+	}
+
+	public function setNomeConjuge($value)
+	{
+		$this->nome_conjuge = $this->valid("nome_conjuge", $value);
+	}
+
+
+	public function getNomeResponsavel()
+	{
+		return $this->nome_responsavel;
+	}
+	
+	public function setNomeResponsavel($value)
+	{
+		$this->nome_responsavel = $this->valid("nome_responsavel", $value);
+	}
+
+	public function getJustificativaProvisorio()
+	{
+		return $this->justificativa_provisorio;
+	}
+	
+	public function setJustificativaProvisorio($value)
+	{
+		$this->justificativa_provisorio = $this->valid("justificativa_provisorio", $value);
+	}
+
+	public function getDataRev()
+	{
+		return $this->data_rev;
+	}
+	
+	public function setDataRev($value)
+	{
+		$this->data_rev = $this->valid("data_rev", $value);
+	}
+
+	// public function getOrigemGravacao()
+	// {
+	// 	return $this->origem_gravacao;
+	// }
+	
+	// public function setOrigemGravacao($value){
+	// 	$this->origem_gravacao = $this->valid("origem_gravacao", $value);
+	// }
+
+	public function getDataCad()
+	{
+		return $this->data_cad;
+	}
+	
+	public function setDataCad($value)
+	{
+		$this->data_cad = $this->valid("data_cad", $value);
+	}
+
+	public function getOperacao()
+	{
+		return $this->operacao;
+	}
+	
+	public function setOperacao($value)
+	{
+		$this->operacao = $this->valid("operacao", $value);
+	}
+
+	public function getIdsisRev()
+	{
+		return $this->idsis_rev;
+	}
+	
+	public function setIdsisRev($value)
+	{
+		$this->idsis_rev = $this->valid("idsis_rev", $value);
+	}
+
+	public function getIdsisCad()
+	{
+		return $this->idsis_cad;
+	}
+	
+	public function setIdsisCad($value)
+	{
+		$this->idsis_cad = $this->valid("idsis_cad", $value);
+	}
+
+	public function getRefCodSistema()
+	{
+		return $this->ref_cod_sistema;
+	}
+	
+	public function setRefCodSistema($value)
+	{
+		$this->ref_cod_sistema = $this->valid("ref_cod_sistema", $value);
+	}
+
+	public function getCpf()
+	{
+		return $this->cpf;
+	}
+	
+	public function setCpf($value)
+	{
+		$this->cpf = $this->valid("cpf", $value);
+	}
+
+	public function getIdpesMae()
+	{
+		return $this->idpes_mae;
+	}
+	
+	public function setIdpesMae($value)
+	{
+		$this->idpes_mae = $this->valid("idpes_mae", $value);
+	}
+
+	public function getIdpesPai()
+	{
+		return $this->idpes_pai;
+	}
+	
+	public function setIdpesPai($value)
+	{
+		$this->idpes_pai = $this->valid("idpes_pai", $value);
+	}
+
+	public function getIdpesResponsavel()
+	{
+		return $this->idpes_responsavel;
+	}
+	
+	public function setIdpesResponsavel($value)
+	{
+		$this->idpes_responsavel = $this->valid("idpes_responsavel", $value);
+	}
+
+	public function getIdmunNascimento()
+	{
+		return $this->idmun_nascimento;
+	}
+	
+	public function setIdmunNascimento($value)
+	{
+		$this->idmun_nascimento = $this->valid("idmun_nascimento", $value);
+	}
+
+	public function getIdpaisEstrangeiro()
+	{
+		return $this->idpais_estrangeiro;
+	}
+	
+	public function setIdpaisEstrangeiro($value)
+	{
+		$this->idpais_estrangeiro = $this->valid("idpais_estrangeiro", $value);
+	}
+
+	public function getIdesco()
+	{
+		return $this->idesco;
+	}
+	
+	public function setIdesco($value)
+	{
+		$this->idesco = $this->valid("idesco", $value);
+	}
+
+	public function getIdeciv()
+	{
+		return $this->ideciv;
+	}
+	
+	public function setIdeciv($value)
+	{
+		$this->ideciv = $this->valid("ideciv", $value);
+	}
+
+	public function getIdpesCon()
+	{
+		return $this->idpes_con;
+	}
+	
+	public function setIdpesCon($value)
+	{
+		$this->idpes_con = $this->valid("idpes_con", $value);
+	}
+
+	public function getIdocup()
+	{
+		return $this->idocup;
+	}
+	
+	public function setIdocup($value)
+	{
+		$this->idocup = $this->valid("idocup", $value);
+	}
+
+	public function getIdpesRev()
+	{
+		return $this->idpes_rev;
+	}
+	
+	public function setIdpesRev($value)
+	{
+		$this->idpes_rev = $this->valid("idpes_rev", $value);
+	}
+
+	public function getIdpesCad()
+	{
+		return $this->idpes_cad;
+	}
+	
+	public function setIdpesCad($value)
+	{
+		$this->idpes_cad = $this->valid("idpes_cad", $value);
+	}
+
+	public function getRefCodReligiao()
+	{
+		return $this->ref_cod_religiao;
+	}
+	
+	public function setRefCodReligiao($value)
+	{
+		$this->ref_cod_religiao = $this->valid("ref_cod_religiao", $value);
+	}
+
+	public function setData($data)
+	{
+		$this->setId(isset($data['id']) ? $data['id'] : null);
+		if (!empty($data['data_nasc']))
+			$this->setDataNasc(isset($data['data_nasc']) ? $data['data_nasc'] : null);
+		$this->setSexo(isset($data['sexo']) ? $data['sexo'] : null);
+		if (!empty($data['data_uniao']))
+			$this->setDataUniao(isset($data['data_uniao']) ? $data['data_uniao'] : null);
+		if (!empty($data['data_obito']))
+			$this->setDataObito(isset($data['data_obito']) ? $data['data_obito'] : null);		
+		$this->setNacionalidade(isset($data['nacionalidade']) ? $data['nacionalidade'] : null);
+		if (!empty($data['data_chegada_brasil']))
+			$this->setDataChegadaBrasil(isset($data['data_chegada_brasil']) ? $data['data_chegada_brasil'] : null);
+		if (!empty($data['ultima_empresa']))
+			$this->setUltimaEmpresa(isset($data['ultima_empresa']) ? $data['ultima_empresa'] : null);
+		if (!empty($data['nome_mae']))
+			$this->setNomeMae(isset($data['nome_mae']) ? $data['nome_mae'] : null);
+		if (!empty($data['nome_pai']))
+			$this->setNomePai(isset($data['nome_pai']) ? $data['nome_pai'] : null);
+		if (!empty($data['nome_conjuge']))
+			$this->setNomeConjuge(isset($data['nome_conjuge']) ? $data['nome_conjuge'] : null);
+		if (!empty($data['nome_responsavel']))
+			$this->setNomeResponsavel(isset($data['nome_responsavel']) ? $data['nome_responsavel'] : null);
+		if (!empty($data['justificativa_provisorio']))
+			$this->setJustificativaProvisorio(isset($data['justificativa_provisorio']) ? $data['justificativa_provisorio'] : null);
+		if (!empty($data['data_rev']))
+			$this->setDataRev(isset($data['data_rev']) ? $data['data_rev'] : null);
+		//$this->setOrigemGravacao(isset($data['origem_gravacao']) ? $data['origem_gravacao'] : null);
+		$this->setDataCad(isset($data['data_cad']) ? $data['data_cad'] : null);
+		//$this->setOperacao(isset($data['operacao']) ? $data['operacao'] : null);
+		$this->setIdsisRev(isset($data['idsis_rev']) ? $data['idsis_rev'] : null);
+		//$this->setIdsisCad(isset($data['idsis_cad']) ? $data['idsis_cad'] : null);
+		$this->setRefCodSistema(isset($data['ref_cod_sistema']) ? $data['ref_cod_sistema'] : null);
+		if (!empty($data['cpf']))
+			$this->setCpf(isset($data['cpf']) ? $data['cpf'] : null);
+		$this->setIdpesMae(isset($data['idpes_mae']) ? $data['idpes_mae'] : null);
+		$this->setIdpesPai(isset($data['idpes_pai']) ? $data['idpes_pai'] : null);
+		$this->setIdpesResponsavel(isset($data['idpes_responsavel']) ? $data['idpes_responsavel'] : null);
+		$this->setIdmunNascimento(isset($data['idmun_nascimento']) ? $data['idmun_nascimento'] : null);
+		$this->setIdpaisEstrangeiro(isset($data['idpais_estrangeiro']) ? $data['idpais_estrangeiro'] : null);
+		$this->setIdesco(isset($data['idesco']) ? $data['idesco'] : null);
+		$this->setIdeciv(isset($data['ideciv']) ? $data['ideciv'] : null);
+		$this->setIdpesCon(isset($data['idpes_con']) ? $data['idpes_con'] : null);
+		$this->setIdocup(isset($data['idocup']) ? $data['idocup'] : null);		
+
+		$this->setNome(isset($data['nome']) ? $data['nome'] : null);
+		$this->setSituacao(isset($data['situacao']) ? $data['situacao'] : null);
+	}
+
 
 	/**
 	 * [$inputFilter recebe os filtros]
@@ -388,7 +808,7 @@ class Fisica extends Entity implements EventSubscriber
 				'filters' => array(
 					array('name' => 'Int'),
 				),
-			)));
+			)));			
 
 			$inputFilter->add($factory->createInput(array(
 				'name' => 'data_nasc',
@@ -646,7 +1066,7 @@ class Fisica extends Entity implements EventSubscriber
 
 			$inputFilter->add($factory->createInput(array(
 				'name' => 'idsis_cad',
-				'required' => true,//false
+				'required' => true,
 				'filters' => array(
 					array('name' => 'Int'),
 				),
