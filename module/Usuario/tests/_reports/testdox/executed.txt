@@ -1,25 +1,11 @@
-PessoaController
- [x] Pessoa index action
- [x] Pessoa save action new request
- [x] Pessoa save action update form request
- [x] Pessoa save action post request
- [x] Pessoa update action
- [x] Pessoa save action invalid post request
- [x] Pessoa invalid delete action
- [x] Pessoa delete action
- [x] Pessoa invalid id delete action
-
-PHPUnit_Framework_Warning
- [ ] Warning
-
-Usuario\Entity\Pessoa
- [x] Get input filter
- [x] Input filter valid
- [x] Insert
- [x] e insert nome invalido
- [x] Input filter invalido tipo
- [x] Input filter invalido data rev
- [x] Input filter invalido url
- [x] Update
- [x] Delete
+FisicaController
+ [x] Fisica index action
+ [x] Fisica save action new request
+ [x] Fisica save action update form request
+ [x] Fisica save action post request
+ [x] Fisica update action
+ [x] Fisica save action invalid post request
+ [x] Fisica invalid delete action
+ [x] Fisica delete action
+ [x] Fisica invalid id delete action
 

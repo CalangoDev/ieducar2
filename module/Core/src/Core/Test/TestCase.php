@@ -62,8 +62,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 				}
 			}	
 		}
-		$this->serviceManager->setAllowOverride(true);
-
+		$this->serviceManager->setAllowOverride(true);		
 		$this->application = $this->serviceManager->get('Application');
 		$this->event = new MvcEvent();
 		$this->event->setTarget($this->application)

@@ -32,11 +32,15 @@ class PessoaControllerTest extends ControllerTestCase
 	public function testPessoaIndexAction()
 	{
 		//	Cria pessoas para testar		
-		$pessoaA = $this->pessoa();
-		$this->addPessoa($pessoaA);
-		$pessoaB = $this->pessoa();
-		$pessoaB->nome = "GOLD";
-		$this->addPessoa($pessoaB);
+		$pessoaA = $this->buildPessoa();
+		//$this->addPessoa($pessoaA);
+		$pessoaB = $this->buildPessoa();
+		$pessoaB->setNome("GOLD");
+		//$this->addPessoa($pessoaB);
+		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
+		$em->persist($pessoaA);
+		$em->persist($pessoaB);
+    	$em->flush();
 
 		//	Invoca a rota index
 		$this->routeMatch->setParam('action', 'index');
@@ -54,12 +58,12 @@ class PessoaControllerTest extends ControllerTestCase
 		//	Testa os dados da View
 		$variables = $result->getVariables();
 
-		$this->assertArrayHasKey('pessoas', $variables);
+		$this->assertArrayHasKey('dados', $variables);
 
 		//	Faz a comparação dos dados
-		$controllerData = $variables['pessoas'];
-		$this->assertEquals($pessoaA->nome, $controllerData[0]->nome);
-		$this->assertEquals($pessoaB->nome, $controllerData[1]->nome);
+		$controllerData = $variables['dados'];
+		$this->assertEquals($pessoaA->getNome(), $controllerData[0]->getNome());
+		$this->assertEquals($pessoaB->getNome(), $controllerData[1]->getNome());
 
 	}
 
@@ -98,12 +102,14 @@ class PessoaControllerTest extends ControllerTestCase
 	 */
 	public function testPessoaSaveActionUpdateFormRequest()
 	{
-		$pessoaA = $this->pessoa();
-		$this->addPessoa($pessoaA);
+		$pessoaA = $this->buildPessoa();
+		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
+		$em->persist($pessoaA);
+    	$em->flush();
 
 		//	Dispara a acao
 		$this->routeMatch->setParam('action', 'save');
-		$this->routeMatch->setParam('id', $pessoaA->id);
+		$this->routeMatch->setParam('id', $pessoaA->getId());
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
 		);
@@ -124,8 +130,8 @@ class PessoaControllerTest extends ControllerTestCase
 		$id = $form->get('id');
 		$nome = $form->get('nome');
 		$this->assertEquals('id', $id->getName());
-		$this->assertEquals($pessoaA->id, $id->getValue());
-		$this->assertEquals($pessoaA->nome, $nome->getValue());		
+		$this->assertEquals($pessoaA->getId(), $id->getValue());
+		$this->assertEquals($pessoaA->getNome(), $nome->getValue());		
 	}
 
 	/**
@@ -142,7 +148,8 @@ class PessoaControllerTest extends ControllerTestCase
 		$this->request->getPost()->set('url', 'www.eduardojunior.com');
 		$this->request->getPost()->set('tipo', 'F');
 		$this->request->getPost()->set('email', 'ej@eduardojunior.com');
-		$this->request->getPost()->set('situacao', 'A');		
+		$this->request->getPost()->set('situacao', 'A');
+		//$this->request->getPost()->set('operacao', 'I');
 
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
@@ -160,14 +167,17 @@ class PessoaControllerTest extends ControllerTestCase
 	 */
 	public function testPessoaUpdateAction()
 	{
-		$pessoa = $this->pessoa();
-		$this->addPessoa($pessoa);
-
+		$pessoa = $this->buildPessoa();
+		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
+		$em->persist($pessoa);
+    	$em->flush();
+				
 		//	Dispara a acao
 		$this->routeMatch->setParam('action', 'save');
+		$this->routeMatch->setParam('id', $pessoa->getId());
 
 		$this->request->setMethod('post');
-		$this->request->getPost()->set('id', $pessoa->id);
+		$this->request->getPost()->set('id', $pessoa->getId());
 		$this->request->getPost()->set('nome', 'Alan Turing');
 		$this->request->getPost()->set('url', '');
 		$this->request->getPost()->set('tipo', 'J');
@@ -240,12 +250,14 @@ class PessoaControllerTest extends ControllerTestCase
 	 */
 	public function testPessoaDeleteAction()
 	{
-		$pessoa = $this->pessoa();
-		$this->addPessoa($pessoa);
+		$pessoa = $this->buildPessoa();
+		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
+		$em->persist($pessoa);
+    	$em->flush();		
 		
 		//	Dispara a acao
 		$this->routeMatch->setParam('action', 'delete');
-		$this->routeMatch->setParam('id', $pessoa->id);
+		$this->routeMatch->setParam('id', $pessoa->getId());
 
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
@@ -269,8 +281,10 @@ class PessoaControllerTest extends ControllerTestCase
 	 */
 	public function testPessoaInvalidIdDeleteAction()
 	{
-		$pessoa = $this->pessoa();
-		$this->addPessoa($pessoa);
+		$pessoa = $this->buildPessoa();
+		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
+		$em->persist($pessoa);
+    	$em->flush();		
 		
 		//	Dispara a acao
 		$this->routeMatch->setParam('action', 'delete');
@@ -291,25 +305,24 @@ class PessoaControllerTest extends ControllerTestCase
 		);	
 	}
 
-	private function addPessoa($pessoa)
-	{
-		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-		$em->persist($pessoa);
-    	$em->flush();    	
-	}
+	// private function addPessoa($pessoa)
+	// {
+	// 	$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
+	// 	$em->persist($pessoa);
+ //    	$em->flush();    	
+	// }
 
-	private function pessoa()
+	private function buildPessoa()
 	{
-		$pessoa = new Pessoa();
-		$pessoa->nome = "Steve Jobs";
-    	$pessoa->tipo = "F";
-    	$pessoa->situacao = "A";
-    	$pessoa->origem_gravacao = "M";
-    	$pessoa->operacao = "I";
-    	$pessoa->idsis_cad = 1;
-    	$pessoa->idpes_cad = 1;
-    	$pessoa->idpes_rev = 1;
-
+		
+		$pessoa = new Pessoa;
+		$pessoa->setNome("Steve Jobs");
+    	$pessoa->setTipo("F");
+    	$pessoa->setSituacao("A");
+    	$pessoa->setOrigemGravacao("M");
+    	$pessoa->setOperacao("I");
+    	$pessoa->setIdsisCad(1);
+    	
     	return $pessoa;
 	}
 }

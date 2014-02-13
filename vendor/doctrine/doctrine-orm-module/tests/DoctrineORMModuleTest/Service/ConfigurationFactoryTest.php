@@ -46,8 +46,8 @@ class ConfigurationFactoryTest extends PHPUnit_Framework_TestCase
         $this->serviceManager->setService('doctrine.cache.array', new ArrayCache());
         $this->serviceManager->setService(
             'doctrine.driver.orm_default',
-            $this->getMock('Doctrine\Common\Persistence\Mapping\Driver\MappingDriver'
-        ));
+            $this->getMock('Doctrine\Common\Persistence\Mapping\Driver\MappingDriver')
+        );
     }
 
     public function testWillInstantiateConfigWithoutNamingStrategySetting()
@@ -115,5 +115,55 @@ class ConfigurationFactoryTest extends PHPUnit_Framework_TestCase
         $this->serviceManager->setService('Config', $config);
         $this->setExpectedException('Zend\ServiceManager\Exception\InvalidArgumentException');
         $this->factory->createService($this->serviceManager);
+    }
+
+    public function testWillInstantiateConfigWithHydrationCacheSetting()
+    {
+        $config = array(
+            'doctrine' => array(
+                'configuration' => array(
+                    'test_default' => array(
+                        'hydration_cache' => 'array',
+                    ),
+                ),
+            ),
+        );
+        $this->serviceManager->setService('Config', $config);
+        $factory = new ConfigurationFactory('test_default');
+        $ormConfig = $factory->createService($this->serviceManager);
+        $this->assertInstanceOf('Doctrine\Common\Cache\ArrayCache', $ormConfig->getHydrationCacheImpl());
+    }
+
+    public function testAcceptsMetadataFactory()
+    {
+        $config = array(
+            'doctrine' => array(
+                'configuration' => array(
+                    'test_default' => array(
+                        'classMetadataFactoryName' => 'Factory'
+                    ),
+                ),
+            ),
+        );
+        $this->serviceManager->setService('Config', $config);
+        $factory = new ConfigurationFactory('test_default');
+        $ormConfig = $factory->createService($this->serviceManager);
+        $this->assertEquals('Factory', $ormConfig->getClassMetadataFactoryName());
+    }
+
+    public function testDefaultMetadatFactory()
+    {
+        $config = array(
+            'doctrine' => array(
+                'configuration' => array(
+                    'test_default' => array(
+                    ),
+                ),
+            ),
+        );
+        $this->serviceManager->setService('Config', $config);
+        $factory = new ConfigurationFactory('test_default');
+        $ormConfig = $factory->createService($this->serviceManager);
+        $this->assertEquals('Doctrine\ORM\Mapping\ClassMetadataFactory', $ormConfig->getClassMetadataFactoryName());
     }
 }

@@ -12,9 +12,13 @@ use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Event\PostFlushEventArgs;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
+use Doctrine\ORM\Event\PostUpdateEventArgs;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Id\SequenceGenerator as SeqGen;
-
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping\Index;
 
 /**
  * Entidade Pessoa 
@@ -30,18 +34,26 @@ use Doctrine\ORM\Id\SequenceGenerator as SeqGen;
  * @ORM\Entity
  * @ORM\Table(name="""cadastro"".""pessoa""")
  * @ORM\HasLifecycleCallbacks
- * 
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorMap({"P" = "Pessoa", "F" = "Fisica", "J" = "Juridica"})
+ * @ORM\DiscriminatorColumn(name="tipo", type="string")
  */
 class Pessoa extends Entity implements EventSubscriber 
 {	
 	
 	protected $inputFilter;    
 
+	public function __construct() {
+		//$this->filho = new ArrayCollection();
+	}
+
 	public function getSubscribedEvents ()
     {
         return array(
             'onFlush',
-            'postFlush'
+            'postFlush',
+            'preUpdate',
+            //'postUpdate'
         );
     }
 	
@@ -49,9 +61,9 @@ class Pessoa extends Entity implements EventSubscriber
 	 * @var  Int $id Identificador da entidade pessoa
 	 * 
 	 * @ORM\Id
-	 * @ORM\Column(name="""idpes""", type="integer", nullable=false);
+	 * @ORM\Column(name="idpes", type="integer", nullable=false);
 	 * @ORM\GeneratedValue(strategy="SEQUENCE") 
-	 * @SequenceGenerator(sequenceName="cadastro.seq_pessoa", initialValue=1, allocationSize=1)
+	 * @SequenceGenerator(sequenceName="cadastro.seq_pessoa", initialValue=1, allocationSize=1)	 
 	 */
 	protected $id;
 
@@ -76,7 +88,7 @@ class Pessoa extends Entity implements EventSubscriber
 
 	/**
 	 * @var  String $tipo F(Fisica) ou J(Juridica)
-	 * @ORM\Column(type="string", length=1)
+	 * ORM\Column(name="tipo", type="string", length=1)
 	 */
 	protected $tipo;
 
@@ -130,6 +142,7 @@ class Pessoa extends Entity implements EventSubscriber
 	 * @var  Integer $idsis_cad - Id do sistema que cadastrou o usuario ver tabela acesso.sistema 
 	 * 
 	 * Na versão 1.0 não tem uma chave estrangeira nessa coluna. Algo que pode ser colocado
+	 * @todo  coluna tem relacionamento com a tabela acesso.sistema falta ajustar isso e ajustar no teste
 	 * 
 	 * @ORM\Column(type="integer", nullable=false)
 	 */
@@ -137,22 +150,63 @@ class Pessoa extends Entity implements EventSubscriber
 
 	/**
 	 * @var  Integer $idpes_cad Id da pessoa que efetuou o cadastro
-	 *       
-	 * @ORM\OneToMany(targetEntity="pessoa")
-	 * @ORM\JoinColumn(name="idpes_cad", referencedColumnName="idpes", onDelete="SET NULL")
-	 * @ORM\Column(type="integer", nullable=false)
+	 * 	ONE TO ONE 
+	 * tem um ID DE PESSOA QUE CADASTROU PARA CADA ID DO USUARIO CADASTRADO
+	 * 	 
+	 * 
+	 * ORM\ManyToOne(targetEntity="pessoa", inversedBy="pessoa_cad")
+	 * ORM\JoinColumn(name="idpes_cad", referencedColumnName="idpes")
 	 */
-	protected $idpes_cad;
+	//protected $idpes_cad;
+	//
+	/**
+	 * @ORM\ManyToOne(targetEntity="Pessoa", cascade={"persist"})
+	 * @ORM\JoinColumn(name="idpes_cad", referencedColumnName="idpes", onDelete="SET NULL")
+	 */
+	protected $pessoa_cad;
+
+	/**
+	 * ORM\OneToMany(targetEntity="pessoa", mappedBy="idpes_cad", cascade={"persist"})	 
+	 * cascade={"remove"} ao deletar registro filho ele identifica o pai e remove o pai tbm. 
+	 */
+	//protected $pessoa_cad;
 
 	/**
 	 * @var Integer $idpes_rev Id da pessoa 
 	 * 
-	 * @ORM\OneToMany(targetEntity="pessoa")
-	 * @ORM\JoinColumn(name="idpes_rev", referencedColumnName="idpes", onDelete="SET NULL")
-	 * @ORM\Column(type="integer", nullable=false)
+	 * ORM\OneToOne(targetEntity="pessoa", inversedBy="pessoa_rev")
+	 * ORM\JoinColumn(name="idpes_rev", referencedColumnName="idpes", onDelete="SET NULL")	 
 	 */
-	protected $idpes_rev;
+	//protected $idpes_rev;//protected $idpes_rev;
 
+	/**
+	 * ORM\OneToMany(targetEntity="pessoa", mappedBy="idpes_rev", cascade={"persist"})
+	 */
+	//protected $pessoa_rev;
+	
+
+	/**
+	 * @ORM\ManyToOne(targetEntity="Pessoa", cascade={"persist"})
+	 * @ORM\JoinColumn(name="idpes_rev", referencedColumnName="idpes", onDelete="SET NULL")
+	 */
+	protected $pessoa_rev;
+
+	/**
+	 * ORM\OneToOne(targetEntity="Fisica", mappedBy="pessoa", cascade={"persist"})	 
+	 */
+	//protected $fisica;
+
+	/**
+	 * ////ORM\OneToMany(targetEntity="pessoa", cascade={"persist", "remove"}, mappedBy="forum_opniao")
+	 */
+	//protected $filhos;
+
+	/**
+	 * //ORM\ManyToOne(targetEntity="pessoa", inversedBy="filhos")
+	 * //ORM\JoinColumn(name="forum_opiniao", referencedColumnName="idpes")
+	 * //ORM\Column(type="integer", nullable=false)
+	 */
+	//protected $forum_opiniao;
 
 	/**
 	 * Função para gerar o timestamp para o atributo data_cad, é executada antes de salvar os dados no banco
@@ -162,8 +216,8 @@ class Pessoa extends Entity implements EventSubscriber
 	 */
 	public function timestamp()
 	{
-		if (is_null($this->data_cad)) {
-			$this->data_cad = new \DateTime();
+		if (is_null($this->getDataCad())) {			
+			$this->setDataCad(new \DateTime());
 		}		
 	}
 
@@ -174,10 +228,10 @@ class Pessoa extends Entity implements EventSubscriber
 	 * @ORM\PrePersist
 	 */
 	public function checkOperacao()
-	{
-		if (($this->operacao != "I") && ($this->operacao != "A") && ($this->operacao != "E"))
+	{			
+		if (($this->getOperacao() != "I") && ($this->getOperacao() != "A") && ($this->getOperacao() != "E"))
 			//throw new \Exception("O atributo operacao recebeu um valor inválido: \"" . $this->operacao. "\"", 1);
-			throw new EntityException("O atributo operacao recebeu um valor inválido: \"" . $this->operacao. "\"", 1);
+			throw new EntityException("O atributo operacao recebeu um valor inválido: \"" . $this->getOperacao(). "\"", 1);
 	}
 	
 	/**
@@ -187,9 +241,9 @@ class Pessoa extends Entity implements EventSubscriber
 	 * @ORM\PrePersist
 	 */
 	public function checkOrigemGravacao()
-	{
-		if(($this->origem_gravacao != "M") && ($this->origem_gravacao != "U") && ($this->origem_gravacao != "C") && ($this->origem_gravacao != "O"))
-			throw new EntityException("O atributo origem_gravacao recebeu um valor inválido: \"" . $this->origem_gravacao. "\"", 1);
+	{	
+		if(($this->getOrigemGravacao() != "M") && ($this->getOrigemGravacao() != "U") && ($this->getOrigemGravacao() != "C") && ($this->getOrigemGravacao() != "O"))
+			throw new EntityException("O atributo origem_gravacao recebeu um valor inválido: \"" . $this->getOrigemGravacao(). "\"", 1);
 	}
 
 	/**
@@ -199,9 +253,9 @@ class Pessoa extends Entity implements EventSubscriber
 	 * @ORM\PrePersist
 	 */
 	public function checkTipo()
-	{
-		if(($this->tipo != "F") && ($this->tipo != "J"))
-			throw new EntityException("O atributo tipo recebeu um valor inválido: \"" . $this->tipo. "\"", 1);
+	{		
+		if(($this->getTipo() != "F") && ($this->getTipo() != "J") && ($this->getTipo() != "" ))
+			throw new EntityException("O atributo tipo recebeu um valor inválido: \"" . $this->getTipo(). "\"", 1);
 	}
 
 	/**
@@ -212,8 +266,8 @@ class Pessoa extends Entity implements EventSubscriber
 	 */
 	public function checkSituacao()
 	{
-		if(($this->situacao != "A") && ($this->situacao != "P") && ($this->situacao != "I"))
-			throw new EntityException("O atributo situacao recebeu um valor inválido: \"" . $this->situacao. "\"", 1);
+		if(($this->getSituacao() != "A") && ($this->getSituacao() != "P") && ($this->getSituacao() != "I") && ($this->getSituacao() != "") )
+			throw new EntityException("O atributo situacao recebeu um valor inválido: \"" . $this->getSituacao() . "\"", 1);
 	}
 
 	/**	 
@@ -233,67 +287,122 @@ class Pessoa extends Entity implements EventSubscriber
 	public function onFlush(OnFlushEventArgs $args)	
 	{						
 		$em = $args->getEntityManager();
-        $uow = $em->getUnitOfWork();
+        $uow = $em->getUnitOfWork();        
         /**
          * Buscando por updates
          */
-        foreach ($uow->getScheduledEntityUpdates() AS $entity) {            	
-        	$data = $entity->data_cad;
-        	$data_formatada = $data->format('Y-m-d H:i:s');
-        	$entity->data_cad = $data_formatada;
-        	$this->usuario = $entity;
-        	$this->oldId = $entity->id;
-        }
+        // foreach ($uow->getScheduledEntityUpdates() AS $entity) {        	
+        // 	$data = $entity->data_cad;
+        // 	$data_formatada = $data->format('Y-m-d H:i:s');
+        // 	$entity->setDataCad = $data_formatada;        	
+        // 	$this->usuario = $entity;
+        // 	//$teste = $em->find('Usuario\Entity\Pessoa', $entity->id);        	
+        // 	$this->oldId = $entity->getId();
+        // }
 
         /**
          * Buscando por remoções de entidade
          */        
-        foreach ($uow->getScheduledEntityDeletions() AS $entity) {
+        foreach ($uow->getScheduledEntityDeletions() AS $entity) {        	        	
         	// $add = '';
          //    if (method_exists($entity, '__toString')) {
          //        $add = ' '. $entity->__toString();
          //    } elseif (method_exists($entity, 'getId')) {
          //        $add = ' com id '. $entity->getId();
          //    }
-            //var_dump('Removendo entidade ' . get_class($entity) . $add . '.');  
+         //    var_dump('Removendo entidade ' . get_class($entity) . $add . '.');  
             //die('Removendo entidade ' . get_class($entity) . $add . '.');            
-    	    $data = $entity->data_cad;
-	    	$data_formatada = $data->format('Y-m-d H:i:s');
-	    	$entity->data_cad = $data_formatada;
-	    	$this->usuario = $entity;
-	    	$this->oldId = $entity->id;            
+    	 //    $data = $entity->data_cad;
+	    	// $data_formatada = $data->format('Y-m-d H:i:s');
+	    	// $entity->data_cad = $data_formatada;
+	    	$this->usuario = $entity;    	
+	    	$this->oldId = $entity->id; 	    	
         }         
 	}
+
+	public function preUpdate(PreUpdateEventArgs  $args)
+	{
+		/**
+		 * Pegando dados do registro antes de atualizar e salvando na variavel $this->usuario
+		 * para Salvar na tabela historico no metodo postFlush()
+		 */		
+		$entity = $args->getEntity();
+		$this->usuario = $entity;
+		$this->oldId = $entity->id;
+
+		($args->hasChangedField('nome')) ? $this->usuario->nome = $args->getOldValue('nome') : null;		
+		($args->hasChangedField('url')) ? $this->usuario->url = $args->getOldValue('url') : null;
+		($args->hasChangedField('tipo')) ? $this->usuario->tipo = $args->getOldValue('tipo') : null;
+		($args->hasChangedField('email')) ? $this->usuario->email = $args->getOldValue('email') : null;
+		($args->hasChangedField('situacao')) ? $this->usuario->situacao = $args->getOldValue('situacao') : null;
+		($args->hasChangedField('origem_gravacao')) ? $this->usuario->origem_gravacao = $args->getOldValue('origem_gravacao') : null;
+		($args->hasChangedField('operacao')) ? $this->usuario->operacao = $args->getOldValue('operacao') : null;
+		($args->hasChangedField('idsis_cad')) ? $this->usuario->idsis_cad = $args->getOldValue('idsis_cad') : null;
+		($args->hasChangedField('idsis_rev')) ? $this->usuario->idsis_rev = $args->getOldValue('idsis_rev') : null;
+		($args->hasChangedField('pessoa_cad')) ? $this->usuario->pessoa_cad = $args->getOldValue('pessoa_cad') : null;
+		($args->hasChangedField('pessoa_rev')) ? $this->usuario->pessoa_rev = $args->getOldValue('pessoa_rev') : null;
+
+	}
+	// public function postUpdate(LifecycleEventArgs $args)
+	// {
+	// 	var_dump("POST UPDATE EXEC SUCESS");
+	// 	$em = $args->getEntityManager();
+	// 	$uow = $em->getUnitOfWork();
+	// 	$entity = $args->getEntity();		
+	// 	if ($args->hasChangedField('nome')){
+	// 		var_dump("MUDOU O NOME");
+	// 	}
+	// 	//var_dump($args);
+	// 	$historicoPessoa = new \Historico\Entity\Pessoa();
+	// 	$sequenceName = 'historico.seq_pessoa';
+	// 	$sequenceGenerator = new SeqGen($sequenceName, 1);
+	// 	$newId = $sequenceGenerator->generate($em, $historicoPessoa);
+	// 	$historicoPessoa->setId($newId);
+	// 	$historicoPessoa->setIdpes($entity->id);
+
+	// 	// $historicoPessoa->setNome($args->getOldValue('nome'));
+	// 	// $historicoPessoa->setDataCad($args->getOldValue('data_cad'));
+	// 	// $historicoPessoa->setUrl($args->getOldValue('url'));
+	// 	// $historicoPessoa->setTipo($args->getOldValue('tipo'));
+		
+		
+	// }
 
 	public function postFlush(PostFlushEventArgs $args)
 	{
 		$em = $args->getEntityManager();
 		$uow = $em->getUnitOfWork(); 				
 		if (!empty($this->usuario)) {
+			// var_dump("ativando historico");
 			$historicoPessoa = new \Historico\Entity\Pessoa();
 			$sequenceName = 'historico.seq_pessoa';
 			$sequenceGenerator = new SeqGen($sequenceName, 1);
 			$newId = $sequenceGenerator->generate($em, $historicoPessoa);
-			$historicoPessoa->id = $newId;			
-			$historicoPessoa->idpes = $this->oldId;
-			$historicoPessoa->nome = $this->usuario->nome;
-			$historicoPessoa->data_cad = new \DateTime($this->usuario->data_cad);
-			$historicoPessoa->url = $this->usuario->url;			
-			$historicoPessoa->tipo = $this->usuario->tipo;
+
+			$historicoPessoa->setId($newId);
+			$historicoPessoa->setIdpes($this->oldId);
+			$historicoPessoa->setNome($this->usuario->nome);//->format('Y-m-d H:i:s')
+			//$historicoPessoa->data_cad = new \DateTime($this->usuario->getDataCad());
+			$historicoPessoa->setDataCad($this->usuario->data_cad);
+			$historicoPessoa->setUrl($this->usuario->url);			
+			//$historicoPessoa->setTipo($em->getClassMetadata(get_class($this->usuario))->discriminatorValue);
+			$historicoPessoa->setTipo($this->usuario->tipo);
 			if (is_null($this->usuario->data_rev)){
-				$historicoPessoa->data_rev = new \DateTime();
+				$historicoPessoa->setDataRev(new \DateTime());
 			} 
-			// else {
-			// 	$historicoPessoa->data_rev = $this->usuario->data_rev;	
-			// }			
-			$historicoPessoa->email = $this->usuario->email;
-			$historicoPessoa->situacao = $this->usuario->situacao;
-	    	$historicoPessoa->origem_gravacao = $this->usuario->origem_gravacao;
-	    	$historicoPessoa->operacao = $this->usuario->operacao;
-	    	$historicoPessoa->idsis_cad = $this->usuario->idsis_cad;
-	    	$historicoPessoa->idsis_rev = $this->usuario->idsis_rev;
-	    	$historicoPessoa->idpes_cad = $this->usuario->idpes_cad;
-	    	$historicoPessoa->idpes_rev = $this->usuario->idpes_rev;
+			// // else {
+			// // 	$historicoPessoa->data_rev = $this->usuario->data_rev;	
+			// // }			
+			$historicoPessoa->setEmail($this->usuario->email);
+			$historicoPessoa->setSituacao($this->usuario->situacao);
+	    	$historicoPessoa->setOrigemGravacao($this->usuario->origem_gravacao);
+	    	$historicoPessoa->setOperacao($this->usuario->operacao);
+	    	$historicoPessoa->setIdsisCad($this->usuario->idsis_cad);
+	    	$historicoPessoa->setIdsisRev($this->usuario->idsis_rev);	    	
+	    	$historicoPessoa->setPessoaCad($this->usuario->pessoa_cad);	    	
+	    	$historicoPessoa->setPessoaRev($this->usuario->pessoa_rev);	 
+
+
 	    	$logMetadata = $em->getClassMetadata('Historico\Entity\Pessoa');
 	    	$className = $logMetadata->name;
 	    	$persister = $uow->getEntityPersister($className);	    	
@@ -324,24 +433,209 @@ class Pessoa extends Entity implements EventSubscriber
 	 * 
 	 * @param  array $data
 	 */
-	public function populate($data = array())
+	public function populate($data)
 	{
 		var_dump("POPULANDOOOO from an array");
-		$this->id = $data['id'];
-		$this->nome = $data['nome'];
-		$this->data_cad = $data['data_cad'];
-		$this->url = $data['url'];
-		$this->tipo = $data['tipo'];
-		$this->data_rev = $data['data_rev'];
-		$this->email = $data['email'];
-		$this->situacao = $data['situacao'];
-		$this->origem_gravacao = $data['origem_gravacao'];
-		$this->operacao = $data['operacao'];
-		$this->idsis_rev = $data['idsis_rev'];
-		$this->idsis_cad = $data['idsis_cad'];
-		$this->idpes_rev = $data['idpes_rev'];
-		$this->idpes_cad = $data['idpes_cad'];
+		$this->setId(isset($data['id']) ? $data['id'] : null);
+		$this->setNome(isset($data['nome']) ? $data['nome'] : null);
+		$this->setDataCad(isset($data['data_cad']) ? $data['data_cad'] : null);
+		if (!empty($data['url']))
+			$this->setUrl(isset($data['url']) ? $data['url'] : null);
+		$this->setTipo(isset($data['tipo']) ? $data['tipo'] : null);
+		$this->setDataRev(isset($data['data_rev']) ? $data['data_rev'] : null);		
+		if (!empty($data['email']))
+			$this->setEmail(isset($data['email']) ? $data['email'] : null);
+		$this->setSituacao(isset($data['situacao']) ? $data['situacao'] : null);
+		//$this->setOrigemGravacao(isset($data['origem_gravacao']) ? $data['origem_gravacao'] : null);
+		//$this->setOperacao(isset($data['operacao']) ? $data['operacao'] : null);
+		$this->setIdsisRev(isset($data['idsis_rev']) ? $data['idsis_rev'] : null);
+		//$this->setIdsisCad(isset($data['idsis_cad']) ? $data['idsis_cad'] : null);
+		$this->setPessoaCad(isset($data['pessoa_cad']) ? $data['pessoa_cad'] : null);
+		$this->setPessoaRev(isset($data['pessoa_rev']) ? $data['pessoa_rev'] : null);	
 	}	
+
+	public function setData($data)
+	{				
+		$this->setId(isset($data['id']) ? $data['id'] : null);
+		$this->setNome(isset($data['nome']) ? $data['nome'] : null);
+		$this->setDataCad(isset($data['data_cad']) ? $data['data_cad'] : null);
+		if (!empty($data['url']))
+			$this->setUrl(isset($data['url']) ? $data['url'] : null);
+		$this->setTipo(isset($data['tipo']) ? $data['tipo'] : null);
+		$this->setDataRev(isset($data['data_rev']) ? $data['data_rev'] : null);		
+		if (!empty($data['email']))
+			$this->setEmail(isset($data['email']) ? $data['email'] : null);
+		$this->setSituacao(isset($data['situacao']) ? $data['situacao'] : null);
+		//$this->setOrigemGravacao(isset($data['origem_gravacao']) ? $data['origem_gravacao'] : null);
+		//$this->setOperacao(isset($data['operacao']) ? $data['operacao'] : null);
+		$this->setIdsisRev(isset($data['idsis_rev']) ? $data['idsis_rev'] : null);
+		//$this->setIdsisCad(isset($data['idsis_cad']) ? $data['idsis_cad'] : null);
+		$this->setPessoaCad(isset($data['pessoa_cad']) ? $data['pessoa_cad'] : null);
+		$this->setPessoaRev(isset($data['pessoa_rev']) ? $data['pessoa_rev'] : null);	
+	}
+
+	// public function exchangeArray($data)
+ //    {
+ //    	var_dump("AQUI exchangearray");
+ //    }
+
+	/**
+	 * Getters and Setters
+	 * 
+	 * nos setters usar a funcao $this->valid($property, $value)
+	 * 
+	 * funcao verifica se existe filtros
+	 */
+	
+	public function getId()
+	{
+		return $this->id;
+	}
+
+	public function setId($value)
+	{
+		$this->id = $this->valid("id", $value);
+	}
+
+	public function getNome()
+	{
+		return $this->nome;
+	}
+
+	public function setNome($value)
+	{
+		$this->nome = $this->valid("nome", $value);
+	}
+
+	public function getDataCad()
+	{
+		return $this->data_cad;
+	}
+
+	public function setDataCad($value)
+	{
+		$this->data_cad = $this->valid("data_cad", $value);
+	}
+
+	public function getUrl()
+	{
+		return $this->url;
+	}
+
+	public function setUrl($url)
+	{
+		$this->url = $this->valid("url", $url);		
+	}
+
+	public function getTipo() 
+	{		
+	    return $this->tipo;
+	}
+	
+	public function setTipo($value) 
+	{
+	    $this->tipo = $this->valid("tipo", $value);
+	}
+
+	public function getDataRev()
+	{
+		return $this->data_rev;
+	}
+
+	public function setDataRev($value)
+	{
+		$this->data_rev = $this->valid("data_rev", $value);
+	}
+
+	public function getEmail()
+	{
+		return $this->email;
+	}
+
+	public function setEmail($value)
+	{
+		$this->email = $this->valid("email", $value);
+	}
+
+	public function getSituacao()
+	{
+		return $this->situacao;
+	}
+
+	public function setSituacao($value)
+	{
+		$this->situacao = $this->valid("situacao", $value);
+	}
+
+	public function getOrigemGravacao()
+	{
+		return $this->origem_gravacao;
+	}
+					
+	public function setOrigemGravacao($value)
+	{
+		$this->origem_gravacao = $this->valid("origem_gravacao", $value);
+	}
+
+	public function getOperacao()
+	{
+		return $this->operacao;
+	}
+
+	public function setOperacao($value)
+	{
+		$this->operacao = $this->valid("operacao", $value);
+	}
+
+	public function getIdsisRev()
+	{
+		return $this->idsis_rev;
+	}
+
+	public function setIdsisRev($value)
+	{
+		$this->idsis_rev = $this->valid("idsis_rev", $value);
+	}
+
+	public function getIdsisCad()
+	{
+		return $this->idsis_cad;
+	}
+
+	public function setIdsisCad($value)
+	{
+		$this->idsis_cad = $this->valid("idsis_cad", $value);
+	}
+
+	public function getPessoaCad()
+	{
+		return $this->pessoa_cad;
+	}
+
+	public function setPessoaCad($value)
+	{
+		$this->pessoa_cad = $value;
+	}
+
+	public function getPessoaRev()
+	{
+		return $this->pessoa_rev;
+	}
+
+	public function setPessoaRev($value)
+	{
+		$this->pessoa_rev = $value;
+	}
+
+	public function getFisica()
+	{
+		return $this->fisica;
+	}
+
+	public function setFisica($value)
+	{
+		$this->fisica = $value;
+	}
 
 	/**
 	 * Configura os filtros dos campos da entidade
@@ -536,13 +830,13 @@ class Pessoa extends Entity implements EventSubscriber
 				),
 			)));
 
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'idpes_cad',
-				'required' => true,
-				'filters' => array(
-					array('name' => 'Int'),
-				),
-			)));
+			// $inputFilter->add($factory->createInput(array(
+			// 	'name' => 'idpes_cad',
+			// 	'required' => true,
+			// 	'filters' => array(
+			// 		array('name' => 'Int'),
+			// 	),
+			// )));
 
 			$this->inputFilter = $inputFilter;
 		}

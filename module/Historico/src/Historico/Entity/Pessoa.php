@@ -1,6 +1,7 @@
 <?php
 namespace Historico\Entity;
 
+use Core\Entity\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\SequenceGenerator;
 use Doctrine\ORM\Mapping\PrePersist;
@@ -25,7 +26,7 @@ use Zend\InputFilter\InputFilterInterface;
  * @ORM\HasLifecycleCallbacks
  * 
  */
-class Pessoa implements InputFilterAwareInterface {
+class Pessoa extends Entity implements InputFilterAwareInterface {
 
 	protected $inputFilter;
 
@@ -40,7 +41,7 @@ class Pessoa implements InputFilterAwareInterface {
 
 	/**
 	 * @var  Int $id Identificador da entidade pessoa	 
-	 * @ORM\Column(name="""idpes""", type="integer", nullable=false);
+	 * @ORM\Column(name="idpes", type="integer", nullable=false);
 	 */
 	protected $idpes;
 
@@ -65,7 +66,8 @@ class Pessoa implements InputFilterAwareInterface {
 
 	/**
 	 * @var  String $tipo F(Fisica) ou J(Juridica)
-	 * @ORM\Column(type="string", length=1, nullable=false)
+	 * //era false o nullable
+	 * @ORM\Column(type="string", length=1, nullable=true)
 	 */
 	protected $tipo;
 
@@ -121,18 +123,23 @@ class Pessoa implements InputFilterAwareInterface {
 	protected $idsis_cad;
 
 	/**
-	 * @var  Integer $idpes_cad Id da pessoa que efetuou o cadastro
-	 * 
-	 * @ORM\Column(type="integer", nullable=false)
-	 */
-	protected $idpes_cad;
-
-	/**
 	 * @var Integer $idpes_rev Id da pessoa ??
 	 * 
 	 * @ORM\Column(type="integer", nullable=true)
 	 */
 	protected $idpes_rev;
+
+	/**
+	 * @ORM\ManyToOne(targetEntity="Usuario\Entity\Pessoa", cascade={"persist"})
+	 * @ORM\JoinColumn(name="idpes_cad", referencedColumnName="idpes", onDelete="SET NULL")
+	 */
+	protected $pessoa_cad;
+
+	/**
+	 * @ORM\ManyToOne(targetEntity="Usuario\Entity\Pessoa", cascade={"persist"})
+	 * @ORM\JoinColumn(name="idpes_rev", referencedColumnName="idpes", onDelete="SET NULL")
+	 */
+	protected $pessoa_rev;
  	
 
 	/**
@@ -190,25 +197,158 @@ class Pessoa implements InputFilterAwareInterface {
 	}
 	
 	/**
-	 * Magic getter to expose protected properties.
-	 * 
-	 * @param string $property
-	 * @return  mixed
+	 * getters and setters
 	 */
-	public function __get($property)
+	
+	public function getId()
 	{
-		return $this->$property;
+		return $this->id;
 	}
 
-	/**
-	 * Magic setter to save protected properties.
-	 * 
-	 * @param  string $property
-	 * @return  mixed $value
-	 */
-	public function __set($property, $value)
+	public function setId($value)
 	{
-		$this->$property = $value;
+		$this->id = $this->valid("id", $value);
+	}
+
+	public function getIdpes()
+	{
+		return $this->idpes;
+	}
+
+	public function setIdpes($value)
+	{
+		$this->idpes = $this->valid("idpes", $value);
+	}
+
+	public function getNome()
+	{
+		return $this->nome;
+	}
+
+	public function setNome($value)
+	{
+		$this->nome = $value;
+	}
+
+	public function getDataCad()
+	{
+		return $this->data_cad;
+	
+	}
+	
+	public function setDataCad($value)
+	{
+		$this->data_cad = $this->valid("data_cad", $value);
+	}
+
+	public function getUrl()
+	{
+		return $this->url;
+	}
+	
+	public function setUrl($value)
+	{
+		$this->url = $this->valid("url", $value);
+	}
+
+	public function getTipo()
+	{
+		return $this->tipo;
+	}
+	
+	public function setTipo($value)
+	{
+		$this->tipo = $this->valid("tipo", $value);
+	}
+
+	public function getDataRev()
+	{
+		return $this->data_rev;
+	}
+	
+	public function setDataRev($value)
+	{
+		$this->data_rev = $this->valid("data_rev", $value);
+	}
+
+	public function getEmail()
+	{
+		return $this->email;
+	}
+	
+	public function setEmail($value)
+	{
+		$this->email = $this->valid("email", $value);
+	}
+
+	public function getSituacao()
+	{
+		return $this->situacao;
+	}
+	
+	public function setSituacao($value)
+	{
+		$this->situacao = $this->valid("situacao", $value);
+	}
+
+	public function getOrigemGravacao()
+	{
+		return $this->origem_gravacao;
+	}
+	
+	public function setOrigemGravacao($value)
+	{
+		$this->origem_gravacao = $this->valid("origem_gravacao", $value);
+	}
+
+	public function getOperacao()
+	{
+		return $this->operacao;
+	}
+	
+	public function setOperacao($value)
+	{
+		$this->operacao = $this->valid("operacao", $value);
+	}
+
+	public function getIdsisRev()
+	{
+		return $this->idsis_rev;
+	}
+	
+	public function setIdsisRev($value)
+	{
+		$this->idsis_rev = $this->valid("idsis_rev", $value);
+	}
+
+	public function getIdsisCad()
+	{
+		return $this->idsis_cad;
+	}
+	
+	public function setIdsisCad($value)
+	{
+		$this->idsis_cad = $this->valid("idsis_cad", $value);
+	}
+
+	public function getPessoaCad()
+	{
+		return $this->pessoa_cad;
+	}
+	
+	public function setPessoaCad($value)
+	{
+		$this->pessoa_cad = $this->valid("pessoa_cad", $value);
+	}
+
+	public function getPessoaRev()
+	{
+		return $this->pessoa_rev;
+	}
+	
+	public function setPessoaRev($value)
+	{
+		$this->pessoa_rev = $this->valid("pessoa_rev", $value);
 	}
 
 	/**

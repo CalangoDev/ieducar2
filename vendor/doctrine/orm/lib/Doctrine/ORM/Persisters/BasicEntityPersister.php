@@ -689,7 +689,7 @@ class BasicEntityPersister
                 $result[$owningTable][$sourceColumn] = $value;
             }
         }
-
+        
         return $result;
     }
 
