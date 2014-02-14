@@ -107,9 +107,9 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 	 * @return void
 	 */
 	public function dropDatabase()
-	{
+	{		
 		$tool = new SchemaTool($this->em);
-		$classes = $this->em->getMetadataFactory()->getAllMetadata();
+		$classes = $this->em->getMetadataFactory()->getAllMetadata();		
 		//$tool->dropSchema($classes);
 	}
 }

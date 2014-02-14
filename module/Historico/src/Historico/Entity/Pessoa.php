@@ -26,7 +26,8 @@ use Zend\InputFilter\InputFilterInterface;
  * @ORM\HasLifecycleCallbacks
  * 
  */
-class Pessoa extends Entity implements InputFilterAwareInterface {
+class Pessoa extends Entity implements InputFilterAwareInterface 
+{
 
 	protected $inputFilter;
 
@@ -41,7 +42,7 @@ class Pessoa extends Entity implements InputFilterAwareInterface {
 
 	/**
 	 * @var  Int $id Identificador da entidade pessoa	 
-	 * @ORM\Column(name="idpes", type="integer", nullable=false);
+	 * @ORM\Column(name="idpes", type="integer", nullable=false)
 	 */
 	protected $idpes;
 

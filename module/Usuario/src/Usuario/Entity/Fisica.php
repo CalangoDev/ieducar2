@@ -388,7 +388,6 @@ class Fisica extends Pessoa implements EventSubscriber
 	 * heranca
 	 */
 	//protected $idpes_rev;
-
 	/**
 	 * @var int $idpes_cad	Id da Pessoa que efetuou o cadastro
 	 * 
