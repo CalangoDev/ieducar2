@@ -303,16 +303,16 @@ class Pessoa extends Entity implements EventSubscriber
         /**
          * Buscando por remoções de entidade
          */        
-        foreach ($uow->getScheduledEntityDeletions() AS $entity) {        	        	
+        foreach ($uow->getScheduledEntityDeletions() AS $entity) {        	
         	// $add = '';
-         //    if (method_exists($entity, '__toString')) {
-         //        $add = ' '. $entity->__toString();
-         //    } elseif (method_exists($entity, 'getId')) {
-         //        $add = ' com id '. $entity->getId();
-         //    }
-         //    var_dump('Removendo entidade ' . get_class($entity) . $add . '.');  
+	        //    if (method_exists($entity, '__toString')) {
+	        //        $add = ' '. $entity->__toString();
+	        //    } elseif (method_exists($entity, 'getId')) {
+	        //        $add = ' com id '. $entity->getId();
+	        //    }
+	        //    var_dump('Removendo entidade ' . get_class($entity) . $add . '.');  
             //die('Removendo entidade ' . get_class($entity) . $add . '.');            
-    	 //    $data = $entity->data_cad;
+	    	//    $data = $entity->data_cad;
 	    	// $data_formatada = $data->format('Y-m-d H:i:s');
 	    	// $entity->data_cad = $data_formatada;
 	    	$this->usuario = $entity;    	
@@ -341,6 +341,37 @@ class Pessoa extends Entity implements EventSubscriber
 		($args->hasChangedField('idsis_rev')) ? $this->usuario->idsis_rev = $args->getOldValue('idsis_rev') : null;
 		($args->hasChangedField('pessoa_cad')) ? $this->usuario->pessoa_cad = $args->getOldValue('pessoa_cad') : null;
 		($args->hasChangedField('pessoa_rev')) ? $this->usuario->pessoa_rev = $args->getOldValue('pessoa_rev') : null;
+		/**
+		 * Se for uma entidade do tipo fisica
+		 * verifica os campos alterados do update
+		 */
+		if (get_class($entity) == 'Usuario\Entity\Fisica'){
+			($args->hasChangedField('data_nasc')) ? $this->usuario->data_nasc = $args->getOldValue('data_nasc') : null;
+			($args->hasChangedField('sexo')) ? $this->usuario->sexo = $args->getOldValue('sexo') : null;
+			($args->hasChangedField('data_uniao')) ? $this->usuario->data_uniao = $args->getOldValue('data_uniao') : null;
+			($args->hasChangedField('data_obito')) ? $this->usuario->data_obito = $args->getOldValue('data_obito') : null;
+			($args->hasChangedField('nacionalidade')) ? $this->usuario->nacionalidade = $args->getOldValue('nacionalidade') : null;
+			($args->hasChangedField('data_chegada_brasil')) ? $this->usuario->data_chegada_brasil = $args->getOldValue('data_chegada_brasil') : null;
+			($args->hasChangedField('ultima_empresa')) ? $this->usuario->ultima_empresa = $args->getOldValue('ultima_empresa') : null;
+			($args->hasChangedField('nome_mae')) ? $this->usuario->nome_mae = $args->getOldValue('nome_mae') : null;
+			($args->hasChangedField('nome_pai')) ? $this->usuario->nome_pai = $args->getOldValue('nome_pai') : null;
+			($args->hasChangedField('nome_conjuge')) ? $this->usuario->nome_conjuge = $args->getOldValue('nome_conjuge') : null;
+			($args->hasChangedField('nome_responsavel')) ? $this->usuario->nome_responsavel = $args->getOldValue('nome_responsavel') : null;
+			($args->hasChangedField('justificativa_provisorio')) ? $this->usuario->justificativa_provisorio = $args->getOldValue('justificativa_provisorio') : null;
+			($args->hasChangedField('ref_cod_sistema')) ? $this->usuario->ref_cod_sistema = $args->getOldValue('ref_cod_sistema')  : null;
+			($args->hasChangedField('cpf')) ? $this->usuario->cpf = $args->getOldValue('cpf') : null;
+			($args->hasChangedField('pessoa_mae')) ? $this->usuario->pessoa_mae = $args->getOldValue('pessoa_mae') : null;
+			($args->hasChangedField('pessoa_pai')) ? $this->usuario->pessoa_pai = $args->getOldValue('pessoa_pai') : null;
+			($args->hasChangedField('pessoa_responsavel')) ? $this->usuario->pessoa_responsavel = $args->getOldValue('pessoa_responsavel') : null;
+			($args->hasChangedField('municipio_nascimento')) ? $this->usuario->municipio_nascimento = $args->getOldValue('municipio_nascimento') : null;
+			($args->hasChangedField('pais_estrangeiro')) ? $this->usuario->pais_estrangeiro = $args->getOldValue('pais_estrangeiro') : null;
+			($args->hasChangedField('escola')) ? $this->usuario->escola = $args->getOldValue('escola') : null;
+			($args->hasChangedField('estado_civil')) ? $this->usuario->estado_civil = $args->getOldValue('estado_civil') : null;
+			($args->hasChangedField('pessoa_conjuge')) ? $this->usuario->pessoa_conjuge = $args->getOldValue('pessoa_conjuge') : null;
+			($args->hasChangedField('ocupacao')) ? $this->usuario->ocupacao = $args->getOldValue('ocupacao') : null;
+			($args->hasChangedField('ref_cod_religiao')) ? $this->usuario->ref_cod_religiao = $args->getOldValue('ref_cod_religiao') : null;
+		}
+		
 
 	}
 	// public function postUpdate(LifecycleEventArgs $args)
@@ -372,7 +403,7 @@ class Pessoa extends Entity implements EventSubscriber
 	{
 		$em = $args->getEntityManager();
 		$uow = $em->getUnitOfWork(); 				
-		if (!empty($this->usuario)) {
+		if (!empty($this->usuario)) {			
 			// var_dump("ativando historico");
 			$historicoPessoa = new \Historico\Entity\Pessoa();
 			$sequenceName = 'historico.seq_pessoa';
@@ -408,7 +439,47 @@ class Pessoa extends Entity implements EventSubscriber
 	    	$persister = $uow->getEntityPersister($className);	    	
 	    	$persister->addInsert($historicoPessoa);
 	    	$uow->computeChangeSet($logMetadata, $historicoPessoa);
-			$postInsertIds = $persister->executeInserts();			
+			$postInsertIds = $persister->executeInserts();	
+
+			if (get_class($this->usuario) == 'Usuario\Entity\Fisica'){				
+				$historicoFisica = new \Historico\Entity\Fisica();
+				$sequenceName = 'historico.seq_fisica';
+				$sequenceGenerator = new SeqGen($sequenceName, 1);
+				$newId = $sequenceGenerator->generate($em, $historicoFisica);
+
+				$historicoFisica->setId($newId);
+				$historicoFisica->setIdpes($this->oldId);
+				$historicoFisica->setDataNasc($this->usuario->data_nasc);
+				$historicoFisica->setSexo($this->usuario->sexo);
+				$historicoFisica->setDataUniao($this->usuario->data_uniao);
+				$historicoFisica->setDataObito($this->usuario->data_obito);
+				$historicoFisica->setNacionalidade($this->usuario->nacionalidade);
+				$historicoFisica->setDataChegadaBrasil($this->usuario->data_chegada_brasil);
+				$historicoFisica->setUltimaEmpresa($this->usuario->ultima_empresa);
+				$historicoFisica->setNomeMae($this->usuario->nome_mae);
+				$historicoFisica->setNomePai($this->usuario->nome_pai);
+				$historicoFisica->setNomeConjuge($this->usuario->nome_conjuge);
+				$historicoFisica->setNomeResponsavel($this->usuario->nome_responsavel);
+				$historicoFisica->setJustificativaProvisorio($this->usuario->justificativa_provisorio);
+				$historicoFisica->setRefCodSistema($this->usuario->ref_cod_sistema);
+				$historicoFisica->setCpf($this->usuario->cpf);				
+				$historicoFisica->setPessoaMae($this->usuario->pessoa_mae);
+				$historicoFisica->setPessoaPai($this->usuario->pessoa_pai);
+				$historicoFisica->setPessoaResponsavel($this->usuario->pessoa_responsavel);
+				$historicoFisica->setMunicipioNascimento($this->usuario->municipio_nascimento);
+				$historicoFisica->setPaisEstrangeiro($this->usuario->pais_estrangeiro);
+				$historicoFisica->setEscola($this->usuario->escola);
+				$historicoFisica->setEstadoCivil($this->usuario->estado_civil);
+				$historicoFisica->setPessoaConjuge($this->usuario->pessoa_conjuge);
+				$historicoFisica->setOcupacao($this->usuario->ocupacao);
+				$historicoFisica->setRefCodReligiao($this->usuario->ref_cod_religiao);
+				$logMetadata = $em->getClassMetadata('Historico\Entity\Fisica');
+				$className = $logMetadata->name;
+				$persister = $uow->getEntityPersister($className);
+				$persister->addInsert($historicoFisica);
+				$uow->computeChangeSet($logMetadata, $historicoFisica);
+				$postInsertIds = $persister->executeInserts();				
+			}			
 			// if ($postInsertIds) {
 			//     foreach ($postInsertIds as $id => $entity) {
 			//         $idField = $logMetadata->identifier[0];

@@ -3,7 +3,7 @@
 
 ## Introdução  
   
-I-Educar v2.0 é um sistema baseado na Versão 1.0 do IEducar, porem totalmente baseado e programado em Zend Framework 2.0 com Doctrine 2.0  
+I-Educar v2.0 é um sistema baseado na Versão 1.0 do IEducar, porem totalmente reprogramado em Zend Framework 2.0 com Doctrine 2.0  
 
 ## Instalação
 
