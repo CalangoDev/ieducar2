@@ -34,7 +34,7 @@ class Pais extends Entity
 	 * @ORM\Id
 	 * @ORM\Column(name="idpais", type="integer", nullable=false)
 	 * @ORM\GeneratedValue(strategy="SEQUENCE")
-	 * @SequenceGenerator(sequenceName="public.seq_pai", initialValue=1, allocationSize=1)
+	 * @SequenceGenerator(sequenceName="seq_pai", initialValue=1, allocationSize=1)
 	 */
 	protected $id;
 }

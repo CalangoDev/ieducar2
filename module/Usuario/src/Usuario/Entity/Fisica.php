@@ -6,7 +6,6 @@ use Core\Entity\EntityException;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\SequenceGenerator;
 use Doctrine\ORM\Mapping\PrePersist;
-use Doctrine\Common\EventSubscriber;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilterAwareInterface;
@@ -29,14 +28,8 @@ use Zend\InputFilter\InputFilterInterface;
  * 
  */
 //class Fisica extends Entity implements EventSubscriber
-class Fisica extends Pessoa implements EventSubscriber
-{
-	public function getSubscribedEvents ()
-    {
-        return array(
-                        
-        );
-    }
+class Fisica extends Pessoa
+{	
 	/**
 	 * @var Int $id Identificador da entidade fisica
 	 * 
@@ -279,136 +272,106 @@ class Fisica extends Pessoa implements EventSubscriber
 	 * @ORM\Column(type="string", length=11, nullable=true)
 	 */
 	protected $cpf;
-
+	
 	/**
-	 * @var int $idpes_mae	Id Pessoa da Mae
+	 * @var int $pessoa_mae	Id Pessoa da Mae
 	 * 
 	 * @todo  verificar esse relacionamento
 	 * 
-	 * @ORM\Column(type="integer", nullable=true)
-	 * @ORM\ManyToOne(targetEntity="Pessoa")
+	 * @ORM\ManyToOne(targetEntity="Pessoa", cascade={"persist"})
 	 * @ORM\JoinColumn(name="idpes_mae", referencedColumnName="idpes", onDelete="SET NULL")
 	 */
-	protected $idpes_mae;
+	protected $pessoa_mae;
 
 	/**
-	 * @var int $idpes_pai Id pessoa do pai
+	 * @var int $pessoa_pai Id pessoa do pai
 	 * 
 	 * @todo  verificar esse relacionamento
-	 * 
-	 * @ORM\Column(type="integer", nullable=true)
-	 * @ORM\ManyToOne(targetEntity="Pessoa")
+	 * 	 
+	 * @ORM\ManyToOne(targetEntity="Pessoa", cascade={"persist"})
 	 * @ORM\JoinColumn(name="idpes_pai", referencedColumnName="idpes", onDelete="SET NULL")
 	 */
-	protected $idpes_pai;
+	protected $pessoa_pai;
 
 	/**
-	 * @var int $idpes_responsavel	Id da pessoa responsavel
+	 * @var int $pessoa_responsavel	Id da pessoa responsavel
 	 * 
 	 * @todo verificar esse relacionamento
-	 * @ORM\Column(type="integer", nullable=true)
-	 * @ORM\ManyToOne(targetEntity="Pessoa")
+	 * @ORM\ManyToOne(targetEntity="Usuario\Entity\Pessoa")
 	 * @ORM\JoinColumn(name="idpes_responsavel", referencedColumnName="idpes", onDelete="SET NULL")
 	 */
-	protected $idpes_responsavel;
+	protected $pessoa_responsavel;
 
 	/**
-	 * @var Int $idmun_nascimento Naturalidade obtem o id na tabela public.municipio
+	 * @var Int $municiopio_nascimento Naturalidade obtem o id na tabela public.municipio
 	 * 
 	 * @todo falta ajustar esse relacionamento
 	 * 
-	 * @ORM\Column(type="integer", nullable=true)
-	 * @ORM\ManyToOne(targetEntity="Municipio")
+	 * @ORM\ManyToOne(targetEntity="Core\Entity\Municipio")
 	 * @ORM\JoinColumn(name="idmun_nascimento", referencedColumnName="idmun", onDelete="NO ACTION")
 	 */
-	protected $idmun_nascimento;
+	protected $municipio_nascimento;
 
 	/**
-	 * @var Int $idpais_estrangeiro	Armazena id do pais se for estrangeiro obtem o id na tabela public.pais
+	 * @var Int $pais_estrangeiro	Armazena id do pais se for estrangeiro obtem o id na tabela public.pais
 	 * 
 	 * @todo falta ajustar esse relacionamento	 
-	 * 
-	 * @ORM\Column(type="integer", nullable=true)
-	 * @ORM\ManyToOne(targetEntity="Pais")
+	 * 	 
+	 * @ORM\ManyToOne(targetEntity="Core\Entity\Pais")
 	 * @ORM\JoinColumn(name="idpais_estrangeiro", referencedColumnName="idpais", onDelete="NO ACTION")
 	 */
-	protected $idpais_estrangeiro;
+	protected $pais_estrangeiro;
 
 	/**
-	 * @var Int $idesco	Código da Escola, chave estrangeira para o campo idesco na relacao cadastro.escolaridade	 
+	 * @var Int $escola	Código da Escola, chave estrangeira para o campo idesco na relacao cadastro.escolaridade	 
 	 * 
 	 * @todo falta ajustar esse relacionamento
-	 * 
-	 * @ORM\Column(type="integer", nullable=true)
-	 * @ORM\ManyToOne(targetEntity="Escolaridade")
+	 * 	 
+	 * @ORM\ManyToOne(targetEntity="Usuario\Entity\Escolaridade")
 	 * @ORM\JoinColumn(name="idesco", referencedColumnName="idesco", onDelete="NO ACTION")
 	 */
-	protected $idesco;
+	protected $escola;
 
 	/**
-	 * @var Int $ideciv Id do Estado Civil, chave estrangeira para o campo ideciv na relacao cadastro.estado_civil
+	 * @var Int $estado_civil Id do Estado Civil, chave estrangeira para o campo ideciv na relacao cadastro.estado_civil
 	 * 
 	 * @todo falta ajustar esse relacionamento
-	 * 
-	 * @ORM\Column(type="integer", nullable=true)
-	 * @ORM\ManyToOne(targetEntity="EstadoCivil")
+	 * 	 
+	 * @ORM\ManyToOne(targetEntity="Usuario\Entity\EstadoCivil")
 	 * @ORM\JoinColumn(name="ideciv", referencedColumnName="ideciv", onDelete="NO ACTION")
 	 */
-	protected $ideciv;
+	protected $estado_civil;
 
 	/**
-	 * @var int $idpes_con	Id Pessoa Conjugue
+	 * @var int $pessoa_conjugue	Id Pessoa Conjuge
 	 * 
 	 * @todo falta ajustar esse relacionamento
 	 * 
-	 * @ORM\Column(type="integer", nullable=true)
-	 * @ORM\ManyToOne(targetEntity="Pessoa")
+	 * @ORM\ManyToOne(targetEntity="Usuario\Entity\Pessoa")
 	 * @ORM\JoinColumn(name="idpes_con", referencedColumnName="idpes", onDelete="SET NULL")
 	 */
-	protected $idpes_con;
+	protected $pessoa_conjuge;
 
 	/**
-	 * @var int $idocup	ID da Ocupacao
+	 * @var int $ocupacao	ID da Ocupacao
 	 *
 	 * @todo falta ajustar esse relacionamento
-	 * 
-	 * @ORM\Column(type="integer", nullable=true)
-	 * @ORM\ManyToOne(targetEntity="Ocupacao")
+	 * 	 
+	 * @ORM\ManyToOne(targetEntity="Usuario\Entity\Ocupacao")
 	 * @ORM\JoinColumn(name="idocup", referencedColumnName="idocup", onDelete="NO ACTION")
 	 */
-	protected $idocup;
+	protected $ocupacao;
 
-	/**
-	 * @var Int $idpes_rev Id da pessoa que esta fazendo a revisao no registro
-	 * 
-	 * ORM\Column(type="integer", nullable=true)
-	 * ORM\ManyToOne(targetEntity="Pessoa")
-	 * ORM\JoinColumn(name="idpes_rev", referencedColumnName="idpes", onDelete="SET NULL")
-	 * 
-	 * heranca
-	 */
-	//protected $idpes_rev;
-	/**
-	 * @var int $idpes_cad	Id da Pessoa que efetuou o cadastro
-	 * 
-	 * ORM\Column(type="integer", nullable=true)
-	 * ORM\ManyToOne(targetEntity="Pessoa")
-	 * ORM\JoinColumn(name="idpes_cad", referencedColumnName="idpes", onDelete="SET NULL")
-	 * heranca
-	 */
-	//protected $idpes_cad;
 
 	/**
 	 * @var int $ref_cod_religiao	Referencia de codigo da religiao
 	 * 
 	 * @todo falta ajustar esse relacionamento
 	 * 
-	 * @ORM\Column(type="integer", nullable=true)
-	 * @ORM\ManyToOne(targetEntity="Religiao")
+	 * @ORM\ManyToOne(targetEntity="Usuario\Entity\Religiao")
 	 * @ORM\JoinColumn(name="ref_cod_religiao", referencedColumnName="cod_religiao", onDelete="NO ACTION")
 	 */
 	protected $ref_cod_religiao;
-
 
 	/**
 	 * getters and setters

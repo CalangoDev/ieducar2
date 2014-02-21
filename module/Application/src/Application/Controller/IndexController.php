@@ -41,17 +41,17 @@ class IndexController extends AbstractActionController
     public function indexAction()
     {
     	
-    	$pessoa = new \Usuario\Entity\Pessoa();
-    	$pessoa->nome = "NOME2";
-    	$pessoa->tipo = "F";
-    	$pessoa->situacao = "A";
-    	$pessoa->origem_gravacao = "M";
-    	$pessoa->operacao = "I";
-    	$pessoa->idsis_cad = 1;
-    	$pessoa->idpes_cad = 1;
-    	$pessoa->idpes_rev = 1;
+    	// $pessoa = new \Usuario\Entity\Pessoa();
+    	// $pessoa->nome = "NOME2";
+    	// $pessoa->tipo = "F";
+    	// $pessoa->situacao = "A";
+    	// $pessoa->origem_gravacao = "M";
+    	// $pessoa->operacao = "I";
+    	// $pessoa->idsis_cad = 1;
+    	// $pessoa->idpes_cad = 1;
+    	// $pessoa->idpes_rev = 1;
     	
-    	$this->getEntityManager()->persist($pessoa);
+    	// $this->getEntityManager()->persist($pessoa);
     	
     	//delete
     	//$teste = $this->getEntityManager()->find('Usuario\Entity\Pessoa', 71);
@@ -60,10 +60,10 @@ class IndexController extends AbstractActionController
     	}
 
         //update
-        $teste2 = $this->getEntityManager()->find('Usuario\Entity\Pessoa', 72);        
-        var_dump($teste2->nome);
+        // $teste2 = $this->getEntityManager()->find('Usuario\Entity\Pessoa', 72);        
+        // var_dump($teste2->nome);
 
-        $this->getEntityManager()->flush();
+        // $this->getEntityManager()->flush();
     	// $pessoa = $objectManager->getRepository('Usuario\Entity\Pessoa')->findOneBy(array('id' => 47));
     	// $objectManager->remove($pessoa);
     	// $objectManager->flush();    	

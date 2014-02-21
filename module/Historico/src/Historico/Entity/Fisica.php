@@ -156,7 +156,7 @@ class Fisica extends Entity implements InputFilterAwareInterface
 	 * 
 	 * @todo  verificar esse relacionamento
 	 * 
-	 * @ORM\ManyToOne(targetEntity="Usuario\Entity\Pessoa")
+	 * @ORM\ManyToOne(targetEntity="Usuario\Entity\Pessoa", cascade={"persist"})
 	 * @ORM\JoinColumn(name="idpes_mae", referencedColumnName="idpes", onDelete="SET NULL")
 	 */
 	protected $pessoa_mae;
