@@ -1164,17 +1164,5 @@ class Fisica extends Pessoa
 		}
 		return $this->inputFilter;
 	}
-	 
-	/**
-	 * [removeInputFilter remove um inputfilter]
-	 * @param  Zend\InputFilter\InputFilter	 
-	 */
-	public function removeInputFilter($input)
-    {        
-        $inputFilter    = new InputFilter();                        
-        $this->inputFilter->remove($input);
-        
-        return $this->inputFilter;
-    }
 
 }

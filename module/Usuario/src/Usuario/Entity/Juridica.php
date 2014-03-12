@@ -46,6 +46,72 @@ class Juridica extends Pessoa implements EventSubscriber
 	 */
 	protected $id;
 
+	/**
+	 * @var string $cpnj
+	 * @ORM\Column(type="string", length=14, nullable=false)
+	 */
+	protected $cpnj;
+
+	/**
+	 * @var string $insc_estadual
+	 * @ORM\Column(type="string", length=20, nullable=true)
+	 */
+	protected $insc_estadual;
+
+	/**
+	 * @var string $fantasia
+	 * @ORM\Column(type="string", length=255, nullable=true)
+	 */
+	protected $fantasia;
+
+	/**
+	 * @var string $capital_social
+	 * @ORM\Column(type="string", length=255, nullable=true)
+	 */
+	protected $capital_social;
+
+	/**
+	 * getters and setters
+	 */
+	public function getCnpj()
+	{
+		return $this->cnpj;
+	}
+	
+	public function setCnpj($value)
+	{
+		$this->cnpj = $this->valid("cnpj", $value);
+	}
+
+	public function getInscEstadual()
+	{
+		return $this->insc_estadual;
+	}
+	
+	public function setInscEstadual($value)
+	{
+		$this->insc_estadual = $this->valid("insc_estadual", $value);
+	}
+
+	public function getFantasia()
+	{
+		return $this->fantasia;
+	}
+	
+	public function setFantasia($value)
+	{
+		$this->fantasia = $this->valid("fantasia", $value);
+	}
+
+	public function getCapitalSocial()
+	{
+		return $this->capitalSocial;
+	}
+	
+	public function setCapitalSocial($value)
+	{
+		$this->capitalSocial = $this->valid("capitalSocial", $value);
+	}
 
 	/**
 	 * [$inputFilter recebe os filtros]
@@ -64,22 +130,193 @@ class Juridica extends Pessoa implements EventSubscriber
 			$inputFilter = new InputFilter();
 			$factory = new InputFactory();
 
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'id',
+				'required' => true,
+				'filters' => array(
+					array('name' => 'Int')
+				),
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'cnpj',
+				'required' => false,
+				'filters' => array(
+					array('name' => 'StripTags'),
+					array('name' => 'StringTrim'),
+					array('name' => 'Alnum'),					
+				),
+				'validators' => array(
+					array(
+						'name' => 'StringLength',
+						'options' => array(
+							'encoding' => 'UTF-8',
+							'min' => 1,
+							'max' => 14,
+						),
+					),
+				),
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'insc_estadual',
+				'required' => false,
+				'filters' => array(
+					array('name' => 'StripTags'),
+					array('name' => 'StringTrim'),
+					array('name' => 'Alnum'),					
+				),
+				'validators' => array(
+					array(
+						'name' => 'StringLength',
+						'options' => array(
+							'encoding' => 'UTF-8',
+							'min' => 1,
+							'max' => 20,
+						),
+					),
+				),
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'idpes_rev',
+				'required' => false,
+				'filters' => array(
+					array('name' => 'Int'),
+				),
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'data_rev',
+				'required' => false,
+				'filters' => array(
+					array('name' => 'StripTags'),
+					array('name' => 'StringTrim'),
+				),
+				'validators' => array(
+					'name' => new \Zend\Validator\Date(),
+				),
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'origem_gravacao',
+				'required' => true,
+				'filters' => array(
+					array('name' => 'StripTags'),
+					array('name' => 'StringTrim'),
+					array('name' => 'Alpha'),
+					array('name' => 'StringToUpper'),
+				),
+				'validators' => array(
+					array(
+						'name' => 'StringLength',
+						'options' => array(
+							'encoding' => 'UTF-8',
+							'min' => 1,
+							'max' => 1,
+						),
+					),
+				),
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'idpes_cad',
+				'required' => false,
+				'filters' => array(
+					array('name' => 'Int'),
+				),
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'data_cad',
+				'required' => true,
+				'filters' => array(
+					array('name' => 'StripTags'),
+					array('name' => 'StringTrim'),
+				),
+				'validators' => array(
+					'name' => new \Zend\Validator\Date(),
+				),
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'operacao',
+				'required' => true,
+				'filters' => array(
+					array('name' => 'StripTags'),
+					array('name' => 'StringTrim'),
+					array('name' => 'Alpha'),
+					array('name' => 'StringToUpper'),
+				),
+				'validators' => array(
+					array(
+						'name' => 'StringLength',
+						'options' => array(
+							'encoding' => 'UTF-8',
+							'min' => 1,
+							'max' => 1,
+						),
+					),
+				),
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'idsis_rev',
+				'required' => false,
+				'filters' => array(
+					array('name' => 'Int'),
+				),
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'idsis_cad',
+				'required' => true,
+				'filters' => array(
+					array('name' => 'Int'),
+				),
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'fantasia',
+				'required' => false,
+				'filters' => array(
+					array('name' => 'StripTags'),
+					array('name' => 'StringTrim'),				
+				),
+				'validators' => array(
+					array(
+						'name' => 'StringLength',
+						'options' => array(
+							'encoding' => 'UTF-8',
+							'min' => 1,
+							'max' => 255,
+						),
+					),
+				),
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'capital_social',
+				'required' => false,
+				'filters' => array(
+					array('name' => 'StripTags'),
+					array('name' => 'StringTrim'),
+				),
+				'validators' => array(
+					array(
+						'name' => 'StringLength',
+						'options' => array(
+							'encoding' => 'UTF-8',
+							'min' => 1,
+							'max' => 255,
+						),
+					),
+				),
+			)));
 
 			$this->inputFilter = $inputFilter;
 		}
 		return $this->inputFilter;
 	}
-	 
-	/**
-	 * [removeInputFilter remove um inputfilter]
-	 * @param  Zend\InputFilter\InputFilter	 
-	 */
-	public function removeInputFilter($input)
-    {        
-        $inputFilter    = new InputFilter();                        
-        $this->inputFilter->remove($input);
-        
-        return $this->inputFilter;
-    }
-
+	
 }

@@ -123,5 +123,17 @@ abstract class Entity implements InputFilterAwareInterface
 
         return $filter->getValue($key);
     }
+
+    /**
+     * [removeInputFilter remove um inputfilter]
+     * @param  Zend\InputFilter\InputFilter  
+     */
+    public function removeInputFilter($input)
+    {        
+        $inputFilter    = new InputFilter();                        
+        $this->inputFilter->remove($input);
+        
+        return $this->inputFilter;
+    }
 	
 }

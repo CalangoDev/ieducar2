@@ -37,9 +37,9 @@ class PessoaControllerTest extends ControllerTestCase
 		$pessoaB = $this->buildPessoa();
 		$pessoaB->setNome("GOLD");
 		//$this->addPessoa($pessoaB);
-		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-		$em->persist($pessoaA);
+		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');		
 		$em->persist($pessoaB);
+		$em->persist($pessoaA);
     	$em->flush();
 
 		//	Invoca a rota index
@@ -61,7 +61,7 @@ class PessoaControllerTest extends ControllerTestCase
 		$this->assertArrayHasKey('dados', $variables);
 
 		//	Faz a comparação dos dados
-		$controllerData = $variables['dados'];
+		$controllerData = $variables['dados'];		
 		$this->assertEquals($pessoaA->getNome(), $controllerData[0]->getNome());
 		$this->assertEquals($pessoaB->getNome(), $controllerData[1]->getNome());
 
