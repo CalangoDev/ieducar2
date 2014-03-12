@@ -914,12 +914,4 @@ class Pessoa extends Entity implements EventSubscriber
 
 		return $this->inputFilter;
 	}
-
-	public function removeInputFilter($input)
-    {        
-        $inputFilter    = new InputFilter();                        
-        $this->inputFilter->remove($input);
-        
-        return $this->inputFilter;
-    }
 }

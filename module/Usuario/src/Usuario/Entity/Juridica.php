@@ -316,7 +316,8 @@ class Juridica extends Pessoa implements EventSubscriber
 
 			$this->inputFilter = $inputFilter;
 		}
+		
 		return $this->inputFilter;
 	}
-	
+
 }
