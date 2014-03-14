@@ -6,6 +6,7 @@ use Core\Entity\EntityException;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\SequenceGenerator;
 use Doctrine\ORM\Mapping\PrePersist;
+use Doctrine\ORM\Mapping\Index;
 use Doctrine\Common\EventSubscriber;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\Factory as InputFactory;
@@ -24,9 +25,8 @@ use Zend\InputFilter\InputFilterInterface;
  * @copyright  Copyright (c) 2013 Eduardo Junior.com (http://www.eduardojunior.com)
  * 
  * @ORM\Entity
- * @ORM\Table(name="""cadastro"".""juridica""")
+ * @ORM\Table(name="""cadastro"".""juridica""", indexes={@index(name="un_juridica_cnpj", columns={"cnpj"})})
  * @ORM\HasLifecycleCallbacks
- * 
  */
 class Juridica extends Pessoa implements EventSubscriber
 {
@@ -47,10 +47,10 @@ class Juridica extends Pessoa implements EventSubscriber
 	protected $id;
 
 	/**
-	 * @var string $cpnj
+	 * @var string $cnpj
 	 * @ORM\Column(type="string", length=14, nullable=false)
 	 */
-	protected $cpnj;
+	protected $cnpj;
 
 	/**
 	 * @var string $insc_estadual
@@ -110,7 +110,31 @@ class Juridica extends Pessoa implements EventSubscriber
 	
 	public function setCapitalSocial($value)
 	{
-		$this->capitalSocial = $this->valid("capitalSocial", $value);
+		$this->capital_social = $this->valid("capital_social", $value);
+	}
+
+	public function setData($data)
+	{
+		if (!empty($data['cpf']))			
+			$this->setCnpj(isset($data['cpf']) ? $data['cpf'] : null);
+	}
+
+	/**
+	 * Gatilhos
+	 * 
+	 * Verificar se a pessoa é uma pessoa fisica antes de inserir a pessoa juridica, se for lancar exceção - OK
+	 */
+	
+	/**
+	 * Funcao para checar se o tipo do usuario é dierente de J se for lanca exception
+	 * @access public
+	 * @return  Exception 
+	 * @ORM\PrePersist
+	 */
+	public function checkTipo()
+	{		
+		if(($this->getTipo() != "J") && ($this->getTipo() != "P"))
+			throw new EntityException("O Identificador " . $this->getId() . " já está cadastrado como Pessoa Física: " . $this->getTipo(), 1);
 	}
 
 	/**
@@ -228,18 +252,6 @@ class Juridica extends Pessoa implements EventSubscriber
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'data_cad',
-				'required' => true,
-				'filters' => array(
-					array('name' => 'StripTags'),
-					array('name' => 'StringTrim'),
-				),
-				'validators' => array(
-					'name' => new \Zend\Validator\Date(),
-				),
-			)));
-
-			$inputFilter->add($factory->createInput(array(
 				'name' => 'operacao',
 				'required' => true,
 				'filters' => array(
@@ -316,7 +328,7 @@ class Juridica extends Pessoa implements EventSubscriber
 
 			$this->inputFilter = $inputFilter;
 		}
-		
+
 		return $this->inputFilter;
 	}
 

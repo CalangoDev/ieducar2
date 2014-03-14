@@ -247,7 +247,6 @@ class Fisica extends Entity implements InputFilterAwareInterface
 	 */
 	protected $ocupacao;
 
-
 	/**
 	 * @var int $ref_cod_religiao	Referencia de codigo da religiao
 	 * 

@@ -254,7 +254,7 @@ class Pessoa extends Entity implements EventSubscriber
 	 */
 	public function checkTipo()
 	{		
-		if(($this->getTipo() != "F") && ($this->getTipo() != "J") && ($this->getTipo() != "" ))
+		if(($this->getTipo() != "F") && ($this->getTipo() != "J") && ($this->getTipo() != "" ) && ($this->getTipo() != "P" ))
 			throw new EntityException("O atributo tipo recebeu um valor inválido: \"" . $this->getTipo(). "\"", 1);
 	}
 
@@ -371,6 +371,17 @@ class Pessoa extends Entity implements EventSubscriber
 			($args->hasChangedField('ocupacao')) ? $this->usuario->ocupacao = $args->getOldValue('ocupacao') : null;
 			($args->hasChangedField('ref_cod_religiao')) ? $this->usuario->ref_cod_religiao = $args->getOldValue('ref_cod_religiao') : null;
 		}
+
+		/**
+		 * Se for uma entidade do tipo juridica
+		 * verifica os campos alterados do update
+		 */
+		if (get_class($entity) == 'Usuario\Entity\Fisica'){
+			($args->hasChangedField('cnpj')) ? $this->usuario->cnpj : null;
+			($args->hasChangedField('insc_estadual')) ? $this->usuario->insc_estadual : null;
+			($args->hasChangedField('fantasia')) ? $this->usuario->fantasia : null;
+			($args->hasChangedField('capital_social')) ? $this->usuario->capital_social : null;
+		}
 		
 
 	}
@@ -479,7 +490,28 @@ class Pessoa extends Entity implements EventSubscriber
 				$persister->addInsert($historicoFisica);
 				$uow->computeChangeSet($logMetadata, $historicoFisica);
 				$postInsertIds = $persister->executeInserts();				
-			}			
+			}
+
+			if (get_class($this->usuario) == 'Usuario\Entity\Juridica'){
+				$historicoJuridica = new \Historico\Entity\Juridica();
+				$sequenceName = 'historico.seq_juridica';
+				$sequenceGenerator = new SeqGen($sequenceName, 1);
+				$newId = $sequenceGenerator->generate($em, $historicoJuridica);
+
+				$historicoJuridica->setId($newId);
+				$historicoJuridica->setIdpes($this->oldId);
+				$historicoJuridica->setCnpj($this->usuario->cnpj);
+				$historicoJuridica->setInscEstadual($this->usuario->insc_estadual);
+				$historicoJuridica->setFantasia($this->usuario->fantasia);
+				$historicoJuridica->setCapitalSocial($this->usuario->capital_social);
+				$logMetadata = $em->getClassMetadata('Historico\Entity\Juridica');
+				$className = $logMetadata->name;
+				$persister = $uow->getEntityPersister($className);
+				$persister->addInsert($historicoJuridica);
+				$uow->computeChangeSet($logMetadata, $historicoJuridica);
+				$postInsertIds = $persister->executeInserts();
+			}
+
 			// if ($postInsertIds) {
 			//     foreach ($postInsertIds as $id => $entity) {
 			//         $idField = $logMetadata->identifier[0];
