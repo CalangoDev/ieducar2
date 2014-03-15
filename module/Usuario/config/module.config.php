@@ -77,7 +77,8 @@ return array(
         'invokables' => array(
             'Usuario\Controller\Index' => 'Usuario\Controller\IndexController',
             'Usuario\Controller\Pessoa' => 'Usuario\Controller\PessoaController',
-            'Usuario\Controller\Fisica' => 'Usuario\Controller\FisicaController'
+            'Usuario\Controller\Fisica' => 'Usuario\Controller\FisicaController',
+            'Usuario\Controller\Juridica' => 'Usuario\Controller\JuridicaController'
         ),
     ),
     'view_manager' => array(

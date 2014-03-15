@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="Usuario Test Suite" tests="7" assertions="25" failures="0" errors="0" time="3.909017">
-    <testsuite name="Usuario\Entity\FisicaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/FisicaTest.php" namespace="Usuario\Entity" fullPackage="Usuario.Entity" tests="0" assertions="0" failures="0" errors="0" time="0.000000"/>
-    <testsuite name="Usuario\Entity\JuridicaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/JuridicaTest.php" namespace="Usuario\Entity" fullPackage="Usuario.Entity" tests="7" assertions="25" failures="0" errors="0" time="3.909017">
-      <testcase name="testGetInputFilter" class="Usuario\Entity\JuridicaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/JuridicaTest.php" line="22" assertions="1" time="0.612506"/>
-      <testcase name="testInputFilterValid" class="Usuario\Entity\JuridicaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/JuridicaTest.php" line="33" assertions="13" time="0.515880"/>
-      <testcase name="testInsert" class="Usuario\Entity\JuridicaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/JuridicaTest.php" line="57" assertions="4" time="0.558883"/>
-      <testcase name="testInsertAfter" class="Usuario\Entity\JuridicaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/JuridicaTest.php" line="90" assertions="3" time="0.607969"/>
-      <testcase name="testInputFilterInvalidCnpjf" class="Usuario\Entity\JuridicaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/JuridicaTest.php" line="138" assertions="1" time="0.555634"/>
-      <testcase name="testUpdate" class="Usuario\Entity\JuridicaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/JuridicaTest.php" line="146" assertions="2" time="0.535679"/>
-      <testcase name="testDelete" class="Usuario\Entity\JuridicaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/JuridicaTest.php" line="172" assertions="1" time="0.522466"/>
+  <testsuite name="Usuario Test Suite" tests="5" assertions="26" failures="0" errors="0" time="5.374850">
+    <testsuite name="FisicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/FisicaControllerTest.php" tests="0" assertions="0" failures="0" errors="0" time="0.000000"/>
+    <testsuite name="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" tests="5" assertions="26" failures="0" errors="0" time="5.374850">
+      <testcase name="testJuridicaIndexAction" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="29" assertions="5" time="1.272920"/>
+      <testcase name="testJuridicaSaveActionNewRequest" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="81" assertions="15" time="0.496902"/>
+      <testcase name="testJuridicaInvalidDeleteAction" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="135" assertions="2" time="2.400649"/>
+      <testcase name="testJuridicaDeleteAction" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="152" assertions="2" time="0.558886"/>
+      <testcase name="testJuridicaInvalidIdDeleteAction" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="189" assertions="2" time="0.645493"/>
     </testsuite>
-    <testsuite name="Usuario\Entity\PessoaTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/PessoaTest.php" namespace="Usuario\Entity" fullPackage="Usuario.Entity" tests="0" assertions="0" failures="0" errors="0" time="0.000000"/>
+    <testsuite name="PessoaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/PessoaControllerTest.php" tests="0" assertions="0" failures="0" errors="0" time="0.000000"/>
   </testsuite>
 </testsuites>
