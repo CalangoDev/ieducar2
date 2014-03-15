@@ -1,9 +1,7 @@
-Usuario\Entity\Juridica
- [x] Get input filter
- [x] Input filter valid
- [x] Insert
- [x] Insert after
- [x] Input filter invalid cnpjf
- [x] Update
- [x] Delete
+JuridicaController
+ [x] Juridica index action
+ [x] Juridica save action new request
+ [x] Juridica invalid delete action
+ [x] Juridica delete action
+ [x] Juridica invalid id delete action
 

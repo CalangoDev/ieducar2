@@ -1,5 +1,4 @@
 <?php
-
 use Core\Test\ControllerTestCase;
 use Usuario\Controller\FisicaController;
 use Usuario\Entity\Fisica;
