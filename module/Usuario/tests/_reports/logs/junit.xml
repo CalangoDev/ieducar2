@@ -1,17 +1,260 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="Usuario Test Suite" tests="9" assertions="38" failures="0" errors="0" time="5.793989">
+  <testsuite name="Usuario Test Suite" tests="9" assertions="0" failures="0" errors="9" time="10.400431">
     <testsuite name="FisicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/FisicaControllerTest.php" tests="0" assertions="0" failures="0" errors="0" time="0.000000"/>
-    <testsuite name="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" tests="9" assertions="38" failures="0" errors="0" time="5.793989">
-      <testcase name="testJuridicaIndexAction" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="29" assertions="5" time="0.705836"/>
-      <testcase name="testJuridicaSaveActionNewRequest" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="81" assertions="15" time="0.548292"/>
-      <testcase name="testJuridicaSaveActionUpdateFormRequest" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="133" assertions="6" time="0.564942"/>
-      <testcase name="testJuridicaSaveActionPostRequest" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="176" assertions="2" time="0.920511"/>
-      <testcase name="testJuridicaUpdateAction" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="202" assertions="2" time="0.639679"/>
-      <testcase name="testJuridicaSaveActionInvalidPostRequest" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="242" assertions="2" time="0.525008"/>
-      <testcase name="testJuridicaInvalidDeleteAction" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="272" assertions="2" time="0.575774"/>
-      <testcase name="testJuridicaDeleteAction" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="289" assertions="2" time="0.738012"/>
-      <testcase name="testJuridicaInvalidIdDeleteAction" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="326" assertions="2" time="0.575935"/>
+    <testsuite name="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" tests="9" assertions="0" failures="0" errors="9" time="10.400431">
+      <testcase name="testJuridicaIndexAction" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="29" assertions="0" time="9.725694">
+        <error type="Doctrine\Common\Annotations\AnnotationException">JuridicaControllerTest::testJuridicaIndexAction
+Doctrine\Common\Annotations\AnnotationException: [Semantical Error] Couldn't find constant type, property Usuario\Entity\Escolaridade::$descricao.
+
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/AnnotationException.php:52
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/AnnotationException.php:68
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:858
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:922
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:903
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:772
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:681
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:576
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:318
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/AnnotationReader.php:198
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/IndexedReader.php:111
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/CachedReader.php:127
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/CachedReader.php:143
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/Driver/AnnotationDriver.php:253
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/Driver/MappingDriverChain.php:103
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/ClassMetadataFactory.php:117
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/AbstractClassMetadataFactory.php:318
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/AbstractClassMetadataFactory.php:211
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/AbstractClassMetadataFactory.php:114
+/Users/eduardojunior/Websites/ieducar2/www/module/Core/src/Core/Test/TestCase.php:102
+/Users/eduardojunior/Websites/ieducar2/www/module/Core/src/Core/Test/TestCase.php:73
+/Users/eduardojunior/Websites/ieducar2/www/module/Core/src/Core/Test/ControllerTestCase.php:65
+</error>
+      </testcase>
+      <testcase name="testJuridicaSaveActionNewRequest" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="81" assertions="0" time="0.099260">
+        <error type="Doctrine\Common\Annotations\AnnotationException">JuridicaControllerTest::testJuridicaSaveActionNewRequest
+Doctrine\Common\Annotations\AnnotationException: [Semantical Error] Couldn't find constant type, property Usuario\Entity\Escolaridade::$descricao.
+
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/AnnotationException.php:52
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/AnnotationException.php:68
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:858
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:922
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:903
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:772
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:681
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:576
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:318
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/AnnotationReader.php:198
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/IndexedReader.php:111
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/CachedReader.php:127
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/CachedReader.php:143
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/Driver/AnnotationDriver.php:253
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/Driver/MappingDriverChain.php:103
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/ClassMetadataFactory.php:117
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/AbstractClassMetadataFactory.php:318
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/AbstractClassMetadataFactory.php:211
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/AbstractClassMetadataFactory.php:114
+/Users/eduardojunior/Websites/ieducar2/www/module/Core/src/Core/Test/TestCase.php:102
+/Users/eduardojunior/Websites/ieducar2/www/module/Core/src/Core/Test/TestCase.php:73
+/Users/eduardojunior/Websites/ieducar2/www/module/Core/src/Core/Test/ControllerTestCase.php:65
+</error>
+      </testcase>
+      <testcase name="testJuridicaSaveActionUpdateFormRequest" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="133" assertions="0" time="0.071441">
+        <error type="Doctrine\Common\Annotations\AnnotationException">JuridicaControllerTest::testJuridicaSaveActionUpdateFormRequest
+Doctrine\Common\Annotations\AnnotationException: [Semantical Error] Couldn't find constant type, property Usuario\Entity\Escolaridade::$descricao.
+
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/AnnotationException.php:52
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/AnnotationException.php:68
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:858
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:922
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:903
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:772
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:681
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:576
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:318
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/AnnotationReader.php:198
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/IndexedReader.php:111
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/CachedReader.php:127
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/CachedReader.php:143
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/Driver/AnnotationDriver.php:253
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/Driver/MappingDriverChain.php:103
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/ClassMetadataFactory.php:117
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/AbstractClassMetadataFactory.php:318
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/AbstractClassMetadataFactory.php:211
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/AbstractClassMetadataFactory.php:114
+/Users/eduardojunior/Websites/ieducar2/www/module/Core/src/Core/Test/TestCase.php:102
+/Users/eduardojunior/Websites/ieducar2/www/module/Core/src/Core/Test/TestCase.php:73
+/Users/eduardojunior/Websites/ieducar2/www/module/Core/src/Core/Test/ControllerTestCase.php:65
+</error>
+      </testcase>
+      <testcase name="testJuridicaSaveActionPostRequest" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="176" assertions="0" time="0.073688">
+        <error type="Doctrine\Common\Annotations\AnnotationException">JuridicaControllerTest::testJuridicaSaveActionPostRequest
+Doctrine\Common\Annotations\AnnotationException: [Semantical Error] Couldn't find constant type, property Usuario\Entity\Escolaridade::$descricao.
+
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/AnnotationException.php:52
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/AnnotationException.php:68
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:858
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:922
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:903
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:772
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:681
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:576
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:318
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/AnnotationReader.php:198
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/IndexedReader.php:111
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/CachedReader.php:127
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/CachedReader.php:143
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/Driver/AnnotationDriver.php:253
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/Driver/MappingDriverChain.php:103
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/ClassMetadataFactory.php:117
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/AbstractClassMetadataFactory.php:318
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/AbstractClassMetadataFactory.php:211
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/AbstractClassMetadataFactory.php:114
+/Users/eduardojunior/Websites/ieducar2/www/module/Core/src/Core/Test/TestCase.php:102
+/Users/eduardojunior/Websites/ieducar2/www/module/Core/src/Core/Test/TestCase.php:73
+/Users/eduardojunior/Websites/ieducar2/www/module/Core/src/Core/Test/ControllerTestCase.php:65
+</error>
+      </testcase>
+      <testcase name="testJuridicaUpdateAction" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="202" assertions="0" time="0.081443">
+        <error type="Doctrine\Common\Annotations\AnnotationException">JuridicaControllerTest::testJuridicaUpdateAction
+Doctrine\Common\Annotations\AnnotationException: [Semantical Error] Couldn't find constant type, property Usuario\Entity\Escolaridade::$descricao.
+
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/AnnotationException.php:52
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/AnnotationException.php:68
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:858
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:922
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:903
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:772
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:681
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:576
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:318
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/AnnotationReader.php:198
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/IndexedReader.php:111
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/CachedReader.php:127
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/CachedReader.php:143
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/Driver/AnnotationDriver.php:253
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/Driver/MappingDriverChain.php:103
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/ClassMetadataFactory.php:117
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/AbstractClassMetadataFactory.php:318
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/AbstractClassMetadataFactory.php:211
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/AbstractClassMetadataFactory.php:114
+/Users/eduardojunior/Websites/ieducar2/www/module/Core/src/Core/Test/TestCase.php:102
+/Users/eduardojunior/Websites/ieducar2/www/module/Core/src/Core/Test/TestCase.php:73
+/Users/eduardojunior/Websites/ieducar2/www/module/Core/src/Core/Test/ControllerTestCase.php:65
+</error>
+      </testcase>
+      <testcase name="testJuridicaSaveActionInvalidPostRequest" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="242" assertions="0" time="0.085610">
+        <error type="Doctrine\Common\Annotations\AnnotationException">JuridicaControllerTest::testJuridicaSaveActionInvalidPostRequest
+Doctrine\Common\Annotations\AnnotationException: [Semantical Error] Couldn't find constant type, property Usuario\Entity\Escolaridade::$descricao.
+
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/AnnotationException.php:52
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/AnnotationException.php:68
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:858
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:922
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:903
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:772
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:681
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:576
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:318
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/AnnotationReader.php:198
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/IndexedReader.php:111
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/CachedReader.php:127
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/CachedReader.php:143
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/Driver/AnnotationDriver.php:253
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/Driver/MappingDriverChain.php:103
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/ClassMetadataFactory.php:117
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/AbstractClassMetadataFactory.php:318
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/AbstractClassMetadataFactory.php:211
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/AbstractClassMetadataFactory.php:114
+/Users/eduardojunior/Websites/ieducar2/www/module/Core/src/Core/Test/TestCase.php:102
+/Users/eduardojunior/Websites/ieducar2/www/module/Core/src/Core/Test/TestCase.php:73
+/Users/eduardojunior/Websites/ieducar2/www/module/Core/src/Core/Test/ControllerTestCase.php:65
+</error>
+      </testcase>
+      <testcase name="testJuridicaInvalidDeleteAction" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="272" assertions="0" time="0.089975">
+        <error type="Doctrine\Common\Annotations\AnnotationException">JuridicaControllerTest::testJuridicaInvalidDeleteAction
+Doctrine\Common\Annotations\AnnotationException: [Semantical Error] Couldn't find constant type, property Usuario\Entity\Escolaridade::$descricao.
+
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/AnnotationException.php:52
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/AnnotationException.php:68
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:858
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:922
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:903
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:772
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:681
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:576
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:318
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/AnnotationReader.php:198
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/IndexedReader.php:111
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/CachedReader.php:127
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/CachedReader.php:143
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/Driver/AnnotationDriver.php:253
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/Driver/MappingDriverChain.php:103
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/ClassMetadataFactory.php:117
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/AbstractClassMetadataFactory.php:318
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/AbstractClassMetadataFactory.php:211
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/AbstractClassMetadataFactory.php:114
+/Users/eduardojunior/Websites/ieducar2/www/module/Core/src/Core/Test/TestCase.php:102
+/Users/eduardojunior/Websites/ieducar2/www/module/Core/src/Core/Test/TestCase.php:73
+/Users/eduardojunior/Websites/ieducar2/www/module/Core/src/Core/Test/ControllerTestCase.php:65
+</error>
+      </testcase>
+      <testcase name="testJuridicaDeleteAction" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="289" assertions="0" time="0.085299">
+        <error type="Doctrine\Common\Annotations\AnnotationException">JuridicaControllerTest::testJuridicaDeleteAction
+Doctrine\Common\Annotations\AnnotationException: [Semantical Error] Couldn't find constant type, property Usuario\Entity\Escolaridade::$descricao.
+
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/AnnotationException.php:52
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/AnnotationException.php:68
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:858
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:922
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:903
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:772
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:681
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:576
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:318
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/AnnotationReader.php:198
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/IndexedReader.php:111
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/CachedReader.php:127
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/CachedReader.php:143
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/Driver/AnnotationDriver.php:253
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/Driver/MappingDriverChain.php:103
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/ClassMetadataFactory.php:117
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/AbstractClassMetadataFactory.php:318
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/AbstractClassMetadataFactory.php:211
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/AbstractClassMetadataFactory.php:114
+/Users/eduardojunior/Websites/ieducar2/www/module/Core/src/Core/Test/TestCase.php:102
+/Users/eduardojunior/Websites/ieducar2/www/module/Core/src/Core/Test/TestCase.php:73
+/Users/eduardojunior/Websites/ieducar2/www/module/Core/src/Core/Test/ControllerTestCase.php:65
+</error>
+      </testcase>
+      <testcase name="testJuridicaInvalidIdDeleteAction" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="326" assertions="0" time="0.088022">
+        <error type="Doctrine\Common\Annotations\AnnotationException">JuridicaControllerTest::testJuridicaInvalidIdDeleteAction
+Doctrine\Common\Annotations\AnnotationException: [Semantical Error] Couldn't find constant type, property Usuario\Entity\Escolaridade::$descricao.
+
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/AnnotationException.php:52
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/AnnotationException.php:68
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:858
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:922
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:903
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:772
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:681
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:576
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php:318
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/AnnotationReader.php:198
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/IndexedReader.php:111
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/CachedReader.php:127
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/CachedReader.php:143
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/Driver/AnnotationDriver.php:253
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/Driver/MappingDriverChain.php:103
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/ClassMetadataFactory.php:117
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/AbstractClassMetadataFactory.php:318
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/AbstractClassMetadataFactory.php:211
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/common/lib/Doctrine/Common/Persistence/Mapping/AbstractClassMetadataFactory.php:114
+/Users/eduardojunior/Websites/ieducar2/www/module/Core/src/Core/Test/TestCase.php:102
+/Users/eduardojunior/Websites/ieducar2/www/module/Core/src/Core/Test/TestCase.php:73
+/Users/eduardojunior/Websites/ieducar2/www/module/Core/src/Core/Test/ControllerTestCase.php:65
+</error>
+      </testcase>
     </testsuite>
     <testsuite name="PessoaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/PessoaControllerTest.php" tests="0" assertions="0" failures="0" errors="0" time="0.000000"/>
   </testsuite>

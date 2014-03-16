@@ -323,7 +323,7 @@ class Fisica extends Pessoa
 	protected $pais_estrangeiro;
 
 	/**
-	 * @var Int $escola	Código da Escola, chave estrangeira para o campo idesco na relacao cadastro.escolaridade	 
+	 * @var Int $escola	Código da Escolaridade, chave estrangeira para o campo idesco na relacao cadastro.escolaridade	 
 	 * 
 	 * @todo falta ajustar esse relacionamento
 	 * 	 
