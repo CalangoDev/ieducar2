@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="Usuario Test Suite" tests="5" assertions="26" failures="0" errors="0" time="5.374850">
+  <testsuite name="Usuario Test Suite" tests="9" assertions="38" failures="0" errors="0" time="5.793989">
     <testsuite name="FisicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/FisicaControllerTest.php" tests="0" assertions="0" failures="0" errors="0" time="0.000000"/>
-    <testsuite name="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" tests="5" assertions="26" failures="0" errors="0" time="5.374850">
-      <testcase name="testJuridicaIndexAction" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="29" assertions="5" time="1.272920"/>
-      <testcase name="testJuridicaSaveActionNewRequest" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="81" assertions="15" time="0.496902"/>
-      <testcase name="testJuridicaInvalidDeleteAction" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="135" assertions="2" time="2.400649"/>
-      <testcase name="testJuridicaDeleteAction" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="152" assertions="2" time="0.558886"/>
-      <testcase name="testJuridicaInvalidIdDeleteAction" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="189" assertions="2" time="0.645493"/>
+    <testsuite name="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" tests="9" assertions="38" failures="0" errors="0" time="5.793989">
+      <testcase name="testJuridicaIndexAction" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="29" assertions="5" time="0.705836"/>
+      <testcase name="testJuridicaSaveActionNewRequest" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="81" assertions="15" time="0.548292"/>
+      <testcase name="testJuridicaSaveActionUpdateFormRequest" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="133" assertions="6" time="0.564942"/>
+      <testcase name="testJuridicaSaveActionPostRequest" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="176" assertions="2" time="0.920511"/>
+      <testcase name="testJuridicaUpdateAction" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="202" assertions="2" time="0.639679"/>
+      <testcase name="testJuridicaSaveActionInvalidPostRequest" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="242" assertions="2" time="0.525008"/>
+      <testcase name="testJuridicaInvalidDeleteAction" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="272" assertions="2" time="0.575774"/>
+      <testcase name="testJuridicaDeleteAction" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="289" assertions="2" time="0.738012"/>
+      <testcase name="testJuridicaInvalidIdDeleteAction" class="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" line="326" assertions="2" time="0.575935"/>
     </testsuite>
     <testsuite name="PessoaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/PessoaControllerTest.php" tests="0" assertions="0" failures="0" errors="0" time="0.000000"/>
   </testsuite>

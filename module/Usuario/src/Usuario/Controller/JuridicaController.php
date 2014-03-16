@@ -86,7 +86,7 @@ class JuridicaController extends ActionController
 			$juridica->removeInputFilter('idsis_cad');
 
 			$form->setData($request->getPost());			
-			if ($form->isValid()){								
+			if ($form->isValid()){												
 				/**
 				 * Persistindo os dados
 				 */
@@ -94,7 +94,7 @@ class JuridicaController extends ActionController
 				$this->getEntityManager()->flush();
 				$this->flashMessenger()->addSuccessMessage('Pessoa Salva');
 				/**
-				 * Redirecionando para lista de pessoas fisicas
+				 * Redirecionando para lista de pessoas juridica
 				 */
 				return $this->redirect()->toUrl('/usuario/juridica');
 			}
