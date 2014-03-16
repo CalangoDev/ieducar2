@@ -133,7 +133,7 @@ class Juridica extends Pessoa implements EventSubscriber
 	 */
 	public function checkTipo()
 	{		
-		if(($this->getTipo() != "J") && ($this->getTipo() != "P"))
+		if(($this->getTipo() != "J") && ($this->getTipo() != "P") && ($this->getTipo() != ""))
 			throw new EntityException("O Identificador " . $this->getId() . " já está cadastrado como Pessoa Física: " . $this->getTipo(), 1);
 	}
 

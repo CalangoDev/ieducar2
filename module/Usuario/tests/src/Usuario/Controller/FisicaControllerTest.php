@@ -13,7 +13,7 @@ class FisicaControllerTest extends ControllerTestCase
 {
 	/**
 	 * Namespace completa do Controller
-	 * @var string PessoaController
+	 * @var string FisicaController
 	 */
 	protected $controllerFQDN = 'Usuario\Controller\FisicaController';
 
