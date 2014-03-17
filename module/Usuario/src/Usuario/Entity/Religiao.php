@@ -37,4 +37,25 @@ class Religiao extends Entity
 	 * @SequenceGenerator(sequenceName="cadastro.seq_escolaridade", initialValue=1, allocationSize=1)
 	 */
 	protected $id;
+
+	/**
+	 * @var string $nm_religiao Nome da religiao
+	 * 
+	 * @ORM\Column(type="string", length=50, nullable=false)	 
+	 */
+	protected $nm_religiao;
+
+	/**
+	 * @var datetime  $data_cadastro	Data de Cadastro
+	 * 
+	 * @ORM\Column(type="datetime", nullable=false)
+	 */
+	protected $data_cadastro;
+
+	// idpes_exc integer,
+ 	//  	idpes_cad integer NOT NULL,
+	//  	nm_religiao character varying(50) NOT NULL,
+	//  	data_cadastro timestamp without time zone NOT NULL,
+	//  	data_exclusao timestamp without time zone,
+	//  	ativo boolean DEFAULT false,
 }
