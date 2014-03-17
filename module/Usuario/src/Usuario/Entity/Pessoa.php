@@ -314,9 +314,11 @@ class Pessoa extends Entity implements EventSubscriber
             //die('Removendo entidade ' . get_class($entity) . $add . '.');            
 	    	//    $data = $entity->data_cad;
 	    	// $data_formatada = $data->format('Y-m-d H:i:s');
-	    	// $entity->data_cad = $data_formatada;
-	    	$this->usuario = $entity;    	
-	    	$this->oldId = $entity->id; 	    	
+	    	// $entity->data_cad = $data_formatada;	    	
+	    	if ( get_class($entity) == 'Usuario\Entity\Pessoa' ){
+	    		$this->usuario = $entity;    	
+	    		$this->oldId = $entity->id;	
+	    	}	    	
         }         
 	}
 
