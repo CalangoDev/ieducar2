@@ -52,6 +52,20 @@ class Religiao extends Entity
 	 */
 	protected $data_cadastro;
 
+	/**
+	 * @var datetime $data_exclusao	Data de Exclusão
+	 * 
+	 * @ORM\Column(type="datetime", nullable=true)
+	 */
+	protected $data_exclusao;
+
+	/**
+	 * @var boolean $ativo
+	 * 
+	 * @ORM\Column(type="boolean")
+	 */
+	protected $ativo;
+
 	// idpes_exc integer,
  	//  	idpes_cad integer NOT NULL,
 	//  	nm_religiao character varying(50) NOT NULL,
