@@ -78,7 +78,8 @@ return array(
             'Usuario\Controller\Index' => 'Usuario\Controller\IndexController',
             'Usuario\Controller\Pessoa' => 'Usuario\Controller\PessoaController',
             'Usuario\Controller\Fisica' => 'Usuario\Controller\FisicaController',
-            'Usuario\Controller\Juridica' => 'Usuario\Controller\JuridicaController'
+            'Usuario\Controller\Juridica' => 'Usuario\Controller\JuridicaController',
+            'Usuario\Controller\Escolaridade' => 'Usuario\Controller\EscolaridadeController',
         ),
     ),
     'view_manager' => array(

@@ -116,6 +116,5 @@ class EscolaridadeTest extends EntityTestCase
 
 		return $escolaridade;
 	}
-
-
+	
 }

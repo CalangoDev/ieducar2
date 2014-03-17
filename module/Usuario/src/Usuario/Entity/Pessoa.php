@@ -329,20 +329,25 @@ class Pessoa extends Entity implements EventSubscriber
 		 * para Salvar na tabela historico no metodo postFlush()
 		 */		
 		$entity = $args->getEntity();
-		$this->usuario = $entity;
-		$this->oldId = $entity->id;
+		if ((get_class($entity) == 'Usuario\Entity\Pessoa') || (get_class($entity) == 'Usuario\Entity\Fisica') 
+			|| (get_class($entity) == 'Usuario\Entity\Juridica')){
 
-		($args->hasChangedField('nome')) ? $this->usuario->nome = $args->getOldValue('nome') : null;		
-		($args->hasChangedField('url')) ? $this->usuario->url = $args->getOldValue('url') : null;
-		($args->hasChangedField('tipo')) ? $this->usuario->tipo = $args->getOldValue('tipo') : null;
-		($args->hasChangedField('email')) ? $this->usuario->email = $args->getOldValue('email') : null;
-		($args->hasChangedField('situacao')) ? $this->usuario->situacao = $args->getOldValue('situacao') : null;
-		($args->hasChangedField('origem_gravacao')) ? $this->usuario->origem_gravacao = $args->getOldValue('origem_gravacao') : null;
-		($args->hasChangedField('operacao')) ? $this->usuario->operacao = $args->getOldValue('operacao') : null;
-		($args->hasChangedField('idsis_cad')) ? $this->usuario->idsis_cad = $args->getOldValue('idsis_cad') : null;
-		($args->hasChangedField('idsis_rev')) ? $this->usuario->idsis_rev = $args->getOldValue('idsis_rev') : null;
-		($args->hasChangedField('pessoa_cad')) ? $this->usuario->pessoa_cad = $args->getOldValue('pessoa_cad') : null;
-		($args->hasChangedField('pessoa_rev')) ? $this->usuario->pessoa_rev = $args->getOldValue('pessoa_rev') : null;
+			$this->usuario = $entity;
+			$this->oldId = $entity->id;
+
+			($args->hasChangedField('nome')) ? $this->usuario->nome = $args->getOldValue('nome') : null;		
+			($args->hasChangedField('url')) ? $this->usuario->url = $args->getOldValue('url') : null;
+			($args->hasChangedField('tipo')) ? $this->usuario->tipo = $args->getOldValue('tipo') : null;
+			($args->hasChangedField('email')) ? $this->usuario->email = $args->getOldValue('email') : null;
+			($args->hasChangedField('situacao')) ? $this->usuario->situacao = $args->getOldValue('situacao') : null;
+			($args->hasChangedField('origem_gravacao')) ? $this->usuario->origem_gravacao = $args->getOldValue('origem_gravacao') : null;
+			($args->hasChangedField('operacao')) ? $this->usuario->operacao = $args->getOldValue('operacao') : null;
+			($args->hasChangedField('idsis_cad')) ? $this->usuario->idsis_cad = $args->getOldValue('idsis_cad') : null;
+			($args->hasChangedField('idsis_rev')) ? $this->usuario->idsis_rev = $args->getOldValue('idsis_rev') : null;
+			($args->hasChangedField('pessoa_cad')) ? $this->usuario->pessoa_cad = $args->getOldValue('pessoa_cad') : null;
+			($args->hasChangedField('pessoa_rev')) ? $this->usuario->pessoa_rev = $args->getOldValue('pessoa_rev') : null;
+
+		}
 		/**
 		 * Se for uma entidade do tipo fisica
 		 * verifica os campos alterados do update
