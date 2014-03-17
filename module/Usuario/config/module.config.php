@@ -80,6 +80,7 @@ return array(
             'Usuario\Controller\Fisica' => 'Usuario\Controller\FisicaController',
             'Usuario\Controller\Juridica' => 'Usuario\Controller\JuridicaController',
             'Usuario\Controller\Escolaridade' => 'Usuario\Controller\EscolaridadeController',
+            'Usuario\Controller\EstadoCivil' => 'Usuario\Controller\EstadoCivilController',
         ),
     ),
     'view_manager' => array(
