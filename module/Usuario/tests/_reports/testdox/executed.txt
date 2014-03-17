@@ -1,11 +1,11 @@
-EscolaridadeController
- [x] Escolaridade index action
- [x] Escolaridade save action new request
- [x] Escolaridade save action update form request
- [x] Escolaridade save action post request
- [x] Escolaridade update action
- [x] Escolaridade save action invalid post request
- [x] Escolaridade invalid delete action
- [x] Escolaridade delete action
- [x] Escolaridade invalid id delete action
+EstadoCivilController
+ [x] Estado civil index action
+ [x] Estado civil save action new request
+ [x] Estado civil save action update form request
+ [x] Estado civil save action post request
+ [x] Estado civil update action
+ [x] Estado civil save action invalid post request
+ [x] Estado civil invalid delete action
+ [x] Estado civil delete action
+ [x] Estado civil invalid id delete action
 
