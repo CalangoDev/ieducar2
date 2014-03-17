@@ -1,11 +1,11 @@
-EstadoCivilController
- [x] Estado civil index action
- [x] Estado civil save action new request
- [x] Estado civil save action update form request
- [x] Estado civil save action post request
- [x] Estado civil update action
- [x] Estado civil save action invalid post request
- [x] Estado civil invalid delete action
- [x] Estado civil delete action
- [x] Estado civil invalid id delete action
+OcupacaoController
+ [x] Ocupacao index action
+ [x] Ocupacao save action new request
+ [x] Ocupacao save action update form request
+ [x] Ocupacao save action post request
+ [x] Ocupacao update action
+ [x] Ocupacao save action invalid post request
+ [x] Ocupacao invalid delete action
+ [x] Ocupacao delete action
+ [x] Ocupacao invalid id delete action
 

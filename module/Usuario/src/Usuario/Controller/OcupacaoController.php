@@ -3,19 +3,19 @@ namespace Usuario\Controller;
 
 use Zend\View\Model\ViewModel;
 use Core\Controller\ActionController;
-use Usuario\Entity\EstadoCivil;
-use Usuario\Form\EstadoCivil as EstadoCivilForm;
+use Usuario\Entity\Ocupacao;
+use Usuario\Form\Ocupacao as OcupacaoForm;
 use DoctrineORMModule\Stdlib\Hydrator\DoctrineEntity;
 use Doctrine\ORM\EntityManager;
 
 /**
- * Controlador que gerencia o estado civil
+ * Controlador que gerencia a ocupacao
  * 
  * @category Usuario
  * @package Controller
  * @author Eduardo Junior <ej@eduardojunior.com>
  */
-class EstadoCivilController extends ActionController
+class OcupacaoController extends ActionController
 {
 	/**
 	 * @var Doctrine\ORM\EntityManager
@@ -36,12 +36,12 @@ class EstadoCivilController extends ActionController
 	}
 
 	/**
-	 * Mostra os estados civis cadastrados
+	 * Mostra as ocupacoes
 	 * @return void 
 	 */
 	public function indexAction()
 	{
-		$dados = $this->getEntityManager()->getRepository('Usuario\Entity\EstadoCivil')->findAll();
+		$dados = $this->getEntityManager()->getRepository('Usuario\Entity\Ocupacao')->findAll();
 				
 		return new ViewModel(array(
 			'dados' => $dados
@@ -50,38 +50,38 @@ class EstadoCivilController extends ActionController
 
 	public function saveAction()
 	{
-		$ec = new EstadoCivil;
-		$form = new EstadoCivilForm();
+		$ocupacao = new Ocupacao;
+		$form = new OcupacaoForm();
 		$request = $this->getRequest();
 
 		$id = (int) $this->getEvent()->getRouteMatch()->getParam('id');
 		if ($id > 0){
-			$ec = $this->getEntityManager()->find('Usuario\Entity\EstadoCivil', $id);
+			$ocupacao = $this->getEntityManager()->find('Usuario\Entity\Ocupacao', $id);
 			$form->get('submit')->setAttribute('value', 'Edit');
 		}
-		$form->setHydrator(new DoctrineEntity($this->getEntityManager(), 'Usuario\Entity\EstadoCivil'));
-		$form->bind($ec);
+		$form->setHydrator(new DoctrineEntity($this->getEntityManager(), 'Usuario\Entity\Ocupacao'));
+		$form->bind($ocupacao);
 
 		if ($request->isPost()){
 
-			$form->setInputFilter($ec->getInputFilter());			
+			$form->setInputFilter($ocupacao->getInputFilter());	
 			$form->setData($request->getPost());			
 			if ($form->isValid()){								
 				/**
 				 * Persistindo os dados
 				 */
-				$this->getEntityManager()->persist($ec);
+				$this->getEntityManager()->persist($ocupacao);
 				$this->getEntityManager()->flush();
-				$this->flashMessenger()->addSuccessMessage('Novo Estado Cívil Salvo');
+				$this->flashMessenger()->addSuccessMessage('Nova Ocupação Salva');
 				/**
-				 * Redirecionando para lista de estados civis
+				 * Redirecionando para lista de ocupacoes
 				 */
-				return $this->redirect()->toUrl('/usuario/estadocivil');
+				return $this->redirect()->toUrl('/usuario/ocupacao');
 			}
 		}
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if ($id >0){
-			$ec = $this->getEntityManager()->find('Usuario\Entity\EstadoCivil', $id);
+			$ocupacao = $this->getEntityManager()->find('Usuario\Entity\Ocupacao', $id);
 			$form->get('submit')->setAttribute('value', 'Edit');
 		}
 
@@ -101,14 +101,14 @@ class EstadoCivilController extends ActionController
 			throw new \Exception("Código Obrigatório");
 
 		try{		
-			$ec = $this->getEntityManager()->find('Usuario\Entity\EstadoCivil', $id);
-			$this->getEntityManager()->remove($ec);
+			$ocupacao = $this->getEntityManager()->find('Usuario\Entity\Ocupacao', $id);
+			$this->getEntityManager()->remove($ocupacao);
 			$this->getEntityManager()->flush();			
 		} catch(\Exception $e){
 			throw new \Exception("Registro não encontrado");			
 		}
 		
-		return $this->redirect()->toUrl('/usuario/estadocivil');
+		return $this->redirect()->toUrl('/usuario/ocupacao');
 	}
 
 }
