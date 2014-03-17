@@ -1,11 +1,8 @@
-JuridicaController
- [ ] Juridica index action
- [ ] Juridica save action new request
- [ ] Juridica save action update form request
- [ ] Juridica save action post request
- [ ] Juridica update action
- [ ] Juridica save action invalid post request
- [ ] Juridica invalid delete action
- [ ] Juridica delete action
- [ ] Juridica invalid id delete action
+Usuario\Entity\Escolaridade
+ [x] Get input filter
+ [x] Input filter valid
+ [x] Insert
+ [x] Input filter invalid descricao
+ [x] Update
+ [x] Delete
 
