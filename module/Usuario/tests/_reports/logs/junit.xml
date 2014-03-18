@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="Usuario Test Suite" tests="9" assertions="30" failures="0" errors="0" time="5.611709">
+  <testsuite name="Usuario Test Suite" tests="9" assertions="30" failures="0" errors="0" time="4.868000">
     <testsuite name="EscolaridadeControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/EscolaridadeControllerTest.php" tests="0" assertions="0" failures="0" errors="0" time="0.000000"/>
     <testsuite name="EstadoCivilControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/EstadoCivilControllerTest.php" tests="0" assertions="0" failures="0" errors="0" time="0.000000"/>
     <testsuite name="FisicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/FisicaControllerTest.php" tests="0" assertions="0" failures="0" errors="0" time="0.000000"/>
     <testsuite name="JuridicaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/JuridicaControllerTest.php" tests="0" assertions="0" failures="0" errors="0" time="0.000000"/>
-    <testsuite name="OcupacaoControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/OcupacaoControllerTest.php" tests="9" assertions="30" failures="0" errors="0" time="5.611709">
-      <testcase name="testOcupacaoIndexAction" class="OcupacaoControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/OcupacaoControllerTest.php" line="29" assertions="5" time="1.039052"/>
-      <testcase name="testOcupacaoSaveActionNewRequest" class="OcupacaoControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/OcupacaoControllerTest.php" line="68" assertions="7" time="0.577800"/>
-      <testcase name="testOcupacaoSaveActionUpdateFormRequest" class="OcupacaoControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/OcupacaoControllerTest.php" line="101" assertions="6" time="0.559598"/>
-      <testcase name="testOcupacaoSaveActionPostRequest" class="OcupacaoControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/OcupacaoControllerTest.php" line="138" assertions="2" time="0.512013"/>
-      <testcase name="testOcupacaoUpdateAction" class="OcupacaoControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/OcupacaoControllerTest.php" line="161" assertions="2" time="0.631399"/>
-      <testcase name="testOcupacaoSaveActionInvalidPostRequest" class="OcupacaoControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/OcupacaoControllerTest.php" line="193" assertions="2" time="0.556108"/>
-      <testcase name="testOcupacaoInvalidDeleteAction" class="OcupacaoControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/OcupacaoControllerTest.php" line="226" assertions="2" time="0.561971"/>
-      <testcase name="testOcupacaoDeleteAction" class="OcupacaoControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/OcupacaoControllerTest.php" line="243" assertions="2" time="0.582843"/>
-      <testcase name="testOcupacaoInvalidIdDeleteAction" class="OcupacaoControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/OcupacaoControllerTest.php" line="274" assertions="2" time="0.590925"/>
-    </testsuite>
+    <testsuite name="OcupacaoControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/OcupacaoControllerTest.php" tests="0" assertions="0" failures="0" errors="0" time="0.000000"/>
     <testsuite name="PessoaControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/PessoaControllerTest.php" tests="0" assertions="0" failures="0" errors="0" time="0.000000"/>
+    <testsuite name="ReligiaoControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/ReligiaoControllerTest.php" tests="9" assertions="30" failures="0" errors="0" time="4.868000">
+      <testcase name="testReligiaoIndexAction" class="ReligiaoControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/ReligiaoControllerTest.php" line="29" assertions="5" time="0.629108"/>
+      <testcase name="testReligiaoSaveActionNewRequest" class="ReligiaoControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/ReligiaoControllerTest.php" line="68" assertions="7" time="0.502879"/>
+      <testcase name="testReligiaoSaveActionUpdateFormRequest" class="ReligiaoControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/ReligiaoControllerTest.php" line="105" assertions="6" time="0.529443"/>
+      <testcase name="testReligiaoSaveActionPostRequest" class="ReligiaoControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/ReligiaoControllerTest.php" line="142" assertions="2" time="0.567185"/>
+      <testcase name="testReligiaoUpdateAction" class="ReligiaoControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/ReligiaoControllerTest.php" line="166" assertions="2" time="0.521180"/>
+      <testcase name="testEscolaridadeSaveActionInvalidPostRequest" class="ReligiaoControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/ReligiaoControllerTest.php" line="198" assertions="2" time="0.504810"/>
+      <testcase name="testReligiaoInvalidDeleteAction" class="ReligiaoControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/ReligiaoControllerTest.php" line="231" assertions="2" time="0.511782"/>
+      <testcase name="testReligiaoDeleteAction" class="ReligiaoControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/ReligiaoControllerTest.php" line="248" assertions="2" time="0.516530"/>
+      <testcase name="testReligiaoInvalidIdDeleteAction" class="ReligiaoControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/ReligiaoControllerTest.php" line="279" assertions="2" time="0.585083"/>
+    </testsuite>
   </testsuite>
 </testsuites>

@@ -81,6 +81,7 @@ return array(
             'Usuario\Controller\Juridica' => 'Usuario\Controller\JuridicaController',
             'Usuario\Controller\Escolaridade' => 'Usuario\Controller\EscolaridadeController',
             'Usuario\Controller\EstadoCivil' => 'Usuario\Controller\EstadoCivilController',
+            'Usuario\Controller\Religiao' => 'Usuario\Controller\ReligiaoController',
         ),
     ),
     'view_manager' => array(
