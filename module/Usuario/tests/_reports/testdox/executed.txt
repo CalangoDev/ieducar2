@@ -1,11 +1,11 @@
-OcupacaoController
- [x] Ocupacao index action
- [x] Ocupacao save action new request
- [x] Ocupacao save action update form request
- [x] Ocupacao save action post request
- [x] Ocupacao update action
- [x] Ocupacao save action invalid post request
- [x] Ocupacao invalid delete action
- [x] Ocupacao delete action
- [x] Ocupacao invalid id delete action
+ReligiaoController
+ [x] Religiao index action
+ [x] Religiao save action new request
+ [x] Religiao save action update form request
+ [x] Religiao save action post request
+ [x] Religiao update action
+ [x] Escolaridade save action invalid post request
+ [x] Religiao invalid delete action
+ [x] Religiao delete action
+ [x] Religiao invalid id delete action
 

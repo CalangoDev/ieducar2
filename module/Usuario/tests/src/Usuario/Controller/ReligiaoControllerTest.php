@@ -1,7 +1,7 @@
 <?php
 use Core\Test\ControllerTestCase;
-use Usuario\Controller\EscolaridadeController;
-use Usuario\Entity\Escolaridade;
+use Usuario\Controller\ReligiaoController;
+use Usuario\Entity\Religiao;
 use Zend\Http\Request;
 use Zend\Stdlib\Parameters;
 use Zend\View\Renderer\PhpRenderer;
@@ -9,13 +9,13 @@ use Zend\View\Renderer\PhpRenderer;
 /**
  * @group  Controller
  */
-class EscolaridadeControllerTest extends ControllerTestCase
+class ReligiaoControllerTest extends ControllerTestCase
 {
 	/**
 	 * Namespace completa do Controller
-	 * @var string EscolaridadeController
+	 * @var string ReligiaoController
 	 */
-	protected $controllerFQDN = 'Usuario\Controller\EscolaridadeController';
+	protected $controllerFQDN = 'Usuario\Controller\ReligiaoController';
 
 	/**
 	 * Nome da rota. geralmente o nome do modulo
@@ -24,17 +24,17 @@ class EscolaridadeControllerTest extends ControllerTestCase
 	protected $controllerRoute = 'usuario';
 
 	/**
-	 * Testa a pagina inicial que deve mostrar as escolaridades cadastradas
+	 * Testa a pagina inicial que deve mostrar as religioes cadastradas
 	 */
-	public function testEscolaridadeIndexAction()
+	public function testReligiaoIndexAction()
 	{
-		$escoA = $this->buildEscolaridade();
-		$escoB = $this->buildEscolaridade();
-		$escoB->setDescricao('NÍVEL V');
+		$religiaoA = $this->buildReligiao();
+		$religiaoB = $this->buildReligiao();
+		$religiaoB->setNome('Católica');
 		
 		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-		$em->persist($escoA);
-		$em->persist($escoB);
+		$em->persist($religiaoA);
+		$em->persist($religiaoB);
 		$em->flush();
 
 		//	Invoca a rota index
@@ -57,15 +57,15 @@ class EscolaridadeControllerTest extends ControllerTestCase
 
 		//	Faz a comparacao dos dados
 		$controllerData = $variables['dados'];
-		$this->assertEquals($escoA->getDescricao(), $controllerData[0]->getDescricao());
-		$this->assertEquals($escoB->getDescricao(), $controllerData[1]->getDescricao());
+		$this->assertEquals($religiaoA->getNome(), $controllerData[0]->getNome());
+		$this->assertEquals($religiaoB->getNome(), $controllerData[1]->getNome());
 	}
 
 	/**
 	 * Teta a tela de inclusao de um novo registro
 	 * @return void 
 	 */
-	public function testEscolaridadeSaveActionNewRequest()
+	public function testReligiaoSaveActionNewRequest()
 	{
 		//	Dispara a acao
 		$this->routeMatch->setParam('action', 'save');
@@ -90,24 +90,28 @@ class EscolaridadeControllerTest extends ControllerTestCase
 		$this->assertEquals('id', $id->getName());
 		$this->assertEquals('hidden', $id->getAttribute('type'));
 
-		$descricao = $form->get('descricao');
-		$this->assertEquals('descricao', $descricao->getName());
-		$this->assertEquals('text', $descricao->getAttribute('type'));
+		$nome = $form->get('nome');
+		$this->assertEquals('nome', $nome->getName());
+		$this->assertEquals('text', $nome->getAttribute('type'));
+
+		// $ativo = $form->get('ativo');
+		// $this->assertEquals('ativo', $ativo->getName());var_dump($ativo);
+		// $this->assertEquals('select', $ativo->getAttribute('type'));
 	}
 
 	/**
 	 * Testa a tela de alteracao de um registro
 	 */
-	public function testEscolaridadeSaveActionUpdateFormRequest()
+	public function testReligiaoSaveActionUpdateFormRequest()
 	{
-		$escolaridade = $this->buildEscolaridade();
+		$religiao = $this->buildReligiao();
 		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-		$em->persist($escolaridade);
+		$em->persist($religiao);
 		$em->flush();
 
 		//	Dispara a acao
 		$this->routeMatch->setParam('action', 'save');
-		$this->routeMatch->setParam('id', $escolaridade->getId());
+		$this->routeMatch->setParam('id', $religiao->getId());
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
 		);
@@ -126,23 +130,24 @@ class EscolaridadeControllerTest extends ControllerTestCase
 
 		//	Testa os itens do formulario
 		$id = $form->get('id');
-		$descricao = $form->get('descricao');
+		$nome = $form->get('nome');
 		$this->assertEquals('id', $id->getName());
-		$this->assertEquals($escolaridade->getId(), $id->getValue());
-		$this->assertEquals($escolaridade->getDescricao(), $descricao->getValue());
+		$this->assertEquals($religiao->getId(), $id->getValue()); 
+		$this->assertEquals($religiao->getNome(), $nome->getValue());
 	}
 
 	/**
-	 * Testa a inclusao de uma nova escolaridade
+	 * Testa a inclusao de uma nova religiao
 	 */
-	public function testEscolaridadeSaveActionPostRequest()
+	public function testReligiaoSaveActionPostRequest()
 	{
 		//	Dispara a acao
 		$this->routeMatch->setParam('action', 'save');
 
 		$this->request->setMethod('post');
 		$this->request->getPost()->set('id', '');
-		$this->request->getPost()->set('descricao', 'NÍVEL III');
+		$this->request->getPost()->set('nome', 'Protestante');
+		$this->request->getPost()->set('ativo', true);
 
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
@@ -152,26 +157,26 @@ class EscolaridadeControllerTest extends ControllerTestCase
 		//	a pagina redireciona, estao o status = 302
 		$this->assertEquals(302, $response->getStatusCode());
 		$headers = $response->getHeaders();
-		$this->assertEquals('Location: /usuario/escolaridade', $headers->get('Location'));
+		$this->assertEquals('Location: /usuario/religiao', $headers->get('Location'));
 	}
 
 	/**
-	 * Testa o update de uma escolaridade
+	 * Testa o update de uma religiao
 	 */
-	public function testEscolaridadeUpdateAction()
+	public function testReligiaoUpdateAction()
 	{
-		$escolaridade = $this->buildEscolaridade();		
+		$religiao = $this->buildReligiao();		
 		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-		$em->persist($escolaridade);
+		$em->persist($religiao);
     	$em->flush();
 				
 		//	Dispara a acao
 		$this->routeMatch->setParam('action', 'save');
-		$this->routeMatch->setParam('id', $escolaridade->getId());
+		$this->routeMatch->setParam('id', $religiao->getId());
 
 		$this->request->setMethod('post');
-		$this->request->getPost()->set('id', $escolaridade->getId());
-		$this->request->getPost()->set('descricao', 'NÍVEL V');
+		$this->request->getPost()->set('id', $religiao->getId());
+		$this->request->getPost()->set('nome', 'Católica');
 
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
@@ -183,7 +188,7 @@ class EscolaridadeControllerTest extends ControllerTestCase
 		$headers = $response->getHeaders();
 
 		$this->assertEquals(
-			'Location: /usuario/escolaridade', $headers->get('Location')
+			'Location: /usuario/religiao', $headers->get('Location')
 		);
 	}
 
@@ -196,7 +201,7 @@ class EscolaridadeControllerTest extends ControllerTestCase
 		$this->routeMatch->setParam('action', 'save');
 
 		$this->request->setMethod('post');
-		$this->request->getPost()->set('descricao', 'Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá,
+		$this->request->getPost()->set('nome', 'Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá,
 		depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum
 		girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i 
 		pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.');
@@ -211,19 +216,19 @@ class EscolaridadeControllerTest extends ControllerTestCase
 		$form = $variables['form'];
 
 		//	testa os erros do formulario
-		$descricao = $form->get('descricao');
-		$descricaoErrors = $descricao->getMessages();		
+		$nome = $form->get('nome');
+		$nomeErrors = $nome->getMessages();		
 		$this->assertEquals(
-			"The input is more than 60 characters long", $descricaoErrors['stringLengthTooLong']
+			"The input is more than 50 characters long", $nomeErrors['stringLengthTooLong']
 		);
 	}
 
 	/**
-	 * Testa a exclusao sem passar o id da pessoa
+	 * Testa a exclusao sem passar o id da religiao
 	 * @expectedException Exception
 	 * @expectedExceptionMessage Código Obrigatório
 	 */
-	public function testEscolaridadeInvalidDeleteAction()
+	public function testReligiaoInvalidDeleteAction()
 	{
 		//	Dispara a acao
 		$this->routeMatch->setParam('action', 'delete');
@@ -238,18 +243,18 @@ class EscolaridadeControllerTest extends ControllerTestCase
 
 
 	/**
-	 * Testa a exclusao de uma escolaridade
+	 * Testa a exclusao de uma religiao
 	 */
-	public function testEscolaridadeDeleteAction()
+	public function testReligiaoDeleteAction()
 	{
-		$escolaridade = $this->buildEscolaridade();
+		$religiao = $this->buildReligiao();
 		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-		$em->persist($escolaridade);
+		$em->persist($religiao);
     	$em->flush();		
 		
 		//	Dispara a acao
 		$this->routeMatch->setParam('action', 'delete');
-		$this->routeMatch->setParam('id', $escolaridade->getId());
+		$this->routeMatch->setParam('id', $religiao->getId());
 
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
@@ -262,7 +267,7 @@ class EscolaridadeControllerTest extends ControllerTestCase
 		$this->assertEquals(302, $response->getStatusCode());
 		$headers = $response->getHeaders();
 		$this->assertEquals(
-			'Location: /usuario/escolaridade', $headers->get('Location')
+			'Location: /usuario/religiao', $headers->get('Location')
 		);
 	}
 
@@ -271,11 +276,11 @@ class EscolaridadeControllerTest extends ControllerTestCase
 	 * @expectedException Exception
 	 * @expectedExceptionMessage Registro não encontrado
 	 */
-	public function testEscolaridadeInvalidIdDeleteAction()
+	public function testReligiaoInvalidIdDeleteAction()
 	{
-		$escolaridade = $this->buildEscolaridade();
+		$religiao = $this->buildReligiao();
 		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-		$em->persist($escolaridade);
+		$em->persist($religiao);
     	$em->flush();		
 		
 		//	Dispara a acao
@@ -293,16 +298,18 @@ class EscolaridadeControllerTest extends ControllerTestCase
 		$this->assertEquals(302, $response->getStatusCode());
 		$headers = $response->getHeaders();
 		$this->assertEquals(
-			'Location: /usuario/escolaridade', $headers->get('Location')
+			'Location: /usuario/religiao', $headers->get('Location')
 		);	
 	}
 
-	private function buildEscolaridade()
+	private function buildReligiao()
 	{
-		$escolaridade = new Escolaridade;
-		$escolaridade->setDescricao('Fundamental Incompleto');
+		$religiao = new Religiao;
+		$religiao->setNome('Protestante');			
+		$religiao->setDataCadastro(new \DateTime);		
+		$religiao->setAtivo(true);	
 
-		return $escolaridade;
+		return $religiao;
 	}
 
 }
