@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="Portal Test Suite" tests="1" assertions="1" failures="1" errors="0" time="1.192627">
+    <testsuite name="Portal\Entity\FuncionarioTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Entity/FuncionarioTest.php" namespace="Portal\Entity" fullPackage="Portal.Entity" tests="1" assertions="1" failures="1" errors="0" time="1.192627">
+      <testcase name="testGetInputFilter" class="Portal\Entity\FuncionarioTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Entity/FuncionarioTest.php" line="21" assertions="1" time="1.192627">
+        <failure type="PHPUnit_Framework_ExpectationFailedException">Portal\Entity\FuncionarioTest::testGetInputFilter
+Failed asserting that null is an instance of class "Zend\InputFilter\InputFilter".
+
+/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Entity/FuncionarioTest.php:25
+</failure>
+      </testcase>
+    </testsuite>
+  </testsuite>
+</testsuites>
