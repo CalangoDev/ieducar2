@@ -1,0 +1,8 @@
+Portal\Entity\Funcionario
+ [x] Get input filter
+ [x] Input filter valid
+ [x] Insert
+ [x] Input filter invalid matricula
+ [x] Update
+ [x] Delete
+

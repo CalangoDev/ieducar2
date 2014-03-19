@@ -6,7 +6,9 @@ return array(
         'DoctrineORMModule',
         'Usuario',
         'Historico',
-        'Application',  
+        'Application',
+        'Portal',
+        'Drh',
         'Core'      
     ),    
     'module_listener_options' => array(

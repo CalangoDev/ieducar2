@@ -1,0 +1,3 @@
+Portal\Entity\Funcionario
+ [ ] Get input filter
+
