@@ -100,6 +100,7 @@ class Funcionario extends Entity
 	 * tem outra coluna chamada ref_cod_setor_new que é chave estrangeira para a tabela cod_setor
 	 * do schema pmidrh
 	 * 
+	 * @deprecated 2.0 Campo redudante com $ref_cod_setor_new onde a versão antiga armazena o codigo do setor do usuario
 	 * @ORM\Column(type="integer", nullable=true)
 	 */
 	protected $ref_cod_setor;
@@ -107,7 +108,14 @@ class Funcionario extends Entity
 	/**
 	 * @var integer $ref_cod_funcionario_vinculo 
 	 * 
-	 * @todo verificar de onde vem essa informacao 
+	 * Tipos de vinculos de emprego
+	 * 
+	 * Esta associado assim na antiga versão, numeros definidos na aplicação
+	 * 
+	 * 5 - Comissionado,
+	 * 4 - Contratado,
+	 * 3 - Efetivo,
+	 * 6 - Estágiario 
 	 * 
 	 * @ORM\Column(type="integer", nullable=true)
 	 */
@@ -174,8 +182,7 @@ class Funcionario extends Entity
 	/**
 	 * @var bigint $matricula_new
 	 * 
-	 * @todo  coluna redundante, ja existe uma chamada matricula e é a que esta sendo utilizada pelo o 
-	 * antigo sistema, esse campo poderá ser depreciado ou removido do sistema
+	 * @deprecated 2.0 Campo nao utilizado no sistema antigo e redudante por ja existe um campo chamado matricula
 	 * 
 	 * @ORM\Column(type="bigint", nullable=true)
 	 */
@@ -214,8 +221,7 @@ class Funcionario extends Entity
 	/**
 	 * @var string $email
 	 * 
-	 * @todo informacao redudante na entitade pessoa ja tem uma coluna para email
-	 * verificar depois em qual dessas entidades vai ficar essa informacao
+	 * @deprecated 2.0 Na Entidade Pessoa já existe essa informação. redundância de dados
 	 * 
 	 * @ORM\Column(type="string", length=50, nullable=true)
 	 */
@@ -224,7 +230,7 @@ class Funcionario extends Entity
 	/**
 	 * @var string $status_token 
 	 * 
-	 * @todo verificar para que serve essa coluna
+	 * @deprecated 2.0 Coluna não utilizada no antigo sistema, não encontrei nenhuam referência a esse campo
 	 * 
 	 * @ORM\Column(type="string", length=50, nullable=true)
 	 */

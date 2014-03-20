@@ -1,8 +1,4 @@
-Portal\Entity\Funcionario
- [x] Get input filter
- [x] Input filter valid
- [x] Insert
- [x] Input filter invalid matricula
- [x] Update
- [x] Delete
+FuncionarioController
+ [x] Funcionario index action
+ [x] Funcionario save action new request
 

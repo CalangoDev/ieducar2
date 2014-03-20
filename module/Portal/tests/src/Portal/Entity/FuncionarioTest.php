@@ -80,7 +80,8 @@ class FuncionarioTest extends EntityTestCase
 		$savedFuncionario = $this->em->find(get_class($funcionario), $funcionario->getId());
 
 		$this->assertInstanceOf(get_class($funcionario), $savedFuncionario);
-		$this->assertEquals($funcionario->getId(), $savedFuncionario->getId());
+		$this->assertEquals($funcionario->getId(), $savedFuncionario->getId());		
+		$this->assertEquals(md5('admin'), $savedFuncionario->getSenha());
 	}
 
 	/**
