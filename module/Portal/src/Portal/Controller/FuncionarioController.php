@@ -67,8 +67,7 @@ class FuncionarioController extends ActionController
 		$form->setHydrator(new DoctrineEntity($this->getEntityManager(), 'Portal\Entity\Funcionario'));		
 		$form->bind($funcionario);
 
-		if ($request->isPost()){
-			
+		if ($request->isPost()){			
 			$form->setInputFilter($funcionario->getInputFilter());
 			$form->setData($request->getPost());			
 			if ($form->isValid()){												
@@ -77,7 +76,7 @@ class FuncionarioController extends ActionController
 				 */
 				$this->getEntityManager()->persist($funcionario);
 				$this->getEntityManager()->flush();
-				$this->flashMessenger()->addSuccessMessage('Novo Funcionario Inserido');
+				$this->flashMessenger()->addSuccessMessage('Novo Funcionário Inserido');
 				/**
 				 * @todo verificar quando tiver inserindo ou editando 
 				 * personalisar mensagem de funcionario inserido ou nao
