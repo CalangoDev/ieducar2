@@ -126,229 +126,310 @@ class FuncionarioControllerTest extends ControllerTestCase
 
 		$proibido = $form->get('proibido');
 		$this->assertEquals('proibido', $proibido->getName());
-		$this->assertEquals('checkbox', $proibido->getAttribute('type'));
+		$this->assertEquals('Zend\Form\Element\Checkbox', $proibido->getAttribute('type'));
 
 		$matricula_permanente = $form->get('matricula_permanente');
 		$this->assertEquals('matricula_permanente', $matricula_permanente->getName());
-		$this->assertEquals('checkbox', $matricula_permanente->getAttribute('type'));			
+		$this->assertEquals('Zend\Form\Element\Checkbox', $matricula_permanente->getAttribute('type'));			
+
 		$ref_cod_setor_new = $form->get('ref_cod_setor_new');		
 		$this->assertEquals('ref_cod_setor_new', $ref_cod_setor_new->getName());
-		$this->assertEquals('select', $ref_cod_setor_new->getAttribute('type'));			
+		$this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $ref_cod_setor_new->getAttribute('type'));			
 		
 	}
 
 	/**
 	 * Testa a tela de alteracao de um registro
 	 */
-	// public function testFisicaSaveActionUpdateFormRequest()
-	// {
-	// 	$fisica = $this->buildFisica();
-	// 	$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-	// 	$em->persist($fisica);
-	// 	$em->flush();
-
-	// 	//	Dispara a acao
-	// 	$this->routeMatch->setParam('action', 'save');
-	// 	$this->routeMatch->setParam('id', $fisica->getId());
-	// 	$result = $this->controller->dispatch(
-	// 		$this->request, $this->response
-	// 	);
-
-	// 	//	Verifica a resposta
-	// 	$response = $this->controller->getResponse();
-	// 	$this->assertEquals(200, $response->getStatusCode());
-
-	// 	//	Testa se recebeu um ViewModel
-	// 	$this->assertInstanceOf('Zend\View\Model\ViewModel', $result);		
-	// 	$variables = $result->getVariables();
-
-	// 	//	Verifica se existe um form
-	// 	$this->assertInstanceOf('Zend\Form\Form', $variables['form']);
-	// 	$form = $variables['form'];
-
-	// 	//	Testa os itens do formulario
-	// 	$id = $form->get('id');
-	// 	$cpf = $form->get('cpf');
-	// 	$this->assertEquals('id', $id->getName());
-	// 	$this->assertEquals($fisica->getId(), $id->getValue());
-	// 	$this->assertEquals($fisica->getCpf(), $cpf->getValue());
-	// }
-
-	/**
-	 * Testa a inclusao de uma nova pessoa fisica
-	 */
-	// public function testFisicaSaveActionPostRequest()
-	// {
-	// 	//	Dispara a acao
-	// 	$this->routeMatch->setParam('action', 'save');
-
-	// 	$this->request->setMethod('post');
-	// 	$this->request->getPost()->set('id', '');
-	// 	$this->request->getPost()->set('sexo', 'M');
-	// 	$this->request->getPost()->set('nome', 'Garrincha');
-	// 	$this->request->getPost()->set('url', 'www.eduardojunior.com');		
-	// 	$this->request->getPost()->set('email', 'ej@eduardojunior.com');
-	// 	$this->request->getPost()->set('situacao', 'A');
-	// 	$this->request->getPost()->set('nacionalidade', "1");
+	public function testFuncionarioSaveActionUpdateFormRequest()
+	{
 		
+		$fisica = $this->buildFisica();
 
-	// 	$result = $this->controller->dispatch(
-	// 		$this->request, $this->response
-	// 	);
-	// 	//	Verifica a resposta
-	// 	$response = $this->controller->getResponse();		
-	// 	//	a pagina redireciona, estao o status = 302
-	// 	$this->assertEquals(302, $response->getStatusCode());
-	// 	$headers = $response->getHeaders();
-	// 	$this->assertEquals('Location: /usuario/fisica', $headers->get('Location'));
-	// }
+		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
+		$em->persist($fisica);
+
+		$funcionario = $this->buildFuncionario();
+		$funcionario->setId($fisica);				
+		
+		$em->persist($funcionario);
+		$em->flush();
+
+		// var_dump($funcionario->getId()->getId());
+
+		//	Dispara a acao
+		$this->routeMatch->setParam('action', 'save');
+		$this->routeMatch->setParam('id', $funcionario->getId()->getId());
+		$result = $this->controller->dispatch(
+			$this->request, $this->response
+		);
+
+		//	Verifica a resposta
+		$response = $this->controller->getResponse();
+		$this->assertEquals(200, $response->getStatusCode());
+
+		//	Testa se recebeu um ViewModel
+		$this->assertInstanceOf('Zend\View\Model\ViewModel', $result);		
+		$variables = $result->getVariables();
+
+		//	Verifica se existe um form
+		$this->assertInstanceOf('Zend\Form\Form', $variables['form']);
+		$form = $variables['form'];
+
+		//	Testa os itens do formulario
+		$id = $form->get('id');		
+		$this->assertEquals('id', $id->getName());		
+		$this->assertEquals($funcionario->getId(), $id->getValue());
+		
+		$matricula = $form->get('matricula');
+		$this->assertEquals('matricula', $matricula->getName());
+		$this->assertEquals($funcionario->getMatricula(), $matricula->getValue());
+
+		$senha = $form->get('senha');
+		$this->assertEquals('senha', $senha->getName());
+		$this->assertEquals($funcionario->getSenha(), $senha->getValue());
+
+		$ativo = $form->get('ativo');
+		$this->assertEquals('ativo', $ativo->getName());
+		$this->assertEquals($funcionario->getAtivo(), $ativo->getValue());
+
+		$ref_cod_funcionario_vinculo = $form->get('ref_cod_funcionario_vinculo');
+		$this->assertEquals('ref_cod_funcionario_vinculo', $ref_cod_funcionario_vinculo->getName());
+		$this->assertEquals($funcionario->getRefCodFuncionarioVinculo(), $ref_cod_funcionario_vinculo->getValue());
+
+		$tempo_expira_conta = $form->get('tempo_expira_conta');
+		$this->assertEquals('tempo_expira_conta', $tempo_expira_conta->getName());
+		$this->assertEquals($funcionario->getTempoExpiraConta(), $tempo_expira_conta->getValue());
+
+		$proibido = $form->get('proibido');
+		$this->assertEquals('proibido', $proibido->getName());
+		$this->assertEquals($funcionario->getProibido(), $proibido->getValue());
+
+		$matricula_permanente = $form->get('matricula_permanente');
+		$this->assertEquals('matricula_permanente', $matricula_permanente->getName());
+		$this->assertEquals($funcionario->getMatriculaPermanente(), $matricula_permanente->getValue());
+
+		$ref_cod_setor_new = $form->get('ref_cod_setor_new');
+		$this->assertEquals('ref_cod_setor_new', $ref_cod_setor_new->getName());
+		$this->assertEquals($funcionario->getRefCodSetorNew(), $ref_cod_setor_new->getValue());
+
+	}
 
 	/**
-	 * Testa o update de uma pessoa fisica
+	 * Testa a inclusao de um novo funcionario
 	 */
-	// public function testFisicaUpdateAction()
-	// {
-	// 	$fisica = $this->buildFisica();
-	// 	$fisica->setNome('Bill Gates');
-	// 	$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-	// 	$em->persist($fisica);
- //    	$em->flush();
+	public function testFuncionarioSaveActionPostRequest()
+	{
+		//	Gravando uma pessoa no banco pre requisito para um funcionario existir
+		$fisica = $this->buildFisica();
+		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
+		$em->persist($fisica);
+		//	gravando um setor
+		$setor = $this->buildSetor();
+		$em->persist($setor);
+
+		$em->flush();
+
+
+		//	Dispara a acao
+		$this->routeMatch->setParam('action', 'save');
+		$this->routeMatch->setParam('fisica', $fisica->getId());
+
+		$this->request->setMethod('post');
+		$this->request->getPost()->set('id', $fisica->getId());
+		$this->request->getPost()->set('matricula', 'admin');
+		$this->request->getPost()->set('senha', 'admin');
+		$this->request->getPost()->set('ativo', true);
+		$this->request->getPost()->set('ref_cod_funcionario_vinculo', 3);
+		$this->request->getPost()->set('tempo_expira_conta', 10);
+		$this->request->getPost()->set('proibido', '0');
+		$this->request->getPost()->set('matricula_permanente', '0');		
+		$this->request->getPost()->set('ref_cod_setor_new', $setor->getId());
+		
+		$result = $this->controller->dispatch(
+			$this->request, $this->response
+		);
+		//	Verifica a resposta
+		$response = $this->controller->getResponse();		
+		//	a pagina redireciona, estao o status = 302
+		$this->assertEquals(302, $response->getStatusCode());
+		$headers = $response->getHeaders();
+		$this->assertEquals('Location: /portal/funcionario', $headers->get('Location'));		
+
+	}
+
+	/**
+	 * Testa o update de um funcionario
+	 */
+	public function testFisicaUpdateAction()
+	{
+		//	Gravando uma pessoa no banco pre requisito para um funcionario existir
+		$fisica = $this->buildFisica();
+		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
+		$em->persist($fisica);
+		//	gravando um setor
+		$setor = $this->buildSetor();
+		$em->persist($setor);
+
+		$funcionario = $this->buildFuncionario();
+		$funcionario->setId($fisica);
+
+		
+		$em->flush();
 				
-	// 	//	Dispara a acao
-	// 	$this->routeMatch->setParam('action', 'save');
-	// 	$this->routeMatch->setParam('id', $fisica->getId());
+		//	Dispara a acao
+		$this->routeMatch->setParam('action', 'save');
+		$this->routeMatch->setParam('fisica', $funcionario->getId()->getId());
 
-	// 	$this->request->setMethod('post');
-	// 	$this->request->getPost()->set('id', $fisica->getId());
-	// 	$this->request->getPost()->set('nome', 'Alan Turing');
-	// 	$this->request->getPost()->set('url', '');
-	// 	$this->request->getPost()->set('tipo', 'J');
-	// 	$this->request->getPost()->set('email', '');
-	// 	$this->request->getPost()->set('situacao', 'I');
-	// 	$this->request->getPost()->set('sexo', 'M');
-	// 	$this->request->getPost()->set('cpf', '222.222.222-22');
+		$this->request->setMethod('post');
+		$this->request->getPost()->set('id', $fisica->getId());
+		$this->request->getPost()->set('matricula', 'teste');
+		$this->request->getPost()->set('senha', 'admin');
+		$this->request->getPost()->set('ativo', true);
+		$this->request->getPost()->set('ref_cod_funcionario_vinculo', 3);
+		$this->request->getPost()->set('tempo_expira_conta', 10);
+		$this->request->getPost()->set('proibido', '0');
+		$this->request->getPost()->set('matricula_permanente', '0');		
+		$this->request->getPost()->set('ref_cod_setor_new', $setor->getId());
 
+		$result = $this->controller->dispatch(
+			$this->request, $this->response
+		);
 
-	// 	$result = $this->controller->dispatch(
-	// 		$this->request, $this->response
-	// 	);
+		$response = $this->controller->getResponse();
+		//	a pagina rediriciona, entao o status = 302
+		$this->assertEquals(302, $response->getStatusCode());
+		$headers = $response->getHeaders();
 
-	// 	$response = $this->controller->getResponse();
-	// 	//	a pagina rediriciona, entao o status = 302
-	// 	$this->assertEquals(302, $response->getStatusCode());
-	// 	$headers = $response->getHeaders();
-
-	// 	$this->assertEquals(
-	// 		'Location: /usuario/fisica', $headers->get('Location')
-	// 	);
-	// }
+		$this->assertEquals(
+			'Location: /portal/funcionario', $headers->get('Location')
+		);
+	}
 
 	/**
 	 * Tenta salvar com dados invalidos
 	 */
-	// public function testFisicaSaveActionInvalidPostRequest()
-	// {
-	// 	//	Dispara a acao
-	// 	$this->routeMatch->setParam('action', 'save');
+	public function testFuncionarioSaveActionInvalidPostRequest()
+	{
+		//	Dispara a acao
+		$this->routeMatch->setParam('action', 'save');
 
-	// 	$this->request->setMethod('post');
-	// 	$this->request->getPost()->set('cpf', '222.222.222-222');
+		$this->request->setMethod('post');
+		$this->request->getPost()->set('matricula', 'Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá,
+		depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum
+		girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i 
+		pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.');
 		
-	// 	$result = $this->controller->dispatch(
-	// 		$this->request, $this->response
-	// 	);
+		$result = $this->controller->dispatch(
+			$this->request, $this->response
+		);
 
-	// 	//	Verifica se existe um form		
-	// 	$variables = $result->getVariables();
-	// 	$this->assertInstanceOf('Zend\Form\Form', $variables['form']);
-	// 	$form = $variables['form'];
+		//	Verifica se existe um form		
+		$variables = $result->getVariables();
+		$this->assertInstanceOf('Zend\Form\Form', $variables['form']);
+		$form = $variables['form'];
 
-	// 	//	testa os erros do formulario
-	// 	$cpf = $form->get('cpf');
-	// 	$cpfErrors = $cpf->getMessages();		
-	// 	$this->assertEquals(
-	// 		"The input is more than 11 characters long", $cpfErrors['stringLengthTooLong']
-	// 	);
-	// }
+		//	testa os erros do formulario
+		$matricula = $form->get('matricula');
+		$matriculaErrors = $matricula->getMessages();		
+		$this->assertEquals(
+			"The input is more than 12 characters long", $matriculaErrors['stringLengthTooLong']
+		);
+	}
 
 	/**
 	 * Testa a exclusao sem passar o id da pessoa
 	 * @expectedException Exception
 	 * @expectedExceptionMessage Código Obrigatório
 	 */
-	// public function testFisicaInvalidDeleteAction()
-	// {
-	// 	//	Dispara a acao
-	// 	$this->routeMatch->setParam('action', 'delete');
+	public function testFuncionarioInvalidDeleteAction()
+	{
+		//	Dispara a acao
+		$this->routeMatch->setParam('action', 'delete');
 
-	// 	$result = $this->controller->dispatch(
-	// 		$this->request, $this->response
-	// 	);
+		$result = $this->controller->dispatch(
+			$this->request, $this->response
+		);
 
-	// 	//	Verifica a resposta
-	// 	$response = $this->controller->getResponse();
-	// }
+		//	Verifica a resposta
+		$response = $this->controller->getResponse();
+	}
 
 
 	/**
-	 * Testa a exclusao de uma pessoa
+	 * Testa a exclusao de um funcionario
 	 */
-	// public function testFisicaDeleteAction()
-	// {
-	// 	$fisica = $this->buildFisica();
-	// 	$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-	// 	$em->persist($fisica);
- //    	$em->flush();		
+	public function testFuncionarioDeleteAction()
+	{
+		//	Gravando uma pessoa no banco pre requisito para um funcionario existir
+		$fisica = $this->buildFisica();
+		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
+		$em->persist($fisica);
+		//	gravando um setor
+		$setor = $this->buildSetor();
+		$em->persist($setor);
+		$em->flush();
+
+		$funcionario = $this->buildFuncionario();
+		$funcionario->setId($fisica);
+		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
+		$em->persist($funcionario);
+    	$em->flush();		
 		
-	// 	//	Dispara a acao
-	// 	$this->routeMatch->setParam('action', 'delete');
-	// 	$this->routeMatch->setParam('id', $fisica->getId());
+		//	Dispara a acao
+		$this->routeMatch->setParam('action', 'delete');
+		$this->routeMatch->setParam('id', $funcionario->getId()->getId());
 
-	// 	$result = $this->controller->dispatch(
-	// 		$this->request, $this->response
-	// 	);
+		$result = $this->controller->dispatch(
+			$this->request, $this->response
+		);
 
-	// 	//	Verifica a reposta
-	// 	$response = $this->controller->getResponse();
+		//	Verifica a reposta
+		$response = $this->controller->getResponse();
 
-	// 	//	A pagina redireciona, entao o status = 302
-	// 	$this->assertEquals(302, $response->getStatusCode());
-	// 	$headers = $response->getHeaders();
-	// 	$this->assertEquals(
-	// 		'Location: /usuario/fisica', $headers->get('Location')
-	// 	);
-	// }
+		//	A pagina redireciona, entao o status = 302
+		$this->assertEquals(302, $response->getStatusCode());
+		$headers = $response->getHeaders();
+		$this->assertEquals(
+			'Location: /portal/funcionario', $headers->get('Location')
+		);
+	}
 
 	/**
 	 * Testa a exlusao passando um id inexistente
 	 * @expectedException Exception
 	 * @expectedExceptionMessage Registro não encontrado
 	 */
-	// public function testFisicaInvalidIdDeleteAction()
-	// {
-	// 	$fisica = $this->buildFisica();
-	// 	$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-	// 	$em->persist($fisica);
- //    	$em->flush();		
+	public function testFuncionarioInvalidIdDeleteAction()
+	{
+		//	Gravando uma pessoa no banco pre requisito para um funcionario existir
+		$fisica = $this->buildFisica();
+		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
+		$em->persist($fisica);
+
+		$funcionario = $this->buildFuncionario();
+		$funcionario->setId($fisica);		
+		$em->persist($funcionario);
+    	$em->flush();		
 		
-	// 	//	Dispara a acao
-	// 	$this->routeMatch->setParam('action', 'delete');
-	// 	$this->routeMatch->setParam('id', 2);
+		//	Dispara a acao
+		$this->routeMatch->setParam('action', 'delete');
+		$this->routeMatch->setParam('id', 2);
 
-	// 	$result = $this->controller->dispatch(
-	// 		$this->request, $this->response
-	// 	);
+		$result = $this->controller->dispatch(
+			$this->request, $this->response
+		);
 
-	// 	//	Verifica a reposta
-	// 	$response = $this->controller->getResponse();
+		//	Verifica a reposta
+		$response = $this->controller->getResponse();
 
-	// 	//	A pagina redireciona, entao o status = 302
-	// 	$this->assertEquals(302, $response->getStatusCode());
-	// 	$headers = $response->getHeaders();
-	// 	$this->assertEquals(
-	// 		'Location: /usuario/fisica', $headers->get('Location')
-	// 	);	
-	// }
+		//	A pagina redireciona, entao o status = 302
+		$this->assertEquals(302, $response->getStatusCode());
+		$headers = $response->getHeaders();
+		$this->assertEquals(
+			'Location: /portal/funcionario', $headers->get('Location')
+		);	
+	}
 
 	private function buildFisica()
 	{	
@@ -368,6 +449,18 @@ class FuncionarioControllerTest extends ControllerTestCase
 		$fisica->setCpf('111.111.111-11');
 
     	return $fisica;
+	}
+
+
+	private function buildSetor()
+	{
+		/**
+		 * Dados setor
+		 */
+		$setor = new \Drh\Entity\Setor;
+		$setor->setNome('SEDUC');
+
+		return $setor;
 	}
 
 	private function buildFuncionario()

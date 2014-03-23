@@ -236,6 +236,37 @@ class Funcionario extends Entity
 	 */
 	protected $status_token;
 
+	public function setData($data)
+	{	
+		var_dump($data);
+		$this->setId( isset($data['id']) ? $data['id'] : null );
+		$this->setMatricula( isset($data['matricula']) ? $data['matricula'] : null );
+		$this->setSenha( isset($data['senha']) ? $data['senha'] : null );
+		$this->setAtivo( isset($data['ativo']) ? $data['ativo'] : null);
+		$this->setRefSec( isset($data['ref_sec']) ? $data['ref_sec'] : null );
+		$this->setRamal( isset($data['ramal']) ? $data['ramal'] : null );
+		$this->setSequencial( isset($data['sequencial']) ? $data['sequencial'] : null );
+		$this->setOpcaoMenu( isset($data['opcao_menu']) ? $data['opcao_menu'] : null );
+		$this->setRefCodSetor( isset($data['ref_cod_setor']) ? $data['ref_cod_setor'] : null );
+		$this->setRefCodFuncionarioVinculo( isset($data['ref_cod_funcionario_vinculo']) ? $data['ref_cod_funcionario_vinculo'] : null );
+		$this->setTempoExpiraSenha( isset($data['tempo_expira_senha']) ? $data['tempo_expira_senha'] : null );
+		$this->setTempoExpiraConta( isset($data['tempo_expira_conta']) ? $data['tempo_expira_conta'] : null);
+		$this->setDataTrocaSenha( isset($data['data_troca_senha']) ? $data['data_troca_senha'] : null );
+		$this->setDataReativaConta( isset($data['data_reativa_conta']) ? $data['data_reativa_conta'] : null );
+		$this->setRefRefCodPessoaFj( isset($data['ref_ref_cod_pessoa_fj']) ? $data['ref_ref_cod_pessoa_fj'] : null);
+		$this->setProibido( isset($data['proibido']) ? $data['proibido'] : null );
+		$this->setRefCodSetorNew( isset($data['ref_cod_setor_new']) ? $data['ref_cod_setor_new'] : null );		
+		$this->setMatriculaNew( isset($data['matricula_new']) ? $data['matricula_new'] : null );
+		$this->setMatriculaPermanente( isset($data['matricula_permanente']) ? $data['matricula_permanente'] : null );
+		$this->setTipoMenu( isset($data['tipo_menu']) ? $data['tipo_menu'] : null );
+		$this->setIpLogado( isset($data['ip_logado']) ? $data['ip_logado'] : null );
+		$this->setDataLogin( isset($data['data_login']) ? $data['data_login'] : null );
+		$this->setEmail( isset($data['email']) ? $data['email'] : null );		
+				
+		// if (!empty($data['url']))
+		// 	$this->setUrl(isset($data['url']) ? $data['url'] : null);		
+	}
+
 	/**
 	 * getters and setters
 	 */
@@ -300,14 +331,14 @@ class Funcionario extends Entity
 		$this->ramal = $this->valid("ramal", $value);
 	}
 
-	public function getSequencia()
+	public function getSequencial()
 	{
-		return $this->sequencia;
+		return $this->sequencial;
 	}
 	
-	public function setSequencia($value)
+	public function setSequencial($value)
 	{
-		$this->sequencia = $this->valid("sequencia", $value);
+		$this->sequencial = $this->valid("sequencial", $value);
 	}
 
 	public function getOpcaoMenu()
