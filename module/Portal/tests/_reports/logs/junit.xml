@@ -1,24 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="Portal Test Suite" tests="15" assertions="93" failures="0" errors="0" time="20.135008">
-    <testsuite name="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" tests="9" assertions="60" failures="0" errors="0" time="15.416137">
-      <testcase name="testFuncionarioIndexAction" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="29" assertions="5" time="8.952777"/>
-      <testcase name="testFuncionarioSaveActionNewRequest" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="81" assertions="22" time="0.770276"/>
-      <testcase name="testFuncionarioSaveActionUpdateFormRequest" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="144" assertions="21" time="0.618400"/>
-      <testcase name="testFuncionarioSaveActionPostRequest" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="221" assertions="2" time="0.946975"/>
-      <testcase name="testFisicaUpdateAction" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="264" assertions="2" time="0.615318"/>
-      <testcase name="testFuncionarioSaveActionInvalidPostRequest" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="312" assertions="2" time="0.852956"/>
-      <testcase name="testFuncionarioInvalidDeleteAction" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="345" assertions="2" time="0.641038"/>
-      <testcase name="testFuncionarioDeleteAction" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="362" assertions="2" time="0.726971"/>
-      <testcase name="testFuncionarioInvalidIdDeleteAction" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="403" assertions="2" time="1.291427"/>
-    </testsuite>
-    <testsuite name="Portal\Entity\FuncionarioTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Entity/FuncionarioTest.php" namespace="Portal\Entity" fullPackage="Portal.Entity" tests="6" assertions="33" failures="0" errors="0" time="4.718870">
-      <testcase name="testGetInputFilter" class="Portal\Entity\FuncionarioTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Entity/FuncionarioTest.php" line="21" assertions="1" time="0.656031"/>
-      <testcase name="testInputFilterValid" class="Portal\Entity\FuncionarioTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Entity/FuncionarioTest.php" line="33" assertions="23" time="0.684669"/>
-      <testcase name="testInsert" class="Portal\Entity\FuncionarioTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Entity/FuncionarioTest.php" line="64" assertions="5" time="0.804788"/>
-      <testcase name="testInputFilterInvalidMatricula" class="Portal\Entity\FuncionarioTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Entity/FuncionarioTest.php" line="90" assertions="1" time="0.860213"/>
-      <testcase name="testUpdate" class="Portal\Entity\FuncionarioTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Entity/FuncionarioTest.php" line="105" assertions="2" time="0.822794"/>
-      <testcase name="testDelete" class="Portal\Entity\FuncionarioTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Entity/FuncionarioTest.php" line="128" assertions="1" time="0.890375"/>
+  <testsuite name="Portal Test Suite" tests="9" assertions="60" failures="0" errors="0" time="23.270873">
+    <testsuite name="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" tests="9" assertions="60" failures="0" errors="0" time="23.270873">
+      <testcase name="testFuncionarioIndexAction" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="29" assertions="5" time="10.977568"/>
+      <testcase name="testFuncionarioSaveActionNewRequest" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="81" assertions="22" time="1.892377"/>
+      <testcase name="testFuncionarioSaveActionUpdateFormRequest" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="144" assertions="21" time="1.282905"/>
+      <testcase name="testFuncionarioSaveActionPostRequest" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="221" assertions="2" time="1.842890"/>
+      <testcase name="testFisicaUpdateAction" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="264" assertions="2" time="1.465614"/>
+      <testcase name="testFuncionarioSaveActionInvalidPostRequest" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="312" assertions="2" time="1.331105"/>
+      <testcase name="testFuncionarioInvalidDeleteAction" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="345" assertions="2" time="1.285057"/>
+      <testcase name="testFuncionarioDeleteAction" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="362" assertions="2" time="1.610245"/>
+      <testcase name="testFuncionarioInvalidIdDeleteAction" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="403" assertions="2" time="1.583112"/>
     </testsuite>
   </testsuite>
 </testsuites>

@@ -78,7 +78,12 @@ class FuncionarioController extends ActionController
 				$this->getEntityManager()->persist($funcionario);
 				$this->getEntityManager()->flush();
 				$this->flashMessenger()->addSuccessMessage('Novo Funcionario Inserido');
-				 
+				/**
+				 * @todo verificar quando tiver inserindo ou editando 
+				 * personalisar mensagem de funcionario inserido ou nao
+				 * e verificar questoes de tempo de renovacao de conta e tempo para expirar a senha
+				 * checar se essas funcionalidades vao ser codificadas
+				 */				 
 				return $this->redirect()->toUrl('/portal/funcionario');
 			}
 		}

@@ -9,11 +9,3 @@ FuncionarioController
  [x] Funcionario delete action
  [x] Funcionario invalid id delete action
 
-Portal\Entity\Funcionario
- [x] Get input filter
- [x] Input filter valid
- [x] Insert
- [x] Input filter invalid matricula
- [x] Update
- [x] Delete
-
