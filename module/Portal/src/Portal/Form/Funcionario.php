@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 
 class Funcionario extends Form
 {	
+
 	public function __construct(EntityManager $em)
 	{		
 		parent::__construct('funcionario');
@@ -41,9 +42,9 @@ class Funcionario extends Form
 
 		$this->add(array(
 			'name' => 'ativo',
-			// 'attributes' => array(
-			// 	'type' => 'Zend\Form\Element\Select'
-			// ),
+			'attributes' => array(
+				'type' => 'Zend\Form\Element\Select'
+			),
 			'type' => 'Zend\Form\Element\Select',
 			'options' => array(
 				'label' => 'Situação',
@@ -59,9 +60,9 @@ class Funcionario extends Form
 
 		$this->add(array(
 			'name' => 'ref_cod_funcionario_vinculo',
-			// 'attributes' => array(
-			// 	'type' => 'Zend\Form\Element\Select'
-			// ),
+			'attributes' => array(
+				'type' => 'Zend\Form\Element\Select'
+			),
 			'type' => 'Zend\Form\Element\Select',
 			'options' => array(
 				'label' => 'Vínculo',
@@ -80,9 +81,9 @@ class Funcionario extends Form
 
 		$this->add(array(
 			'name' => 'tempo_expira_conta',
-			// 'attributes' => array(
-			// 	'type' => 'Zend\Form\Element\Select'
-			// ),
+			'attributes' => array(
+				'type' => 'Zend\Form\Element\Select'
+			),
 			'type' => 'Zend\Form\Element\Select',
 			'options' => array(
 				'label' => 'Dias p/ expirar a conta',
@@ -115,9 +116,9 @@ class Funcionario extends Form
 
 		$this->add(array(
 			'name' => 'proibido',
-			// 'attributes' => array(
-			// 	'type' => 'Zend\Form\Element\Checkbox'
-			// ),
+			'attributes' => array(
+				'type' => 'Zend\Form\Element\Checkbox'
+			),
 			'type' => 'Zend\Form\Element\Checkbox',
 			'options' => array(
 				'label' => 'Banido',
@@ -128,9 +129,9 @@ class Funcionario extends Form
 
 		$this->add(array(
 			'name' => 'matricula_permanente',
-			// 'attributes' => array(
-			// 	'type' => 'Zend\Form\Element\Checkbox'
-			// ),
+			'attributes' => array(
+				'type' => 'Zend\Form\Element\Checkbox'
+			),
 			'type' => 'Zend\Form\Element\Checkbox',
 			'options' => array(
 				'label' => 'Matrícula Permanente',
@@ -141,16 +142,16 @@ class Funcionario extends Form
 
 		$this->add(array(
 			'name' => 'ref_cod_setor_new',
-			// 'attributes' => array(
-			// 	'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-			// ),
+			'attributes' => array(
+				'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+			),
 			'type' => 'DoctrineModule\Form\Element\ObjectSelect',
 			'options' => array(
 				'label' => 'Setor',
 				'empty_option' => 'Selecione',
 				'object_manager' => $em,
 				'target_class' => 'Drh\Entity\Setor',
-				'property' => 'name',
+				'property' => 'nome',
 			),
 		));
 

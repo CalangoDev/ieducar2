@@ -56,6 +56,7 @@ class FuncionarioController extends ActionController
 	{
 		$funcionario = new Funcionario;
 		$form = new FuncionarioForm($this->getEntityManager());
+		// $form = new FuncionarioForm();
 		$request = $this->getRequest();
 
 		$id = (int) $this->getEvent()->getRouteMatch()->getParam('id');
@@ -63,14 +64,14 @@ class FuncionarioController extends ActionController
 			$funcionario = $this->getEntityManager()->find('Portal\Entity\Funcionario', $id);
 			$form->get('submit')->setAttribute('value', 'Edit');
 		}
-		$form->setHydrator(new DoctrineEntity($this->getEntityManager(), 'Portal\Entity\Funcionario'));
+		$form->setHydrator(new DoctrineEntity($this->getEntityManager(), 'Portal\Entity\Funcionario'));		
 		$form->bind($funcionario);
 
 		if ($request->isPost()){
-
-			$form->setInputFilter($funcionario->getInputFilter());			
+			
+			$form->setInputFilter($funcionario->getInputFilter());
 			$form->setData($request->getPost());			
-			if ($form->isValid()){								
+			if ($form->isValid()){												
 				/**
 				 * Persistindo os dados
 				 */
@@ -92,25 +93,25 @@ class FuncionarioController extends ActionController
 		));
 	}
 
-	// /**
-	//  * Excluir uma escolaridade
-	//  * @return void
-	//  */
-	// public function deleteAction()
-	// {
-	// 	$id = (int) $this->params()->fromRoute('id', 0);	
-	// 	if ($id == 0)
-	// 		throw new \Exception("Código Obrigatório");
+	/**
+	 * Excluir um funcionario
+	 * @return void
+	 */
+	public function deleteAction()
+	{
+		$id = (int) $this->params()->fromRoute('id', 0);	
+		if ($id == 0)
+			throw new \Exception("Código Obrigatório");
 
-	// 	try{		
-	// 		$escolaridade = $this->getEntityManager()->find('Usuario\Entity\Escolaridade', $id);
-	// 		$this->getEntityManager()->remove($escolaridade);
-	// 		$this->getEntityManager()->flush();			
-	// 	} catch(\Exception $e){
-	// 		throw new \Exception("Registro não encontrado");			
-	// 	}
+		try{		
+			$funcionario = $this->getEntityManager()->find('Portal\Entity\Funcionario', $id);
+			$this->getEntityManager()->remove($funcionario);
+			$this->getEntityManager()->flush();			
+		} catch(\Exception $e){
+			throw new \Exception("Registro não encontrado");			
+		}
 		
-	// 	return $this->redirect()->toUrl('/usuario/escolaridade');
-	// }
+		return $this->redirect()->toUrl('/portal/funcionario');
+	}
 
 }

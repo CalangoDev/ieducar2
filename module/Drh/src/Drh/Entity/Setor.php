@@ -37,5 +37,31 @@ class Setor extends Entity
 	 * @SequenceGenerator(sequenceName="pmidrh.setor_cod_setor_seq", initialValue=1, allocationSize=1)
 	 */
 	protected $id;
+
+	/**
+	 * @var string $nome Nome do setor
+	 * 
+	 * @ORM\Column(name="nm_setor", type="string", length=255, nullable=false)
+	 */
+	protected $nome;
 	
+	public function getId()
+	{
+		return $this->id;
+	}
+	
+	public function setId($value)
+	{
+		$this->id = $this->valid("id", $value);
+	}
+
+	public function getNome()
+	{
+		return $this->nome;
+	}
+	
+	public function setNome($value)
+	{
+		$this->nome = $this->valid("nome", $value);
+	}
 }
