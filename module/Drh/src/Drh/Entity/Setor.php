@@ -44,6 +44,10 @@ class Setor extends Entity
 	 * @ORM\Column(name="nm_setor", type="string", length=255, nullable=false)
 	 */
 	protected $nome;
+
+	/**
+	 * @var int $ref_cod_pessoa_exc
+	 */
 	
 	public function getId()
 	{
