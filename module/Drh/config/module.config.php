@@ -71,7 +71,8 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            // 'Drh\Controller\Index' => 'Drh\Controller\IndexController',
+            'Drh\Controller\Index' => 'Drh\Controller\IndexController',
+            'Drh\Controller\Setor' => 'Drh\Controller\SetorController',
             
         ),
     ),
