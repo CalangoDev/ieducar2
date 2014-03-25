@@ -46,8 +46,35 @@ class Setor extends Entity
 	protected $nome;
 
 	/**
-	 * @var int $ref_cod_pessoa_exc
+	 * @var int $ref_cod_pessoa_exc Ref da Pessoa(funcionario) que excluiu o registro
+	 * 
+	 * @ORM\ManyToOne(targetEntity="Portal\Entity\Funcionario", cascade={"persist"})
+	 * @ORM\JoinColumn(name="ref_cod_pessoa_exc", referencedColumnName="ref_cod_pessoa_fj", onDelete="SET NULL")
 	 */
+	protected $pessoa_exclu;
+
+	/**
+	 * @var int $ref_cod_pessoa_cad Ref da pessoa(funcionario) que cadastrou o registro
+	 * 
+	 * @ORM\ManyToOne(targetEntity="Portal\Entity\Funcionario", cascade={"persist"})
+	 * @ORM\JoinColumn(name="ref_cod_pessoa_cad", referencedColumnName="ref_cod_pessoa_fj", onDelete="SET NULL")
+	 */
+	protected $pessoa_cad;
+
+	/**
+	 * @var int $ref_cod_setor Ref do codigo setor pai
+	 * 
+	 * @ORM\ManyToOne(targetEntity="Setor", cascade={"persist"})
+	 * @ORM\JoinColumn(name="ref_cod_setor", referencedColumnName="cod_setor", onDelete="SET NULL")
+	 */
+	protected $ref_cod_setor;
+
+	/**
+	 * @var string $sigla_setor Sigla do setor
+	 * 
+	 * @ORM\Column(name="sgl_setor", type="string", length=15, nullable=false)
+	 */
+	protected $sigla_setor;
 	
 	public function getId()
 	{
