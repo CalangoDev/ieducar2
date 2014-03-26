@@ -75,6 +75,75 @@ class Setor extends Entity
 	 * @ORM\Column(name="sgl_setor", type="string", length=15, nullable=false)
 	 */
 	protected $sigla_setor;
+
+	/**
+	 * @var datetime $data_cadastro 
+	 * 
+	 * @ORM\Column(type="datetime", nullable=false)
+	 */
+	protected $data_cadastro;
+
+	/**
+	 * @var datetime $data_exclusao
+	 * 
+	 * @ORM\Column(type="datetime", nullable=true)
+	 */
+	protected $data_exclusao;
+	
+	/**
+	 * @var smallint $ativo 
+	 * 
+	 * 0 - Inativo
+	 * 1 - Ativo
+	 * @ORM\Column(type="smallint", nullable=false)
+	 */
+	protected $ativo = 1;
+
+	/**
+	 * @var smallint $nivel 
+	 * 
+	 * @todo  Nao sei a que tipo de nivel isso se refere no sistema
+	 * @ORM\Column(type="smallint", nullable=false)
+	 */
+	protected $nivel = 1;
+
+	/**
+	 * @var smallint $no_paco 
+	 * @todo nao sei a que se refere
+	 * @ORM\Column(type="smallint", nullable=true)
+	 */
+	protected $no_paco = 1;
+
+	/**
+	 * @var text $endereco Endereço do setor
+	 * @ORM\Column(type="text", nullable=true)
+	 */
+	protected $endereco;
+
+	/**
+	 * @var string $tipo
+	 * 
+	 * Tipos
+	 * 
+	 * s = Secretaria
+	 * a = Altarquia
+	 * f = Fundação
+	 * 
+	 * @ORM\Column(type="string", length=1)
+	 */
+	protected $tipo;
+
+	/**
+	 * @var int $secretario
+	 * 
+	 * @ORM\ManyToOne(targetEntity="Portal\Entity\Funcionario", cascade={"persist"})
+	 * @ORM\JoinColumn(name="ref_idpes_resp", referencedColumnName="ref_cod_pessoa_fj", onDelete="SET NULL")
+	 */
+	protected $secretario;
+
+	/**
+	 * getters and setters
+	 */
 	
 	public function getId()
 	{
@@ -94,5 +163,252 @@ class Setor extends Entity
 	public function setNome($value)
 	{
 		$this->nome = $this->valid("nome", $value);
+	}
+
+	public function getPessoaExclu()
+	{
+		return $this->pessoa_exclu;
+	}
+	
+	public function setPessoaExclu($value)
+	{
+		$this->pessoa_exclu = $this->valid("pessoa_exclu", $value);
+	}
+
+	public function getPessoaCad()
+	{
+		return $this->pessoa_cad;
+	}
+	
+	public function setPessoaCad($value)
+	{
+		$this->pessoa_cad = $this->valid("pessoa_cad", $value);
+	}
+
+	public function getRefCodSetor()
+	{
+		return $this->ref_cod_setor;
+	}
+	
+	public function setRefCodSetor($value)
+	{
+		$this->ref_cod_setor = $this->valid("ref_cod_setor", $value);
+	}
+
+	public function getDataCadastro()
+	{
+		return $this->data_cadastro;
+	}
+	
+	public function setDataCadastro($value)
+	{
+		$this->data_cadastro = $this->valid("data_cadastro", $value);
+	}
+
+	public function getDataExclusao()
+	{
+		return $this->data_exclusao;
+	}
+	
+	public function setDataExclusao($value)
+	{
+		$this->data_exclusao = $this->valid("data_exclusao", $value);
+	}
+
+	public function getAtivo()
+	{
+		return $this->ativo;
+	}
+	
+	public function setAtivo($value)
+	{
+		$this->ativo = $this->valid("ativo", $value);
+	}
+
+	public function getNoPaco()
+	{
+		return $this->no_paco;
+	}
+	
+	public function setNoPaco($value)
+	{
+		$this->no_paco = $this->valid("no_paco", $value);
+	}
+
+	public function getEndereco()
+	{
+		return $this->endereco;
+	}
+	
+	public function setEndereco($value)
+	{
+		$this->endereco = $this->valid("endereco", $value);
+	}
+
+	public function getTipo()
+	{
+		return $this->tipo;
+	}
+	
+	public function setTipo($value)
+	{
+		$this->tipo = $this->valid("tipo", $value);
+	}
+
+	public function getSecretario()
+	{
+		return $this->secretario;
+	}
+	
+	public function setSecretario($value)
+	{
+		$this->secretario = $this->valid("secretario", $value);
+	}
+
+	/**
+	 * [$intputFilter description]
+	 * @var Zend\InputFilter\InputFilter
+	 */
+	protected $intputFilter;
+
+	/**
+	 * Configura os filtros dos campos da entidade
+	 * @return Zend\InputFilter\InputFilter
+	 */
+	public function getInputFilter()
+	{
+		if (!$this->inputFilter){
+			$inputFilter = new InputFilter();
+			$factory = new InputFactory();
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'id',
+				'required' => true,
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'nome',
+				'required' => true,
+				'filters'	=>	array(
+					array('name'	=>	'StripTags'),
+					array('name'	=>	'StringTrim'),
+				),
+				'validators' => array(
+					array(
+						'name' => 'StringLength',						
+						'options' => array(
+							'encoding' => 'UTF-8',
+							'min' => 1,
+							'max' => 255,
+						),
+					),
+				),				
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'pessoa_exclu',
+				'required' => false,
+				'filters' => array(
+					array('name' => 'Int'),
+				),
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'pessoa_cad',
+				'required' => false,
+				'filters' => array(
+					array('name' => 'Int'),
+				),
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'ref_cod_setor',
+				'required' => false,
+				'filters' => array(
+					array('name' => 'Int'),
+				),
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'sigla_setor',
+				'required' => true,
+				'filters'	=>	array(
+					array('name'	=>	'StripTags'),
+					array('name'	=>	'StringTrim'),
+				),
+				'validators' => array(
+					array(
+						'name' => 'StringLength',						
+						'options' => array(
+							'encoding' => 'UTF-8',
+							'min' => 1,
+							'max' => 15,
+						),
+					),
+				),				
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'data_cadastro',
+				'required' => true,				
+				'validators' => array(
+					'name' => new \Zend\Validator\Date(),
+				),
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'data_exclusao',
+				'required' => false,				
+				'validators' => array(
+					'name' => new \Zend\Validator\Date(),
+				),
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'ativo',
+				'required' => true,
+				'filters' => array(
+					array('name' => 'Int'),
+				),
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'no_paco',
+				'required' => false,
+				'filters' => array(
+					array('name' => 'Int'),
+				),
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'tipo',
+				'required' => true,
+				'filters'	=>	array(
+					array('name'	=>	'StripTags'),
+					array('name'	=>	'StringTrim'),
+				),
+				'validators' => array(
+					array(
+						'name' => 'StringLength',						
+						'options' => array(
+							'encoding' => 'UTF-8',
+							'min' => 1,
+							'max' => 1,
+						),
+					),
+				),				
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'getSecretario',
+				'required' => false,
+				'filters' => array(
+					array('name' => 'Int'),
+				),
+			)));
+
+			$this->inputFilter = $inputFilter;
+		}
+		return $this->inputFilter;
 	}
 }
