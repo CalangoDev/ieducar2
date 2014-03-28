@@ -5,11 +5,15 @@ use Core\Entity\Entity;
 use Core\Entity\EntityException;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\SequenceGenerator;
+use Doctrine\ORM\Mapping\PrePersist;
 
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
+
+use Doctrine\ORM\Event\LifecycleEventArgs;
+
 
 /**
  * Entidade Setor
@@ -24,6 +28,7 @@ use Zend\InputFilter\InputFilterInterface;
  * 
  * @ORM\Entity
  * @ORM\Table(name="""pmidrh"".""setor""")
+ * @ORM\HasLifecycleCallbacks
  * 
  */
 class Setor extends Entity
@@ -140,6 +145,19 @@ class Setor extends Entity
 	 * @ORM\JoinColumn(name="ref_idpes_resp", referencedColumnName="ref_cod_pessoa_fj", onDelete="SET NULL")
 	 */
 	protected $secretario;
+
+	/**
+	 * Funcao para gerar o timestamp para o atributo data_cadastro, é executada antes de salvar os dados no banco
+	 * @access public
+	 * @return  void 
+	 * @ORM\PrePersist
+	 */
+	public function timestamp()
+	{
+		if (is_null($this->getDataCadastro())) {
+			$this->setDataCadastro(new \DateTime());
+		}
+	}
 
 	/**
 	 * getters and setters
@@ -263,6 +281,26 @@ class Setor extends Entity
 	public function setSecretario($value)
 	{
 		$this->secretario = $this->valid("secretario", $value);
+	}
+
+	public function getSiglaSetor()
+	{
+		return $this->sigla_setor;
+	}
+	
+	public function setSiglaSetor($value)
+	{
+		$this->sigla_setor = $this->valid("sigla_setor", $value);
+	}
+
+	public function getNivel()
+	{
+		return $this->nivel;
+	}
+	
+	public function setNivel($value)
+	{
+		$this->nivel = $this->valid("nivel", $value);
 	}
 
 	/**
@@ -400,7 +438,7 @@ class Setor extends Entity
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'getSecretario',
+				'name' => 'secretario',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'Int'),

@@ -1,3 +1,8 @@
-Portal\Entity\Funcionario
- [ ] Get input filter
+Drh\Entity\Setor
+ [x] Get input filter
+ [x] Input filter valid
+ [x] Insert
+ [x] Input filter invalid setor
+ [x] Update
+ [x] Delete
 
