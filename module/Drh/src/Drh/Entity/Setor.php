@@ -161,6 +161,8 @@ class Setor extends Entity
 
 	public function setData($data)
 	{
+		var_dump($data);
+		var_dump("ESTOU SETANDO A DATA");
 		$this->setId( isset($data['id']) ? $data['id'] : null );
 		$this->setNome( isset($data['nome']) ? $data['nome'] : null );
 		$this->setPessoaExclu( isset($data['pessoa_exclu']) ? $data['pessoa_exclu'] : null );
@@ -325,7 +327,7 @@ class Setor extends Entity
 	 * [$intputFilter description]
 	 * @var Zend\InputFilter\InputFilter
 	 */
-	protected $intputFilter;
+	protected $inputFilter;
 
 	/**
 	 * Configura os filtros dos campos da entidade
@@ -464,7 +466,7 @@ class Setor extends Entity
 			)));
 
 			$this->inputFilter = $inputFilter;
-		}
+		}		
 		return $this->inputFilter;
 	}
 }

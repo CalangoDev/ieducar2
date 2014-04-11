@@ -64,21 +64,37 @@ class SetorController extends ActionController
 		$form->setHydrator(new DoctrineEntity($this->getEntityManager(), 'Drh\Entity\Setor'));
 		$form->bind($setor);
 
-		if ($request->isPost()){
-			$form->setInputFilter($setor->getInputFilter());			
-			$form->setData($request->getPost());			
-			if ($form->isValid()){								
+		if ($request->isPost()){			
+			// var_dump($setor);
+			$form->setInputFilter($setor->getInputFilter());
+			$setor->removeInputFilter('id');
+			$setor->removeInputFilter('nome');
+			$setor->removeInputFilter('pessoa_exclu');
+			$setor->removeInputFilter('pessoa_cad');
+			$setor->removeInputFilter('ref_cod_setor');
+			$setor->removeInputFilter('data_cadastro');
+			$setor->removeInputFilter('data_exclusao');
+			$setor->removeInputFilter('ativo');
+			$setor->removeInputFilter('no_paco');
+			$setor->removeInputFilter('endereco');
+			$setor->removeInputFilter('tipo');
+			$setor->removeInputFilter('secretario');
+			$setor->removeInputFilter('sigla_setor');					
+			$form->setData($request->getPost());				
+			var_dump($request->getPost());
+			if ($form->isValid()){
+				var_dump('valido');
 				/**
 				 * Persistindo os dados
 				 */
-				$this->getEntityManager()->persist($setir);
+				$this->getEntityManager()->persist($setor);
 				$this->getEntityManager()->flush();
 				$this->flashMessenger()->addSuccessMessage('Novo Setor salvo');
 				/**
 				 * Redirecionando para lista de setores
 				 */
 				return $this->redirect()->toUrl('/drh/setor');
-			}
+			}			
 		}
 
 		/**

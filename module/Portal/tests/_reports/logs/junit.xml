@@ -1,16 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="Portal Test Suite" tests="9" assertions="60" failures="0" errors="0" time="23.270873">
-    <testsuite name="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" tests="9" assertions="60" failures="0" errors="0" time="23.270873">
-      <testcase name="testFuncionarioIndexAction" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="29" assertions="5" time="10.977568"/>
-      <testcase name="testFuncionarioSaveActionNewRequest" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="81" assertions="22" time="1.892377"/>
-      <testcase name="testFuncionarioSaveActionUpdateFormRequest" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="144" assertions="21" time="1.282905"/>
-      <testcase name="testFuncionarioSaveActionPostRequest" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="221" assertions="2" time="1.842890"/>
-      <testcase name="testFisicaUpdateAction" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="264" assertions="2" time="1.465614"/>
-      <testcase name="testFuncionarioSaveActionInvalidPostRequest" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="312" assertions="2" time="1.331105"/>
-      <testcase name="testFuncionarioInvalidDeleteAction" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="345" assertions="2" time="1.285057"/>
-      <testcase name="testFuncionarioDeleteAction" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="362" assertions="2" time="1.610245"/>
-      <testcase name="testFuncionarioInvalidIdDeleteAction" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="403" assertions="2" time="1.583112"/>
+  <testsuite name="Portal Test Suite" tests="9" assertions="54" failures="0" errors="3" time="9.701221">
+    <testsuite name="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" tests="9" assertions="54" failures="0" errors="3" time="9.701221">
+      <testcase name="testFuncionarioIndexAction" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="29" assertions="5" time="2.004460"/>
+      <testcase name="testFuncionarioSaveActionNewRequest" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="81" assertions="22" time="2.204005"/>
+      <testcase name="testFuncionarioSaveActionUpdateFormRequest" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="144" assertions="21" time="0.626991"/>
+      <testcase name="testFuncionarioSaveActionPostRequest" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="221" assertions="0" time="0.849898">
+        <error type="Doctrine\DBAL\DBALException">FuncionarioControllerTest::testFuncionarioSaveActionPostRequest
+Doctrine\DBAL\DBALException: An exception occurred while executing 'INSERT INTO "pmidrh"."setor" (cod_setor, nm_setor, sgl_setor, data_cadastro, data_exclusao, ativo, nivel, no_paco, endereco, tipo, ref_cod_pessoa_exc, ref_cod_pessoa_cad, ref_cod_setor, ref_idpes_resp) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [1, "SEDUC", null, "2014-04-11 15:29:22", null, 1, 1, 1, null, null, null, null, null, null]:
+
+SQLSTATE[23502]: Not null violation: 7 ERROR:  null value in column "sgl_setor" violates not-null constraint
+DETAIL:  Failing row contains (1, null, null, null, null, SEDUC, null, 2014-04-11 15:29:22, null, 1, 1, 1, null, null).
+
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/DBALException.php:91
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Statement.php:165
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Persisters/BasicEntityPersister.php:279
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/UnitOfWork.php:952
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/UnitOfWork.php:335
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/EntityManager.php:389
+/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php:231
+</error>
+      </testcase>
+      <testcase name="testFisicaUpdateAction" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="264" assertions="0" time="0.743893">
+        <error type="Doctrine\DBAL\DBALException">FuncionarioControllerTest::testFisicaUpdateAction
+Doctrine\DBAL\DBALException: An exception occurred while executing 'INSERT INTO "pmidrh"."setor" (cod_setor, nm_setor, sgl_setor, data_cadastro, data_exclusao, ativo, nivel, no_paco, endereco, tipo, ref_cod_pessoa_exc, ref_cod_pessoa_cad, ref_cod_setor, ref_idpes_resp) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [1, "SEDUC", null, "2014-04-11 15:29:23", null, 1, 1, 1, null, null, null, null, null, null]:
+
+SQLSTATE[23502]: Not null violation: 7 ERROR:  null value in column "sgl_setor" violates not-null constraint
+DETAIL:  Failing row contains (1, null, null, null, null, SEDUC, null, 2014-04-11 15:29:23, null, 1, 1, 1, null, null).
+
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/DBALException.php:91
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Statement.php:165
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Persisters/BasicEntityPersister.php:279
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/UnitOfWork.php:952
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/UnitOfWork.php:335
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/EntityManager.php:389
+/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php:278
+</error>
+      </testcase>
+      <testcase name="testFuncionarioSaveActionInvalidPostRequest" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="312" assertions="2" time="0.814360"/>
+      <testcase name="testFuncionarioInvalidDeleteAction" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="345" assertions="2" time="0.773131"/>
+      <testcase name="testFuncionarioDeleteAction" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="362" assertions="0" time="0.755648">
+        <error type="Doctrine\DBAL\DBALException">FuncionarioControllerTest::testFuncionarioDeleteAction
+Doctrine\DBAL\DBALException: An exception occurred while executing 'INSERT INTO "pmidrh"."setor" (cod_setor, nm_setor, sgl_setor, data_cadastro, data_exclusao, ativo, nivel, no_paco, endereco, tipo, ref_cod_pessoa_exc, ref_cod_pessoa_cad, ref_cod_setor, ref_idpes_resp) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' with params [1, "SEDUC", null, "2014-04-11 15:29:26", null, 1, 1, 1, null, null, null, null, null, null]:
+
+SQLSTATE[23502]: Not null violation: 7 ERROR:  null value in column "sgl_setor" violates not-null constraint
+DETAIL:  Failing row contains (1, null, null, null, null, SEDUC, null, 2014-04-11 15:29:26, null, 1, 1, 1, null, null).
+
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/DBALException.php:91
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Statement.php:165
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Persisters/BasicEntityPersister.php:279
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/UnitOfWork.php:952
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/UnitOfWork.php:335
+/Users/eduardojunior/Websites/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/EntityManager.php:389
+/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php:371
+</error>
+      </testcase>
+      <testcase name="testFuncionarioInvalidIdDeleteAction" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="403" assertions="2" time="0.928835"/>
     </testsuite>
   </testsuite>
 </testsuites>

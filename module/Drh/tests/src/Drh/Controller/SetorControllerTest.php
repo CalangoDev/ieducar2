@@ -169,6 +169,11 @@ class SetorControllerTest extends ControllerTestCase
 		$this->request->setMethod('post');
 		$this->request->getPost()->set('id', '');
 		$this->request->getPost()->set('nome', 'Setor Y');
+		$this->request->getPost()->set('sigla_setor', 'STY');
+		$this->request->getPost()->set('ativo', 1);
+		$this->request->getPost()->set('nivel', 1);
+		$this->request->getPost()->set('endereco', 'Rua do setor y');
+		$this->request->getPost()->set('tipo', 's');
 
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
@@ -178,7 +183,7 @@ class SetorControllerTest extends ControllerTestCase
 		//	a pagina redireciona, estao o status = 302
 		$this->assertEquals(302, $response->getStatusCode());
 		$headers = $response->getHeaders();
-		$this->assertEquals('Location: /usuario/setor', $headers->get('Location'));
+		$this->assertEquals('Location: /drh/setor', $headers->get('Location'));
 	}
 
 
