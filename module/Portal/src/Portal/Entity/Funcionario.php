@@ -238,7 +238,7 @@ class Funcionario extends Entity
 
 	public function setData($data)
 	{	
-		var_dump($data);
+		// var_dump($data);
 		$this->setId( isset($data['id']) ? $data['id'] : null );
 		$this->setMatricula( isset($data['matricula']) ? $data['matricula'] : null );
 		$this->setSenha( isset($data['senha']) ? $data['senha'] : null );

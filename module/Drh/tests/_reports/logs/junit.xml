@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="Drh Test Suite" tests="6" assertions="21" failures="0" errors="0" time="7.849479">
-    <testsuite name="Drh\Entity\SetorTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Entity/SetorTest.php" namespace="Drh\Entity" fullPackage="Drh.Entity" tests="6" assertions="21" failures="0" errors="0" time="7.849479">
-      <testcase name="testGetInputFilter" class="Drh\Entity\SetorTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Entity/SetorTest.php" line="21" assertions="1" time="2.668829"/>
-      <testcase name="testInputFilterValid" class="Drh\Entity\SetorTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Entity/SetorTest.php" line="33" assertions="12" time="0.948495"/>
-      <testcase name="testInsert" class="Drh\Entity\SetorTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Entity/SetorTest.php" line="53" assertions="4" time="1.187640"/>
-      <testcase name="testInputFilterInvalidSetor" class="Drh\Entity\SetorTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Entity/SetorTest.php" line="74" assertions="1" time="0.992647"/>
-      <testcase name="testUpdate" class="Drh\Entity\SetorTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Entity/SetorTest.php" line="85" assertions="2" time="1.002648"/>
-      <testcase name="testDelete" class="Drh\Entity\SetorTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Entity/SetorTest.php" line="104" assertions="1" time="1.049220"/>
+  <testsuite name="Drh Test Suite" tests="4" assertions="31" failures="1" errors="0" time="4.230205">
+    <testsuite name="SetorControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" tests="4" assertions="31" failures="1" errors="0" time="4.230205">
+      <testcase name="testSetorIndexAction" class="SetorControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" line="29" assertions="5" time="2.143684"/>
+      <testcase name="testSetorSaveActionNewRequest" class="SetorControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" line="69" assertions="19" time="0.778044"/>
+      <testcase name="testSetorSaveActionUpdateFormRequest" class="SetorControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" line="127" assertions="6" time="0.578747"/>
+      <testcase name="testSetorSaveActionPostRequest" class="SetorControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" line="164" assertions="1" time="0.729730">
+        <failure type="PHPUnit_Framework_ExpectationFailedException">SetorControllerTest::testSetorSaveActionPostRequest
+Failed asserting that 200 matches expected 302.
+
+/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php:179
+</failure>
+      </testcase>
     </testsuite>
   </testsuite>
 </testsuites>

@@ -1,8 +1,6 @@
-Drh\Entity\Setor
- [x] Get input filter
- [x] Input filter valid
- [x] Insert
- [x] Input filter invalid setor
- [x] Update
- [x] Delete
+SetorController
+ [x] Setor index action
+ [x] Setor save action new request
+ [x] Setor save action update form request
+ [ ] Setor save action post request
 

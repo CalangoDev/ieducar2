@@ -159,6 +159,24 @@ class Setor extends Entity
 		}
 	}
 
+	public function setData($data)
+	{
+		$this->setId( isset($data['id']) ? $data['id'] : null );
+		$this->setNome( isset($data['nome']) ? $data['nome'] : null );
+		$this->setPessoaExclu( isset($data['pessoa_exclu']) ? $data['pessoa_exclu'] : null );
+		$this->setPessoaCad( isset($data['pessoa_cad']) ? $data['pessoa_cad'] : null );
+		$this->setRefCodSetor( isset($data['ref_cod_setor']) ? $data['ref_cod_setor'] : null );
+		$this->setDataCadastro( isset($data['data_cadastro']) ? $data['data_cadastro'] : null );
+		$this->setDataExclusao( isset($data['data_exclusao']) ? $data['data_exclusao'] : null );
+		$this->setAtivo( isset($data['ativo']) ? $data['ativo'] : null );
+		$this->setNoPaco( isset($data['no_paco']) ? $data['no_paco'] : null );
+		$this->setEndereco( isset($data['endereco']) ? $data['endereco'] : null );
+		$this->setTipo( isset($data['tipo']) ? $data['tipo'] : null );
+		$this->setSecretario( isset($data['secretario']) ? $data['secretario'] : null );
+		$this->setSiglaSetor( isset($data['sigla_setor']) ? $data['sigla_setor'] : null );
+		$this->setNivel( isset($data['nivel']) ? $data['nivel'] : null );
+	}
+
 	/**
 	 * getters and setters
 	 */
