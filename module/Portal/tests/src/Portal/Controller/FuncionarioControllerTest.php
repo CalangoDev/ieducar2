@@ -459,6 +459,8 @@ class FuncionarioControllerTest extends ControllerTestCase
 		 */
 		$setor = new \Drh\Entity\Setor;
 		$setor->setNome('SEDUC');
+		$setor->setSiglaSetor('SEDUC');
+		$setor->setTipo('s');
 
 		return $setor;
 	}
