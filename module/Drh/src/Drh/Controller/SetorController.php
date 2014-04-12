@@ -65,28 +65,12 @@ class SetorController extends ActionController
 		$form->bind($setor);
 
 		if ($request->isPost()){			
-			// var_dump($setor);
-			$form->setInputFilter($setor->getInputFilter());
-			$setor->removeInputFilter('id');
-			$setor->removeInputFilter('nome');
-			$setor->removeInputFilter('pessoa_exclu');
-			$setor->removeInputFilter('pessoa_cad');
-			$setor->removeInputFilter('ref_cod_setor');
-			$setor->removeInputFilter('data_cadastro');
-			$setor->removeInputFilter('data_exclusao');
-			$setor->removeInputFilter('ativo');
-			$setor->removeInputFilter('no_paco');
-			$setor->removeInputFilter('endereco');
-			$setor->removeInputFilter('tipo');
-			$setor->removeInputFilter('secretario');
-			$setor->removeInputFilter('sigla_setor');					
+			$form->setInputFilter($setor->getInputFilter());			
 			$form->setData($request->getPost());				
-			var_dump($request->getPost());
-			if ($form->isValid()){
-				var_dump('valido');
+			if ($form->isValid()){				
 				/**
 				 * Persistindo os dados
-				 */
+				 */				
 				$this->getEntityManager()->persist($setor);
 				$this->getEntityManager()->flush();
 				$this->flashMessenger()->addSuccessMessage('Novo Setor salvo');
@@ -110,5 +94,26 @@ class SetorController extends ActionController
 			'form' => $form
 		));
 
+	}
+
+	/**
+	 * Excluir um setor
+	 * @return void
+	 */
+	public function deleteAction()
+	{
+		$id = (int) $this->params()->fromRoute('id', 0);	
+		if ($id == 0)
+			throw new \Exception("Código Obrigatório");
+
+		try{		
+			$setor = $this->getEntityManager()->find('Drh\Entity\Setor', $id);
+			$this->getEntityManager()->remove($setor);
+			$this->getEntityManager()->flush();			
+		} catch(\Exception $e){
+			throw new \Exception("Registro não encontrado");			
+		}
+		
+		return $this->redirect()->toUrl('/drh/setor');
 	}
 }

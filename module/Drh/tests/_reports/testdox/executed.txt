@@ -2,5 +2,10 @@ SetorController
  [x] Setor index action
  [x] Setor save action new request
  [x] Setor save action update form request
- [ ] Setor save action post request
+ [x] Setor save action post request
+ [x] Setor update action
+ [x] Setor save action invalid post request
+ [x] Setor invalid delete action
+ [x] Setor delete action
+ [x] Funcionario invalid id delete action
 

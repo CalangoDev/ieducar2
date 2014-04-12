@@ -95,8 +95,8 @@ class SetorControllerTest extends ControllerTestCase
 		$this->assertEquals('nome', $nome->getName());
 		$this->assertEquals('text', $nome->getAttribute('type'));
 
-		$sigla_setor = $form->get('sigla_setor');
-		$this->assertEquals('sigla_setor', $sigla_setor->getName());
+		$sigla_setor = $form->get('SiglaSetor');
+		$this->assertEquals('SiglaSetor', $sigla_setor->getName());
 		$this->assertEquals('text', $sigla_setor->getAttribute('type'));
 
 		$no_paco = $form->get('no_paco');
@@ -111,9 +111,9 @@ class SetorControllerTest extends ControllerTestCase
 		$this->assertEquals('tipo', $tipo->getName());
 		$this->assertEquals('select', $tipo->getAttribute('type'));
 
-		$secretario = $form->get('secretario');
-		$this->assertEquals('secretario', $secretario->getName());
-		$this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $secretario->getAttribute('type'));
+		// $secretario = $form->get('secretario');
+		// $this->assertEquals('secretario', $secretario->getName());
+		// $this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $secretario->getAttribute('type'));
 
 		$ativo = $form->get('ativo');
 		$this->assertEquals('ativo', $ativo->getName());
@@ -169,7 +169,7 @@ class SetorControllerTest extends ControllerTestCase
 		$this->request->setMethod('post');
 		$this->request->getPost()->set('id', '');
 		$this->request->getPost()->set('nome', 'Setor Y');
-		$this->request->getPost()->set('sigla_setor', 'STY');
+		$this->request->getPost()->set('SiglaSetor', 'STY');
 		$this->request->getPost()->set('ativo', 1);
 		$this->request->getPost()->set('nivel', 1);
 		$this->request->getPost()->set('endereco', 'Rua do setor y');
@@ -186,6 +186,152 @@ class SetorControllerTest extends ControllerTestCase
 		$this->assertEquals('Location: /drh/setor', $headers->get('Location'));
 	}
 
+	/**
+	 * Testa o update de um setor
+	 */
+	public function testSetorUpdateAction()
+	{		
+		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
+		
+		$setor = $this->buildSetor();		
+		$em->persist($setor);
+		$em->flush();
+				
+		//	Dispara a acao
+		$this->routeMatch->setParam('action', 'save');	
+		$this->routeMatch->setParam('id', $setor->getId());
+
+		$this->request->setMethod('post');
+		$this->request->getPost()->set('id', $setor->getId());
+		$this->request->getPost()->set('nome', 'Setor X');
+		$this->request->getPost()->set('SiglaSetor', 'STY');
+		$this->request->getPost()->set('ativo', 1);
+		$this->request->getPost()->set('nivel', 1);
+		$this->request->getPost()->set('endereco', 'Rua do setor y');
+		$this->request->getPost()->set('tipo', 's');		
+
+		$result = $this->controller->dispatch(
+			$this->request, $this->response
+		);
+
+		$response = $this->controller->getResponse();
+		//	a pagina rediriciona, entao o status = 302
+		$this->assertEquals(302, $response->getStatusCode());
+		$headers = $response->getHeaders();
+
+		$this->assertEquals(
+			'Location: /drh/setor', $headers->get('Location')
+		);
+	}
+
+	/**
+	 * Tenta salvar com dados invalidos
+	 */
+	public function testSetorSaveActionInvalidPostRequest()
+	{
+		//	Dispara a acao
+		$this->routeMatch->setParam('action', 'save');
+
+		$this->request->setMethod('post');
+		$this->request->getPost()->set('nome', 'Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá,
+		depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum
+		girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i 
+		pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.');
+		
+		$result = $this->controller->dispatch(
+			$this->request, $this->response
+		);
+
+		//	Verifica se existe um form		
+		$variables = $result->getVariables();
+		$this->assertInstanceOf('Zend\Form\Form', $variables['form']);
+		$form = $variables['form'];
+
+		//	testa os erros do formulario
+		$nome = $form->get('nome');
+		$nomeErrors = $nome->getMessages();		
+		$this->assertEquals(
+			"The input is more than 255 characters long", $nomeErrors['stringLengthTooLong']
+		);
+	}
+
+	/**
+	 * Testa a exclusao sem passar o id do setor
+	 * @expectedException Exception
+	 * @expectedExceptionMessage Código Obrigatório
+	 */
+	public function testSetorInvalidDeleteAction()
+	{
+		//	Dispara a acao
+		$this->routeMatch->setParam('action', 'delete');
+
+		$result = $this->controller->dispatch(
+			$this->request, $this->response
+		);
+
+		//	Verifica a resposta
+		$response = $this->controller->getResponse();
+	}
+
+	/**
+	 * Testa a exclusao de um setor
+	 */
+	public function testSetorDeleteAction()
+	{		
+		$setor = $this->buildSetor();		
+		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
+		$em->persist($setor);
+    	$em->flush();
+
+		//	Dispara a acao
+		$this->routeMatch->setParam('action', 'delete');
+		$this->routeMatch->setParam('id', $setor->getId());
+
+		$result = $this->controller->dispatch(
+			$this->request, $this->response
+		);
+
+		//	Verifica a reposta
+		$response = $this->controller->getResponse();
+
+		//	A pagina redireciona, entao o status = 302
+		$this->assertEquals(302, $response->getStatusCode());
+		$headers = $response->getHeaders();
+		$this->assertEquals(
+			'Location: /drh/setor', $headers->get('Location')
+		);
+	}
+
+	/**
+	 * Testa a exclusao passando um id inexistente
+	 * @expectedException Exception
+	 * @expectedExceptionMessage Registro não encontrado
+	 */
+	public function testFuncionarioInvalidIdDeleteAction()
+	{		
+		$setor = $this->buildSetor();		
+		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
+		$em->persist($setor);
+    	$em->flush();		
+		
+		//	Dispara a acao
+		$this->routeMatch->setParam('action', 'delete');
+		$this->routeMatch->setParam('id', 2);
+
+		$result = $this->controller->dispatch(
+			$this->request, $this->response
+		);
+
+		//	Verifica a reposta
+		$response = $this->controller->getResponse();
+
+		//	A pagina redireciona, entao o status = 302
+		$this->assertEquals(302, $response->getStatusCode());
+		$headers = $response->getHeaders();
+		$this->assertEquals(
+			'Location: /drh/setor', $headers->get('Location')
+		);	
+	}
 
 	private function buildSetor()
 	{
