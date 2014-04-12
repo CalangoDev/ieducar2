@@ -10,7 +10,7 @@ class Setor extends Form
 	{
 		parent::__construct('setor');
 		$this->setAttribute('method', 'post');
-		$this->setAttribute('action', 'drh/setor/save');
+		$this->setAttribute('action', '/drh/setor/save');
 
 		$this->add(array(
 			'name' => 'id',
@@ -45,7 +45,7 @@ class Setor extends Form
 		));
 
 		$this->add(array(
-			'name' => 'sigla_setor',
+			'name' => 'SiglaSetor',
 			'attributes' => array(
 				'type' => 'text'
 			),

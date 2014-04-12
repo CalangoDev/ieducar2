@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="Drh Test Suite" tests="4" assertions="31" failures="1" errors="0" time="4.230205">
-    <testsuite name="SetorControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" tests="4" assertions="31" failures="1" errors="0" time="4.230205">
-      <testcase name="testSetorIndexAction" class="SetorControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" line="29" assertions="5" time="2.143684"/>
-      <testcase name="testSetorSaveActionNewRequest" class="SetorControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" line="69" assertions="19" time="0.778044"/>
-      <testcase name="testSetorSaveActionUpdateFormRequest" class="SetorControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" line="127" assertions="6" time="0.578747"/>
-      <testcase name="testSetorSaveActionPostRequest" class="SetorControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" line="164" assertions="1" time="0.729730">
-        <failure type="PHPUnit_Framework_ExpectationFailedException">SetorControllerTest::testSetorSaveActionPostRequest
-Failed asserting that 200 matches expected 302.
-
-/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php:179
-</failure>
-      </testcase>
+  <testsuite name="Drh Test Suite" tests="9" assertions="40" failures="0" errors="0" time="7.342647">
+    <testsuite name="SetorControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" tests="9" assertions="40" failures="0" errors="0" time="7.342647">
+      <testcase name="testSetorIndexAction" class="SetorControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" line="29" assertions="5" time="0.807536"/>
+      <testcase name="testSetorSaveActionNewRequest" class="SetorControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" line="69" assertions="17" time="0.706217"/>
+      <testcase name="testSetorSaveActionUpdateFormRequest" class="SetorControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" line="127" assertions="6" time="0.663446"/>
+      <testcase name="testSetorSaveActionPostRequest" class="SetorControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" line="164" assertions="2" time="0.772906"/>
+      <testcase name="testSetorUpdateAction" class="SetorControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" line="192" assertions="2" time="0.709895"/>
+      <testcase name="testSetorSaveActionInvalidPostRequest" class="SetorControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" line="230" assertions="2" time="0.673941"/>
+      <testcase name="testSetorInvalidDeleteAction" class="SetorControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" line="263" assertions="2" time="0.792466"/>
+      <testcase name="testSetorDeleteAction" class="SetorControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" line="279" assertions="2" time="0.783861"/>
+      <testcase name="testFuncionarioInvalidIdDeleteAction" class="SetorControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" line="310" assertions="2" time="1.432379"/>
     </testsuite>
   </testsuite>
 </testsuites>

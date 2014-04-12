@@ -64,21 +64,21 @@ class SetorController extends ActionController
 		$form->setHydrator(new DoctrineEntity($this->getEntityManager(), 'Drh\Entity\Setor'));
 		$form->bind($setor);
 
-		if ($request->isPost()){
+		if ($request->isPost()){			
 			$form->setInputFilter($setor->getInputFilter());			
-			$form->setData($request->getPost());			
-			if ($form->isValid()){								
+			$form->setData($request->getPost());				
+			if ($form->isValid()){				
 				/**
 				 * Persistindo os dados
-				 */
-				$this->getEntityManager()->persist($setir);
+				 */				
+				$this->getEntityManager()->persist($setor);
 				$this->getEntityManager()->flush();
 				$this->flashMessenger()->addSuccessMessage('Novo Setor salvo');
 				/**
 				 * Redirecionando para lista de setores
 				 */
 				return $this->redirect()->toUrl('/drh/setor');
-			}
+			}			
 		}
 
 		/**
@@ -94,5 +94,26 @@ class SetorController extends ActionController
 			'form' => $form
 		));
 
+	}
+
+	/**
+	 * Excluir um setor
+	 * @return void
+	 */
+	public function deleteAction()
+	{
+		$id = (int) $this->params()->fromRoute('id', 0);	
+		if ($id == 0)
+			throw new \Exception("Código Obrigatório");
+
+		try{		
+			$setor = $this->getEntityManager()->find('Drh\Entity\Setor', $id);
+			$this->getEntityManager()->remove($setor);
+			$this->getEntityManager()->flush();			
+		} catch(\Exception $e){
+			throw new \Exception("Registro não encontrado");			
+		}
+		
+		return $this->redirect()->toUrl('/drh/setor');
 	}
 }
