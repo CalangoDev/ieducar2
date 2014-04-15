@@ -35,11 +35,17 @@ phpunit -c module/Usuario/tests.phpunit.xml --debug --group=Entity --filter=Pess
 ### Módulo Usuario
 
 phpunit -c module/Usuario/tests/phpunit.xml --filter=Escolaridade
+
 phpunit -c module/Usuario/tests/phpunit.xml --filter=EstadoCivil
+
 phpunit -c module/Usuario/tests/phpunit.xml --filter=Fisica
+
 phpunit -c module/Usuario/tests/phpunit.xml --filter=Juridica
+
 phpunit -c module/Usuario/tests/phpunit.xml --filter=Ocupacao
+
 phpunit -c module/Usuario/tests/phpunit.xml --filter=Pessoa
+
 phpunit -c module/Usuario/tests/phpunit.xml --filter=Religiao
 
 ### Módulo Portal
@@ -70,3 +76,7 @@ Usar a herança de Entidade
 exemplo: 
 
 Classe Fisica extende a Classe Pessoa :D
+
+## Ação atual
+
+Auth + ACL
