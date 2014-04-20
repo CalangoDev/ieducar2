@@ -61,6 +61,15 @@ return array(
         'aliases' => array(
             'translator' => 'MvcTranslator',
         ),
+        // 'factories' => array(
+        //     'Session' => function($sm) {
+        //         return new \Zend\Session\Container\('ieducar2');
+        //     },
+        //     'Auth\Service\Auth' => function($sm) {
+        //         $dbAdapter = $sm->get('DbAdapter');
+        //         return new Auth\Service\Auth($dbAdapter);                
+        //     }
+        // ),
     ),
     'translator' => array(
         'locale' => 'pt_BR',

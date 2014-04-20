@@ -383,7 +383,7 @@ class Pessoa extends Entity implements EventSubscriber
 		 * Se for uma entidade do tipo juridica
 		 * verifica os campos alterados do update
 		 */
-		if (get_class($entity) == 'Usuario\Entity\Fisica'){
+		if (get_class($entity) == 'Usuario\Entity\Juridica'){
 			($args->hasChangedField('cnpj')) ? $this->usuario->cnpj : null;
 			($args->hasChangedField('insc_estadual')) ? $this->usuario->insc_estadual : null;
 			($args->hasChangedField('fantasia')) ? $this->usuario->fantasia : null;
@@ -459,7 +459,7 @@ class Pessoa extends Entity implements EventSubscriber
 	    	$uow->computeChangeSet($logMetadata, $historicoPessoa);
 			$postInsertIds = $persister->executeInserts();	
 
-			if (get_class($this->usuario) == 'Usuario\Entity\Fisica'){				
+			if (get_class($this->usuario) == 'Usuario\Entity\Fisica'){					
 				$historicoFisica = new \Historico\Entity\Fisica();
 				$sequenceName = 'historico.seq_fisica';
 				$sequenceGenerator = new SeqGen($sequenceName, 1);

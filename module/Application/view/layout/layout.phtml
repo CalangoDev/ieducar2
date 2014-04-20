@@ -43,6 +43,37 @@
                 </div><!--/.nav-collapse -->
             </div>
         </nav>
+
+        <?php if(isset($flashMessages)):             
+            $class = key((array) $flashMessages[0]);            
+        ?>
+            <div class="page">
+                <br>                
+                <div class="notices">
+                    <div class="bg-color-<?php if ($class == 'success') { echo "green"; } else if ($class == 'error'){ echo 'red'; }?>">
+                        <!-- <a href="#" class="close"></a> -->
+                        <div class="notice-icon">
+                            <h1 id="icon-resize-sample" class="<?php if($class == 'success') { echo 'icon-save'; } else if ($class == 'error') { echo 'icon-blocked';}?>" style="font-size: 16px; color: #fff; "></h1>
+                        </div>
+                        <div class="notice-image">
+                            <h1 id="icon-resize-sample" class="<?php if($class == 'success') { echo 'icon-checkmark'; } else if ($class == 'error') { echo 'icon-thumbs-down';}?>"
+                        </div>
+                        <div class="notice-header fg-color-yellow">
+                            <?php                             
+                            foreach ($flashMessages as $key => $flashMessage) : ?>
+                                <?php                  
+                                $message = current((array) $flashMessage);               
+                                echo $message;
+                                //echo $flashMessage['success']; ?><br>
+                            <?php endforeach; ?>         
+                        </div>
+                        <!-- <div class="notice-text">Your computer is hacked and is a part of a botnet!</div> -->
+                    </div>
+                </div>
+                
+            </div>
+        <?php endif; ?>
+
         <div class="container">
             <?php echo $this->content; ?>
             <hr>
