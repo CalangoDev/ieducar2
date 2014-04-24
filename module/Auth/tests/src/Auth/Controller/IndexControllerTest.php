@@ -67,7 +67,10 @@ class IndexControllerTest extends ControllerTestCase
 		$em->persist($fisica);
 		//	Gravando um funcionario
 		$funcionario = $this->buildFuncionario();
-		$funcionario->setId($fisica);
+		// $funcionario->setId($fisica);
+		
+		$funcionario->setRefCodPessoaFj($fisica);
+
 		$em->persist($funcionario);
 		$em->flush();
 
@@ -102,7 +105,8 @@ class IndexControllerTest extends ControllerTestCase
 		$em->persist($fisica);
 		//	Gravando um funcionario
 		$funcionario = $this->buildFuncionario();
-		$funcionario->setId($fisica);
+		// $funcionario->setId($fisica);
+		$funcionario->setRefCodPessoaFj($fisica);
 		$em->persist($funcionario);
 		$em->flush();
 
@@ -142,7 +146,8 @@ class IndexControllerTest extends ControllerTestCase
 		$em->persist($fisica);
 		//	Gravando um funcionario
 		$funcionario = $this->buildFuncionario();
-		$funcionario->setId($fisica);
+		// $funcionario->setId($fisica);
+		$funcionario->setRefCodPessoaFj($fisica);
 		$em->persist($funcionario);
 		$em->flush();
 
@@ -168,6 +173,14 @@ class IndexControllerTest extends ControllerTestCase
 		//	Verifica a resposta
 		$response = $this->controller->getResponse();
 		
+		//	Verificar flashMessages
+		$messenger = new \Zend\Mvc\Controller\Plugin\FlashMessenger();
+		//	Verifica se existe flashMessages
+		$this->assertTrue($messenger->hasMessages());
+		//	Get Messages		
+		$messages = $messenger->getMessages();
+		//	Verifica se a mensagem é uma mensagem sucesso Você logou com sucesso!
+		$this->assertEquals($messages[0]['sucess'], "Você logou com sucesso!");
 	}
 
 	private function buildFisica()

@@ -53,16 +53,16 @@ class Setor extends Entity
 	/**
 	 * @var int $ref_cod_pessoa_exc Ref da Pessoa(funcionario) que excluiu o registro
 	 * 
-	 * @ORM\ManyToOne(targetEntity="Portal\Entity\Funcionario", cascade={"persist"})
-	 * @ORM\JoinColumn(name="ref_cod_pessoa_exc", referencedColumnName="ref_cod_pessoa_fj", onDelete="SET NULL")
+	 * @ORM\ManyToOne(targetEntity="Usuario\Entity\Fisica", cascade={"persist"})
+	 * @ORM\JoinColumn(name="ref_cod_pessoa_exc", referencedColumnName="idpes", onDelete="SET NULL")
 	 */
 	protected $pessoa_exclu;
 
 	/**
 	 * @var int $ref_cod_pessoa_cad Ref da pessoa(funcionario) que cadastrou o registro
 	 * 
-	 * @ORM\ManyToOne(targetEntity="Portal\Entity\Funcionario", cascade={"persist"})
-	 * @ORM\JoinColumn(name="ref_cod_pessoa_cad", referencedColumnName="ref_cod_pessoa_fj", onDelete="SET NULL")
+	 * @ORM\ManyToOne(targetEntity="Usuario\Entity\Fisica", cascade={"persist"})
+	 * @ORM\JoinColumn(name="ref_cod_pessoa_cad", referencedColumnName="idpes", onDelete="SET NULL")
 	 */
 	protected $pessoa_cad;
 
@@ -141,8 +141,8 @@ class Setor extends Entity
 	/**
 	 * @var int $secretario
 	 * 
-	 * @ORM\ManyToOne(targetEntity="Portal\Entity\Funcionario", cascade={"persist"})
-	 * @ORM\JoinColumn(name="ref_idpes_resp", referencedColumnName="ref_cod_pessoa_fj", onDelete="SET NULL")
+	 * @ORM\ManyToOne(targetEntity="Usuario\Entity\Fisica", cascade={"persist"})
+	 * @ORM\JoinColumn(name="ref_idpes_resp", referencedColumnName="idpes", onDelete="SET NULL")
 	 */
 	protected $secretario;
 

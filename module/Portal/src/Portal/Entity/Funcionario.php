@@ -32,13 +32,22 @@ class Funcionario extends Entity
 {
 	
 	/**
-	 * @var Integer $id Referencia ao codigo da pessoa do modulo usuario
+	 * @var Int $id Identificador da entidade fisica
 	 * 
 	 * @ORM\Id
-	 * @ORM\OneToOne(targetEntity="Usuario\Entity\Fisica")
-	 * @ORM\JoinColumn(name="ref_cod_pessoa_fj", referencedColumnName="idpes", onDelete="RESTRICT")
+	 * @ORM\Column(type="integer", nullable=false)
+	 * @ORM\GeneratedValue(strategy="SEQUENCE")
+	 * @SequenceGenerator(sequenceName="portal.seq_funcionario", initialValue=1, allocationSize=1)	 
 	 */
 	protected $id;
+
+	/**
+	 * @var Integer $id Referencia ao codigo da pessoa do modulo usuario
+	 * 	 
+	 * @ORM\OneToOne(targetEntity="Usuario\Entity\Fisica")
+	 * @ORM\JoinColumn(name="ref_cod_pessoa_fj", referencedColumnName="idpes", onDelete="RESTRICT", nullable=false)
+	 */
+	protected $ref_cod_pessoa_fj;
 
 	/**
 	 * @var string $matricula Matricula do funcionario
@@ -154,8 +163,8 @@ class Funcionario extends Entity
 	 * 
 	 * @todo verificar o funcionamento desse auto relacionamento no sistema antigo
 	 * 
-	 * @ORM\ManyToOne(targetEntity="Funcionario", cascade={"persist"})
-	 * @ORM\JoinColumn(name="ref_ref_cod_pessoa_fj", referencedColumnName="ref_cod_pessoa_fj", onDelete="RESTRICT")
+	 * @ORM\ManyToOne(targetEntity="Usuario\Entity\Fisica", cascade={"persist"})
+	 * @ORM\JoinColumn(name="ref_ref_cod_pessoa_fj", referencedColumnName="idpes", onDelete="RESTRICT")	 
 	 */
 	protected $ref_ref_cod_pessoa_fj;
 
@@ -279,6 +288,16 @@ class Funcionario extends Entity
 	public function setId($value)
 	{
 		$this->id = $this->valid("id", $value);
+	}
+
+	public function getRefCodPessoaFj()
+	{
+		return $this->ref_cod_pessoa_fj;
+	}
+	
+	public function setRefCodPessoaFj($value)
+	{
+		$this->ref_cod_pessoa_fj = $this->valid("ref_cod_pessoa_fj", $value);
 	}
 
 	public function getMatricula()

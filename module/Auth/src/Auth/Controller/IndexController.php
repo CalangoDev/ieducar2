@@ -35,6 +35,11 @@ class IndexController extends ActionController
 		return $this->em;
 	}
 
+    // public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    // {
+    //     $this->serviceLocator = $serviceLocator;
+    // }
+
     public function indexAction()
     { 
     	$form = new LoginForm();
@@ -55,7 +60,7 @@ class IndexController extends ActionController
     		
     		if ($authResult->isValid()) {    			
         		// return $this->redirect()->toRoute('home');
-        		$identity = $authResult->getIdentity();        		
+        		$identity = $authResult->getIdentity();                
         		return $this->redirect()->toUrl('/');
     		} else {
     			$this->flashMessenger()->addMessage(array("error" => "Matrícula ou senha inválidos"));
@@ -72,18 +77,12 @@ class IndexController extends ActionController
     }
 
     public function logadoAction()
-    {
+    {        
+    	$authService = $this->getServiceLocator()->get('Zend\Authentication\AuthenticationService');        
+    	// $loggedUser = $authService->getIdentity();    	
     	
-    	// $authService = $this->getServiceLocator()->get('Zend\Authentication\AuthenticationService');
-    	// $loggedUser = $authService->getIdentity();
-    	// var_dump($this->getServiceLocator()->has('Zend\Authentication\AuthenticationService'));
-
-    	// var_dump($this->identity());
-    	if ($user = $this->identity()){
-    		var_dump("LOGADO");
-    	} else {
-    		var_dump("NAO LOGADO");
-    	}
+    	($user = $authService->getIdentity()) ? $this->flashMessenger()->addMessage(array("sucess" => 'Você logou com sucesso!')) : $this->flashMessenger()->addMessage(array("error" => "Você não está logado!"));
+    		
     	return new ViewModel();
     }
 }
