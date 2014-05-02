@@ -69,8 +69,11 @@ class FuncionarioController extends ActionController
 
 		if ($request->isPost()){			
 			$form->setInputFilter($funcionario->getInputFilter());
-			$form->setData($request->getPost());			
-			if ($form->isValid()){												
+			$form->setData($request->getPost());						
+			if ($form->isValid()){				
+				
+				// var_dump($request->getPost());
+				// var_dump($funcionario);
 				/**
 				 * Persistindo os dados
 				 */
@@ -84,7 +87,7 @@ class FuncionarioController extends ActionController
 				 * checar se essas funcionalidades vao ser codificadas
 				 */				 
 				return $this->redirect()->toUrl('/portal/funcionario');
-			}
+			}			
 		}
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if ($id >0){

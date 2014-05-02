@@ -20,6 +20,29 @@ class Funcionario extends Form
 			),			
 		));
 
+		// $this->add(array(
+		// 	'name' => 'ref_cod_pessoa_fj',
+		// 	'attributes' => array(
+		// 		'type' => 'hidden'
+		// 	),			
+		// ));
+
+		$this->add(array(
+			'name' => 'ref_cod_pessoa_fj',
+			'attributes' => array(
+				'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+			),
+			'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+			'options' => array(
+				'label' => 'Pessoa Física',
+				'empty_option' => 'Selecione',
+				'object_manager' => $em,
+				'target_class' => 'Usuario\Entity\Fisica',
+				'property' => 'nome',
+			),
+		));
+
+
 		$this->add(array(
 			'name' => 'matricula',
 			'attributes' => array(

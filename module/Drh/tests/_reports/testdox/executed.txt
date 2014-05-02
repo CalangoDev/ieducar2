@@ -9,3 +9,11 @@ SetorController
  [x] Setor delete action
  [x] Funcionario invalid id delete action
 
+Drh\Entity\Setor
+ [x] Get input filter
+ [ ] Input filter valid
+ [x] Insert
+ [ ] Input filter invalid setor
+ [x] Update
+ [x] Delete
+

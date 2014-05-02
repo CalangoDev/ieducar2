@@ -248,7 +248,8 @@ class Funcionario extends Entity
 	public function setData($data)
 	{	
 		// var_dump($data);
-		$this->setId( isset($data['id']) ? $data['id'] : null );
+		$this->setId( isset($data['id']) ? $data['id'] : null );		
+		$this->setRefCodPessoaFj( isset($data['ref_cod_pessoa_fj']) ? $data['ref_cod_pessoa_fj'] : null );
 		$this->setMatricula( isset($data['matricula']) ? $data['matricula'] : null );
 		$this->setSenha( isset($data['senha']) ? $data['senha'] : null );
 		$this->setAtivo( isset($data['ativo']) ? $data['ativo'] : null);
@@ -541,8 +542,11 @@ class Funcionario extends Entity
 
 			$inputFilter->add($factory->createInput(array(
 				'name' => 'id',
-				'required' => true,				
-			)));
+				'required' => true,	
+				'filters' => array(
+					array('name' => 'Int'),
+				),			
+			)));			
 
 			$inputFilter->add($factory->createInput(array(
 				'name' => 'matricula',

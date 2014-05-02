@@ -37,10 +37,12 @@ class FuncionarioControllerTest extends ControllerTestCase
 		$em->persist($pB);
 
 		$funcionarioA = $this->buildFuncionario();
-		$funcionarioA->setId($pA);
+		$funcionarioA->setRefCodPessoaFj($pA);
+		// $funcionarioA->setId($pA);
 
 		$funcionarioB = $this->buildFuncionario();
-		$funcionarioB->setId($pB);
+		// $funcionarioB->setId($pB);
+		$funcionarioB->setRefCodPessoaFj($pB);
 		$funcionarioB->setMatricula('gold');
 		
 		
@@ -97,9 +99,14 @@ class FuncionarioControllerTest extends ControllerTestCase
 		$variables = $result->getVariables();
 		$this->assertInstanceOf('Zend\Form\Form', $variables['form']);
 		$form = $variables['form'];
+		
 		//	Testa os itens do formulario
 		$id = $form->get('id');
 		$this->assertEquals('id', $id->getName());
+		$this->assertEquals('hidden', $id->getAttribute('type'));
+
+		$ref_cod_pessoa_fj = $form->get('ref_cod_pessoa_fj');
+		$this->assertEquals('ref_cod_pessoa_fj', $ref_cod_pessoa_fj->getName());
 		$this->assertEquals('hidden', $id->getAttribute('type'));
 
 		$matricula = $form->get('matricula');
@@ -150,7 +157,8 @@ class FuncionarioControllerTest extends ControllerTestCase
 		$em->persist($fisica);
 
 		$funcionario = $this->buildFuncionario();
-		$funcionario->setId($fisica);				
+		// $funcionario->setId($fisica);				
+		$funcionario->setRefCodPessoaFj($fisica);
 		
 		$em->persist($funcionario);
 		$em->flush();
@@ -159,7 +167,7 @@ class FuncionarioControllerTest extends ControllerTestCase
 
 		//	Dispara a acao
 		$this->routeMatch->setParam('action', 'save');
-		$this->routeMatch->setParam('id', $funcionario->getId()->getId());
+		$this->routeMatch->setParam('id', $funcionario->getRefCodPessoaFj()->getId());
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
 		);
@@ -180,6 +188,10 @@ class FuncionarioControllerTest extends ControllerTestCase
 		$id = $form->get('id');		
 		$this->assertEquals('id', $id->getName());		
 		$this->assertEquals($funcionario->getId(), $id->getValue());
+
+		$ref_cod_pessoa_fj = $form->get('ref_cod_pessoa_fj');
+		$this->assertEquals('ref_cod_pessoa_fj', $ref_cod_pessoa_fj->getName());
+		$this->assertEquals('hidden', $id->getAttribute('type'));
 		
 		$matricula = $form->get('matricula');
 		$this->assertEquals('matricula', $matricula->getName());
@@ -233,10 +245,11 @@ class FuncionarioControllerTest extends ControllerTestCase
 
 		//	Dispara a acao
 		$this->routeMatch->setParam('action', 'save');
-		$this->routeMatch->setParam('fisica', $fisica->getId());
+		// $this->routeMatch->setParam('fisica', $fisica->getId());		
 
 		$this->request->setMethod('post');
-		$this->request->getPost()->set('id', $fisica->getId());
+		$this->request->getPost()->set('id', '');
+		$this->request->getPost()->set('ref_cod_pessoa_fj', $fisica->getId());
 		$this->request->getPost()->set('matricula', 'admin');
 		$this->request->getPost()->set('senha', 'admin');
 		$this->request->getPost()->set('ativo', true);
@@ -261,7 +274,7 @@ class FuncionarioControllerTest extends ControllerTestCase
 	/**
 	 * Testa o update de um funcionario
 	 */
-	public function testFisicaUpdateAction()
+	public function testFuncionarioUpdateAction()
 	{
 		//	Gravando uma pessoa no banco pre requisito para um funcionario existir
 		$fisica = $this->buildFisica();
@@ -272,14 +285,15 @@ class FuncionarioControllerTest extends ControllerTestCase
 		$em->persist($setor);
 
 		$funcionario = $this->buildFuncionario();
-		$funcionario->setId($fisica);
+		// $funcionario->setId($fisica);
+		$funcionario->setRefCodPessoaFj($fisica);
 
 		
 		$em->flush();
 				
 		//	Dispara a acao
 		$this->routeMatch->setParam('action', 'save');
-		$this->routeMatch->setParam('fisica', $funcionario->getId()->getId());
+		$this->routeMatch->setParam('fisica', $funcionario->getRefCodPessoaFj()->getId());
 
 		$this->request->setMethod('post');
 		$this->request->getPost()->set('id', $fisica->getId());
@@ -371,14 +385,15 @@ class FuncionarioControllerTest extends ControllerTestCase
 		$em->flush();
 
 		$funcionario = $this->buildFuncionario();
-		$funcionario->setId($fisica);
+		// $funcionario->setId($fisica);
+		$funcionario->setRefCodPessoaFj($fisica);
 		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
 		$em->persist($funcionario);
     	$em->flush();		
 		
 		//	Dispara a acao
 		$this->routeMatch->setParam('action', 'delete');
-		$this->routeMatch->setParam('id', $funcionario->getId()->getId());
+		$this->routeMatch->setParam('id', $funcionario->getRefCodPessoaFj()->getId());
 
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
@@ -408,7 +423,8 @@ class FuncionarioControllerTest extends ControllerTestCase
 		$em->persist($fisica);
 
 		$funcionario = $this->buildFuncionario();
-		$funcionario->setId($fisica);		
+		// $funcionario->setId($fisica);	
+		$funcionario->setRefCodPessoaFj($fisica);	
 		$em->persist($funcionario);
     	$em->flush();		
 		

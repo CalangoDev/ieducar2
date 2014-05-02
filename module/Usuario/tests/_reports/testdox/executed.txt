@@ -1,34 +1,21 @@
-EscolaridadeController
- [x] Escolaridade index action
- [x] Escolaridade save action new request
- [x] Escolaridade save action update form request
- [x] Escolaridade save action post request
- [x] Escolaridade update action
+ReligiaoController
+ [x] Religiao index action
+ [x] Religiao save action new request
+ [x] Religiao save action update form request
+ [x] Religiao save action post request
+ [x] Religiao update action
  [x] Escolaridade save action invalid post request
- [x] Escolaridade invalid delete action
- [x] Escolaridade delete action
- [x] Escolaridade invalid id delete action
+ [x] Religiao invalid delete action
+ [x] Religiao delete action
+ [x] Religiao invalid id delete action
 
-EstadoCivilController
- [x] Estado civil index action
- [x] Estado civil save action new request
- [x] Estado civil save action update form request
- [x] Estado civil save action post request
- [x] Estado civil update action
- [x] Estado civil save action invalid post request
- [x] Estado civil invalid delete action
- [x] Estado civil delete action
- [x] Estado civil invalid id delete action
+Usuario\Entity\Religiao
+ [x] Get input filter
+ [x] Input filter valid
+ [x] Insert
+ [x] Build pessoa
+ [x] Insert with pessoa
+ [x] Input filter invalid religiao
+ [x] Update
+ [x] Delete
 
-FisicaController
- [x] Fisica index action
- [x] Fisica save action new request
- [x] Fisica save action update form request
- [x] Fisica save action post request
- [x] Fisica update action
- [x] Fisica save action invalid post request
- [x] Fisica invalid delete action
- [x] Fisica delete action
- [x] Fisica invalid id delete action
-
-JuridicaController

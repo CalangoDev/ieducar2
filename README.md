@@ -28,7 +28,7 @@ Exemplo de uso para o modulo Usuario:
 
 phpunit -c module/Usuario/tests/phpunit.xml
 
-phpunit -c module/Usuario/tests.phpunit.xml --debug --group=Entity --filter=Pessoa
+phpunit -c module/Usuario/tests/phpunit.xml --debug --group=Entity --filter=Pessoa
 
 ### Testes completados
 
