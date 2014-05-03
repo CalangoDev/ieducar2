@@ -45,7 +45,7 @@ class Funcionario extends Entity
 	 * @var Integer $id Referencia ao codigo da pessoa do modulo usuario
 	 * 	 
 	 * @ORM\OneToOne(targetEntity="Usuario\Entity\Fisica")
-	 * @ORM\JoinColumn(name="ref_cod_pessoa_fj", referencedColumnName="idpes", onDelete="RESTRICT", nullable=false)
+	 * @ORM\JoinColumn(name="ref_cod_pessoa_fj", referencedColumnName="idpes", nullable=false)
 	 */
 	protected $ref_cod_pessoa_fj;
 
@@ -246,7 +246,7 @@ class Funcionario extends Entity
 	protected $status_token;
 
 	public function setData($data)
-	{	
+	{			
 		// var_dump($data);
 		$this->setId( isset($data['id']) ? $data['id'] : null );		
 		$this->setRefCodPessoaFj( isset($data['ref_cod_pessoa_fj']) ? $data['ref_cod_pessoa_fj'] : null );
@@ -297,8 +297,9 @@ class Funcionario extends Entity
 	}
 	
 	public function setRefCodPessoaFj($value)
-	{
-		$this->ref_cod_pessoa_fj = $this->valid("ref_cod_pessoa_fj", $value);
+	{		
+		// $this->ref_cod_pessoa_fj = $this->valid("ref_cod_pessoa_fj", $value);
+		$this->ref_cod_pessoa_fj = $value;
 	}
 
 	public function getMatricula()

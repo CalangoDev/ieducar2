@@ -11,9 +11,9 @@ SetorController
 
 Drh\Entity\Setor
  [x] Get input filter
- [ ] Input filter valid
+ [x] Input filter valid
  [x] Insert
- [ ] Input filter invalid setor
+ [x] Input filter invalid setor
  [x] Update
  [x] Delete
 

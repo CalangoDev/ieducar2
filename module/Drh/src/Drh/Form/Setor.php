@@ -44,8 +44,18 @@ class Setor extends Form
 			),
 		));
 
+		// $this->add(array(
+		// 	'name' => 'SiglaSetor',
+		// 	'attributes' => array(
+		// 		'type' => 'text'
+		// 	),
+		// 	'options' => array(
+		// 		'label' => 'Sigla do Setor'
+		// 	),
+		// ));
+
 		$this->add(array(
-			'name' => 'SiglaSetor',
+			'name' => 'sigla_setor',
 			'attributes' => array(
 				'type' => 'text'
 			),

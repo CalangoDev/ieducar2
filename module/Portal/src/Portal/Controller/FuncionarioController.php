@@ -8,6 +8,8 @@ use Portal\Form\Funcionario as FuncionarioForm;
 use DoctrineORMModule\Stdlib\Hydrator\DoctrineEntity;
 use Doctrine\ORM\EntityManager;
 
+// use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
+
 /**
  * Controlador que gerencia os funcionarios
  * 
@@ -60,20 +62,34 @@ class FuncionarioController extends ActionController
 		$request = $this->getRequest();
 
 		$id = (int) $this->getEvent()->getRouteMatch()->getParam('id');
-		if ($id > 0){
+		if ($id > 0){			
 			$funcionario = $this->getEntityManager()->find('Portal\Entity\Funcionario', $id);
 			$form->get('submit')->setAttribute('value', 'Edit');
 		}
 		$form->setHydrator(new DoctrineEntity($this->getEntityManager(), 'Portal\Entity\Funcionario'));		
 		$form->bind($funcionario);
 
-		if ($request->isPost()){			
+		if ($request->isPost()){		
 			$form->setInputFilter($funcionario->getInputFilter());
 			$form->setData($request->getPost());						
 			if ($form->isValid()){				
 				
-				// var_dump($request->getPost());
-				// var_dump($funcionario);
+				$ref_cod_pessoa_fj = $form->get('ref_cod_pessoa_fj')->getValue();
+				/**
+				 * Buscar a Pessoa Fisica pelo o ID passado e associar a entity fisica com a de funcionario
+				 * 
+				 * Pode ser feito usando hydrator como no codigo depois das duas linhas seguintes que esta comentado
+				 */				
+				$pessoaFisica = $this->getEntityManager()->find('Usuario\Entity\Fisica', $ref_cod_pessoa_fj);
+				$funcionario->setRefCodPessoaFj($pessoaFisica);				
+				// $hydrator = new DoctrineHydrator($this->getEntityManager(), 'Usuario\Entity\Fisica');
+				// $fisica = new \Usuario\Entity\Fisica;
+				// $dados = array(
+				// 	'id' => $ref_cod_pessoa_fj
+				// );
+				// $fisica = $hydrator->hydrate($dados, $fisica);
+				// $funcionario->setRefCodPessoaFj($fisica);
+				
 				/**
 				 * Persistindo os dados
 				 */
@@ -87,10 +103,10 @@ class FuncionarioController extends ActionController
 				 * checar se essas funcionalidades vao ser codificadas
 				 */				 
 				return $this->redirect()->toUrl('/portal/funcionario');
-			}			
+			} 			
 		}
 		$id = (int) $this->params()->fromRoute('id', 0);
-		if ($id >0){
+		if ($id >0){			
 			$funcionario = $this->getEntityManager()->find('Portal\Entity\Funcionario', $id);
 			$form->get('submit')->setAttribute('value', 'Edit');
 		}

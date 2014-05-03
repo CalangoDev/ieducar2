@@ -31,7 +31,7 @@ class SetorControllerTest extends ControllerTestCase
 		$setorA = $this->buildSetor();
 		$setorB = $this->buildSetor();
 		$setorB->setNome('Setor Y');
-		$setorB->setSiglaSetor('STY');
+		$setorB->setSigla_Setor('STY');
 		
 		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
 		$em->persist($setorA);
@@ -95,8 +95,12 @@ class SetorControllerTest extends ControllerTestCase
 		$this->assertEquals('nome', $nome->getName());
 		$this->assertEquals('text', $nome->getAttribute('type'));
 
-		$sigla_setor = $form->get('SiglaSetor');
-		$this->assertEquals('SiglaSetor', $sigla_setor->getName());
+		// $sigla_setor = $form->get('SiglaSetor');
+		// $this->assertEquals('SiglaSetor', $sigla_setor->getName());
+		// $this->assertEquals('text', $sigla_setor->getAttribute('type'));
+
+		$sigla_setor = $form->get('sigla_setor');
+		$this->assertEquals('sigla_setor', $sigla_setor->getName());
 		$this->assertEquals('text', $sigla_setor->getAttribute('type'));
 
 		$no_paco = $form->get('no_paco');
@@ -169,7 +173,8 @@ class SetorControllerTest extends ControllerTestCase
 		$this->request->setMethod('post');
 		$this->request->getPost()->set('id', '');
 		$this->request->getPost()->set('nome', 'Setor Y');
-		$this->request->getPost()->set('SiglaSetor', 'STY');
+		// $this->request->getPost()->set('SiglaSetor', 'STY');
+		$this->request->getPost()->set('sigla_setor', 'STY');
 		$this->request->getPost()->set('ativo', 1);
 		$this->request->getPost()->set('nivel', 1);
 		$this->request->getPost()->set('endereco', 'Rua do setor y');
@@ -204,7 +209,8 @@ class SetorControllerTest extends ControllerTestCase
 		$this->request->setMethod('post');
 		$this->request->getPost()->set('id', $setor->getId());
 		$this->request->getPost()->set('nome', 'Setor X');
-		$this->request->getPost()->set('SiglaSetor', 'STY');
+		// $this->request->getPost()->set('SiglaSetor', 'STY');
+		$this->request->getPost()->set('sigla_setor', 'STY');
 		$this->request->getPost()->set('ativo', 1);
 		$this->request->getPost()->set('nivel', 1);
 		$this->request->getPost()->set('endereco', 'Rua do setor y');
@@ -337,7 +343,8 @@ class SetorControllerTest extends ControllerTestCase
 	{
 		$setor = new Setor;
 		$setor->setNome('Setor X');
-		$setor->setSiglaSetor('STX');
+		// $setor->setSiglaSetor('STX');
+		$setor->setSigla_Setor('STX');
 		$setor->setAtivo(1);
 		$setor->setNivel(1);
 		$setor->setNoPaco(1);

@@ -287,16 +287,19 @@ class FuncionarioControllerTest extends ControllerTestCase
 		$funcionario = $this->buildFuncionario();
 		// $funcionario->setId($fisica);
 		$funcionario->setRefCodPessoaFj($fisica);
+		$em->persist($funcionario);
 
 		
 		$em->flush();
 				
 		//	Dispara a acao
 		$this->routeMatch->setParam('action', 'save');
-		$this->routeMatch->setParam('fisica', $funcionario->getRefCodPessoaFj()->getId());
+		// $this->routeMatch->setParam('fisica', $funcionario->getRefCodPessoaFj()->getId());
+		$this->routeMatch->setParam('id', $funcionario->getId());
 
 		$this->request->setMethod('post');
-		$this->request->getPost()->set('id', $fisica->getId());
+		$this->request->getPost()->set('id', $funcionario->getId());
+		$this->request->getPost()->set('ref_cod_pessoa_fj', $fisica->getId());
 		$this->request->getPost()->set('matricula', 'teste');
 		$this->request->getPost()->set('senha', 'admin');
 		$this->request->getPost()->set('ativo', true);

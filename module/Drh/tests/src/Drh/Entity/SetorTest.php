@@ -32,15 +32,14 @@ class SetorTest extends EntityTestCase
 	 */
 	public function testInputFilterValid($if)
 	{
-		$this->assertEquals(12, $if->count());
+		$this->assertEquals(11, $if->count());
 
 		$this->assertTrue($if->has('id'));
 		$this->assertTrue($if->has('nome'));
 		$this->assertTrue($if->has('pessoa_exclu'));
 		$this->assertTrue($if->has('pessoa_cad'));
 		$this->assertTrue($if->has('ref_cod_setor'));
-		$this->assertTrue($if->has('sigla_setor'));
-		$this->assertTrue($if->has('data_cadastro'));
+		$this->assertTrue($if->has('sigla_setor'));		
 		$this->assertTrue($if->has('ativo'));
 		$this->assertTrue($if->has('no_paco'));
 		$this->assertTrue($if->has('tipo'));
@@ -74,7 +73,7 @@ class SetorTest extends EntityTestCase
 	public function testInputFilterInvalidSetor()
 	{
 		$setor = $this->buildSetor();		
-		$setor->setSiglaSetor("Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá,
+		$setor->setSigla_Setor("Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá,
 		depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum
 		girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i 
 		pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.");		
@@ -154,7 +153,7 @@ class SetorTest extends EntityTestCase
 	{
 		$setor = new Setor;
 		$setor->setNome('Setor X');
-		$setor->setSiglaSetor('STX');
+		$setor->setSigla_Setor('STX');
 		$setor->setAtivo(1);
 		$setor->setNivel(1);
 		$setor->setNoPaco(1);

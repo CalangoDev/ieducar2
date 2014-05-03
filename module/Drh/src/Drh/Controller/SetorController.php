@@ -65,7 +65,8 @@ class SetorController extends ActionController
 		$form->bind($setor);
 
 		if ($request->isPost()){			
-			$form->setInputFilter($setor->getInputFilter());			
+			$form->setInputFilter($setor->getInputFilter());
+			// $setor->removeInputFilter('sigla_setor');
 			$form->setData($request->getPost());				
 			if ($form->isValid()){				
 				/**
@@ -78,8 +79,8 @@ class SetorController extends ActionController
 				 * Redirecionando para lista de setores
 				 */
 				return $this->redirect()->toUrl('/drh/setor');
-			}			
-		}
+			} 
+		} 
 
 		/**
 		 * @todo refatorar a logica do get id, estou praticamente duplicando codigo 		 

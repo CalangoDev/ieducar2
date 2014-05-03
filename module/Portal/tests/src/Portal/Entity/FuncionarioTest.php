@@ -67,12 +67,12 @@ class FuncionarioTest extends EntityTestCase
 		$this->em->persist($fisica);
 
 		$funcionario = $this->buildFuncionario();
-		$funcionario->setId($fisica);
+		$funcionario->setRefCodPessoaFj($fisica);
 		$this->em->persist($funcionario);
 		$this->em->flush();
 
 		$this->assertNotNull($funcionario->getId());		
-		$this->assertEquals($fisica, $funcionario->getId());
+		$this->assertEquals($fisica, $funcionario->getRefCodPessoaFj());
 
 		/**
 		 * Buscando no banco de dados o funcionario que foi cadastrado
@@ -97,7 +97,7 @@ class FuncionarioTest extends EntityTestCase
 		depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum
 		girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i 
 		pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.");
-		$funcionario->setId($fisica);
+		$funcionario->setRefCodPessoaFj($fisica);
 		$this->em->persist($funcionario);
 		$this->em->flush();
 	}
@@ -108,7 +108,7 @@ class FuncionarioTest extends EntityTestCase
 		$this->em->persist($fisica);
 
 		$funcionario = $this->buildFuncionario();
-		$funcionario->setId($fisica);
+		$funcionario->setRefCodPessoaFj($fisica);
 		$this->em->persist($funcionario);
 
 		$savedFuncionario = $this->em->find('Portal\Entity\Funcionario', $funcionario->getId());
@@ -131,7 +131,7 @@ class FuncionarioTest extends EntityTestCase
 		$this->em->persist($fisica);
 
 		$funcionario = $this->buildFuncionario();
-		$funcionario->setId($fisica);
+		$funcionario->setRefCodPessoaFj($fisica);
 
 		$this->em->persist($funcionario);
 		$this->em->flush();

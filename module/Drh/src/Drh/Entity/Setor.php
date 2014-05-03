@@ -167,7 +167,7 @@ class Setor extends Entity
 		$this->setPessoaCad( isset($data['pessoa_cad']) ? $data['pessoa_cad'] : null );
 		if (!empty($data['ref_cod_setor']))			
 			$this->setRefCodSetor( isset($data['ref_cod_setor']) ? $data['ref_cod_setor'] : null );
-		$this->setDataCadastro( isset($data['data_cadastro']) ? $data['data_cadastro'] : null );
+		// $this->setDataCadastro( isset($data['data_cadastro']) ? $data['data_cadastro'] : null );
 		$this->setDataExclusao( isset($data['data_exclusao']) ? $data['data_exclusao'] : null );
 		$this->setAtivo( isset($data['ativo']) ? $data['ativo'] : null );
 		$this->setNoPaco( isset($data['no_paco']) ? $data['no_paco'] : null );
@@ -303,14 +303,24 @@ class Setor extends Entity
 		$this->secretario = $this->valid("secretario", $value);
 	}
 
-	public function getSiglaSetor()
+	// public function getSiglaSetor()
+	// {
+	// 	return $this->sigla_setor;
+	// }
+	
+	// public function setSiglaSetor($value)
+	// {
+	// 	$this->sigla_setor = $this->valid("sigla_setor", $value);
+	// }
+
+	public function getSigla_Setor()
 	{
 		return $this->sigla_setor;
 	}
-	
-	public function setSiglaSetor($value)
+
+	public function setSigla_Setor($value)
 	{
-		$this->sigla_setor = $this->valid("sigla_setor", $value);
+		$this->sigla_setor = $this->valid("sigla_setor", $value);	
 	}
 
 	public function getNivel()
@@ -391,7 +401,8 @@ class Setor extends Entity
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'SiglaSetor',
+				// 'name' => 'SiglaSetor',
+				'name' => 'sigla_setor',
 				'required' => true,
 				'filters'	=>	array(
 					array('name'	=>	'StripTags'),
@@ -408,14 +419,6 @@ class Setor extends Entity
 					),
 				),				
 			)));
-
-			// $inputFilter->add($factory->createInput(array(
-			// 	'name' => 'data_cadastro',
-			// 	'required' => true,				
-			// 	'validators' => array(
-			// 		'name' => new \Zend\Validator\Date(),
-			// 	),
-			// )));
 
 			$inputFilter->add($factory->createInput(array(
 				'name' => 'data_exclusao',

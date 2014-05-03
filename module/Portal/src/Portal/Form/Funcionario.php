@@ -20,13 +20,6 @@ class Funcionario extends Form
 			),			
 		));
 
-		// $this->add(array(
-		// 	'name' => 'ref_cod_pessoa_fj',
-		// 	'attributes' => array(
-		// 		'type' => 'hidden'
-		// 	),			
-		// ));
-
 		$this->add(array(
 			'name' => 'ref_cod_pessoa_fj',
 			'attributes' => array(
