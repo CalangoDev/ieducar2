@@ -1,21 +1,22 @@
-ReligiaoController
- [x] Religiao index action
- [x] Religiao save action new request
- [x] Religiao save action update form request
- [x] Religiao save action post request
- [x] Religiao update action
+EscolaridadeController
+ [x] Escolaridade index action
+ [x] Escolaridade save action new request
+ [x] Escolaridade save action update form request
+ [x] Escolaridade save action post request
+ [x] Escolaridade update action
  [x] Escolaridade save action invalid post request
- [x] Religiao invalid delete action
- [x] Religiao delete action
- [x] Religiao invalid id delete action
+ [x] Escolaridade invalid delete action
+ [x] Escolaridade delete action
+ [x] Escolaridade invalid id delete action
 
-Usuario\Entity\Religiao
+ReligiaoController
+ [x] Escolaridade save action invalid post request
+
+Usuario\Entity\Escolaridade
  [x] Get input filter
  [x] Input filter valid
  [x] Insert
- [x] Build pessoa
- [x] Insert with pessoa
- [x] Input filter invalid religiao
+ [x] Input filter invalid descricao
  [x] Update
  [x] Delete
 

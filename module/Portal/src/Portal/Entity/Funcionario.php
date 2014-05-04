@@ -47,7 +47,7 @@ class Funcionario extends Entity
 	 * @ORM\OneToOne(targetEntity="Usuario\Entity\Fisica")
 	 * @ORM\JoinColumn(name="ref_cod_pessoa_fj", referencedColumnName="idpes", nullable=false)
 	 */
-	protected $ref_cod_pessoa_fj;
+	protected $refCodPessoaFj;
 
 	/**
 	 * @var string $matricula Matricula do funcionario
@@ -75,9 +75,9 @@ class Funcionario extends Entity
 	 * 
 	 * @todo verificar utilidade desse campo
 	 * 
-	 * @ORM\Column(type="integer", nullable=true)
+	 * @ORM\Column(name="ref_sec", type="integer", nullable=true)
 	 */
-	protected $ref_sec;
+	protected $refSec;
 
 	/**
 	 * @var string $ramal
@@ -98,9 +98,9 @@ class Funcionario extends Entity
 	/**
 	 * @var text $opcao_menu
 	 * 
-	 * @ORM\Column(type="text", nullable=true)
+	 * @ORM\Column(name="opcao_menu", type="text", nullable=true)
 	 */
-	protected $opcao_menu;
+	protected $opcaoMenu;
 
 	/**
 	 * @var  int $ref_cod_setor - Referencia do codigo do setor do usuario
@@ -110,9 +110,9 @@ class Funcionario extends Entity
 	 * do schema pmidrh
 	 * 
 	 * @deprecated 2.0 Campo redudante com $ref_cod_setor_new onde a versão antiga armazena o codigo do setor do usuario
-	 * @ORM\Column(type="integer", nullable=true)
+	 * @ORM\Column(name="ref_cod_setor", type="integer", nullable=true)
 	 */
-	protected $ref_cod_setor;
+	protected $refCodSetor;
 	
 	/**
 	 * @var integer $ref_cod_funcionario_vinculo 
@@ -126,37 +126,37 @@ class Funcionario extends Entity
 	 * 3 - Efetivo,
 	 * 6 - Estágiario 
 	 * 
-	 * @ORM\Column(type="integer", nullable=true)
+	 * @ORM\Column(name="ref_cod_funcionario_vinculo", type="integer", nullable=true)
 	 */
-	protected $ref_cod_funcionario_vinculo;
+	protected $refCodFuncionarioVinculo;
 
 	/**
 	 * @var integer $tempo_expira_senha Tempo de expiracao da senha
 	 * 
-	 * @ORM\Column(type="integer", nullable=true)
+	 * @ORM\Column(name="tempo_expira_senha", type="integer", nullable=true)
 	 */
-	protected $tempo_expira_senha;
+	protected $tempoExpiraSenha;
 
 	/**
 	 * @var integer $tempo_expira_conta Tempo de Expiracao de conta
 	 * 
-	 * @ORM\Column(type="integer", nullable=true)
+	 * @ORM\Column(name="tempo_expira_conta", type="integer", nullable=true)
 	 */
-	protected $tempo_expira_conta;
+	protected $tempoExpiraConta;
 
 	/**
 	 * @var date $data_troca_senha
 	 * 
-	 * @ORM\Column(type="date", nullable=true)
+	 * @ORM\Column(name="data_troca_senha", type="date", nullable=true)
 	 */
-	protected $data_troca_senha;
+	protected $dataTrocaSenha;
 
 	/**
 	 * @var date $data_reativa_conta data para reativação da conta
 	 * 
-	 * @ORM\Column(type="date", nullable=true)
+	 * @ORM\Column(name="data_reativa_conta", type="date", nullable=true)
 	 */
-	protected $data_reativa_conta;
+	protected $dataReativaConta;
 
 	/**
 	 * @var int $ref_ref_cod_pessoa_fj Auto relacionamento
@@ -166,7 +166,7 @@ class Funcionario extends Entity
 	 * @ORM\ManyToOne(targetEntity="Usuario\Entity\Fisica", cascade={"persist"})
 	 * @ORM\JoinColumn(name="ref_ref_cod_pessoa_fj", referencedColumnName="idpes", onDelete="RESTRICT")	 
 	 */
-	protected $ref_ref_cod_pessoa_fj;
+	protected $refRefCodPessoaFj;
 
 	/**
 	 * @var int $proibido 
@@ -186,46 +186,46 @@ class Funcionario extends Entity
 	 * @ORM\ManyToOne(targetEntity="Drh\Entity\Setor", cascade={"persist"})
 	 * @ORM\JoinColumn(name="ref_cod_setor_new", referencedColumnName="cod_setor", onDelete="RESTRICT")
 	 */
-	protected $ref_cod_setor_new;
+	protected $refCodSetorNew;
 
 	/**
 	 * @var bigint $matricula_new
 	 * 
 	 * @deprecated 2.0 Campo nao utilizado no sistema antigo e redudante por ja existe um campo chamado matricula
 	 * 
-	 * @ORM\Column(type="bigint", nullable=true)
+	 * @ORM\Column(name="matricula_new", type="bigint", nullable=true)
 	 */
-	protected $matricula_new;
+	protected $matriculaNew;
 
 	/**
 	 * @var  smallint $matricula_permanente Matricula Permanente no sistema
 	 * 
-	 * @ORM\Column(type="smallint", nullable=true)
+	 * @ORM\Column(name="matricula_permanente", type="smallint", nullable=true)
 	 */
-	protected $matricula_permanente = 0;
+	protected $matriculaPermanente = 0;
 
 	/**
 	 * @var smallint $tipo_menu Define o tipo de menu exibido para o funcionario
 	 * 
 	 * @todo campo para funcionalidade do sistema antigo, no novo ainda não ta definido
 	 * se tera dois tipo de menu
-	 * @ORM\Column(type="smallint", nullable=false)
+	 * @ORM\Column(name="tipo_menu", type="smallint", nullable=false)
 	 */
-	protected $tipo_menu = 0;
+	protected $tipoMenu = 0;
 
 	/**
 	 * @var string $ip_logado Grava o ip do funcionario
 	 * 
-	 * @ORM\Column(type="string", length=15, nullable=true)
+	 * @ORM\Column(name="ip_logado", type="string", length=15, nullable=true)
 	 */
-	protected $ip_logado;
+	protected $ipLogado;
 
 	/**
 	 * @var datetime $data_login Data que realizou o login
 	 * 
-	 * @ORM\Column(type="datetime", nullable=true)
+	 * @ORM\Column(name="data_login", type="datetime", nullable=true)
 	 */
-	protected $data_login;
+	protected $dataLogin;
 
 	/**
 	 * @var string $email
@@ -241,36 +241,36 @@ class Funcionario extends Entity
 	 * 
 	 * @deprecated 2.0 Coluna não utilizada no antigo sistema, não encontrei nenhuam referência a esse campo
 	 * 
-	 * @ORM\Column(type="string", length=50, nullable=true)
+	 * @ORM\Column(name="status_token", type="string", length=50, nullable=true)
 	 */
-	protected $status_token;
+	protected $statusToken;
 
 	public function setData($data)
 	{			
 		// var_dump($data);
 		$this->setId( isset($data['id']) ? $data['id'] : null );		
-		$this->setRefCodPessoaFj( isset($data['ref_cod_pessoa_fj']) ? $data['ref_cod_pessoa_fj'] : null );
+		$this->setRefCodPessoaFj( isset($data['refCodPessoaFj']) ? $data['refCodPessoaFj'] : null );
 		$this->setMatricula( isset($data['matricula']) ? $data['matricula'] : null );
 		$this->setSenha( isset($data['senha']) ? $data['senha'] : null );
 		$this->setAtivo( isset($data['ativo']) ? $data['ativo'] : null);
-		$this->setRefSec( isset($data['ref_sec']) ? $data['ref_sec'] : null );
+		$this->setRefSec( isset($data['refSec']) ? $data['refSec'] : null );
 		$this->setRamal( isset($data['ramal']) ? $data['ramal'] : null );
 		$this->setSequencial( isset($data['sequencial']) ? $data['sequencial'] : null );
-		$this->setOpcaoMenu( isset($data['opcao_menu']) ? $data['opcao_menu'] : null );
-		$this->setRefCodSetor( isset($data['ref_cod_setor']) ? $data['ref_cod_setor'] : null );
-		$this->setRefCodFuncionarioVinculo( isset($data['ref_cod_funcionario_vinculo']) ? $data['ref_cod_funcionario_vinculo'] : null );
-		$this->setTempoExpiraSenha( isset($data['tempo_expira_senha']) ? $data['tempo_expira_senha'] : null );
-		$this->setTempoExpiraConta( isset($data['tempo_expira_conta']) ? $data['tempo_expira_conta'] : null);
-		$this->setDataTrocaSenha( isset($data['data_troca_senha']) ? $data['data_troca_senha'] : null );
-		$this->setDataReativaConta( isset($data['data_reativa_conta']) ? $data['data_reativa_conta'] : null );
-		$this->setRefRefCodPessoaFj( isset($data['ref_ref_cod_pessoa_fj']) ? $data['ref_ref_cod_pessoa_fj'] : null);
+		$this->setOpcaoMenu( isset($data['opcaoMenu']) ? $data['opcaoMenu'] : null );
+		$this->setRefCodSetor( isset($data['refCodSetor']) ? $data['refCodSetor'] : null );
+		$this->setRefCodFuncionarioVinculo( isset($data['refCodFuncionarioVinculo']) ? $data['refCodFuncionarioVinculo'] : null );
+		$this->setTempoExpiraSenha( isset($data['tempoExpiraSenha']) ? $data['tempoExpiraSenha'] : null );
+		$this->setTempoExpiraConta( isset($data['tempoExpiraConta']) ? $data['tempoExpiraConta'] : null);
+		$this->setDataTrocaSenha( isset($data['dataTrocaSenha']) ? $data['dataTrocaSenha'] : null );
+		$this->setDataReativaConta( isset($data['dataReativaConta']) ? $data['dataReativaConta'] : null );
+		$this->setRefRefCodPessoaFj( isset($data['refRefCodPessoaFj']) ? $data['refRefCodPessoaFj'] : null);
 		$this->setProibido( isset($data['proibido']) ? $data['proibido'] : null );
-		$this->setRefCodSetorNew( isset($data['ref_cod_setor_new']) ? $data['ref_cod_setor_new'] : null );		
-		$this->setMatriculaNew( isset($data['matricula_new']) ? $data['matricula_new'] : null );
-		$this->setMatriculaPermanente( isset($data['matricula_permanente']) ? $data['matricula_permanente'] : null );
-		$this->setTipoMenu( isset($data['tipo_menu']) ? $data['tipo_menu'] : null );
-		$this->setIpLogado( isset($data['ip_logado']) ? $data['ip_logado'] : null );
-		$this->setDataLogin( isset($data['data_login']) ? $data['data_login'] : null );
+		$this->setRefCodSetorNew( isset($data['refCodSetorNew']) ? $data['refCodSetorNew'] : null );		
+		$this->setMatriculaNew( isset($data['matriculaNew']) ? $data['matriculaNew'] : null );
+		$this->setMatriculaPermanente( isset($data['matriculaPermanente']) ? $data['matriculaPermanente'] : null );
+		$this->setTipoMenu( isset($data['tipoMenu']) ? $data['tipoMenu'] : null );
+		$this->setIpLogado( isset($data['ipLogado']) ? $data['ipLogado'] : null );
+		$this->setDataLogin( isset($data['dataLogin']) ? $data['dataLogin'] : null );
 		$this->setEmail( isset($data['email']) ? $data['email'] : null );		
 				
 		// if (!empty($data['url']))
@@ -293,13 +293,13 @@ class Funcionario extends Entity
 
 	public function getRefCodPessoaFj()
 	{
-		return $this->ref_cod_pessoa_fj;
+		return $this->refCodPessoaFj;
 	}
 	
 	public function setRefCodPessoaFj($value)
 	{		
 		// $this->ref_cod_pessoa_fj = $this->valid("ref_cod_pessoa_fj", $value);
-		$this->ref_cod_pessoa_fj = $value;
+		$this->refCodPessoaFj = $value;
 	}
 
 	public function getMatricula()
@@ -334,12 +334,12 @@ class Funcionario extends Entity
 
 	public function getRefSec()
 	{
-		return $this->ref_sec;
+		return $this->refSec;
 	}
 	
 	public function setRefSec($value)
 	{
-		$this->ref_sec = $this->valid("ref_sec", $value);
+		$this->refSec = $this->valid("refSec", $value);
 	}
 
 	public function getRamal()
@@ -364,82 +364,82 @@ class Funcionario extends Entity
 
 	public function getOpcaoMenu()
 	{
-		return $this->opcao_menu;
+		return $this->opcaoMenu;
 	}
 	
 	public function setOpcaoMenu($value)
 	{
-		$this->opcao_menu = $this->valid("opcao_menu", $value);
+		$this->opcaoMenu = $this->valid("opcaoMenu", $value);
 	}
 
 	public function getRefCodSetor()
 	{
-		return $this->ref_cod_setor;
+		return $this->refCodSetor;
 	}
 	
 	public function setRefCodSetor($value)
 	{
-		$this->ref_cod_setor = $this->valid("ref_cod_setor", $value);
+		$this->refCodSetor = $this->valid("refCodSetor", $value);
 	}
 
 	public function getRefCodFuncionarioVinculo()
 	{
-		return $this->ref_cod_funcionario_vinculo;
+		return $this->refCodFuncionarioVinculo;
 	}
 	
 	public function setRefCodFuncionarioVinculo($value)
 	{
-		$this->ref_cod_funcionario_vinculo = $this->valid("ref_cod_funcionario_vinculo", $value);
+		$this->refCodFuncionarioVinculo = $this->valid("refCodFuncionarioVinculo", $value);
 	}
 
 	public function getTempoExpiraSenha()
 	{
-		return $this->tempo_expira_senha;
+		return $this->tempoExpiraSenha;
 	}
 	
 	public function setTempoExpiraSenha($value)
 	{
-		$this->tempo_expira_senha = $this->valid("tempo_expira_senha", $value);
+		$this->tempoExpiraSenha = $this->valid("tempoExpiraSenha", $value);
 	}
 
 	public function getTempoExpiraConta()
 	{
-		return $this->tempo_expira_conta;
+		return $this->tempoExpiraConta;
 	}
 	
 	public function setTempoExpiraConta($value)
 	{
-		$this->tempo_expira_conta = $this->valid("tempo_expira_conta", $value);
+		$this->tempoExpiraConta = $this->valid("tempoExpiraConta", $value);
 	}
 
 	public function getDataTrocaSenha()
 	{
-		return $this->data_troca_senha;
+		return $this->dataTrocaSenha;
 	}
 	
 	public function setDataTrocaSenha($value)
 	{
-		$this->data_troca_senha = $this->valid("data_troca_senha", $value);
+		$this->dataTrocaSenha = $this->valid("dataTrocaSenha", $value);
 	}
 
 	public function getDataReativaConta()
 	{
-		return $this->data_reativa_conta;
+		return $this->dataReativaConta;
 	}
 	
 	public function setDataReativaConta($value)
 	{
-		$this->data_reativa_conta = $this->valid("data_reativa_conta", $value);
+		$this->dataReativaConta = $this->valid("dataReativaConta", $value);
 	}
 
 	public function getRefRefCodPessoaFj()
 	{
-		return $this->ref_ref_cod_pessoa_fj;
+		return $this->refRefCodPessoaFj;
 	}
 	
 	public function setRefRefCodPessoaFj($value)
 	{
-		$this->ref_ref_cod_pessoa_fj = $this->valid("ref_ref_cod_pessoa_fj", $value);
+		$this->refRefCodPessoaFj = $this->valid("refRefCodPessoaFj", $value);
 	}
 
 	public function getProibido()
@@ -454,62 +454,62 @@ class Funcionario extends Entity
 
 	public function getRefCodSetorNew()
 	{
-		return $this->ref_cod_setor_new;
+		return $this->refCodSetorNew;
 	}
 	
 	public function setRefCodSetorNew($value)
 	{
-		$this->ref_cod_setor_new = $this->valid("ref_cod_setor_new", $value);
+		$this->refCodSetorNew = $value;
 	}
 
 	public function getMatriculaNew()
 	{
-		return $this->matricula_new;
+		return $this->matriculaNew;
 	}
 	
 	public function setMatriculaNew($value)
 	{
-		$this->matricula_new = $this->valid("matricula_new", $value);
+		$this->matriculaNew = $this->valid("matriculaNew", $value);
 	}
 
 	public function getMatriculaPermanente()
 	{
-		return $this->matricula_permanente;
+		return $this->matriculaPermanente;
 	}
 	
 	public function setMatriculaPermanente($value)
 	{
-		$this->matricula_permanente = $this->valid("matricula_permanente", $value);
+		$this->matriculaPermanente = $this->valid("matriculaPermanente", $value);
 	}
-
+ 
 	public function getTipoMenu()
 	{
-		return $this->tipo_menu;
+		return $this->tipoMenu;
 	}
 	
 	public function setTipoMenu($value)
 	{
-		$this->tipo_menu = $this->valid("tipo_menu", $value);
+		$this->tipoMenu = $this->valid("tipoMenu", $value);
 	}
 
 	public function getIpLogado()
 	{
-		return $this->ip_logado;
+		return $this->ipLogado;
 	}
 	
 	public function setIpLogado($value)
 	{
-		$this->ip_logado = $this->valid("ip_logado", $value);
+		$this->ipLogado = $this->valid("ipLogado", $value);
 	}
 
 	public function getDataLogin()
 	{
-		return $this->data_login;
+		return $this->dataLogin;
 	}
 	
 	public function setDataLogin($value)
 	{
-		$this->data_login = $this->valid("data_login", $value);
+		$this->dataLogin = $this->valid("dataLogin", $value);
 	}
 
 	public function getEmail()
@@ -598,7 +598,7 @@ class Funcionario extends Entity
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'ref_sec',
+				'name' => 'refSec',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'Int'),
@@ -648,7 +648,7 @@ class Funcionario extends Entity
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'opcao_menu',
+				'name' => 'opcaoMenu',
 				'required' => false,
 				'allow_empty' => true,
 				'filters' => array(
@@ -658,7 +658,15 @@ class Funcionario extends Entity
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'ref_cod_setor',
+				'name' => 'refCodSetor',
+				'required' => false,
+				'filters' => array(
+					array('name' => 'Int'),
+				),
+			)));
+			
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'refCodFuncionarioVinculo',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'Int'),
@@ -666,7 +674,7 @@ class Funcionario extends Entity
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'ref_cod_funcionario_vinculo',
+				'name' => 'tempoExpiraSenha',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'Int'),
@@ -674,7 +682,7 @@ class Funcionario extends Entity
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'tempo_expira_senha',
+				'name' => 'tempoExpiraConta',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'Int'),
@@ -682,15 +690,7 @@ class Funcionario extends Entity
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'tempo_expira_conta',
-				'required' => false,
-				'filters' => array(
-					array('name' => 'Int'),
-				),
-			)));
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'data_troca_senha',
+				'name' => 'dataTrocaSenha',
 				'required' => false,				
 				'validators' => array(
 					'name' => new \Zend\Validator\Date(),
@@ -698,7 +698,7 @@ class Funcionario extends Entity
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'data_reativa_conta',
+				'name' => 'dataReativaConta',
 				'required' => false,				
 				'validators' => array(
 					'name' => new \Zend\Validator\Date(),
@@ -715,7 +715,7 @@ class Funcionario extends Entity
 
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'matricula_new',
+				'name' => 'matriculaNew',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'Int'),
@@ -723,7 +723,7 @@ class Funcionario extends Entity
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'matricula_permanente',
+				'name' => 'matriculaPermanente',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'Int'),
@@ -731,7 +731,7 @@ class Funcionario extends Entity
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'tipo_menu',
+				'name' => 'tipoMenu',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'Int'),
@@ -739,7 +739,7 @@ class Funcionario extends Entity
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'ip_logado',
+				'name' => 'ipLogado',
 				'required' => false,
 				'allow_empty' => true,
 				'filters' => array(
@@ -760,7 +760,7 @@ class Funcionario extends Entity
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'data_login',
+				'name' => 'dataLogin',
 				'required' => false,				
 				'validators' => array(
 					'name' => new \Zend\Validator\Date(),
@@ -782,7 +782,7 @@ class Funcionario extends Entity
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'status_token',
+				'name' => 'statusToken',
 				'required' => false,
 				'allow_empty' => true,
 				'filters' => array(

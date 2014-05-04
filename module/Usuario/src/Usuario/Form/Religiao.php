@@ -41,7 +41,7 @@ class Religiao extends Form
 				),
 			),
 			'attributes' => array(
-				'value' => 't'
+				'value' => true
 			),
 		));		
 

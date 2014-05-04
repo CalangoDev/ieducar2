@@ -81,9 +81,9 @@ class JuridicaController extends ActionController
 			/**
 			 * Removendo filters de inputs nao recebidos pelo o formulario
 			 */			
-			$juridica->removeInputFilter('origem_gravacao');
+			$juridica->removeInputFilter('origemGravacao');
 			$juridica->removeInputFilter('operacao');
-			$juridica->removeInputFilter('idsis_cad');
+			$juridica->removeInputFilter('idsisCad');
 
 			$form->setData($request->getPost());			
 			if ($form->isValid()){												

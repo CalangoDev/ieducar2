@@ -81,9 +81,9 @@ class FisicaController extends ActionController
 			/**
 			 * Removendo filters de inputs nao recebidos pelo o formulario
 			 */			
-			$fisica->removeInputFilter('origem_gravacao');
+			$fisica->removeInputFilter('origemGravacao');
 			$fisica->removeInputFilter('operacao');
-			$fisica->removeInputFilter('idsis_cad');			
+			$fisica->removeInputFilter('idsisCad');			
 
 			$form->setData($request->getPost());			
 			if ($form->isValid()){				

@@ -54,9 +54,9 @@ class Juridica extends Pessoa implements EventSubscriber
 
 	/**
 	 * @var string $insc_estadual
-	 * @ORM\Column(type="string", length=20, nullable=true)
+	 * @ORM\Column(name="insc_estadual", type="string", length=20, nullable=true)
 	 */
-	protected $insc_estadual;
+	protected $inscEstadual;
 
 	/**
 	 * @var string $fantasia
@@ -66,9 +66,9 @@ class Juridica extends Pessoa implements EventSubscriber
 
 	/**
 	 * @var string $capital_social
-	 * @ORM\Column(type="string", length=255, nullable=true)
+	 * @ORM\Column(name="capital_social", type="string", length=255, nullable=true)
 	 */
-	protected $capital_social;
+	protected $capitalSocial;
 
 	/**
 	 * getters and setters
@@ -85,12 +85,12 @@ class Juridica extends Pessoa implements EventSubscriber
 
 	public function getInscEstadual()
 	{
-		return $this->insc_estadual;
+		return $this->inscEstadual;
 	}
 	
 	public function setInscEstadual($value)
 	{
-		$this->insc_estadual = $this->valid("insc_estadual", $value);
+		$this->inscEstadual = $this->valid("inscEstadual", $value);
 	}
 
 	public function getFantasia()
@@ -110,13 +110,12 @@ class Juridica extends Pessoa implements EventSubscriber
 	
 	public function setCapitalSocial($value)
 	{
-		$this->capital_social = $this->valid("capital_social", $value);
+		$this->capitalSocial = $this->valid("capitalSocial", $value);
 	}
 
 	public function setData($data)
 	{
-		if (!empty($data['cpf']))			
-			$this->setCnpj(isset($data['cpf']) ? $data['cpf'] : null);
+		
 	}
 
 	/**
@@ -183,7 +182,7 @@ class Juridica extends Pessoa implements EventSubscriber
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'insc_estadual',
+				'name' => 'inscEstadual',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'StripTags'),
@@ -203,7 +202,7 @@ class Juridica extends Pessoa implements EventSubscriber
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'idpes_rev',
+				'name' => 'idpesRev',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'Int'),
@@ -211,7 +210,7 @@ class Juridica extends Pessoa implements EventSubscriber
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'data_rev',
+				'name' => 'dataRev',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'StripTags'),
@@ -223,7 +222,7 @@ class Juridica extends Pessoa implements EventSubscriber
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'origem_gravacao',
+				'name' => 'origemGravacao',
 				'required' => true,
 				'filters' => array(
 					array('name' => 'StripTags'),
@@ -244,7 +243,7 @@ class Juridica extends Pessoa implements EventSubscriber
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'idpes_cad',
+				'name' => 'idpesCad',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'Int'),
@@ -273,7 +272,7 @@ class Juridica extends Pessoa implements EventSubscriber
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'idsis_rev',
+				'name' => 'idsisRev',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'Int'),
@@ -281,7 +280,7 @@ class Juridica extends Pessoa implements EventSubscriber
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'idsis_cad',
+				'name' => 'idsisCad',
 				'required' => true,
 				'filters' => array(
 					array('name' => 'Int'),
@@ -308,7 +307,7 @@ class Juridica extends Pessoa implements EventSubscriber
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'capital_social',
+				'name' => 'capitalSocial',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'StripTags'),

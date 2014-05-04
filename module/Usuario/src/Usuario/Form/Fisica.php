@@ -47,7 +47,7 @@ class Fisica extends Form
 		));		
 
 		$this->add(array(
-			'name' => 'data_nasc',
+			'name' => 'dataNasc',
 			'attributes' => array(
 				'type' => 'text'
 			),
@@ -72,7 +72,7 @@ class Fisica extends Form
 		));
 
 		$this->add(array(
-			'name' => 'data_uniao',
+			'name' => 'dataUniao',
 			'attributes' => array(
 				'type' => 'text'
 			),
@@ -82,7 +82,7 @@ class Fisica extends Form
 		));
 
 		$this->add(array(
-			'name' => 'data_obito',
+			'name' => 'dataObito',
 			'attributes' => array(
 				'type' => 'text'
 			),
@@ -108,7 +108,7 @@ class Fisica extends Form
 		));
 
 		$this->add(array(
-			'name' => 'data_chegada_brasil',
+			'name' => 'dataChegadaBrasil',
 			'attributes' => array(
 				'type' => 'text'
 			),
@@ -118,7 +118,7 @@ class Fisica extends Form
 		));
 
 		$this->add(array(
-			'name' => 'ultima_empresa',
+			'name' => 'ultimaEmpresa',
 			'attributes' => array(
 				'type' => 'text'
 			),
@@ -128,7 +128,7 @@ class Fisica extends Form
 		));
 
 		$this->add(array(
-			'name' => 'nome_mae',
+			'name' => 'nomeMae',
 			'attributes' => array(
 				'type' => 'text'
 			),
@@ -138,7 +138,7 @@ class Fisica extends Form
 		));
 
 		$this->add(array(
-			'name' => 'nome_pai',
+			'name' => 'nomePai',
 			'attributes' => array(
 				'type' => 'text'
 			),
@@ -148,7 +148,7 @@ class Fisica extends Form
 		));
 
 		$this->add(array(
-			'name' => 'nome_conjuge',
+			'name' => 'nomeConjuge',
 			'attributes' => array(
 				'type' => 'text'
 			),
@@ -158,7 +158,7 @@ class Fisica extends Form
 		));
 
 		$this->add(array(
-			'name' => 'nome_responsavel',
+			'name' => 'nomeResponsavel',
 			'attributes' => array(
 				'type' => 'text'
 			),
@@ -168,7 +168,7 @@ class Fisica extends Form
 		));
 
 		$this->add(array(
-			'name' => 'justificativa_provisorio',
+			'name' => 'justificativaProvisorio',
 			'attributes' => array(
 				'type' => 'text'
 			),
@@ -189,7 +189,7 @@ class Fisica extends Form
 
 
 		$this->add(array(
-			'name' => 'idmun_nascimento',
+			'name' => 'idmunNascimento',
 			'attributes' => array(
 				'type' => 'Zend\Form\Element\Select'
 			),
@@ -199,7 +199,7 @@ class Fisica extends Form
 		));
 
 		$this->add(array(
-			'name' => 'idpais_estrangeiro',
+			'name' => 'idpaisEstrangeiro',
 			'attributes' => array(
 				'type' => 'Zend\Form\Element\Select'
 			),
@@ -239,7 +239,7 @@ class Fisica extends Form
 		));
 
 		$this->add(array(
-			'name' => 'ref_cod_religiao',
+			'name' => 'refCodReligiao',
 			'attributes' => array(
 				'type' => 'Zend\Form\Element\Select'
 			),

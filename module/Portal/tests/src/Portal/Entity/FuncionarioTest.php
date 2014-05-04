@@ -38,24 +38,24 @@ class FuncionarioTest extends EntityTestCase
 		$this->assertTrue($if->has('matricula'));
 		$this->assertTrue($if->has('senha'));
 		$this->assertTrue($if->has('ativo'));
-		$this->assertTrue($if->has('ref_sec'));
+		$this->assertTrue($if->has('refSec'));
 		$this->assertTrue($if->has('ramal'));
 		$this->assertTrue($if->has('sequencial'));
-		$this->assertTrue($if->has('opcao_menu'));
-		$this->assertTrue($if->has('ref_cod_setor'));
-		$this->assertTrue($if->has('ref_cod_funcionario_vinculo'));
-		$this->assertTrue($if->has('tempo_expira_senha'));
-		$this->assertTrue($if->has('tempo_expira_conta'));
-		$this->assertTrue($if->has('data_troca_senha'));
-		$this->assertTrue($if->has('data_reativa_conta'));
+		$this->assertTrue($if->has('opcaoMenu'));
+		$this->assertTrue($if->has('refCodSetor'));
+		$this->assertTrue($if->has('refCodFuncionarioVinculo'));
+		$this->assertTrue($if->has('tempoExpiraSenha'));
+		$this->assertTrue($if->has('tempoExpiraConta'));
+		$this->assertTrue($if->has('dataTrocaSenha'));
+		$this->assertTrue($if->has('dataReativaConta'));
 		$this->assertTrue($if->has('proibido'));
-		$this->assertTrue($if->has('matricula_new'));
-		$this->assertTrue($if->has('matricula_permanente'));
-		$this->assertTrue($if->has('tipo_menu'));
-		$this->assertTrue($if->has('ip_logado'));
-		$this->assertTrue($if->has('data_login'));
+		$this->assertTrue($if->has('matriculaNew'));
+		$this->assertTrue($if->has('matriculaPermanente'));
+		$this->assertTrue($if->has('tipoMenu'));
+		$this->assertTrue($if->has('ipLogado'));
+		$this->assertTrue($if->has('dataLogin'));
 		$this->assertTrue($if->has('email'));
-		$this->assertTrue($if->has('status_token'));
+		$this->assertTrue($if->has('statusToken'));
 	}
 
 	/**

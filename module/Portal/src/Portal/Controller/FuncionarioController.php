@@ -74,13 +74,13 @@ class FuncionarioController extends ActionController
 			$form->setData($request->getPost());						
 			if ($form->isValid()){				
 				
-				$ref_cod_pessoa_fj = $form->get('ref_cod_pessoa_fj')->getValue();
+				$refCodPessoaFj = $form->get('refCodPessoaFj')->getValue();				
 				/**
 				 * Buscar a Pessoa Fisica pelo o ID passado e associar a entity fisica com a de funcionario
 				 * 
 				 * Pode ser feito usando hydrator como no codigo depois das duas linhas seguintes que esta comentado
 				 */				
-				$pessoaFisica = $this->getEntityManager()->find('Usuario\Entity\Fisica', $ref_cod_pessoa_fj);
+				$pessoaFisica = $this->getEntityManager()->find('Usuario\Entity\Fisica', $refCodPessoaFj);
 				$funcionario->setRefCodPessoaFj($pessoaFisica);				
 				// $hydrator = new DoctrineHydrator($this->getEntityManager(), 'Usuario\Entity\Fisica');
 				// $fisica = new \Usuario\Entity\Fisica;
@@ -103,7 +103,7 @@ class FuncionarioController extends ActionController
 				 * checar se essas funcionalidades vao ser codificadas
 				 */				 
 				return $this->redirect()->toUrl('/portal/funcionario');
-			} 			
+			} 	
 		}
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if ($id >0){			

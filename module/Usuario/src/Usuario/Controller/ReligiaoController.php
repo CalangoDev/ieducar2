@@ -67,7 +67,7 @@ class ReligiaoController extends ActionController
 			/**
 			 * Removendo filters de inputs nao recebidos pelo o formulario
 			 */			
-			$religiao->removeInputFilter('data_cadastro');
+			$religiao->removeInputFilter('dataCadastro');
 			$form->setData($request->getPost());			
 			if ($form->isValid()){
 				/**

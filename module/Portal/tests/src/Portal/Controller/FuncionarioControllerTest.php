@@ -105,9 +105,9 @@ class FuncionarioControllerTest extends ControllerTestCase
 		$this->assertEquals('id', $id->getName());
 		$this->assertEquals('hidden', $id->getAttribute('type'));
 
-		$ref_cod_pessoa_fj = $form->get('ref_cod_pessoa_fj');
-		$this->assertEquals('ref_cod_pessoa_fj', $ref_cod_pessoa_fj->getName());
-		$this->assertEquals('hidden', $id->getAttribute('type'));
+		$refCodPessoaFj = $form->get('refCodPessoaFj');
+		$this->assertEquals('refCodPessoaFj', $refCodPessoaFj->getName());
+		$this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $refCodPessoaFj->getAttribute('type'));
 
 		$matricula = $form->get('matricula');
 		$this->assertEquals('matricula', $matricula->getName());
@@ -123,25 +123,25 @@ class FuncionarioControllerTest extends ControllerTestCase
 		$this->assertEquals('select', $ativo->getAttribute('type'));
 		$this->assertInstanceOf('Zend\Form\Element', $ativo);
 		
-		$ref_cod_funcionario_vinculo = $form->get('ref_cod_funcionario_vinculo');
-		$this->assertEquals('ref_cod_funcionario_vinculo', $ref_cod_funcionario_vinculo->getName());
-		$this->assertEquals('select', $ref_cod_funcionario_vinculo->getAttribute('type'));
+		$refCodFuncionarioVinculo = $form->get('refCodFuncionarioVinculo');
+		$this->assertEquals('refCodFuncionarioVinculo', $refCodFuncionarioVinculo->getName());
+		$this->assertEquals('select', $refCodFuncionarioVinculo->getAttribute('type'));
 
-		$tempo_expira_conta = $form->get('tempo_expira_conta');
-		$this->assertEquals('tempo_expira_conta', $tempo_expira_conta->getName());
-		$this->assertEquals('select', $tempo_expira_conta->getAttribute('type'));			
+		$tempoExpiraConta = $form->get('tempoExpiraConta');
+		$this->assertEquals('tempoExpiraConta', $tempoExpiraConta->getName());
+		$this->assertEquals('select', $tempoExpiraConta->getAttribute('type'));			
 
 		$proibido = $form->get('proibido');
 		$this->assertEquals('proibido', $proibido->getName());
 		$this->assertEquals('Zend\Form\Element\Checkbox', $proibido->getAttribute('type'));
 
-		$matricula_permanente = $form->get('matricula_permanente');
-		$this->assertEquals('matricula_permanente', $matricula_permanente->getName());
-		$this->assertEquals('Zend\Form\Element\Checkbox', $matricula_permanente->getAttribute('type'));			
+		$matriculaPermanente = $form->get('matriculaPermanente');
+		$this->assertEquals('matriculaPermanente', $matriculaPermanente->getName());
+		$this->assertEquals('Zend\Form\Element\Checkbox', $matriculaPermanente->getAttribute('type'));			
 
-		$ref_cod_setor_new = $form->get('ref_cod_setor_new');		
-		$this->assertEquals('ref_cod_setor_new', $ref_cod_setor_new->getName());
-		$this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $ref_cod_setor_new->getAttribute('type'));			
+		$refCodSetorNew = $form->get('refCodSetorNew');
+		$this->assertEquals('refCodSetorNew', $refCodSetorNew->getName());
+		$this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $refCodSetorNew->getAttribute('type'));			
 		
 	}
 
@@ -185,45 +185,47 @@ class FuncionarioControllerTest extends ControllerTestCase
 		$form = $variables['form'];
 
 		//	Testa os itens do formulario
-		$id = $form->get('id');		
-		$this->assertEquals('id', $id->getName());		
-		$this->assertEquals($funcionario->getId(), $id->getValue());
-
-		$ref_cod_pessoa_fj = $form->get('ref_cod_pessoa_fj');
-		$this->assertEquals('ref_cod_pessoa_fj', $ref_cod_pessoa_fj->getName());
+		$id = $form->get('id');
+		$this->assertEquals('id', $id->getName());
 		$this->assertEquals('hidden', $id->getAttribute('type'));
-		
+
+		$refCodPessoaFj = $form->get('refCodPessoaFj');
+		$this->assertEquals('refCodPessoaFj', $refCodPessoaFj->getName());
+		$this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $refCodPessoaFj->getAttribute('type'));
+
 		$matricula = $form->get('matricula');
 		$this->assertEquals('matricula', $matricula->getName());
-		$this->assertEquals($funcionario->getMatricula(), $matricula->getValue());
+		$this->assertEquals('text', $matricula->getAttribute('type'));
 
 		$senha = $form->get('senha');
 		$this->assertEquals('senha', $senha->getName());
-		$this->assertEquals($funcionario->getSenha(), $senha->getValue());
+		$this->assertEquals('password', $senha->getAttribute('type'));
 
 		$ativo = $form->get('ativo');
+		// var_dump($ativo);
 		$this->assertEquals('ativo', $ativo->getName());
-		$this->assertEquals($funcionario->getAtivo(), $ativo->getValue());
+		$this->assertEquals('select', $ativo->getAttribute('type'));
+		$this->assertInstanceOf('Zend\Form\Element', $ativo);
+		
+		$refCodFuncionarioVinculo = $form->get('refCodFuncionarioVinculo');
+		$this->assertEquals('refCodFuncionarioVinculo', $refCodFuncionarioVinculo->getName());
+		$this->assertEquals('select', $refCodFuncionarioVinculo->getAttribute('type'));
 
-		$ref_cod_funcionario_vinculo = $form->get('ref_cod_funcionario_vinculo');
-		$this->assertEquals('ref_cod_funcionario_vinculo', $ref_cod_funcionario_vinculo->getName());
-		$this->assertEquals($funcionario->getRefCodFuncionarioVinculo(), $ref_cod_funcionario_vinculo->getValue());
-
-		$tempo_expira_conta = $form->get('tempo_expira_conta');
-		$this->assertEquals('tempo_expira_conta', $tempo_expira_conta->getName());
-		$this->assertEquals($funcionario->getTempoExpiraConta(), $tempo_expira_conta->getValue());
+		$tempoExpiraConta = $form->get('tempoExpiraConta');
+		$this->assertEquals('tempoExpiraConta', $tempoExpiraConta->getName());
+		$this->assertEquals('select', $tempoExpiraConta->getAttribute('type'));			
 
 		$proibido = $form->get('proibido');
 		$this->assertEquals('proibido', $proibido->getName());
-		$this->assertEquals($funcionario->getProibido(), $proibido->getValue());
+		$this->assertEquals('Zend\Form\Element\Checkbox', $proibido->getAttribute('type'));
 
-		$matricula_permanente = $form->get('matricula_permanente');
-		$this->assertEquals('matricula_permanente', $matricula_permanente->getName());
-		$this->assertEquals($funcionario->getMatriculaPermanente(), $matricula_permanente->getValue());
+		$matriculaPermanente = $form->get('matriculaPermanente');
+		$this->assertEquals('matriculaPermanente', $matriculaPermanente->getName());
+		$this->assertEquals('Zend\Form\Element\Checkbox', $matriculaPermanente->getAttribute('type'));			
 
-		$ref_cod_setor_new = $form->get('ref_cod_setor_new');
-		$this->assertEquals('ref_cod_setor_new', $ref_cod_setor_new->getName());
-		$this->assertEquals($funcionario->getRefCodSetorNew(), $ref_cod_setor_new->getValue());
+		$refCodSetorNew = $form->get('refCodSetorNew');
+		$this->assertEquals('refCodSetorNew', $refCodSetorNew->getName());
+		$this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $refCodSetorNew->getAttribute('type'));			
 
 	}
 
@@ -249,15 +251,15 @@ class FuncionarioControllerTest extends ControllerTestCase
 
 		$this->request->setMethod('post');
 		$this->request->getPost()->set('id', '');
-		$this->request->getPost()->set('ref_cod_pessoa_fj', $fisica->getId());
+		$this->request->getPost()->set('refCodPessoaFj', $fisica->getId());
 		$this->request->getPost()->set('matricula', 'admin');
 		$this->request->getPost()->set('senha', 'admin');
 		$this->request->getPost()->set('ativo', true);
-		$this->request->getPost()->set('ref_cod_funcionario_vinculo', 3);
-		$this->request->getPost()->set('tempo_expira_conta', 10);
+		$this->request->getPost()->set('refCodFuncionarioVinculo', 3);
+		$this->request->getPost()->set('tempoExpiraConta', 10);
 		$this->request->getPost()->set('proibido', '0');
-		$this->request->getPost()->set('matricula_permanente', '0');		
-		$this->request->getPost()->set('ref_cod_setor_new', $setor->getId());
+		$this->request->getPost()->set('matriculaPermanente', '0');		
+		$this->request->getPost()->set('refCodSetorNew', $setor->getId());
 		
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
@@ -299,15 +301,15 @@ class FuncionarioControllerTest extends ControllerTestCase
 
 		$this->request->setMethod('post');
 		$this->request->getPost()->set('id', $funcionario->getId());
-		$this->request->getPost()->set('ref_cod_pessoa_fj', $fisica->getId());
+		$this->request->getPost()->set('refCodPessoaFj', $fisica->getId());
 		$this->request->getPost()->set('matricula', 'teste');
 		$this->request->getPost()->set('senha', 'admin');
 		$this->request->getPost()->set('ativo', true);
-		$this->request->getPost()->set('ref_cod_funcionario_vinculo', 3);
-		$this->request->getPost()->set('tempo_expira_conta', 10);
+		$this->request->getPost()->set('refCodFuncionarioVinculo', 3);
+		$this->request->getPost()->set('tempoExpiraConta', 10);
 		$this->request->getPost()->set('proibido', '0');
-		$this->request->getPost()->set('matricula_permanente', '0');		
-		$this->request->getPost()->set('ref_cod_setor_new', $setor->getId());
+		$this->request->getPost()->set('matriculaPermanente', '0');		
+		$this->request->getPost()->set('refCodSetorNew', $setor->getId());
 
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
