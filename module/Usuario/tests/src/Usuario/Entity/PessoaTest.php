@@ -40,14 +40,14 @@ class PessoaTest extends EntityTestCase
 		$this->assertTrue($if->has('nome'));
 		$this->assertTrue($if->has('url'));
 		$this->assertTrue($if->has('tipo'));
-		$this->assertTrue($if->has('data_rev'));
+		$this->assertTrue($if->has('dataRev'));
 		$this->assertTrue($if->has('email'));
 		$this->assertTrue($if->has('situacao'));
-		$this->assertTrue($if->has('origem_gravacao'));
+		$this->assertTrue($if->has('origemGravacao'));
 		$this->assertTrue($if->has('operacao'));
-		$this->assertTrue($if->has('idsis_rev'));
-		$this->assertTrue($if->has('idsis_cad'));
-		$this->assertTrue($if->has('idpes_rev'));
+		$this->assertTrue($if->has('idsisRev'));
+		$this->assertTrue($if->has('idsisCad'));
+		$this->assertTrue($if->has('idpesRev'));
 		//$this->assertTrue($if->has('idpes_cad'));
 	}
 

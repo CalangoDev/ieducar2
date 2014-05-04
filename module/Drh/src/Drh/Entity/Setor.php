@@ -53,18 +53,18 @@ class Setor extends Entity
 	/**
 	 * @var int $ref_cod_pessoa_exc Ref da Pessoa(funcionario) que excluiu o registro
 	 * 
-	 * @ORM\ManyToOne(targetEntity="Portal\Entity\Funcionario", cascade={"persist"})
-	 * @ORM\JoinColumn(name="ref_cod_pessoa_exc", referencedColumnName="ref_cod_pessoa_fj", onDelete="SET NULL")
+	 * @ORM\ManyToOne(targetEntity="Usuario\Entity\Fisica", cascade={"persist"})
+	 * @ORM\JoinColumn(name="ref_cod_pessoa_exc", referencedColumnName="idpes", onDelete="SET NULL")
 	 */
-	protected $pessoa_exclu;
+	protected $pessoaExclu;
 
 	/**
 	 * @var int $ref_cod_pessoa_cad Ref da pessoa(funcionario) que cadastrou o registro
 	 * 
-	 * @ORM\ManyToOne(targetEntity="Portal\Entity\Funcionario", cascade={"persist"})
-	 * @ORM\JoinColumn(name="ref_cod_pessoa_cad", referencedColumnName="ref_cod_pessoa_fj", onDelete="SET NULL")
+	 * @ORM\ManyToOne(targetEntity="Usuario\Entity\Fisica", cascade={"persist"})
+	 * @ORM\JoinColumn(name="ref_cod_pessoa_cad", referencedColumnName="idpes", onDelete="SET NULL")
 	 */
-	protected $pessoa_cad;
+	protected $pessoaCad;
 
 	/**
 	 * @var int $ref_cod_setor Ref do codigo setor pai
@@ -72,28 +72,28 @@ class Setor extends Entity
 	 * @ORM\ManyToOne(targetEntity="Setor", cascade={"persist"})
 	 * @ORM\JoinColumn(name="ref_cod_setor", referencedColumnName="cod_setor", onDelete="SET NULL")
 	 */
-	protected $ref_cod_setor;
+	protected $refCodSetor;
 
 	/**
 	 * @var string $sigla_setor Sigla do setor
 	 * 
 	 * @ORM\Column(name="sgl_setor", type="string", length=15, nullable=false)
 	 */
-	protected $sigla_setor;
+	protected $siglaSetor;
 
 	/**
 	 * @var datetime $data_cadastro 
 	 * 
-	 * @ORM\Column(type="datetime", nullable=false)
+	 * @ORM\Column(name="data_cadastro", type="datetime", nullable=false)
 	 */
-	protected $data_cadastro;
+	protected $dataCadastro;
 
 	/**
 	 * @var datetime $data_exclusao
 	 * 
-	 * @ORM\Column(type="datetime", nullable=true)
+	 * @ORM\Column(name="data_exclusao", type="datetime", nullable=true)
 	 */
-	protected $data_exclusao;
+	protected $dataExclusao;
 	
 	/**
 	 * @var smallint $ativo 
@@ -115,9 +115,9 @@ class Setor extends Entity
 	/**
 	 * @var smallint $no_paco 
 	 * @todo nao sei a que se refere
-	 * @ORM\Column(type="smallint", nullable=true)
+	 * @ORM\Column(name="no_paco", type="smallint", nullable=true)
 	 */
-	protected $no_paco = 1;
+	protected $noPaco = 1;
 
 	/**
 	 * @var text $endereco Endereço do setor
@@ -141,8 +141,8 @@ class Setor extends Entity
 	/**
 	 * @var int $secretario
 	 * 
-	 * @ORM\ManyToOne(targetEntity="Portal\Entity\Funcionario", cascade={"persist"})
-	 * @ORM\JoinColumn(name="ref_idpes_resp", referencedColumnName="ref_cod_pessoa_fj", onDelete="SET NULL")
+	 * @ORM\ManyToOne(targetEntity="Usuario\Entity\Fisica", cascade={"persist"})
+	 * @ORM\JoinColumn(name="ref_idpes_resp", referencedColumnName="idpes", onDelete="SET NULL")
 	 */
 	protected $secretario;
 
@@ -163,19 +163,19 @@ class Setor extends Entity
 	{		
 		$this->setId( isset($data['id']) ? $data['id'] : null );
 		$this->setNome( isset($data['nome']) ? $data['nome'] : null );
-		$this->setPessoaExclu( isset($data['pessoa_exclu']) ? $data['pessoa_exclu'] : null );
-		$this->setPessoaCad( isset($data['pessoa_cad']) ? $data['pessoa_cad'] : null );
-		if (!empty($data['ref_cod_setor']))			
-			$this->setRefCodSetor( isset($data['ref_cod_setor']) ? $data['ref_cod_setor'] : null );
-		$this->setDataCadastro( isset($data['data_cadastro']) ? $data['data_cadastro'] : null );
-		$this->setDataExclusao( isset($data['data_exclusao']) ? $data['data_exclusao'] : null );
+		$this->setPessoaExclu( isset($data['pessoaExclu']) ? $data['pessoaExclu'] : null );
+		$this->setPessoaCad( isset($data['pessoaCad']) ? $data['pessoaCad'] : null );
+		if (!empty($data['refCodSetor']))			
+			$this->setRefCodSetor( isset($data['refCodSetor']) ? $data['refCodSetor'] : null );
+		// $this->setDataCadastro( isset($data['data_cadastro']) ? $data['data_cadastro'] : null );
+		$this->setDataExclusao( isset($data['dataExclusao']) ? $data['dataExclusao'] : null );
 		$this->setAtivo( isset($data['ativo']) ? $data['ativo'] : null );
-		$this->setNoPaco( isset($data['no_paco']) ? $data['no_paco'] : null );
+		$this->setNoPaco( isset($data['noPaco']) ? $data['noPaco'] : null );
 		$this->setEndereco( isset($data['endereco']) ? $data['endereco'] : null );
 		$this->setTipo( isset($data['tipo']) ? $data['tipo'] : null );
 		if (!empty($data['secretario']))
 			$this->setSecretario( isset($data['secretario']) ? $data['secretario'] : null );
-		$this->setSiglaSetor( isset($data['sigla_setor']) ? $data['sigla_setor'] : null );
+		$this->setSiglaSetor( isset($data['siglaSetor']) ? $data['siglaSetor'] : null );
 		$this->setNivel( isset($data['nivel']) ? $data['nivel'] : null );
 	}
 
@@ -205,52 +205,52 @@ class Setor extends Entity
 
 	public function getPessoaExclu()
 	{
-		return $this->pessoa_exclu;
+		return $this->pessoaExclu;
 	}
 	
 	public function setPessoaExclu($value)
 	{
-		$this->pessoa_exclu = $this->valid("pessoa_exclu", $value);
+		$this->pessoaExclu = $this->valid("pessoaExclu", $value);
 	}
 
 	public function getPessoaCad()
 	{
-		return $this->pessoa_cad;
+		return $this->pessoaCad;
 	}
 	
 	public function setPessoaCad($value)
 	{
-		$this->pessoa_cad = $this->valid("pessoa_cad", $value);
+		$this->pessoaCad = $this->valid("pessoaCad", $value);
 	}
 
 	public function getRefCodSetor()
 	{
-		return $this->ref_cod_setor;
+		return $this->refCodSetor;
 	}
 	
 	public function setRefCodSetor($value)
 	{
-		$this->ref_cod_setor = $this->valid("ref_cod_setor", $value);
+		$this->refCodSetor = $this->valid("refCodSetor", $value);
 	}
 
 	public function getDataCadastro()
 	{
-		return $this->data_cadastro;
+		return $this->dataCadastro;
 	}
 	
 	public function setDataCadastro($value)
 	{
-		$this->data_cadastro = $this->valid("data_cadastro", $value);
+		$this->dataCadastro = $this->valid("dataCadastro", $value);
 	}
 
 	public function getDataExclusao()
 	{
-		return $this->data_exclusao;
+		return $this->dataExclusao;
 	}
 	
 	public function setDataExclusao($value)
 	{
-		$this->data_exclusao = $this->valid("data_exclusao", $value);
+		$this->dataExclusao = $this->valid("dataExclusao", $value);
 	}
 
 	public function getAtivo()
@@ -265,12 +265,12 @@ class Setor extends Entity
 
 	public function getNoPaco()
 	{
-		return $this->no_paco;
+		return $this->noPaco;
 	}
 	
 	public function setNoPaco($value)
 	{
-		$this->no_paco = $this->valid("no_paco", $value);
+		$this->noPaco = $this->valid("noPaco", $value);
 	}
 
 	public function getEndereco()
@@ -305,14 +305,14 @@ class Setor extends Entity
 
 	public function getSiglaSetor()
 	{
-		return $this->sigla_setor;
+		return $this->siglaSetor;
 	}
 	
 	public function setSiglaSetor($value)
 	{
-		$this->sigla_setor = $this->valid("sigla_setor", $value);
+		$this->siglaSetor = $this->valid("siglaSetor", $value);
 	}
-
+	
 	public function getNivel()
 	{
 		return $this->nivel;
@@ -367,7 +367,7 @@ class Setor extends Entity
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'pessoa_exclu',
+				'name' => 'pessoaExclu',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'Int'),
@@ -375,7 +375,7 @@ class Setor extends Entity
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'pessoa_cad',
+				'name' => 'pessoaCad',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'Int'),
@@ -383,7 +383,7 @@ class Setor extends Entity
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'ref_cod_setor',
+				'name' => 'refCodSetor',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'Int'),
@@ -391,7 +391,8 @@ class Setor extends Entity
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'SiglaSetor',
+				'name' => 'siglaSetor',
+				// 'name' => 'sigla_setor',
 				'required' => true,
 				'filters'	=>	array(
 					array('name'	=>	'StripTags'),
@@ -409,16 +410,8 @@ class Setor extends Entity
 				),				
 			)));
 
-			// $inputFilter->add($factory->createInput(array(
-			// 	'name' => 'data_cadastro',
-			// 	'required' => true,				
-			// 	'validators' => array(
-			// 		'name' => new \Zend\Validator\Date(),
-			// 	),
-			// )));
-
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'data_exclusao',
+				'name' => 'dataExclusao',
 				'required' => false,				
 				'validators' => array(
 					'name' => new \Zend\Validator\Date(),
@@ -434,7 +427,7 @@ class Setor extends Entity
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'no_paco',
+				'name' => 'noPaco',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'Int'),

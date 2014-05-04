@@ -38,17 +38,17 @@ class JuridicaTest extends EntityTestCase
 
 		$this->assertTrue($if->has('id'));
 		$this->assertTrue($if->has('cnpj'));
-		$this->assertTrue($if->has('insc_estadual'));
-		$this->assertTrue($if->has('idpes_rev'));
-		$this->assertTrue($if->has('data_rev'));
-		$this->assertTrue($if->has('origem_gravacao'));
-		$this->assertTrue($if->has('idpes_cad'));
+		$this->assertTrue($if->has('inscEstadual'));
+		$this->assertTrue($if->has('idpesRev'));
+		$this->assertTrue($if->has('dataRev'));
+		$this->assertTrue($if->has('origemGravacao'));
+		$this->assertTrue($if->has('idpesCad'));
 		// $this->assertTrue($if->has('data_cad'));
 		$this->assertTrue($if->has('operacao'));
-		$this->assertTrue($if->has('idsis_rev'));
-		$this->assertTrue($if->has('idsis_cad'));
+		$this->assertTrue($if->has('idsisRev'));
+		$this->assertTrue($if->has('idsisCad'));
 		$this->assertTrue($if->has('fantasia'));
-		$this->assertTrue($if->has('capital_social'));
+		$this->assertTrue($if->has('capitalSocial'));
 	}
 
 	/**

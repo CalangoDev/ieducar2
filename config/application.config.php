@@ -9,6 +9,7 @@ return array(
         'Application',
         'Portal',
         'Drh',
+        'Auth',
         'Core'      
     ),    
     'module_listener_options' => array(

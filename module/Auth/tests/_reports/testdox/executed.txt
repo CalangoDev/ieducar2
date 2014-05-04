@@ -1,0 +1,6 @@
+IndexController
+ [x] Auth index action new request
+ [x] Auth index action post request
+ [x] Auth invalid index action post request
+ [x] Auth logado action
+

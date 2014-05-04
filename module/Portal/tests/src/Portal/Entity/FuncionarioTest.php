@@ -38,24 +38,24 @@ class FuncionarioTest extends EntityTestCase
 		$this->assertTrue($if->has('matricula'));
 		$this->assertTrue($if->has('senha'));
 		$this->assertTrue($if->has('ativo'));
-		$this->assertTrue($if->has('ref_sec'));
+		$this->assertTrue($if->has('refSec'));
 		$this->assertTrue($if->has('ramal'));
 		$this->assertTrue($if->has('sequencial'));
-		$this->assertTrue($if->has('opcao_menu'));
-		$this->assertTrue($if->has('ref_cod_setor'));
-		$this->assertTrue($if->has('ref_cod_funcionario_vinculo'));
-		$this->assertTrue($if->has('tempo_expira_senha'));
-		$this->assertTrue($if->has('tempo_expira_conta'));
-		$this->assertTrue($if->has('data_troca_senha'));
-		$this->assertTrue($if->has('data_reativa_conta'));
+		$this->assertTrue($if->has('opcaoMenu'));
+		$this->assertTrue($if->has('refCodSetor'));
+		$this->assertTrue($if->has('refCodFuncionarioVinculo'));
+		$this->assertTrue($if->has('tempoExpiraSenha'));
+		$this->assertTrue($if->has('tempoExpiraConta'));
+		$this->assertTrue($if->has('dataTrocaSenha'));
+		$this->assertTrue($if->has('dataReativaConta'));
 		$this->assertTrue($if->has('proibido'));
-		$this->assertTrue($if->has('matricula_new'));
-		$this->assertTrue($if->has('matricula_permanente'));
-		$this->assertTrue($if->has('tipo_menu'));
-		$this->assertTrue($if->has('ip_logado'));
-		$this->assertTrue($if->has('data_login'));
+		$this->assertTrue($if->has('matriculaNew'));
+		$this->assertTrue($if->has('matriculaPermanente'));
+		$this->assertTrue($if->has('tipoMenu'));
+		$this->assertTrue($if->has('ipLogado'));
+		$this->assertTrue($if->has('dataLogin'));
 		$this->assertTrue($if->has('email'));
-		$this->assertTrue($if->has('status_token'));
+		$this->assertTrue($if->has('statusToken'));
 	}
 
 	/**
@@ -67,12 +67,12 @@ class FuncionarioTest extends EntityTestCase
 		$this->em->persist($fisica);
 
 		$funcionario = $this->buildFuncionario();
-		$funcionario->setId($fisica);
+		$funcionario->setRefCodPessoaFj($fisica);
 		$this->em->persist($funcionario);
 		$this->em->flush();
 
 		$this->assertNotNull($funcionario->getId());		
-		$this->assertEquals($fisica, $funcionario->getId());
+		$this->assertEquals($fisica, $funcionario->getRefCodPessoaFj());
 
 		/**
 		 * Buscando no banco de dados o funcionario que foi cadastrado
@@ -97,7 +97,7 @@ class FuncionarioTest extends EntityTestCase
 		depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum
 		girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i 
 		pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.");
-		$funcionario->setId($fisica);
+		$funcionario->setRefCodPessoaFj($fisica);
 		$this->em->persist($funcionario);
 		$this->em->flush();
 	}
@@ -108,7 +108,7 @@ class FuncionarioTest extends EntityTestCase
 		$this->em->persist($fisica);
 
 		$funcionario = $this->buildFuncionario();
-		$funcionario->setId($fisica);
+		$funcionario->setRefCodPessoaFj($fisica);
 		$this->em->persist($funcionario);
 
 		$savedFuncionario = $this->em->find('Portal\Entity\Funcionario', $funcionario->getId());
@@ -131,7 +131,7 @@ class FuncionarioTest extends EntityTestCase
 		$this->em->persist($fisica);
 
 		$funcionario = $this->buildFuncionario();
-		$funcionario->setId($fisica);
+		$funcionario->setRefCodPessoaFj($fisica);
 
 		$this->em->persist($funcionario);
 		$this->em->flush();

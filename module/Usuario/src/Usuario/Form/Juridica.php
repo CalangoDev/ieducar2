@@ -57,7 +57,7 @@ class Juridica extends Form
 		));
 
 		$this->add(array(
-			'name' => 'insc_estadual',
+			'name' => 'inscEstadual',
 			'attributes' => array(
 				'type' => 'text'
 			),
@@ -77,7 +77,7 @@ class Juridica extends Form
 		));
 
 		$this->add(array(
-			'name' => 'capital_social',
+			'name' => 'capitalSocial',
 			'attributes' => array(
 				'type' => 'text'
 			),

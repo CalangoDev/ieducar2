@@ -36,8 +36,8 @@ class ReligiaoTest extends EntityTestCase
 
 		$this->assertTrue($if->has('id'));
 		$this->assertTrue($if->has('nome'));
-		$this->assertTrue($if->has('data_cadastro'));
-		$this->assertTrue($if->has('data_exclusao'));
+		$this->assertTrue($if->has('dataCadastro'));
+		$this->assertTrue($if->has('dataExclusao'));
 		$this->assertTrue($if->has('ativo'));
 		// $this->assertTrue($if->has('pessoa_cad'));
 		// $this->assertTrue($if->has('pessoa_exclu'));

@@ -20,7 +20,7 @@ class Setor extends Form
 		));
 
 		$this->add(array(
-			'name' => 'ref_cod_setor',
+			'name' => 'refCodSetor',
 			'attributes' => array(
 				'type' => 'DoctrineModule\Form\Element\ObjectSelect',
 			),
@@ -44,8 +44,9 @@ class Setor extends Form
 			),
 		));
 
+		
 		$this->add(array(
-			'name' => 'SiglaSetor',
+			'name' => 'siglaSetor',
 			'attributes' => array(
 				'type' => 'text'
 			),
@@ -55,7 +56,7 @@ class Setor extends Form
 		));
 
 		$this->add(array(
-			'name' => 'no_paco',
+			'name' => 'noPaco',
 			'attributes' => array(
 				'type' => 'text'
 			),

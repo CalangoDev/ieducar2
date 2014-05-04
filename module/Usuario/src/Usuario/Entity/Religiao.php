@@ -48,16 +48,16 @@ class Religiao extends Entity
 	/**
 	 * @var datetime  $data_cadastro	Data de Cadastro
 	 * 
-	 * @ORM\Column(type="datetime", nullable=false)
+	 * @ORM\Column(name="data_cadastro", type="datetime", nullable=false)
 	 */
-	protected $data_cadastro;
+	protected $dataCadastro;
 
 	/**
 	 * @var datetime $data_exclusao	Data de Exclusão
 	 * 
-	 * @ORM\Column(type="datetime", nullable=true)
+	 * @ORM\Column(name="data_exclusao", type="datetime", nullable=true)
 	 */
-	protected $data_exclusao;
+	protected $dataExclusao;
 
 	/**
 	 * @var boolean $ativo
@@ -74,7 +74,7 @@ class Religiao extends Entity
 	 * @ORM\ManyToOne(targetEntity="Pessoa", cascade={"persist"})
 	 * @ORM\JoinColumn(name="idpes_exc", referencedColumnName="idpes", onDelete="SET NULL")
 	 */
-	protected $pessoa_exclu;
+	protected $pessoaExclu;
 
 	/**
 	 * @var int $pessoa_cad Id pessoa que cadastrou o registro
@@ -82,7 +82,7 @@ class Religiao extends Entity
 	 * @ORM\ManyToOne(targetEntity="Pessoa", cascade={"persist"})
 	 * @ORM\JoinColumn(name="idpes_cad", referencedColumnName="idpes", onDelete="SET NULL")
 	 */
-	protected $pessoa_cad;
+	protected $pessoaCad;
 
 
 	/**
@@ -123,22 +123,22 @@ class Religiao extends Entity
 
 	public function getDataCadastro()
 	{
-		return $this->data_cadastro;
+		return $this->dataCadastro;
 	}
 	
 	public function setDataCadastro($value)
 	{
-		$this->data_cadastro = $this->valid("data_cadastro", $value);
+		$this->dataCadastro = $this->valid("dataCadastro", $value);
 	}
 
 	public function getDataExclusao()
 	{
-		return $this->data_exclusao;
+		return $this->dataExclusao;
 	}
 	
 	public function setDataExclusao($value)
 	{
-		$this->data_exclusao = $this->valid("data_exclusao", $value);
+		$this->dataExclusao = $this->valid("dataExclusao", $value);
 	}
 
 	public function getAtivo()
@@ -153,22 +153,22 @@ class Religiao extends Entity
 
 	public function getPessoaExclu()
 	{
-		return $this->pessoa_exclu;
+		return $this->pessoaExclu;
 	}
 	
 	public function setPessoaExclu($value)
 	{
-		$this->pessoa_exclu = $this->valid("pessoa_exclu", $value);
+		$this->pessoaExclu = $this->valid("pessoaExclu", $value);
 	}
 
 	public function getPessoaCad()
 	{
-		return $this->pessoa_cad;
+		return $this->pessoaCad;
 	}
 	
 	public function setPessoaCad($value)
 	{
-		$this->pessoa_cad = $this->valid("pessoa_cad", $value);
+		$this->pessoaCad = $this->valid("pessoaCad", $value);
 	}
 
 	/**
@@ -216,7 +216,7 @@ class Religiao extends Entity
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'data_cadastro',
+				'name' => 'dataCadastro',
 				'required' => true,
 				'filters' => array(
 					// array('name' => 'StripTags'),
@@ -229,7 +229,7 @@ class Religiao extends Entity
 
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'data_exclusao',
+				'name' => 'dataExclusao',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'StripTags'),

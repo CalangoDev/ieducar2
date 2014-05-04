@@ -114,17 +114,17 @@ class JuridicaControllerTest extends ControllerTestCase
 		$this->assertEquals('cnpj', $cnpj->getName());
 		$this->assertEquals('text', $cnpj->getAttribute('type'));
 
-		$insc_estadual = $form->get('insc_estadual');
-		$this->assertEquals('insc_estadual', $insc_estadual->getName());
-		$this->assertEquals('text', $insc_estadual->getAttribute('type'));
+		$inscEstadual = $form->get('inscEstadual');
+		$this->assertEquals('inscEstadual', $inscEstadual->getName());
+		$this->assertEquals('text', $inscEstadual->getAttribute('type'));
 
 		$fantasia = $form->get('fantasia');
 		$this->assertEquals('fantasia', $fantasia->getName());
 		$this->assertEquals('text', $fantasia->getAttribute('type'));
 
-		$capital_social = $form->get('capital_social');
-		$this->assertEquals('capital_social', $capital_social->getName());
-		$this->assertEquals('text', $capital_social->getAttribute('type'));
+		$capitalSocial = $form->get('capitalSocial');
+		$this->assertEquals('capitalSocial', $capitalSocial->getName());
+		$this->assertEquals('text', $capitalSocial->getAttribute('type'));
 	}
 
 	/**

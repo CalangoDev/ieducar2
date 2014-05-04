@@ -95,13 +95,13 @@ class SetorControllerTest extends ControllerTestCase
 		$this->assertEquals('nome', $nome->getName());
 		$this->assertEquals('text', $nome->getAttribute('type'));
 
-		$sigla_setor = $form->get('SiglaSetor');
-		$this->assertEquals('SiglaSetor', $sigla_setor->getName());
-		$this->assertEquals('text', $sigla_setor->getAttribute('type'));
+		$siglaSetor = $form->get('siglaSetor');
+		$this->assertEquals('siglaSetor', $siglaSetor->getName());
+		$this->assertEquals('text', $siglaSetor->getAttribute('type'));
 
-		$no_paco = $form->get('no_paco');
-		$this->assertEquals('no_paco', $no_paco->getName());
-		$this->assertEquals('text', $no_paco->getAttribute('type'));
+		$noPaco = $form->get('noPaco');
+		$this->assertEquals('noPaco', $noPaco->getName());
+		$this->assertEquals('text', $noPaco->getAttribute('type'));
 
 		$endereco = $form->get('endereco');
 		$this->assertEquals('endereco', $endereco->getName());
@@ -169,7 +169,7 @@ class SetorControllerTest extends ControllerTestCase
 		$this->request->setMethod('post');
 		$this->request->getPost()->set('id', '');
 		$this->request->getPost()->set('nome', 'Setor Y');
-		$this->request->getPost()->set('SiglaSetor', 'STY');
+		$this->request->getPost()->set('siglaSetor', 'STY');
 		$this->request->getPost()->set('ativo', 1);
 		$this->request->getPost()->set('nivel', 1);
 		$this->request->getPost()->set('endereco', 'Rua do setor y');
@@ -204,7 +204,7 @@ class SetorControllerTest extends ControllerTestCase
 		$this->request->setMethod('post');
 		$this->request->getPost()->set('id', $setor->getId());
 		$this->request->getPost()->set('nome', 'Setor X');
-		$this->request->getPost()->set('SiglaSetor', 'STY');
+		$this->request->getPost()->set('siglaSetor', 'STY');
 		$this->request->getPost()->set('ativo', 1);
 		$this->request->getPost()->set('nivel', 1);
 		$this->request->getPost()->set('endereco', 'Rua do setor y');

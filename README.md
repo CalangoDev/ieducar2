@@ -28,7 +28,7 @@ Exemplo de uso para o modulo Usuario:
 
 phpunit -c module/Usuario/tests/phpunit.xml
 
-phpunit -c module/Usuario/tests.phpunit.xml --debug --group=Entity --filter=Pessoa
+phpunit -c module/Usuario/tests/phpunit.xml --debug --group=Entity --filter=Pessoa
 
 ### Testes completados
 
@@ -54,6 +54,7 @@ phpunit -c module/Portal/tests/phpunit.xml --filter=Funcionario
 
 ### Módulo Drh
 
+
 phpunit -c module/Drh/tests/phpunit.xml --filter=Setor
 
 ## Usando o doctrine
@@ -76,6 +77,10 @@ Usar a herança de Entidade
 exemplo: 
 
 Classe Fisica extende a Classe Pessoa :D
+
+### Padrão CamelCase
+
+Mudanças para uso de padrão CamelCase em todo o projeto, tava um mix com uso de underscore devido aos atributos das classes de persistencias
 
 ## Ação atual
 

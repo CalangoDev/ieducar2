@@ -21,6 +21,22 @@ class Funcionario extends Form
 		));
 
 		$this->add(array(
+			'name' => 'refCodPessoaFj',
+			'attributes' => array(
+				'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+			),
+			'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+			'options' => array(
+				'label' => 'Pessoa Física',
+				'empty_option' => 'Selecione',
+				'object_manager' => $em,
+				'target_class' => 'Usuario\Entity\Fisica',
+				'property' => 'nome',
+			),
+		));
+
+
+		$this->add(array(
 			'name' => 'matricula',
 			'attributes' => array(
 				'type' => 'text'
@@ -59,7 +75,7 @@ class Funcionario extends Form
 		));
 
 		$this->add(array(
-			'name' => 'ref_cod_funcionario_vinculo',
+			'name' => 'refCodFuncionarioVinculo',
 			'attributes' => array(
 				'type' => 'Zend\Form\Element\Select'
 			),
@@ -80,7 +96,7 @@ class Funcionario extends Form
 		));
 
 		$this->add(array(
-			'name' => 'tempo_expira_conta',
+			'name' => 'tempoExpiraConta',
 			'attributes' => array(
 				'type' => 'Zend\Form\Element\Select'
 			),
@@ -128,7 +144,7 @@ class Funcionario extends Form
 		));
 
 		$this->add(array(
-			'name' => 'matricula_permanente',
+			'name' => 'matriculaPermanente',
 			'attributes' => array(
 				'type' => 'Zend\Form\Element\Checkbox'
 			),
@@ -141,7 +157,7 @@ class Funcionario extends Form
 		));		
 
 		$this->add(array(
-			'name' => 'ref_cod_setor_new',
+			'name' => 'refCodSetorNew',
 			'attributes' => array(
 				'type' => 'DoctrineModule\Form\Element\ObjectSelect',
 			),

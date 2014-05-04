@@ -89,13 +89,13 @@ class PessoaController extends ActionController
 			/**
 			 * Removento filters de inputs nao recebidos pelo o formulario
 			 */
-			$pessoa->removeInputFilter('idpes_cad');			
-			$pessoa->removeInputFilter('idpes_rev');
+			$pessoa->removeInputFilter('idpesCad');			
+			$pessoa->removeInputFilter('idpesRev');
 			$pessoa->removeInputFilter('operacao');
-			$pessoa->removeInputFilter('origem_gravacao');
-			$pessoa->removeInputFilter('idsis_rev');
-			$pessoa->removeInputFilter('idsis_cad');			
-			$pessoa->removeInputFilter('data_rev');
+			$pessoa->removeInputFilter('origemGravacao');
+			$pessoa->removeInputFilter('idsisRev');
+			$pessoa->removeInputFilter('idsisCad');			
+			$pessoa->removeInputFilter('dataRev');
 			
 			if ($this->params()->fromPost('email') == null)				
 				$pessoa->removeInputFilter('email');			

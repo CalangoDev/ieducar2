@@ -93,61 +93,61 @@ class FisicaControllerTest extends ControllerTestCase
 		$this->assertEquals('id', $id->getName());
 		$this->assertEquals('hidden', $id->getAttribute('type'));
 
-		$data_nasc = $form->get('data_nasc');
-		$this->assertEquals('data_nasc', $data_nasc->getName());
-		$this->assertEquals('text', $data_nasc->getAttribute('type'));
+		$dataNasc = $form->get('dataNasc');
+		$this->assertEquals('dataNasc', $dataNasc->getName());
+		$this->assertEquals('text', $dataNasc->getAttribute('type'));
 
 		$sexo = $form->get('sexo');
 		$this->assertEquals('sexo', $sexo->getName());
 		$this->assertEquals('Zend\Form\Element\Select', $sexo->getAttribute('type'));
 
-		$data_uniao = $form->get('data_uniao');
-		$this->assertEquals('data_uniao', $data_uniao->getName());
-		$this->assertEquals('text', $data_uniao->getAttribute('type'));
+		$dataUniao = $form->get('dataUniao');
+		$this->assertEquals('dataUniao', $dataUniao->getName());
+		$this->assertEquals('text', $dataUniao->getAttribute('type'));
 
 		$nacionalidade = $form->get('nacionalidade');
 		$this->assertEquals('nacionalidade', $nacionalidade->getName());
 		$this->assertEquals('Zend\Form\Element\Select', $nacionalidade->getAttribute('type'));
 
-		$data_chegada_brasil = $form->get('data_chegada_brasil');
-		$this->assertEquals('data_chegada_brasil', $data_chegada_brasil->getName());
-		$this->assertEquals('text', $data_chegada_brasil->getAttribute('type'));
+		$dataChegadaBrasil = $form->get('dataChegadaBrasil');
+		$this->assertEquals('dataChegadaBrasil', $dataChegadaBrasil->getName());
+		$this->assertEquals('text', $dataChegadaBrasil->getAttribute('type'));
 
-		$ultima_empresa = $form->get('ultima_empresa');
-		$this->assertEquals('ultima_empresa', $ultima_empresa->getName());
-		$this->assertEquals('text', $ultima_empresa->getAttribute('type'));
+		$ultimaEmpresa = $form->get('ultimaEmpresa');
+		$this->assertEquals('ultimaEmpresa', $ultimaEmpresa->getName());
+		$this->assertEquals('text', $ultimaEmpresa->getAttribute('type'));
 
-		$nome_mae = $form->get('nome_mae');
-		$this->assertEquals('nome_mae', $nome_mae->getName());
-		$this->assertEquals('text', $nome_mae->getAttribute('type'));
+		$nomeMae = $form->get('nomeMae');
+		$this->assertEquals('nomeMae', $nomeMae->getName());
+		$this->assertEquals('text', $nomeMae->getAttribute('type'));
 
-		$nome_pai = $form->get('nome_pai');
-		$this->assertEquals('nome_pai', $nome_pai->getName());
-		$this->assertEquals('text', $nome_pai->getAttribute('type'));
+		$nomePai = $form->get('nomePai');
+		$this->assertEquals('nomePai', $nomePai->getName());
+		$this->assertEquals('text', $nomePai->getAttribute('type'));
 
-		$nome_conjuge = $form->get('nome_conjuge');
-		$this->assertEquals('nome_conjuge', $nome_conjuge->getName());
-		$this->assertEquals('text', $nome_conjuge->getAttribute('type'));
+		$nomeConjuge = $form->get('nomeConjuge');
+		$this->assertEquals('nomeConjuge', $nomeConjuge->getName());
+		$this->assertEquals('text', $nomeConjuge->getAttribute('type'));
 
-		$nome_responsavel = $form->get('nome_responsavel');
-		$this->assertEquals('nome_responsavel', $nome_responsavel->getName());
-		$this->assertEquals('text', $nome_responsavel->getAttribute('type'));
+		$nomeResponsavel = $form->get('nomeResponsavel');
+		$this->assertEquals('nomeResponsavel', $nomeResponsavel->getName());
+		$this->assertEquals('text', $nomeResponsavel->getAttribute('type'));
 
-		$justificativa_provisorio = $form->get('justificativa_provisorio');
-		$this->assertEquals('justificativa_provisorio', $justificativa_provisorio->getName());
-		$this->assertEquals('text', $justificativa_provisorio->getAttribute('type'));
+		$justificativaProvisorio = $form->get('justificativaProvisorio');
+		$this->assertEquals('justificativaProvisorio', $justificativaProvisorio->getName());
+		$this->assertEquals('text', $justificativaProvisorio->getAttribute('type'));
 
 		$cpf = $form->get('cpf');
 		$this->assertEquals('cpf', $cpf->getName());
 		$this->assertEquals('text', $cpf->getAttribute('type'));
 
-		$idmun_nascimento = $form->get('idmun_nascimento');
-		$this->assertEquals('idmun_nascimento', $idmun_nascimento->getName());
-		$this->assertEquals('Zend\Form\Element\Select', $idmun_nascimento->getAttribute('type'));
+		$idmunNascimento = $form->get('idmunNascimento');
+		$this->assertEquals('idmunNascimento', $idmunNascimento->getName());
+		$this->assertEquals('Zend\Form\Element\Select', $idmunNascimento->getAttribute('type'));
 
-		$idpais_estrangeiro = $form->get('idpais_estrangeiro');
-		$this->assertEquals('idpais_estrangeiro', $idpais_estrangeiro->getName());
-		$this->assertEquals('Zend\Form\Element\Select', $idpais_estrangeiro->getAttribute('type'));
+		$idpaisEstrangeiro = $form->get('idpaisEstrangeiro');
+		$this->assertEquals('idpaisEstrangeiro', $idpaisEstrangeiro->getName());
+		$this->assertEquals('Zend\Form\Element\Select', $idpaisEstrangeiro->getAttribute('type'));
 
 		$idesco = $form->get('idesco');
 		$this->assertEquals('idesco', $idesco->getName());
@@ -161,9 +161,9 @@ class FisicaControllerTest extends ControllerTestCase
 		$this->assertEquals('idocup', $idocup->getName());
 		$this->assertEquals('text', $idocup->getAttribute('type'));
 
-		$ref_cod_religiao = $form->get('ref_cod_religiao');
-		$this->assertEquals('ref_cod_religiao', $ref_cod_religiao->getName());
-		$this->assertEquals('Zend\Form\Element\Select', $ref_cod_religiao->getAttribute('type'));
+		$refCodReligiao = $form->get('refCodReligiao');
+		$this->assertEquals('refCodReligiao', $refCodReligiao->getName());
+		$this->assertEquals('Zend\Form\Element\Select', $refCodReligiao->getAttribute('type'));
 	}
 
 	/**

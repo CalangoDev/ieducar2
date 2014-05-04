@@ -51,9 +51,9 @@ class Fisica extends Pessoa
 	/**
 	 * @var Datetime $data_nasc Data de nascimento
 	 * 
-	 * @ORM\Column(type="datetime", nullable=true)
+	 * @ORM\Column(name="data_nasc", type="datetime", nullable=true)
 	 */
-	protected $data_nasc;
+	protected $dataNasc;
 
 	/**
 	 * @var String $sexo Sexo M(Masculino) ou F(Feminino)
@@ -81,18 +81,18 @@ class Fisica extends Pessoa
 	 * Não achei utilidade dessa variavel no sistema.
 	 * 
 	 * @todo verificar necessidade desse campo
-	 * @ORM\Column(type="datetime", nullable=true) 
+	 * @ORM\Column(name="data_uniao", type="datetime", nullable=true) 
 	 */
-	protected $data_uniao;
+	protected $dataUniao;
 
 	/**
 	 * @var Datetime $data_obito Date do óbito ???
 	 * 
 	 * Não achei utilidade dessa variavel no sistema
 	 * @todo verificar necessidade desse campo
-	 * @ORM\Column(type="datetime", nullable=true)
+	 * @ORM\Column(name="data_obito", type="datetime", nullable=true)
 	 */
-	protected $data_obito;
+	protected $dataObito;
 
 	/**
 	 * @var Int $nacionalidade	Nacionalidade
@@ -122,53 +122,53 @@ class Fisica extends Pessoa
 	/**
 	 * @var Datetime $data_chegada_brasil	Data de chegada ao Brasil se for estrangeiro
 	 * 
-	 * @ORM\Column(type="datetime", nullable=true)
+	 * @ORM\Column(name="data_chegada_brasil", type="datetime", nullable=true)
 	 */
-	protected $data_chegada_brasil;
+	protected $dataChegadaBrasil;
 
 	/**
 	 * @var String $ultima_empresa	Ultima empresa que trabalhou
 	 * 
-	 * @ORM\Column(type="string", length=150, nullable=true)
+	 * @ORM\Column(name="ultima_empresa", type="string", length=150, nullable=true)
 	 */
-	protected $ultima_empresa;
+	protected $ultimaEmpresa;
 
 	/**
 	 * @var string $nome_mae	Nome da Mae
 	 * 
-	 * @ORM\Column(type="string", length=150, nullable=true)
+	 * @ORM\Column(name="nome_mae", type="string", length=150, nullable=true)
 	 */
-	protected $nome_mae;
+	protected $nomeMae;
 
 	/**
 	 * @var string $nome_pai	Nome do pai
 	 * 
-	 * @ORM\Column(type="string", length=150, nullable=true)
+	 * @ORM\Column(name="nome_pai", type="string", length=150, nullable=true)
 	 */
-	protected $nome_pai;
+	protected $nomePai;
 
 	/**
 	 * @var string $nome_conjuge	Nome do conjuge
 	 * 
-	 * @ORM\Column(type="string", length=150, nullable=true)
+	 * @ORM\Column(name="nome_conjuge", type="string", length=150, nullable=true)
 	 */
-	protected $nome_conjuge;
+	protected $nomeConjuge;
 
 	/**
 	 * @var string $nome_responsavel	Nome do responsavel
 	 * 
-	 * @ORM\Column(type="string", length=150, nullable=true)
+	 * @ORM\Column(name="nome_responsavel", type="string", length=150, nullable=true)
 	 */
-	protected $nome_responsavel;
+	protected $nomeResponsavel;
 
 	/**
 	 * @var string $justificativa_provisorio	????
 	 *
 	 * @todo verificar essa info
 	 *  
-	 * @ORM\Column(type="string", length=150, nullable=true)
+	 * @ORM\Column(name="justificativa_provisorio", type="string", length=150, nullable=true)
 	 */
-	protected $justificativa_provisorio;
+	protected $justificativaProvisorio;
 
 	/**
 	 * @var  DateTime $data_rev Data de revisao
@@ -263,9 +263,9 @@ class Fisica extends Pessoa
 	/**
 	 * @var int $ref_cod_sistema	Referencia do codigo do sistema
 	 * @todo  check nesse campo
-	 * @ORM\Column(type="integer", nullable=true)
+	 * @ORM\Column(name="ref_cod_sistema", type="integer", nullable=true)
 	 */
-	protected $ref_cod_sistema;
+	protected $refCodSistema;
 
 	/**
 	 * @var string $cpf CPF
@@ -281,7 +281,7 @@ class Fisica extends Pessoa
 	 * @ORM\ManyToOne(targetEntity="Pessoa", cascade={"persist"})
 	 * @ORM\JoinColumn(name="idpes_mae", referencedColumnName="idpes", onDelete="SET NULL")
 	 */
-	protected $pessoa_mae;
+	protected $pessoaMae;
 
 	/**
 	 * @var int $pessoa_pai Id pessoa do pai
@@ -291,7 +291,7 @@ class Fisica extends Pessoa
 	 * @ORM\ManyToOne(targetEntity="Pessoa", cascade={"persist"})
 	 * @ORM\JoinColumn(name="idpes_pai", referencedColumnName="idpes", onDelete="SET NULL")
 	 */
-	protected $pessoa_pai;
+	protected $pessoaPai;
 
 	/**
 	 * @var int $pessoa_responsavel	Id da pessoa responsavel
@@ -300,7 +300,7 @@ class Fisica extends Pessoa
 	 * @ORM\ManyToOne(targetEntity="Usuario\Entity\Pessoa")
 	 * @ORM\JoinColumn(name="idpes_responsavel", referencedColumnName="idpes", onDelete="SET NULL")
 	 */
-	protected $pessoa_responsavel;
+	protected $pessoaResponsavel;
 
 	/**
 	 * @var Int $municiopio_nascimento Naturalidade obtem o id na tabela public.municipio
@@ -310,7 +310,7 @@ class Fisica extends Pessoa
 	 * @ORM\ManyToOne(targetEntity="Core\Entity\Municipio")
 	 * @ORM\JoinColumn(name="idmun_nascimento", referencedColumnName="idmun", onDelete="NO ACTION")
 	 */
-	protected $municipio_nascimento;
+	protected $municipioNascimento;
 
 	/**
 	 * @var Int $pais_estrangeiro	Armazena id do pais se for estrangeiro obtem o id na tabela public.pais
@@ -320,7 +320,7 @@ class Fisica extends Pessoa
 	 * @ORM\ManyToOne(targetEntity="Core\Entity\Pais")
 	 * @ORM\JoinColumn(name="idpais_estrangeiro", referencedColumnName="idpais", onDelete="NO ACTION")
 	 */
-	protected $pais_estrangeiro;
+	protected $paisEstrangeiro;
 
 	/**
 	 * @var Int $escola	Código da Escolaridade, chave estrangeira para o campo idesco na relacao cadastro.escolaridade	 
@@ -340,7 +340,7 @@ class Fisica extends Pessoa
 	 * @ORM\ManyToOne(targetEntity="Usuario\Entity\EstadoCivil")
 	 * @ORM\JoinColumn(name="ideciv", referencedColumnName="ideciv", onDelete="NO ACTION")
 	 */
-	protected $estado_civil;
+	protected $estadoCivil;
 
 	/**
 	 * @var int $pessoa_conjugue	Id Pessoa Conjuge
@@ -350,7 +350,7 @@ class Fisica extends Pessoa
 	 * @ORM\ManyToOne(targetEntity="Usuario\Entity\Pessoa")
 	 * @ORM\JoinColumn(name="idpes_con", referencedColumnName="idpes", onDelete="SET NULL")
 	 */
-	protected $pessoa_conjuge;
+	protected $pessoaConjuge;
 
 	/**
 	 * @var int $ocupacao	ID da Ocupacao
@@ -371,7 +371,7 @@ class Fisica extends Pessoa
 	 * @ORM\ManyToOne(targetEntity="Usuario\Entity\Religiao")
 	 * @ORM\JoinColumn(name="ref_cod_religiao", referencedColumnName="cod_religiao", onDelete="NO ACTION")
 	 */
-	protected $ref_cod_religiao;
+	protected $refCodReligiao;
 
 	/**
 	 * getters and setters
@@ -379,12 +379,12 @@ class Fisica extends Pessoa
 		
 	public function getDataNasc()
 	{
-		return $this->data_nasc;
+		return $this->dataNasc;
 	}
 
 	public function setDataNasc($value)
 	{
-		$this->data_nasc = $this->valid("data_nasc", $value);
+		$this->dataNasc = $this->valid("dataNasc", $value);
 	}
 
 	public function getSexo()
@@ -399,22 +399,22 @@ class Fisica extends Pessoa
 
 	public function getDataUniao()
 	{
-		return $this->data_uniao;
+		return $this->dataUniao;
 	}
 
 	public function setDataUniao($value)
 	{
-		$this->data_uniao = $this->valid("data_uniao", $value);
+		$this->dataUniao = $this->valid("dataUniao", $value);
 	}
 
 	public function getDataObito()
 	{
-		return $this->data_obito;
+		return $this->dataObito;
 	}
 
 	public function setDataObito($value)
 	{
-		return $this->data_obito = $this->valid("data_obito", $value);
+		return $this->dataObito = $this->valid("dataObito", $value);
 	}
 
 	public function getNacionalidade()
@@ -429,83 +429,83 @@ class Fisica extends Pessoa
 
 	public function getDataChegadaBrasil()
 	{
-		return $this->data_chegada_brasil;
+		return $this->dataChegadaBrasil;
 	}
 
 	public function setDataChegadaBrasil($value)
 	{
-		$this->data_chegada_brasil = $this->valid("data_chegada_brasil", $value);
+		$this->dataChegadaBrasil = $this->valid("dataChegadaBrasil", $value);
 	}
 
 	public function getUltimaEmpresa()
 	{
-		return $this->ultima_empresa;
+		return $this->ultimaEmpresa;
 	}
 
 	public function setUltimaEmpresa($value)
 	{
-		$this->ultima_empresa = $this->valid("ultima_empresa", $value);
+		$this->ultimaEmpresa = $this->valid("ultimaEmpresa", $value);
 	}
 
 	public function getNomeMae()
 	{
-		return $nome_mae;
+		return $this->nomeMae;
 	}
 
 	public function setNomeMae($value)
 	{
-		$this->nome_mae = $this->valid("nome_mae", $value);
+		$this->nomeMae = $this->valid("nomeMae", $value);
 	}
 
 	public function getNomePai()
 	{
-		return $nome_pai;
+		return $this->nomePai;
 	}
 
 	public function setNomePai($value)
 	{
-		$this->nome_pai = $this->valid("nome_pai", $value);
+		$this->nomePai = $this->valid("nomePai", $value);
 	}
 
 	public function getNomeConjuge()
 	{
-		return $this->nome_conjuge;
+		return $this->nomeConjuge;
 	}
 
 	public function setNomeConjuge($value)
 	{
-		$this->nome_conjuge = $this->valid("nome_conjuge", $value);
+		$this->nomeConjuge = $this->valid("nomeConjuge", $value);
 	}
 
 
 	public function getNomeResponsavel()
 	{
-		return $this->nome_responsavel;
+		return $this->nomeResponsavel;
 	}
 	
 	public function setNomeResponsavel($value)
 	{
-		$this->nome_responsavel = $this->valid("nome_responsavel", $value);
+		$this->nomeResponsavel = $this->valid("nomeResponsavel", $value);
 	}
 
 	public function getJustificativaProvisorio()
 	{
-		return $this->justificativa_provisorio;
+		return $this->justificativaProvisorio;
 	}
 	
 	public function setJustificativaProvisorio($value)
 	{
-		$this->justificativa_provisorio = $this->valid("justificativa_provisorio", $value);
+		$this->justificativaProvisorio = $this->valid("justificativaProvisorio", $value);
 	}
 
 	public function getDataRev()
 	{
-		return $this->data_rev;
+		return $this->dataRev;
 	}
 	
 	public function setDataRev($value)
 	{
-		$this->data_rev = $this->valid("data_rev", $value);
+		$this->dataRev = $this->valid("dataRev", $value);
 	}
 
 	// public function getOrigemGravacao()
@@ -519,12 +519,12 @@ class Fisica extends Pessoa
 
 	public function getDataCad()
 	{
-		return $this->data_cad;
+		return $this->dataCad;
 	}
 	
 	public function setDataCad($value)
 	{
-		$this->data_cad = $this->valid("data_cad", $value);
+		$this->dataCad = $this->valid("dataCad", $value);
 	}
 
 	public function getOperacao()
@@ -539,32 +539,32 @@ class Fisica extends Pessoa
 
 	public function getIdsisRev()
 	{
-		return $this->idsis_rev;
+		return $this->idsisRev;
 	}
 	
 	public function setIdsisRev($value)
 	{
-		$this->idsis_rev = $this->valid("idsis_rev", $value);
+		$this->idsisRev = $this->valid("idsisRev", $value);
 	}
 
 	public function getIdsisCad()
 	{
-		return $this->idsis_cad;
+		return $this->idsisCad;
 	}
 	
 	public function setIdsisCad($value)
 	{
-		$this->idsis_cad = $this->valid("idsis_cad", $value);
+		$this->idsisCad = $this->valid("idsisCad", $value);
 	}
 
 	public function getRefCodSistema()
 	{
-		return $this->ref_cod_sistema;
+		return $this->refCodSistema;
 	}
 	
 	public function setRefCodSistema($value)
 	{
-		$this->ref_cod_sistema = $this->valid("ref_cod_sistema", $value);
+		$this->refCodSistema = $this->valid("refCodSistema", $value);
 	}
 
 	public function getCpf()
@@ -579,52 +579,52 @@ class Fisica extends Pessoa
 
 	public function getIdpesMae()
 	{
-		return $this->idpes_mae;
+		return $this->idpesMae;
 	}
 	
 	public function setIdpesMae($value)
 	{
-		$this->idpes_mae = $this->valid("idpes_mae", $value);
+		$this->idpesMae = $this->valid("idpesMae", $value);
 	}
 
 	public function getIdpesPai()
 	{
-		return $this->idpes_pai;
+		return $this->idpesPai;
 	}
 	
 	public function setIdpesPai($value)
 	{
-		$this->idpes_pai = $this->valid("idpes_pai", $value);
+		$this->idpesPai = $this->valid("idpesPai", $value);
 	}
 
 	public function getIdpesResponsavel()
 	{
-		return $this->idpes_responsavel;
+		return $this->idpesResponsavel;
 	}
 	
 	public function setIdpesResponsavel($value)
 	{
-		$this->idpes_responsavel = $this->valid("idpes_responsavel", $value);
+		$this->idpesResponsavel = $this->valid("idpesResponsavel", $value);
 	}
 
 	public function getIdmunNascimento()
 	{
-		return $this->idmun_nascimento;
+		return $this->idmunNascimento;
 	}
 	
 	public function setIdmunNascimento($value)
 	{
-		$this->idmun_nascimento = $this->valid("idmun_nascimento", $value);
+		$this->idmunNascimento = $this->valid("idmunNascimento", $value);
 	}
 
 	public function getIdpaisEstrangeiro()
 	{
-		return $this->idpais_estrangeiro;
+		return $this->idpaisEstrangeiro;
 	}
 	
 	public function setIdpaisEstrangeiro($value)
 	{
-		$this->idpais_estrangeiro = $this->valid("idpais_estrangeiro", $value);
+		$this->idpaisEstrangeiro = $this->valid("idpaisEstrangeiro", $value);
 	}
 
 	public function getIdesco()
@@ -649,12 +649,12 @@ class Fisica extends Pessoa
 
 	public function getIdpesCon()
 	{
-		return $this->idpes_con;
+		return $this->idpesCon;
 	}
 	
 	public function setIdpesCon($value)
 	{
-		$this->idpes_con = $this->valid("idpes_con", $value);
+		$this->idpesCon = $this->valid("idpesCon", $value);
 	}
 
 	public function getIdocup()
@@ -669,77 +669,77 @@ class Fisica extends Pessoa
 
 	public function getIdpesRev()
 	{
-		return $this->idpes_rev;
+		return $this->idpesRev;
 	}
 	
 	public function setIdpesRev($value)
 	{
-		$this->idpes_rev = $this->valid("idpes_rev", $value);
+		$this->idpesRev = $this->valid("idpesRev", $value);
 	}
 
 	public function getIdpesCad()
 	{
-		return $this->idpes_cad;
+		return $this->idpesCad;
 	}
 	
 	public function setIdpesCad($value)
 	{
-		$this->idpes_cad = $this->valid("idpes_cad", $value);
+		$this->idpesCad = $this->valid("idpesCad", $value);
 	}
 
 	public function getRefCodReligiao()
 	{
-		return $this->ref_cod_religiao;
+		return $this->refCodReligiao;
 	}
 	
 	public function setRefCodReligiao($value)
 	{
-		$this->ref_cod_religiao = $this->valid("ref_cod_religiao", $value);
+		$this->refCodReligiao = $this->valid("refCodReligiao", $value);
 	}
 
 	public function setData($data)
 	{
 		$this->setId(isset($data['id']) ? $data['id'] : null);
-		if (!empty($data['data_nasc']))
-			$this->setDataNasc(isset($data['data_nasc']) ? $data['data_nasc'] : null);
+		if (!empty($data['dataNasc']))
+			$this->setDataNasc(isset($data['dataNasc']) ? $data['dataNasc'] : null);
 		$this->setSexo(isset($data['sexo']) ? $data['sexo'] : null);
-		if (!empty($data['data_uniao']))
-			$this->setDataUniao(isset($data['data_uniao']) ? $data['data_uniao'] : null);
-		if (!empty($data['data_obito']))
-			$this->setDataObito(isset($data['data_obito']) ? $data['data_obito'] : null);		
+		if (!empty($data['dataUniao']))
+			$this->setDataUniao(isset($data['dataUniao']) ? $data['dataUniao'] : null);
+		if (!empty($data['dataObito']))
+			$this->setDataObito(isset($data['dataObito']) ? $data['dataObito'] : null);
 		$this->setNacionalidade(isset($data['nacionalidade']) ? $data['nacionalidade'] : null);
-		if (!empty($data['data_chegada_brasil']))
-			$this->setDataChegadaBrasil(isset($data['data_chegada_brasil']) ? $data['data_chegada_brasil'] : null);
-		if (!empty($data['ultima_empresa']))
-			$this->setUltimaEmpresa(isset($data['ultima_empresa']) ? $data['ultima_empresa'] : null);
-		if (!empty($data['nome_mae']))
-			$this->setNomeMae(isset($data['nome_mae']) ? $data['nome_mae'] : null);
-		if (!empty($data['nome_pai']))
-			$this->setNomePai(isset($data['nome_pai']) ? $data['nome_pai'] : null);
-		if (!empty($data['nome_conjuge']))
-			$this->setNomeConjuge(isset($data['nome_conjuge']) ? $data['nome_conjuge'] : null);
-		if (!empty($data['nome_responsavel']))
-			$this->setNomeResponsavel(isset($data['nome_responsavel']) ? $data['nome_responsavel'] : null);
-		if (!empty($data['justificativa_provisorio']))
-			$this->setJustificativaProvisorio(isset($data['justificativa_provisorio']) ? $data['justificativa_provisorio'] : null);
-		if (!empty($data['data_rev']))
-			$this->setDataRev(isset($data['data_rev']) ? $data['data_rev'] : null);
+		if (!empty($data['dataChegadaBrasil']))
+			$this->setDataChegadaBrasil(isset($data['dataChegadaBrasil']) ? $data['dataChegadaBrasil'] : null);
+		if (!empty($data['ultimaEmpresa']))
+			$this->setUltimaEmpresa(isset($data['ultimaEmpresa']) ? $data['ultimaEmpresa'] : null);
+		if (!empty($data['nomeMae']))
+			$this->setNomeMae(isset($data['nomeMae']) ? $data['nomeMae'] : null);
+		if (!empty($data['nomePai']))
+			$this->setNomePai(isset($data['nomePai']) ? $data['nomePai'] : null);
+		if (!empty($data['nomeConjuge']))
+			$this->setNomeConjuge(isset($data['nomeConjuge']) ? $data['nomeConjuge'] : null);
+		if (!empty($data['nomeResponsavel']))
+			$this->setNomeResponsavel(isset($data['nomeResponsavel']) ? $data['nomeResponsavel'] : null);
+		if (!empty($data['justificativaProvisorio']))
+			$this->setJustificativaProvisorio(isset($data['justificativaProvisorio']) ? $data['justificativaProvisorio'] : null);
+		if (!empty($data['dataRev']))
+			$this->setDataRev(isset($data['dataRev']) ? $data['dataRev'] : null);
 		//$this->setOrigemGravacao(isset($data['origem_gravacao']) ? $data['origem_gravacao'] : null);
-		$this->setDataCad(isset($data['data_cad']) ? $data['data_cad'] : null);
+		$this->setDataCad(isset($data['dataCad']) ? $data['dataCad'] : null);
 		//$this->setOperacao(isset($data['operacao']) ? $data['operacao'] : null);
-		$this->setIdsisRev(isset($data['idsis_rev']) ? $data['idsis_rev'] : null);
+		$this->setIdsisRev(isset($data['idsisRev']) ? $data['idsisRev'] : null);
 		//$this->setIdsisCad(isset($data['idsis_cad']) ? $data['idsis_cad'] : null);
-		$this->setRefCodSistema(isset($data['ref_cod_sistema']) ? $data['ref_cod_sistema'] : null);
+		$this->setRefCodSistema(isset($data['refCodSistema']) ? $data['refCodSistema'] : null);
 		if (!empty($data['cpf']))
 			$this->setCpf(isset($data['cpf']) ? $data['cpf'] : null);
-		$this->setIdpesMae(isset($data['idpes_mae']) ? $data['idpes_mae'] : null);
-		$this->setIdpesPai(isset($data['idpes_pai']) ? $data['idpes_pai'] : null);
-		$this->setIdpesResponsavel(isset($data['idpes_responsavel']) ? $data['idpes_responsavel'] : null);
-		$this->setIdmunNascimento(isset($data['idmun_nascimento']) ? $data['idmun_nascimento'] : null);
-		$this->setIdpaisEstrangeiro(isset($data['idpais_estrangeiro']) ? $data['idpais_estrangeiro'] : null);
+		$this->setIdpesMae(isset($data['idpesMae']) ? $data['idpesMae'] : null);
+		$this->setIdpesPai(isset($data['idpesPai']) ? $data['idpesPai'] : null);
+		$this->setIdpesResponsavel(isset($data['idpesResponsavel']) ? $data['idpesResponsavel'] : null);
+		$this->setIdmunNascimento(isset($data['idmunNascimento']) ? $data['idmunNascimento'] : null);
+		$this->setIdpaisEstrangeiro(isset($data['idpaisEstrangeiro']) ? $data['idpaisEstrangeiro'] : null);
 		$this->setIdesco(isset($data['idesco']) ? $data['idesco'] : null);
 		$this->setIdeciv(isset($data['ideciv']) ? $data['ideciv'] : null);
-		$this->setIdpesCon(isset($data['idpes_con']) ? $data['idpes_con'] : null);
+		$this->setIdpesCon(isset($data['idpesCon']) ? $data['idpesCon'] : null);
 		$this->setIdocup(isset($data['idocup']) ? $data['idocup'] : null);		
 
 		$this->setNome(isset($data['nome']) ? $data['nome'] : null);
@@ -773,7 +773,7 @@ class Fisica extends Pessoa
 			)));			
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'data_nasc',
+				'name' => 'dataNasc',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'StripTags'),
@@ -807,7 +807,7 @@ class Fisica extends Pessoa
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'data_uniao',
+				'name' => 'dataUniao',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'StripTags'),
@@ -819,7 +819,7 @@ class Fisica extends Pessoa
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'data_obito',
+				'name' => 'dataObito',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'StripTags'),
@@ -839,7 +839,7 @@ class Fisica extends Pessoa
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'data_chegada_brasil',
+				'name' => 'dataChegadaBrasil',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'StripTags'),
@@ -851,7 +851,7 @@ class Fisica extends Pessoa
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'ultima_empresa',
+				'name' => 'ultimaEmpresa',
 				'required' => false,
 				'filters'	=>	array(
 					array('name'	=>	'StripTags'),
@@ -870,7 +870,7 @@ class Fisica extends Pessoa
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'nome_mae',
+				'name' => 'nomeMae',
 				'required' => false,
 				'filters'	=>	array(
 					array('name'	=>	'StripTags'),
@@ -889,7 +889,7 @@ class Fisica extends Pessoa
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'nome_pai',
+				'name' => 'nomePai',
 				'required' => false,
 				'filters'	=>	array(
 					array('name'	=>	'StripTags'),
@@ -908,7 +908,7 @@ class Fisica extends Pessoa
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'nome_conjuge',
+				'name' => 'nomeConjuge',
 				'required' => false,
 				'filters'	=>	array(
 					array('name'	=>	'StripTags'),
@@ -927,7 +927,7 @@ class Fisica extends Pessoa
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'nome_responsavel',
+				'name' => 'nomeResponsavel',
 				'required' => false,
 				'filters'	=>	array(
 					array('name'	=>	'StripTags'),
@@ -946,7 +946,7 @@ class Fisica extends Pessoa
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'justificativa_provisorio',
+				'name' => 'justificativaProvisorio',
 				'required' => false,
 				'filters'	=>	array(
 					array('name'	=>	'StripTags'),
@@ -965,7 +965,7 @@ class Fisica extends Pessoa
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'data_rev',
+				'name' => 'dataRev',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'StripTags'),
@@ -977,7 +977,7 @@ class Fisica extends Pessoa
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'origem_gravacao',
+				'name' => 'origemGravacao',
 				'required' => true,
 				'filters' => array(
 					array('name' => 'StripTags'),
@@ -1019,7 +1019,7 @@ class Fisica extends Pessoa
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'idsis_rev',
+				'name' => 'idsisRev',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'Int'),
@@ -1027,7 +1027,7 @@ class Fisica extends Pessoa
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'idsis_cad',
+				'name' => 'idsisCad',
 				'required' => true,
 				'filters' => array(
 					array('name' => 'Int'),
@@ -1035,7 +1035,7 @@ class Fisica extends Pessoa
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'ref_cod_sistema',
+				'name' => 'refCodSistema',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'Int'),
@@ -1063,7 +1063,7 @@ class Fisica extends Pessoa
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'idpes_mae',
+				'name' => 'idpesMae',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'Int'),
@@ -1071,7 +1071,7 @@ class Fisica extends Pessoa
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'idpes_pai',
+				'name' => 'idpesPai',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'Int'),
@@ -1079,7 +1079,7 @@ class Fisica extends Pessoa
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'idpes_responsavel',
+				'name' => 'idpesResponsavel',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'Int'),
@@ -1087,7 +1087,7 @@ class Fisica extends Pessoa
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'idmun_nascimento',
+				'name' => 'idmunNascimento',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'Int'),
@@ -1095,7 +1095,7 @@ class Fisica extends Pessoa
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'idpais_estrangeiro',
+				'name' => 'idpaisEstrangeiro',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'Int'),
@@ -1119,7 +1119,7 @@ class Fisica extends Pessoa
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'idpes_con',
+				'name' => 'idpesCon',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'Int'),
@@ -1135,7 +1135,7 @@ class Fisica extends Pessoa
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'idpes_rev',
+				'name' => 'idpesRev',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'Int'),
@@ -1143,7 +1143,7 @@ class Fisica extends Pessoa
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'idpes_cad',
+				'name' => 'idpesCad',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'Int'),
@@ -1151,7 +1151,7 @@ class Fisica extends Pessoa
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'ref_cod_religiao',
+				'name' => 'refCodReligiao',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'Int'),

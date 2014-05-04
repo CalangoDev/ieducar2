@@ -16,9 +16,20 @@ class Module
 {
     public function onBootstrap(MvcEvent $e)
     {
-        $eventManager        = $e->getApplication()->getEventManager();
-        $moduleRouteListener = new ModuleRouteListener();
-        $moduleRouteListener->attach($eventManager);
+        // $eventManager        = $e->getApplication()->getEventManager();
+        // $moduleRouteListener = new ModuleRouteListener();
+        // $moduleRouteListener->attach($eventManager);
+
+        $moduleManager = $e->getApplication()->getServiceManager()->get('modulemanager'); 
+        // $sharedEvents = $moduleManager->getEventManager()->getSharedManager();
+        // $sharedEvents->attach('Zend\Mvc\Controller\AbstractActionController', \Zend\Mvc\MvcEvent::EVENT_DISPATCH, array($this, 'mvcPreDispatch'), 100);
+        $em = $e->getApplication()->getEventManager();
+        $em->attach(\Zend\Mvc\MvcEvent::EVENT_RENDER, function($e) {
+            $flashMessenger = new \Zend\Mvc\Controller\Plugin\FlashMessenger();
+            if ($flashMessenger->hasMessages()) {
+                $e->getViewModel()->setVariable('flashMessages', $flashMessenger->getMessages());                
+            }            
+        });        
     }
 
     public function getConfig()
