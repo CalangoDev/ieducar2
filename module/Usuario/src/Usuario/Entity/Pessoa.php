@@ -76,9 +76,9 @@ class Pessoa extends Entity implements EventSubscriber
 
 	/**
 	 * @var  DateTime $data_cad Data de cadastro da pessoa
-	 * @ORM\Column(type="datetime", nullable=false)
+	 * @ORM\Column(name="data_cad", type="datetime", nullable=false)
 	 */
-	protected $data_cad;
+	protected $dataCad;
 
 	/**
 	 * @var  String $url Website
@@ -95,9 +95,9 @@ class Pessoa extends Entity implements EventSubscriber
 	/**
 	 * @var  DateTime $data_rev Data de revisao do cadastro
 	 * @todo  Verificar no antigo sistema a logica de quando esse dado é informado
-	 * @ORM\Column(type="datetime", nullable=true)
+	 * @ORM\Column(name="data_rev", type="datetime", nullable=true)
 	 */
-	protected $data_rev;
+	protected $dataRev;
 
 	/**
 	 * @var  String $email Email da pessoa
@@ -117,9 +117,9 @@ class Pessoa extends Entity implements EventSubscriber
 	/**
 	 * @var  String $origem_gravacao M(Migração) ou U(Usuário) ou C(Rotina de Confrontação) ou O(Usuário do Oscar?) Origem dos dados 
 	 * 
-	 * @ORM\Column(type="string", length=1, nullable=false)
+	 * @ORM\Column(name="origem_gravacao", type="string", length=1, nullable=false)
 	 */
-	protected $origem_gravacao;
+	protected $origemGravacao;
 
 	/**
 	 * @var  String $operacao I(?) ou A(?) ou E(?) - Não consegui identificar os significados, porem todos os registros são salvos 
@@ -134,9 +134,9 @@ class Pessoa extends Entity implements EventSubscriber
 	/**
 	 * @var  Integer $idsis_rev - Id do Sistema porem o rev não consegui encontrar sentido
 	 * 
-	 * @ORM\Column(type="integer", nullable=true)
+	 * @ORM\Column(name="idsis_rev", type="integer", nullable=true)
 	 */
-	protected $idsis_rev;
+	protected $idsisRev;
 
 	/**
 	 * @var  Integer $idsis_cad - Id do sistema que cadastrou o usuario ver tabela acesso.sistema 
@@ -144,9 +144,9 @@ class Pessoa extends Entity implements EventSubscriber
 	 * Na versão 1.0 não tem uma chave estrangeira nessa coluna. Algo que pode ser colocado
 	 * @todo  coluna tem relacionamento com a tabela acesso.sistema falta ajustar isso e ajustar no teste
 	 * 
-	 * @ORM\Column(type="integer", nullable=false)
+	 * @ORM\Column(name="idsis_cad", type="integer", nullable=false)
 	 */
-	protected $idsis_cad;
+	protected $idsisCad;
 
 	/**
 	 * @var  Integer $idpes_cad Id da pessoa que efetuou o cadastro
@@ -163,7 +163,7 @@ class Pessoa extends Entity implements EventSubscriber
 	 * @ORM\ManyToOne(targetEntity="Pessoa", cascade={"persist"})
 	 * @ORM\JoinColumn(name="idpes_cad", referencedColumnName="idpes", onDelete="SET NULL")
 	 */
-	protected $pessoa_cad;
+	protected $pessoaCad;
 
 	/**
 	 * ORM\OneToMany(targetEntity="pessoa", mappedBy="idpes_cad", cascade={"persist"})	 
@@ -189,7 +189,7 @@ class Pessoa extends Entity implements EventSubscriber
 	 * @ORM\ManyToOne(targetEntity="Pessoa", cascade={"persist"})
 	 * @ORM\JoinColumn(name="idpes_rev", referencedColumnName="idpes", onDelete="SET NULL")
 	 */
-	protected $pessoa_rev;
+	protected $pessoaRev;
 
 	/**
 	 * ORM\OneToOne(targetEntity="Fisica", mappedBy="pessoa", cascade={"persist"})	 
@@ -340,12 +340,12 @@ class Pessoa extends Entity implements EventSubscriber
 			($args->hasChangedField('tipo')) ? $this->usuario->tipo = $args->getOldValue('tipo') : null;
 			($args->hasChangedField('email')) ? $this->usuario->email = $args->getOldValue('email') : null;
 			($args->hasChangedField('situacao')) ? $this->usuario->situacao = $args->getOldValue('situacao') : null;
-			($args->hasChangedField('origem_gravacao')) ? $this->usuario->origem_gravacao = $args->getOldValue('origem_gravacao') : null;
+			($args->hasChangedField('origemGravacao')) ? $this->usuario->origem_gravacao = $args->getOldValue('origemGravacao') : null;
 			($args->hasChangedField('operacao')) ? $this->usuario->operacao = $args->getOldValue('operacao') : null;
-			($args->hasChangedField('idsis_cad')) ? $this->usuario->idsis_cad = $args->getOldValue('idsis_cad') : null;
-			($args->hasChangedField('idsis_rev')) ? $this->usuario->idsis_rev = $args->getOldValue('idsis_rev') : null;
-			($args->hasChangedField('pessoa_cad')) ? $this->usuario->pessoa_cad = $args->getOldValue('pessoa_cad') : null;
-			($args->hasChangedField('pessoa_rev')) ? $this->usuario->pessoa_rev = $args->getOldValue('pessoa_rev') : null;
+			($args->hasChangedField('idsisCad')) ? $this->usuario->idsisCad = $args->getOldValue('idsisCad') : null;
+			($args->hasChangedField('idsisRev')) ? $this->usuario->idsisRev = $args->getOldValue('idsisRev') : null;
+			($args->hasChangedField('pessoaCad')) ? $this->usuario->pessoaCad = $args->getOldValue('pessoaCad') : null;
+			($args->hasChangedField('pessoaRev')) ? $this->usuario->pessoaRev = $args->getOldValue('pessoaRev') : null;
 
 		}
 		/**
@@ -355,28 +355,28 @@ class Pessoa extends Entity implements EventSubscriber
 		if (get_class($entity) == 'Usuario\Entity\Fisica'){
 			($args->hasChangedField('data_nasc')) ? $this->usuario->data_nasc = $args->getOldValue('data_nasc') : null;
 			($args->hasChangedField('sexo')) ? $this->usuario->sexo = $args->getOldValue('sexo') : null;
-			($args->hasChangedField('data_uniao')) ? $this->usuario->data_uniao = $args->getOldValue('data_uniao') : null;
-			($args->hasChangedField('data_obito')) ? $this->usuario->data_obito = $args->getOldValue('data_obito') : null;
+			($args->hasChangedField('dataUniao')) ? $this->usuario->dataUniao = $args->getOldValue('dataUniao') : null;
+			($args->hasChangedField('dataObito')) ? $this->usuario->dataObito = $args->getOldValue('dataObito') : null;
 			($args->hasChangedField('nacionalidade')) ? $this->usuario->nacionalidade = $args->getOldValue('nacionalidade') : null;
-			($args->hasChangedField('data_chegada_brasil')) ? $this->usuario->data_chegada_brasil = $args->getOldValue('data_chegada_brasil') : null;
-			($args->hasChangedField('ultima_empresa')) ? $this->usuario->ultima_empresa = $args->getOldValue('ultima_empresa') : null;
-			($args->hasChangedField('nome_mae')) ? $this->usuario->nome_mae = $args->getOldValue('nome_mae') : null;
-			($args->hasChangedField('nome_pai')) ? $this->usuario->nome_pai = $args->getOldValue('nome_pai') : null;
-			($args->hasChangedField('nome_conjuge')) ? $this->usuario->nome_conjuge = $args->getOldValue('nome_conjuge') : null;
-			($args->hasChangedField('nome_responsavel')) ? $this->usuario->nome_responsavel = $args->getOldValue('nome_responsavel') : null;
-			($args->hasChangedField('justificativa_provisorio')) ? $this->usuario->justificativa_provisorio = $args->getOldValue('justificativa_provisorio') : null;
-			($args->hasChangedField('ref_cod_sistema')) ? $this->usuario->ref_cod_sistema = $args->getOldValue('ref_cod_sistema')  : null;
+			($args->hasChangedField('dataChegadaBrasil')) ? $this->usuario->dataChegadaBrasil = $args->getOldValue('dataChegadaBrasil') : null;
+			($args->hasChangedField('ultimaEmpresa')) ? $this->usuario->ultimaEmpresa = $args->getOldValue('ultimaEmpresa') : null;
+			($args->hasChangedField('nomeMae')) ? $this->usuario->nomeMae = $args->getOldValue('nomeMae') : null;
+			($args->hasChangedField('nomePai')) ? $this->usuario->nomePai = $args->getOldValue('nomePai') : null;
+			($args->hasChangedField('nomeConjuge')) ? $this->usuario->nomeConjuge = $args->getOldValue('nomeConjuge') : null;
+			($args->hasChangedField('nomeResponsavel')) ? $this->usuario->nomeResponsavel = $args->getOldValue('nomeResponsavel') : null;
+			($args->hasChangedField('justificativaProvisorio')) ? $this->usuario->justificativaProvisorio = $args->getOldValue('justificativaProvisorio') : null;
+			($args->hasChangedField('refCodSistema')) ? $this->usuario->refCodSistema = $args->getOldValue('refCodSistema')  : null;
 			($args->hasChangedField('cpf')) ? $this->usuario->cpf = $args->getOldValue('cpf') : null;
-			($args->hasChangedField('pessoa_mae')) ? $this->usuario->pessoa_mae = $args->getOldValue('pessoa_mae') : null;
-			($args->hasChangedField('pessoa_pai')) ? $this->usuario->pessoa_pai = $args->getOldValue('pessoa_pai') : null;
-			($args->hasChangedField('pessoa_responsavel')) ? $this->usuario->pessoa_responsavel = $args->getOldValue('pessoa_responsavel') : null;
-			($args->hasChangedField('municipio_nascimento')) ? $this->usuario->municipio_nascimento = $args->getOldValue('municipio_nascimento') : null;
-			($args->hasChangedField('pais_estrangeiro')) ? $this->usuario->pais_estrangeiro = $args->getOldValue('pais_estrangeiro') : null;
+			($args->hasChangedField('pessoaMae')) ? $this->usuario->pessoaMae = $args->getOldValue('pessoaMae') : null;
+			($args->hasChangedField('pessoaPai')) ? $this->usuario->pessoaPai = $args->getOldValue('pessoaPai') : null;
+			($args->hasChangedField('pessoaResponsavel')) ? $this->usuario->pessoaResponsavel = $args->getOldValue('pessoaResponsavel') : null;
+			($args->hasChangedField('municipioNascimento')) ? $this->usuario->municipioNascimento = $args->getOldValue('municipioNascimento') : null;
+			($args->hasChangedField('paisEstrangeiro')) ? $this->usuario->paisEstrangeiro = $args->getOldValue('paisEstrangeiro') : null;
 			($args->hasChangedField('escola')) ? $this->usuario->escola = $args->getOldValue('escola') : null;
-			($args->hasChangedField('estado_civil')) ? $this->usuario->estado_civil = $args->getOldValue('estado_civil') : null;
-			($args->hasChangedField('pessoa_conjuge')) ? $this->usuario->pessoa_conjuge = $args->getOldValue('pessoa_conjuge') : null;
+			($args->hasChangedField('estadoCivil')) ? $this->usuario->estadoCivil = $args->getOldValue('estadoCivil') : null;
+			($args->hasChangedField('pessoaConjuge')) ? $this->usuario->pessoaConjuge = $args->getOldValue('pessoaConjuge') : null;
 			($args->hasChangedField('ocupacao')) ? $this->usuario->ocupacao = $args->getOldValue('ocupacao') : null;
-			($args->hasChangedField('ref_cod_religiao')) ? $this->usuario->ref_cod_religiao = $args->getOldValue('ref_cod_religiao') : null;
+			($args->hasChangedField('refCodReligiao')) ? $this->usuario->refCodReligiao = $args->getOldValue('refCodReligiao') : null;
 		}
 
 		/**
@@ -385,12 +385,10 @@ class Pessoa extends Entity implements EventSubscriber
 		 */
 		if (get_class($entity) == 'Usuario\Entity\Juridica'){
 			($args->hasChangedField('cnpj')) ? $this->usuario->cnpj : null;
-			($args->hasChangedField('insc_estadual')) ? $this->usuario->insc_estadual : null;
+			($args->hasChangedField('inscEstadual')) ? $this->usuario->inscEstadual : null;
 			($args->hasChangedField('fantasia')) ? $this->usuario->fantasia : null;
-			($args->hasChangedField('capital_social')) ? $this->usuario->capital_social : null;
+			($args->hasChangedField('capitalSocial')) ? $this->usuario->capitalSocial : null;
 		}
-		
-
 	}
 	// public function postUpdate(LifecycleEventArgs $args)
 	// {
@@ -432,11 +430,11 @@ class Pessoa extends Entity implements EventSubscriber
 			$historicoPessoa->setIdpes($this->oldId);
 			$historicoPessoa->setNome($this->usuario->nome);//->format('Y-m-d H:i:s')
 			//$historicoPessoa->data_cad = new \DateTime($this->usuario->getDataCad());
-			$historicoPessoa->setDataCad($this->usuario->data_cad);
+			$historicoPessoa->setDataCad($this->usuario->dataCad);
 			$historicoPessoa->setUrl($this->usuario->url);			
 			//$historicoPessoa->setTipo($em->getClassMetadata(get_class($this->usuario))->discriminatorValue);
 			$historicoPessoa->setTipo($this->usuario->tipo);
-			if (is_null($this->usuario->data_rev)){
+			if (is_null($this->usuario->dataRev)){
 				$historicoPessoa->setDataRev(new \DateTime());
 			} 
 			// // else {
@@ -444,12 +442,12 @@ class Pessoa extends Entity implements EventSubscriber
 			// // }			
 			$historicoPessoa->setEmail($this->usuario->email);
 			$historicoPessoa->setSituacao($this->usuario->situacao);
-	    	$historicoPessoa->setOrigemGravacao($this->usuario->origem_gravacao);
+	    	$historicoPessoa->setOrigemGravacao($this->usuario->origemGravacao);
 	    	$historicoPessoa->setOperacao($this->usuario->operacao);
-	    	$historicoPessoa->setIdsisCad($this->usuario->idsis_cad);
-	    	$historicoPessoa->setIdsisRev($this->usuario->idsis_rev);	    	
-	    	$historicoPessoa->setPessoaCad($this->usuario->pessoa_cad);	    	
-	    	$historicoPessoa->setPessoaRev($this->usuario->pessoa_rev);	 
+	    	$historicoPessoa->setIdsisCad($this->usuario->idsisCad);
+	    	$historicoPessoa->setIdsisRev($this->usuario->idsisRev);	    	
+	    	$historicoPessoa->setPessoaCad($this->usuario->pessoaCad);	    	
+	    	$historicoPessoa->setPessoaRev($this->usuario->pessoaRev);	 
 
 
 	    	$logMetadata = $em->getClassMetadata('Historico\Entity\Pessoa');
@@ -467,30 +465,30 @@ class Pessoa extends Entity implements EventSubscriber
 
 				$historicoFisica->setId($newId);
 				$historicoFisica->setIdpes($this->oldId);
-				$historicoFisica->setDataNasc($this->usuario->data_nasc);
+				$historicoFisica->setDataNasc($this->usuario->dataNasc);
 				$historicoFisica->setSexo($this->usuario->sexo);
-				$historicoFisica->setDataUniao($this->usuario->data_uniao);
-				$historicoFisica->setDataObito($this->usuario->data_obito);
+				$historicoFisica->setDataUniao($this->usuario->dataUniao);
+				$historicoFisica->setDataObito($this->usuario->dataObito);
 				$historicoFisica->setNacionalidade($this->usuario->nacionalidade);
-				$historicoFisica->setDataChegadaBrasil($this->usuario->data_chegada_brasil);
-				$historicoFisica->setUltimaEmpresa($this->usuario->ultima_empresa);
-				$historicoFisica->setNomeMae($this->usuario->nome_mae);
-				$historicoFisica->setNomePai($this->usuario->nome_pai);
-				$historicoFisica->setNomeConjuge($this->usuario->nome_conjuge);
-				$historicoFisica->setNomeResponsavel($this->usuario->nome_responsavel);
-				$historicoFisica->setJustificativaProvisorio($this->usuario->justificativa_provisorio);
-				$historicoFisica->setRefCodSistema($this->usuario->ref_cod_sistema);
+				$historicoFisica->setDataChegadaBrasil($this->usuario->dataChegadaBrasil);
+				$historicoFisica->setUltimaEmpresa($this->usuario->ultimaEmpresa);
+				$historicoFisica->setNomeMae($this->usuario->nomeMae);
+				$historicoFisica->setNomePai($this->usuario->nomePai);
+				$historicoFisica->setNomeConjuge($this->usuario->nomeConjuge);
+				$historicoFisica->setNomeResponsavel($this->usuario->nomeResponsavel);
+				$historicoFisica->setJustificativaProvisorio($this->usuario->justificativaProvisorio);
+				$historicoFisica->setRefCodSistema($this->usuario->refCodSistema);
 				$historicoFisica->setCpf($this->usuario->cpf);				
-				$historicoFisica->setPessoaMae($this->usuario->pessoa_mae);
-				$historicoFisica->setPessoaPai($this->usuario->pessoa_pai);
-				$historicoFisica->setPessoaResponsavel($this->usuario->pessoa_responsavel);
-				$historicoFisica->setMunicipioNascimento($this->usuario->municipio_nascimento);
-				$historicoFisica->setPaisEstrangeiro($this->usuario->pais_estrangeiro);
+				$historicoFisica->setPessoaMae($this->usuario->pessoaMae);
+				$historicoFisica->setPessoaPai($this->usuario->pessoaPai);
+				$historicoFisica->setPessoaResponsavel($this->usuario->pessoaResponsavel);
+				$historicoFisica->setMunicipioNascimento($this->usuario->municipioNascimento);
+				$historicoFisica->setPaisEstrangeiro($this->usuario->paisEstrangeiro);
 				$historicoFisica->setEscola($this->usuario->escola);
-				$historicoFisica->setEstadoCivil($this->usuario->estado_civil);
-				$historicoFisica->setPessoaConjuge($this->usuario->pessoa_conjuge);
+				$historicoFisica->setEstadoCivil($this->usuario->estadoCivil);
+				$historicoFisica->setPessoaConjuge($this->usuario->pessoaConjuge);
 				$historicoFisica->setOcupacao($this->usuario->ocupacao);
-				$historicoFisica->setRefCodReligiao($this->usuario->ref_cod_religiao);
+				$historicoFisica->setRefCodReligiao($this->usuario->refCodReligiao);
 				$logMetadata = $em->getClassMetadata('Historico\Entity\Fisica');
 				$className = $logMetadata->name;
 				$persister = $uow->getEntityPersister($className);
@@ -508,9 +506,9 @@ class Pessoa extends Entity implements EventSubscriber
 				$historicoJuridica->setId($newId);
 				$historicoJuridica->setIdpes($this->oldId);
 				$historicoJuridica->setCnpj($this->usuario->cnpj);
-				$historicoJuridica->setInscEstadual($this->usuario->insc_estadual);
+				$historicoJuridica->setInscEstadual($this->usuario->inscEstadual);
 				$historicoJuridica->setFantasia($this->usuario->fantasia);
-				$historicoJuridica->setCapitalSocial($this->usuario->capital_social);
+				$historicoJuridica->setCapitalSocial($this->usuario->capitalSocial);
 				$logMetadata = $em->getClassMetadata('Historico\Entity\Juridica');
 				$className = $logMetadata->name;
 				$persister = $uow->getEntityPersister($className);
@@ -544,44 +542,43 @@ class Pessoa extends Entity implements EventSubscriber
 	 * @param  array $data
 	 */
 	public function populate($data)
-	{
-		var_dump("POPULANDOOOO from an array");
+	{		
 		$this->setId(isset($data['id']) ? $data['id'] : null);
 		$this->setNome(isset($data['nome']) ? $data['nome'] : null);
-		$this->setDataCad(isset($data['data_cad']) ? $data['data_cad'] : null);
+		$this->setDataCad(isset($data['dataCad']) ? $data['dataCad'] : null);
 		if (!empty($data['url']))
 			$this->setUrl(isset($data['url']) ? $data['url'] : null);
 		$this->setTipo(isset($data['tipo']) ? $data['tipo'] : null);
-		$this->setDataRev(isset($data['data_rev']) ? $data['data_rev'] : null);		
+		$this->setDataRev(isset($data['dataRev']) ? $data['dataRev'] : null);		
 		if (!empty($data['email']))
 			$this->setEmail(isset($data['email']) ? $data['email'] : null);
 		$this->setSituacao(isset($data['situacao']) ? $data['situacao'] : null);
 		//$this->setOrigemGravacao(isset($data['origem_gravacao']) ? $data['origem_gravacao'] : null);
 		//$this->setOperacao(isset($data['operacao']) ? $data['operacao'] : null);
-		$this->setIdsisRev(isset($data['idsis_rev']) ? $data['idsis_rev'] : null);
+		$this->setIdsisRev(isset($data['idsisRev']) ? $data['idsisRev'] : null);
 		//$this->setIdsisCad(isset($data['idsis_cad']) ? $data['idsis_cad'] : null);
-		$this->setPessoaCad(isset($data['pessoa_cad']) ? $data['pessoa_cad'] : null);
-		$this->setPessoaRev(isset($data['pessoa_rev']) ? $data['pessoa_rev'] : null);	
+		$this->setPessoaCad(isset($data['pessoaCad']) ? $data['pessoaCad'] : null);
+		$this->setPessoaRev(isset($data['pessoaRev']) ? $data['pessoaRev'] : null);	
 	}	
 
 	public function setData($data)
 	{				
 		$this->setId(isset($data['id']) ? $data['id'] : null);
 		$this->setNome(isset($data['nome']) ? $data['nome'] : null);
-		$this->setDataCad(isset($data['data_cad']) ? $data['data_cad'] : null);
+		$this->setDataCad(isset($data['dataCad']) ? $data['dataCad'] : null);
 		if (!empty($data['url']))
 			$this->setUrl(isset($data['url']) ? $data['url'] : null);
 		$this->setTipo(isset($data['tipo']) ? $data['tipo'] : null);
-		$this->setDataRev(isset($data['data_rev']) ? $data['data_rev'] : null);		
+		$this->setDataRev(isset($data['dataRev']) ? $data['dataRev'] : null);		
 		if (!empty($data['email']))
 			$this->setEmail(isset($data['email']) ? $data['email'] : null);
 		$this->setSituacao(isset($data['situacao']) ? $data['situacao'] : null);
 		//$this->setOrigemGravacao(isset($data['origem_gravacao']) ? $data['origem_gravacao'] : null);
 		//$this->setOperacao(isset($data['operacao']) ? $data['operacao'] : null);
-		$this->setIdsisRev(isset($data['idsis_rev']) ? $data['idsis_rev'] : null);
+		$this->setIdsisRev(isset($data['idsisRev']) ? $data['idsisRev'] : null);
 		//$this->setIdsisCad(isset($data['idsis_cad']) ? $data['idsis_cad'] : null);
-		$this->setPessoaCad(isset($data['pessoa_cad']) ? $data['pessoa_cad'] : null);
-		$this->setPessoaRev(isset($data['pessoa_rev']) ? $data['pessoa_rev'] : null);	
+		$this->setPessoaCad(isset($data['pessoaCad']) ? $data['pessoaCad'] : null);
+		$this->setPessoaRev(isset($data['pessoaRev']) ? $data['pessoaRev'] : null);	
 	}
 
 	// public function exchangeArray($data)
@@ -619,12 +616,12 @@ class Pessoa extends Entity implements EventSubscriber
 
 	public function getDataCad()
 	{
-		return $this->data_cad;
+		return $this->dataCad;
 	}
 
 	public function setDataCad($value)
 	{
-		$this->data_cad = $this->valid("data_cad", $value);
+		$this->dataCad = $this->valid("dataCad", $value);
 	}
 
 	public function getUrl()
@@ -649,12 +646,12 @@ class Pessoa extends Entity implements EventSubscriber
 
 	public function getDataRev()
 	{
-		return $this->data_rev;
+		return $this->dataRev;
 	}
 
 	public function setDataRev($value)
 	{
-		$this->data_rev = $this->valid("data_rev", $value);
+		$this->dataRev = $this->valid("dataRev", $value);
 	}
 
 	public function getEmail()
@@ -679,12 +676,12 @@ class Pessoa extends Entity implements EventSubscriber
 
 	public function getOrigemGravacao()
 	{
-		return $this->origem_gravacao;
+		return $this->origemGravacao;
 	}
 					
 	public function setOrigemGravacao($value)
 	{
-		$this->origem_gravacao = $this->valid("origem_gravacao", $value);
+		$this->origemGravacao = $this->valid("origemGravacao", $value);
 	}
 
 	public function getOperacao()
@@ -699,42 +696,42 @@ class Pessoa extends Entity implements EventSubscriber
 
 	public function getIdsisRev()
 	{
-		return $this->idsis_rev;
+		return $this->idsisRev;
 	}
 
 	public function setIdsisRev($value)
 	{
-		$this->idsis_rev = $this->valid("idsis_rev", $value);
+		$this->idsisRev = $this->valid("idsisRev", $value);
 	}
 
 	public function getIdsisCad()
 	{
-		return $this->idsis_cad;
+		return $this->idsisCad;
 	}
 
 	public function setIdsisCad($value)
 	{
-		$this->idsis_cad = $this->valid("idsis_cad", $value);
+		$this->idsisCad = $this->valid("idsisCad", $value);
 	}
 
 	public function getPessoaCad()
 	{
-		return $this->pessoa_cad;
+		return $this->pessoaCad;
 	}
 
 	public function setPessoaCad($value)
 	{
-		$this->pessoa_cad = $value;
+		$this->pessoaCad = $value;
 	}
 
 	public function getPessoaRev()
 	{
-		return $this->pessoa_rev;
+		return $this->pessoaRev;
 	}
 
 	public function setPessoaRev($value)
 	{
-		$this->pessoa_rev = $value;
+		$this->pessoaRev = $value;
 	}
 
 	public function getFisica()
@@ -828,7 +825,7 @@ class Pessoa extends Entity implements EventSubscriber
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'data_rev',
+				'name' => 'dataRev',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'StripTags'),
@@ -875,7 +872,7 @@ class Pessoa extends Entity implements EventSubscriber
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'origem_gravacao',
+				'name' => 'origemGravacao',
 				'required' => true,
 				'filters' => array(
 					array('name' => 'StripTags'),
@@ -917,7 +914,7 @@ class Pessoa extends Entity implements EventSubscriber
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'idsis_rev',
+				'name' => 'idsisRev',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'Int'),
@@ -925,7 +922,7 @@ class Pessoa extends Entity implements EventSubscriber
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'idsis_cad',
+				'name' => 'idsisCad',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'Int'),
@@ -933,7 +930,7 @@ class Pessoa extends Entity implements EventSubscriber
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'idpes_rev',
+				'name' => 'idpesRev',
 				'required' => true,
 				'filters' => array(
 					array('name' => 'Int'),

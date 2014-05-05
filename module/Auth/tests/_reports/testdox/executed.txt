@@ -3,4 +3,5 @@ IndexController
  [x] Auth index action post request
  [x] Auth invalid index action post request
  [x] Auth logado action
+ [x] Auth logout action
 

@@ -85,4 +85,16 @@ class IndexController extends ActionController
     		
     	return new ViewModel();
     }
+
+    /**
+     * Desloga a sessao do usuario     
+     */
+    public function logoutAction()
+    {        
+
+        $authService = $this->getServiceLocator()->get('Zend\Authentication\AuthenticationService');
+        $authService->clearIdentity();
+                        
+        return $this->redirect()->toUrl('/auth');        
+    }
 }

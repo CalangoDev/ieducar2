@@ -54,8 +54,11 @@ phpunit -c module/Portal/tests/phpunit.xml --filter=Funcionario
 
 ### Módulo Drh
 
-
 phpunit -c module/Drh/tests/phpunit.xml --filter=Setor
+
+## Módulo Auth
+
+phpunit -c module/Auth/tests/phpunit.xml 
 
 ## Usando o doctrine
 
