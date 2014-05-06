@@ -19,9 +19,45 @@ class Module
 {
     public function onBootstrap(MvcEvent $e)
     {
-        $eventManager        = $e->getApplication()->getEventManager();
-        $moduleRouteListener = new ModuleRouteListener();
-        $moduleRouteListener->attach($eventManager);
+        // var_dump("ENTROU NO BOOTSTRAP");
+        // $eventManager        = $e->getApplication()->getEventManager();
+        // $moduleRouteListener = new ModuleRouteListener();
+        // $moduleRouteListener->attach($eventManager);
+        $moduleManager = $e->getApplication()->getServiceManager()->get('modulemanager');
+        
+        $sharedEvents = $moduleManager->getEventManager()->getSharedManager();
+        $sharedEvents->attach('Zend\Mvc\Controller\AbstractActionController', \Zend\Mvc\MvcEvent::EVENT_DISPATCH, array($this, 'mvcPreDispatch'), 100);
+    }
+
+    /**
+     * Verifica se precisa fazer a autorização do acesso
+     * @param MvcEvent $event Evento
+     */
+    
+    public function mvcPreDispatch($event)
+    {
+        // var_dump("ENTROU NO MVCPREDISPATCH");
+        $di = $event->getTarget()->getServiceLocator();
+        $routeMatch = $event->getRouteMatch();
+        $moduleName = $routeMatch->getParam('module');
+        $controllerName = $routeMatch->getParam('controller');
+        // var_dump($moduleName);
+        // var_dump($controllerName);
+        // if ($moduleName == 'admin' && $controllerName != 'Admin\Controller\Auth') {
+        // $authService = $di->get('Admin\Service\Auth');
+        //     if (! $authService->authorize()) {
+        //         $redirect = $event->getTarget()->redirect();
+        //         $redirect->toUrl('/admin/auth');
+        //     }
+        // }
+        if ($controllerName != 'Auth\Controller\Index') {
+            $authService = $di->get('Zend\Authentication\AuthenticationService'); 
+            if (!$authService->getIdentity()) {
+                $redirect = $event->getTarget()->redirect();
+                $redirect->toUrl('/auth');
+            } 
+        }
+        return true;
     }
 
     public function getConfig()

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="Auth Test Suite" tests="5" assertions="17" failures="0" errors="0" time="9.745598">
-    <testsuite name="IndexControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/IndexControllerTest.php" tests="5" assertions="17" failures="0" errors="0" time="9.745598">
-      <testcase name="testAuthIndexActionNewRequest" class="IndexControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/IndexControllerTest.php" line="29" assertions="7" time="5.366350"/>
-      <testcase name="testAuthIndexActionPostRequest" class="IndexControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/IndexControllerTest.php" line="62" assertions="2" time="1.900218"/>
-      <testcase name="testAuthInvalidIndexActionPostRequest" class="IndexControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/IndexControllerTest.php" line="100" assertions="3" time="0.929759"/>
-      <testcase name="testAuthLogadoAction" class="IndexControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/IndexControllerTest.php" line="141" assertions="2" time="0.741286"/>
-      <testcase name="testAuthLogoutAction" class="IndexControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/IndexControllerTest.php" line="189" assertions="3" time="0.807985"/>
+  <testsuite name="Auth Test Suite" tests="5" assertions="17" failures="0" errors="0" time="8.153832">
+    <testsuite name="IndexControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/IndexControllerTest.php" tests="5" assertions="17" failures="0" errors="0" time="8.153832">
+      <testcase name="testAuthIndexActionNewRequest" class="IndexControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/IndexControllerTest.php" line="29" assertions="7" time="4.155504"/>
+      <testcase name="testAuthIndexActionPostRequest" class="IndexControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/IndexControllerTest.php" line="62" assertions="2" time="1.875850"/>
+      <testcase name="testAuthInvalidIndexActionPostRequest" class="IndexControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/IndexControllerTest.php" line="100" assertions="3" time="0.707746"/>
+      <testcase name="testAuthLogadoAction" class="IndexControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/IndexControllerTest.php" line="141" assertions="2" time="0.708164"/>
+      <testcase name="testAuthLogoutAction" class="IndexControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/IndexControllerTest.php" line="189" assertions="3" time="0.706568"/>
     </testsuite>
   </testsuite>
 </testsuites>
