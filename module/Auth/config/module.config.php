@@ -82,18 +82,18 @@ return array(
         ),
     ),
     'doctrine' => array(
-        // 'driver' => array(            
-        //     __NAMESPACE__ . '_driver' => array(
-        //         'class' => '\Doctrine\ORM\Mapping\Driver\AnnotationDriver',
-        //         'cache' => 'array',                
-        //         'paths' => array(__DIR__ . '/../src/' . __NAMESPACE__ . '/Entity')                
-        //     ),
-        //     'orm_default' => array(                
-        //         'drivers' => array(
-        //             __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver',
-        //         ),                                
-        //     ),          
-        // ),        
+        'driver' => array(            
+            __NAMESPACE__ . '_driver' => array(
+                'class' => '\Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+                'cache' => 'array',                
+                'paths' => array(__DIR__ . '/../src/' . __NAMESPACE__ . '/Entity')                
+            ),
+            'orm_default' => array(                
+                'drivers' => array(
+                    __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver',
+                ),                                
+            ),          
+        ),        
         'authentication' => array(
             'orm_default' => array(
                 'object_manager' => 'Doctrine\ORM\EntityManager',
