@@ -55,7 +55,6 @@ abstract class Service implements ServiceManagerAwareInterface
      */
     protected function getService($service)
     {
-    	var_dump("PASSANDO AQUI");
         return $this->getServiceManager()->get($service);
     }
 }

@@ -24,7 +24,7 @@ use Zend\InputFilter\InputFilterInterface;
  * @example DER http://www.eduardojunior.com/ieducar/ieducar_der_auth.png 
  * 
  * @ORM\Entity
- * @ORM\Table(name="""portal"".""resource""")
+ * @ORM\Table(name="portal.resource")
  *  
  */
 class Resource extends Entity

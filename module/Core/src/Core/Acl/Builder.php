@@ -9,6 +9,8 @@ use Zend\Permissions\Acl\Acl;
 use Zend\Permissions\Acl\Role\GenericRole as Role;
 use Zend\Permissions\Acl\Resource\GenericResource as Resource;
 
+use Doctrine\ORM\EntityManager;
+
 class Builder implements ServiceManagerAwareInterface
 {
 	/**
@@ -35,34 +37,87 @@ class Builder implements ServiceManagerAwareInterface
 	}
 
 	/**
+	 * @var Doctrine\ORM\EntityManager
+	 */
+	protected $em;
+
+	public function setEntityManager(EntityManager $em)
+	{
+		$this->em = $em;
+	}
+
+	public function getEntityManager()
+	{
+		if (null === $this->em){
+			$this->em = $this->getServiceManager()->get('Doctrine\ORM\EntityManager');
+		}		
+		return $this->em;
+	}
+	
+	//	$dados = $this->getEntityManager()->getRepository('Drh\Entity\Setor')->findAll();	
+
+	/**
 	 * Constroi a ACL
 	 * @return Acl
 	 */
 	public function build()
-	{
+	{	
+		$acl = new Acl();	
 		/**
-		 * @todo  ajustar essa classe para o doctrine
+		 * Construir a Acl estática para usuarios guest/visistante, ao qual deve ter permissao de acessar o recurso da tela de autenticação
+		 * Resource: Auth\Controller\Index.index
+		 * Role: visitante
+		 * Privilege: allow
+		 */		
+		$acl->addRole(new Role('visitante'), null);
+		$acl->addResource(new Resource('Auth\Controller\Index.index'));	
+		$acl->addResource(new Resource('DoctrineORMModule\Yuml\YumlController.index'));
+		$acl->allow('visitante', 'Auth\Controller\Index.index');
+		$acl->allow('visitante', 'DoctrineORMModule\Yuml\YumlController.index');
+		/**
+		 * Buscar as Acls Dynamicas no banco de dados
+		 * 
+		 * Entidades 
+		 * Resource: Auth\Entity\Resource
+		 * Role and Privilege: Auth\Entity\Role
 		 */
-		$config = $this->getServiceManager()->get('Config');
-		$acl = new Acl();
-		foreach ($config['acl']['roles'] as $role => $parent) {
-			$acl->addRole(new Role($role), $parent);
+		$resources = $this->getEntityManager()->getRepository('Auth\Entity\Resource')->findAll();
+		foreach ($resources as $resource) {			
+			$acl->addResource(new Resource($resource->getNome()));
+			
 		}
-		foreach ($config['acl']['resources'] as $r) {
-			$acl->addResource(new Resource($r));
+		/**
+         * $query = $this->_em->createQuery("SELECT u FROM
+         * DoctrineTest\Entity\Comment u WHERE u.userId = :userId");
+         * $query->setParameters(array('userId' => $userId));
+         * return $query->getResult();
+        */
+		$roles = $this->getEntityManager()->createQuery('SELECT r FROM Auth\Entity\Role r')->getResult();				
+		foreach ($roles as $role) {			
+			$acl->addRole(new Role($role->getFuncionario()->getId(), 'visitante'));
 		}
-		foreach ($config['acl']['privilege'] as $role => $privilege) {
-			if (isset($privilege['allow'])) {
-				foreach ($privilege['allow'] as $p) {
-					$acl->allow($role, $p);
-				}
-			}
-			if (isset($privilege['deny'])) {
-				foreach ($privilege['deny'] as $p) {
-					$acl->deny($role, $p);
-				}
-			}
-		}
+		/**
+		 * @todo adicionar os privilegios
+		 */
+		// $config = $this->getServiceManager()->get('Config');		
+		// foreach ($config['acl']['roles'] as $role => $parent) {
+		// 	$acl->addRole(new Role($role), $parent);
+		// }
+		// foreach ($config['acl']['resources'] as $r) {
+		// 	$acl->addResource(new Resource($r));
+		// }
+		// foreach ($config['acl']['privilege'] as $role => $privilege) {
+		// 	if (isset($privilege['allow'])) {
+		// 		foreach ($privilege['allow'] as $p) {
+		// 			$acl->allow($role, $p);
+		// 		}
+		// 	}
+		// 	if (isset($privilege['deny'])) {
+		// 		foreach ($privilege['deny'] as $p) {
+		// 			$acl->deny($role, $p);
+		// 		}
+		// 	}
+		// }
 		return $acl;
 	}
 }

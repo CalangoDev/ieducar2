@@ -21,7 +21,7 @@ use Doctrine\ORM\Mapping\SequenceGenerator;
  * @example DER http://www.eduardojunior.com/ieducar/ieducar_der_auth.png 
  * 
  * @ORM\Entity
- * @ORM\Table(name="""portal"".""role""")
+ * @ORM\Table(name="portal.role")
  *  
  */
 

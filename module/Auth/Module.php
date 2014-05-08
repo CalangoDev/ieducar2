@@ -41,6 +41,16 @@ class Module
         $routeMatch = $event->getRouteMatch();
         $moduleName = $routeMatch->getParam('module');
         $controllerName = $routeMatch->getParam('controller');
+        $actionName = $routeMatch->getParam('action');
+
+        $authService = $di->get('Auth\Service\Auth');
+        if (!$authService->authorize($moduleName, $controllerName, $actionName)){
+            $redirect = $event->getTarget()->redirect();                
+            $redirect->toUrl('/auth');            
+            // throw new \Exception("Você não tem permissão para acessar este recurso");            
+        }
+        
+        return true;
         // var_dump($moduleName);
         // var_dump($controllerName);
         // if ($moduleName == 'admin' && $controllerName != 'Admin\Controller\Auth') {
@@ -50,14 +60,32 @@ class Module
         //         $redirect->toUrl('/admin/auth');
         //     }
         // }
-        if ($controllerName != 'Auth\Controller\Index') {
-            $authService = $di->get('Zend\Authentication\AuthenticationService'); 
-            if (!$authService->getIdentity()) {
-                $redirect = $event->getTarget()->redirect();
-                $redirect->toUrl('/auth');
-            } 
-        }
-        return true;
+        
+        // if ($controllerName != 'Auth\Controller\Index') {
+        //     $authService = $di->get('Zend\Authentication\AuthenticationService'); 
+        //     if (!$authService->getIdentity()) {
+        //         $redirect = $event->getTarget()->redirect();
+        //         $redirect->toUrl('/auth');
+        //     } 
+        // }
+        // return true;
+        
+
+        // $di = $event->getTarget()->getServiceLocator();
+        // $routeMatch = $event->getRouteMatch();
+        // $moduleName = $routeMatch->getParam('module');
+        // $controllerName = $routeMatch->getParam('controller');
+        // $actionName = $routeMatch->getParam('action');
+
+        // $authService = $di->get('Admin\Service\Auth');
+        // //passa os novos parâmetros
+        // if (!
+        //     $authService->authorize($moduleName, $controllerName, $actionName)
+        // ) {
+        //     throw new \Exception('Você não tem permissão para acessar este recurso');
+        // }
+
+        // return true;
     }
 
     public function getConfig()
