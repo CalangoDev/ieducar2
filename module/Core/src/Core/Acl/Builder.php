@@ -92,9 +92,17 @@ class Builder implements ServiceManagerAwareInterface
          * $query->setParameters(array('userId' => $userId));
          * return $query->getResult();
         */
-		$roles = $this->getEntityManager()->createQuery('SELECT r FROM Auth\Entity\Role r')->getResult();				
+		$roles = $this->getEntityManager()->createQuery('SELECT r.id, r.privilegio FROM Auth\Entity\Role r LEFT JOIN r.funcionario f ')->getResult();				
+		// $roles = $this->getEntityManager()->createQueryBuilder();
+		// $roles->add('select', 'r.id, r.privilegio')
+		// 	  ->add('from', 'Auth\Entity\Role r');
+		// 	  // ->add('groupBy', 'r.funcionario');
+		// var_dump($roles->__toString());
+		// $query = $roles->getQuery();
+		// $roles = $query->getResult();
+		// 	  var_dump($roles);
 		foreach ($roles as $role) {			
-			$acl->addRole(new Role($role->getFuncionario()->getId(), 'visitante'));
+			// $acl->addRole(new Role($role->getFuncionario()->getId(), 'visitante'));
 		}
 		/**
 		 * @todo adicionar os privilegios

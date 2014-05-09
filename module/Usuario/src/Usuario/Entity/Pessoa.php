@@ -32,7 +32,7 @@ use Doctrine\ORM\Mapping\Index;
  * @copyright  Copyright (c) 2013 Eduardo Junior.com (http://www.eduardojunior.com)
  * 
  * @ORM\Entity
- * @ORM\Table(name="""cadastro"".""pessoa""")
+ * @ORM\Table(name="cadastro.pessoa")
  * @ORM\HasLifecycleCallbacks
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorMap({"P" = "Pessoa", "F" = "Fisica", "J" = "Juridica"})

@@ -63,7 +63,7 @@ class IndexController extends ActionController
         		$identity = $authResult->getIdentity();                
         		return $this->redirect()->toUrl('/');
     		} else {
-    			$this->flashMessenger()->addMessage(array("error" => "Matrícula ou senha inválidos"));
+    			$this->flashMessenger()->addMessage(array("error" => "<b>Matrícula ou senha inválidos</b>"));
     		}
    			//$this->flashMessenger()->addMessage(array("success" => "Atendimento Realizado com sucesso!"));                
 			//$this->flashMessenger()->addMessage(array("error" => "Class: " . get_class($e)));

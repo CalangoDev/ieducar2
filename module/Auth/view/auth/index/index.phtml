@@ -1,1 +1,28 @@
-form de login
+
+<div class="row col-md-4 col-md-offset-4">
+    <h2>Acesso ao sistema</h2> 
+</div>
+<div class="row col-md-3 col-md-offset-4">
+    <?php
+    $matricula = $this->form->get('matricula');
+    $senha = $this->form->get('senha');
+    echo $this->form()->openTag($form);
+    ?>
+    <div class="form-group">          
+        <?php
+        echo $this->formInput($matricula);
+        echo $this->formElementErrors($matricula);
+        ?>    
+        <?php
+        echo $this->formInput($senha);
+        echo $this->formElementErrors($senha);
+        ?>        
+    </div>
+    <?php
+    $enviar = $this->form->get('submit');
+    echo $this->formElement($enviar);
+    ?>                      
+    <?php
+    echo $this->form()->closeTag();
+    ?>
+</div>

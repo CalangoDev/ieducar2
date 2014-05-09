@@ -25,7 +25,7 @@ use Zend\InputFilter\InputFilterInterface;
  * @copyright  Copyright (c) 2013 Eduardo Junior.com (http://www.eduardojunior.com)
  * 
  * @ORM\Entity
- * @ORM\Table(name="""cadastro"".""juridica""", indexes={@index(name="un_juridica_cnpj", columns={"cnpj"})})
+ * @ORM\Table(name="cadastro.juridica", indexes={@index(name="un_juridica_cnpj", columns={"cnpj"})})
  * @ORM\HasLifecycleCallbacks
  */
 class Juridica extends Pessoa implements EventSubscriber
