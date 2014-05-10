@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="Auth Test Suite" tests="5" assertions="17" failures="0" errors="0" time="8.153832">
-    <testsuite name="IndexControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/IndexControllerTest.php" tests="5" assertions="17" failures="0" errors="0" time="8.153832">
-      <testcase name="testAuthIndexActionNewRequest" class="IndexControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/IndexControllerTest.php" line="29" assertions="7" time="4.155504"/>
-      <testcase name="testAuthIndexActionPostRequest" class="IndexControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/IndexControllerTest.php" line="62" assertions="2" time="1.875850"/>
-      <testcase name="testAuthInvalidIndexActionPostRequest" class="IndexControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/IndexControllerTest.php" line="100" assertions="3" time="0.707746"/>
-      <testcase name="testAuthLogadoAction" class="IndexControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/IndexControllerTest.php" line="141" assertions="2" time="0.708164"/>
-      <testcase name="testAuthLogoutAction" class="IndexControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/IndexControllerTest.php" line="189" assertions="3" time="0.706568"/>
+  <testsuite name="Auth Test Suite" tests="11" assertions="27" failures="0" errors="0" time="13.325423">
+    <testsuite name="IndexControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/IndexControllerTest.php" tests="5" assertions="17" failures="0" errors="0" time="7.979910">
+      <testcase name="testAuthIndexActionNewRequest" class="IndexControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/IndexControllerTest.php" line="29" assertions="7" time="4.512434"/>
+      <testcase name="testAuthIndexActionPostRequest" class="IndexControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/IndexControllerTest.php" line="62" assertions="2" time="0.872289"/>
+      <testcase name="testAuthInvalidIndexActionPostRequest" class="IndexControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/IndexControllerTest.php" line="100" assertions="3" time="0.793767"/>
+      <testcase name="testAuthLogadoAction" class="IndexControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/IndexControllerTest.php" line="141" assertions="2" time="0.928313"/>
+      <testcase name="testAuthLogoutAction" class="IndexControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/IndexControllerTest.php" line="189" assertions="3" time="0.873107"/>
+    </testsuite>
+    <testsuite name="Auth\Entity\RoleTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Entity/RoleTest.php" namespace="Auth\Entity" fullPackage="Auth.Entity" tests="6" assertions="10" failures="0" errors="0" time="5.345513">
+      <testcase name="testGetInputFilter" class="Auth\Entity\RoleTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Entity/RoleTest.php" line="24" assertions="1" time="0.796022"/>
+      <testcase name="testInputFilterValid" class="Auth\Entity\RoleTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Entity/RoleTest.php" line="35" assertions="3" time="0.810947"/>
+      <testcase name="testInsert" class="Auth\Entity\RoleTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Entity/RoleTest.php" line="48" assertions="2" time="0.897851"/>
+      <testcase name="testInputFilterInvalidoTipo" class="Auth\Entity\RoleTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Entity/RoleTest.php" line="86" assertions="1" time="0.881698"/>
+      <testcase name="testUpdate" class="Auth\Entity\RoleTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Entity/RoleTest.php" line="100" assertions="2" time="1.031283"/>
+      <testcase name="testDelete" class="Auth\Entity\RoleTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Entity/RoleTest.php" line="142" assertions="1" time="0.927712"/>
     </testsuite>
   </testsuite>
 </testsuites>

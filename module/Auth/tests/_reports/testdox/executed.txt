@@ -5,3 +5,11 @@ IndexController
  [x] Auth logado action
  [x] Auth logout action
 
+Auth\Entity\Role
+ [x] Get input filter
+ [x] Input filter valid
+ [x] Insert
+ [x] Input filter invalido tipo
+ [x] Update
+ [x] Delete
+

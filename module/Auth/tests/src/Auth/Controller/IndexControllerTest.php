@@ -132,7 +132,7 @@ class IndexControllerTest extends ControllerTestCase
 		//	Get Messages		
 		$messages = $messenger->getMessages();
 		//	Verifica se a mensagem é uma mensagem de error do tipo Matrícula ou senha inválidos
-		$this->assertEquals($messages[0]['error'], "Matrícula ou senha inválidos");
+		$this->assertEquals($messages[0]['error'], "<b>Matrícula ou senha inválidos</b>");
 	}
 
 	/**

@@ -6,6 +6,11 @@ use Core\Entity\EntityException;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\SequenceGenerator;
 
+use Zend\InputFilter\InputFilter;
+use Zend\InputFilter\Factory as InputFactory;
+use Zend\InputFilter\InputFilterAwareInterface;
+use Zend\InputFilter\InputFilterInterface;
+
 /**
  * Entidade Role
  * 
@@ -22,7 +27,7 @@ use Doctrine\ORM\Mapping\SequenceGenerator;
  * 
  * @ORM\Entity
  * @ORM\Table(name="portal.role")
- *  
+ * @ORM\HasLifecycleCallbacks
  */
 
 class Role extends Entity
@@ -106,4 +111,54 @@ class Role extends Entity
 		$this->privilegio = $this->valid("privilegio", $value);
 	}
 
+	/**
+	 * Funcao para checar se o privilegio é um inteiro 0 ou 1
+	 * @access  public
+	 * @return  Exception 
+	 * @ORM\PrePersist
+	 */
+	public function checkPrivilegio()
+	{			
+		if (($this->getPrivilegio() != 0) && ($this->getPrivilegio() != 1))			
+			throw new EntityException("O atributo privilégio recebeu um valor inválido: \"" . $this->getPrivilegio(). "\"", 1);
+	}
+
+	/**
+	 * [$inputFilter description]
+	 * @var [type]
+	 */
+	protected $inputFilter;
+
+	/**
+	 * Configura os filtros dos campos da entidade
+	 * 
+	 * @return Zend\InputFilter\InputFilter
+	 */
+	public function getInputFilter()
+	{
+		if (!$this->inputFilter) {
+			$inputFilter = new InputFilter();
+			$factory = new InputFactory();
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'id',
+				'required' => true,
+				'filters' => array(
+					array('name' => 'Int'),
+				),
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'privilegio',
+				'required' => true,
+				'filters' => array(
+					array('name' => 'Int'),
+				),
+			)));
+
+			$this->inputFilter = $inputFilter;
+		}
+
+		return $this->inputFilter;
+	}
 }
