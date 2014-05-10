@@ -132,7 +132,7 @@ class IndexControllerTest extends ControllerTestCase
 		//	Get Messages		
 		$messages = $messenger->getMessages();
 		//	Verifica se a mensagem é uma mensagem de error do tipo Matrícula ou senha inválidos
-		$this->assertEquals($messages[0]['error'], "Matrícula ou senha inválidos");
+		$this->assertEquals($messages[0]['error'], "<b>Matrícula ou senha inválidos</b>");
 	}
 
 	/**
@@ -181,6 +181,67 @@ class IndexControllerTest extends ControllerTestCase
 		$messages = $messenger->getMessages();
 		//	Verifica se a mensagem é uma mensagem sucesso Você logou com sucesso!
 		$this->assertEquals($messages[0]['sucess'], "Você logou com sucesso!");
+	}
+
+	/**
+	 * Testa o logout  
+	 */	
+	public function testAuthLogoutAction()
+	{
+		//	Gravando uma pessoa no banco pre requisito para um funcionario existir
+		$fisica = $this->buildFisica();
+		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
+		$em->persist($fisica);
+		//	Gravando um funcionario
+		$funcionario = $this->buildFuncionario();
+		// $funcionario->setId($fisica);
+		$funcionario->setRefCodPessoaFj($fisica);
+		$em->persist($funcionario);
+		$em->flush();
+
+		//	Dispara a acao
+		$this->routeMatch->setParam('action', 'index');
+
+		$this->request->setMethod('post');
+		$this->request->getPost()->set('matricula', 'admin');
+		$this->request->getPost()->set('senha', 'admin');
+
+		$result = $this->controller->dispatch(
+			$this->request, $this->response
+		);
+		//	Verifica a resposta
+		$response = $this->controller->getResponse();	
+		$this->assertEquals(302, $response->getStatusCode());	
+
+
+		//	Disparando a acao
+		$this->routeMatch->setParam('action', 'logout');
+
+		$result = $this->controller->dispatch(
+			$this->request, $this->response
+		);
+		//	Verifica a resposta
+		$response = $this->controller->getResponse();
+		// $this->assertEquals(200, $response->getStatusCode());
+
+
+		//	Disparando a acao
+		$this->routeMatch->setParam('action', 'logado');
+
+		$result = $this->controller->dispatch(
+			$this->request, $this->response
+		);
+		//	Verifica a resposta
+		$response = $this->controller->getResponse();
+		
+		//	Verificar flashMessages
+		$messenger = new \Zend\Mvc\Controller\Plugin\FlashMessenger();
+		//	Verifica se existe flashMessages
+		$this->assertTrue($messenger->hasMessages());
+		//	Get Messages		
+		$messages = $messenger->getMessages();
+		//	Verifica se a mensagem é uma mensagem error Você não está logado!
+		$this->assertEquals($messages[0]['error'], "Você não está logado!");
 	}
 
 	private function buildFisica()

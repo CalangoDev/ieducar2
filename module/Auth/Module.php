@@ -14,15 +14,50 @@ namespace Auth;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
+use Zend\Authentication\AuthenticationService;
 
 class Module
 {
     public function onBootstrap(MvcEvent $e)
-    {
-        $eventManager        = $e->getApplication()->getEventManager();
-        $moduleRouteListener = new ModuleRouteListener();
-        $moduleRouteListener->attach($eventManager);
+    {        
+        $moduleManager = $e->getApplication()->getServiceManager()->get('modulemanager');
+        
+        $sharedEvents = $moduleManager->getEventManager()->getSharedManager();
+        $sharedEvents->attach('Zend\Mvc\Controller\AbstractActionController', \Zend\Mvc\MvcEvent::EVENT_DISPATCH, array($this, 'mvcPreDispatch'), 100);
     }
+
+    /**
+     * Verifica se precisa fazer a autorização do acesso
+     * @param MvcEvent $event Evento
+     */
+    
+    public function mvcPreDispatch($event)
+    {        
+        $di = $event->getTarget()->getServiceLocator();
+        $routeMatch = $event->getRouteMatch();
+        $moduleName = $routeMatch->getParam('module');
+        $controllerName = $routeMatch->getParam('controller');
+        $actionName = $routeMatch->getParam('action');
+
+        $authService = $di->get('Auth\Service\Auth');        
+        if (!$authService->authorize($moduleName, $controllerName, $actionName)){            
+            $redirect = $event->getTarget()->redirect();
+            /**
+             * So redireciona para /auth se o usuario nao estiver logado
+             * caso esteja logado, redirecionar para uma tela de permissao negada
+             */
+            $auth = new AuthenticationService();        
+            if ($auth->hasIdentity()){
+                //formatar uma tela bonita depois e mandar o redirect para a mesma
+                throw new \Exception("Você não tem permissão para acessar este recurso");
+            } else {
+               $redirect->toUrl('/auth'); 
+            }
+        } 
+        
+        return true;      
+    }
+    
 
     public function getConfig()
     {

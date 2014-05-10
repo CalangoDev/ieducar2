@@ -23,7 +23,7 @@ use Zend\InputFilter\InputFilterInterface;
  * @copyright  Copyright (c) 2013 Eduardo Junior.com (http://www.eduardojunior.com)
  * 
  * @ORM\Entity
- * @ORM\Table(name="""cadastro"".""fisica""")
+ * @ORM\Table(name="cadastro.fisica")
  * @ORM\HasLifecycleCallbacks
  * 
  */

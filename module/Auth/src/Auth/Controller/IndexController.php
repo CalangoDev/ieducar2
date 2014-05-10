@@ -63,7 +63,7 @@ class IndexController extends ActionController
         		$identity = $authResult->getIdentity();                
         		return $this->redirect()->toUrl('/');
     		} else {
-    			$this->flashMessenger()->addMessage(array("error" => "Matrícula ou senha inválidos"));
+    			$this->flashMessenger()->addMessage(array("error" => "<b>Matrícula ou senha inválidos</b>"));
     		}
    			//$this->flashMessenger()->addMessage(array("success" => "Atendimento Realizado com sucesso!"));                
 			//$this->flashMessenger()->addMessage(array("error" => "Class: " . get_class($e)));
@@ -84,5 +84,17 @@ class IndexController extends ActionController
     	($user = $authService->getIdentity()) ? $this->flashMessenger()->addMessage(array("sucess" => 'Você logou com sucesso!')) : $this->flashMessenger()->addMessage(array("error" => "Você não está logado!"));
     		
     	return new ViewModel();
+    }
+
+    /**
+     * Desloga a sessao do usuario     
+     */
+    public function logoutAction()
+    {        
+
+        $authService = $this->getServiceLocator()->get('Zend\Authentication\AuthenticationService');
+        $authService->clearIdentity();
+                        
+        return $this->redirect()->toUrl('/auth');        
     }
 }

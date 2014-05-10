@@ -1,18 +1,16 @@
 # I-Educar v2.0
 
-
 ## Introdução  
   
-I-Educar v2.0 é um sistema baseado na Versão 1.0 do IEducar, porem totalmente reprogramado em Zend Framework 2.0 com Doctrine 2.0  
+	I-Educar v2.0 é um sistema baseado na Versão 1.0 do IEducar, porem totalmente reprogramado em Zend Framework 2.0 com Doctrine 2.0  
 
 ## Instalação
 
-### Usando o Postgresql como SGDB
+#### Usando o Postgresql como SGDB
 
+Criar os schemas antes de rodar a Aplicação
 
-**Criar os schemas antes de rodar a Aplicação**
-
-Schemas:
+**Schemas:**
 
 * cadastro
 * historico
@@ -24,64 +22,70 @@ Schemas:
 
 ### Rodandos os testes
 
-Exemplo de uso para o modulo Usuario:  
+	Exemplo de uso para o modulo Usuario:
 
-phpunit -c module/Usuario/tests/phpunit.xml
+	phpunit -c module/Usuario/tests/phpunit.xml
 
-phpunit -c module/Usuario/tests/phpunit.xml --debug --group=Entity --filter=Pessoa
+	phpunit -c module/Usuario/tests/phpunit.xml --debug --group=Entity --filter=Pessoa
 
 ### Testes completados
 
-### Módulo Usuario
+#####Módulo Usuario#####
 
-phpunit -c module/Usuario/tests/phpunit.xml --filter=Escolaridade
+	phpunit -c module/Usuario/tests/phpunit.xml --filter=Escolaridade
 
-phpunit -c module/Usuario/tests/phpunit.xml --filter=EstadoCivil
+	phpunit -c module/Usuario/tests/phpunit.xml --filter=EstadoCivil
 
-phpunit -c module/Usuario/tests/phpunit.xml --filter=Fisica
+	phpunit -c module/Usuario/tests/phpunit.xml --filter=Fisica
 
-phpunit -c module/Usuario/tests/phpunit.xml --filter=Juridica
+	phpunit -c module/Usuario/tests/phpunit.xml --filter=Juridica
 
-phpunit -c module/Usuario/tests/phpunit.xml --filter=Ocupacao
+	phpunit -c module/Usuario/tests/phpunit.xml --filter=Ocupacao
 
-phpunit -c module/Usuario/tests/phpunit.xml --filter=Pessoa
+	phpunit -c module/Usuario/tests/phpunit.xml --filter=Pessoa
 
-phpunit -c module/Usuario/tests/phpunit.xml --filter=Religiao
+	phpunit -c module/Usuario/tests/phpunit.xml --filter=Religiao
 
-### Módulo Portal
+#####Módulo Portal#####
 
-phpunit -c module/Portal/tests/phpunit.xml --filter=Funcionario
+	phpunit -c module/Portal/tests/phpunit.xml --filter=Funcionario
 
-### Módulo Drh
+##### Módulo Drh#####
 
+	phpunit -c module/Drh/tests/phpunit.xml --filter=Setor
 
-phpunit -c module/Drh/tests/phpunit.xml --filter=Setor
+##### Módulo Auth#####
+
+	phpunit -c module/Auth/tests/phpunit.xml 
 
 ## Usando o doctrine
 
-* Create:
 
-./vendor/bin/doctrine-module orm:schema-tool:create 
+#####Create:#####
 
-* Update:
+	**./vendor/bin/doctrine-module orm:schema-tool:create**
 
-./vendor/bin/doctrine-module orm:schema-tool:update  --force
+#####Update:#####
 
-* Drop:
+	**./vendor/bin/doctrine-module orm:schema-tool:update --force**
 
-./vender/bin/doctrine-module orm:schema-tool:drop --force
+#####Drop:#####
+
+	**./vender/bin/doctrine-module orm:schema-tool:drop --force**
 
 ## Doctrine Herança
 
-Usar a herança de Entidade
-exemplo: 
+	Usar a herança de Entidade
 
-Classe Fisica extende a Classe Pessoa :D
+**Exemplo:**
 
-### Padrão CamelCase
+	Classe Fisica extende a Classe Pessoa :D
 
-Mudanças para uso de padrão CamelCase em todo o projeto, tava um mix com uso de underscore devido aos atributos das classes de persistencias
+## Padrão CamelCase ##
 
-## Ação atual
+	Mudanças para uso de padrão CamelCase em todo o projeto, tava um mix com uso de underscore devido aos atributos das classes de persistencias
+	
+## Todo ##
 
-Auth + ACL
+1. **Auth + ACL**
+2. Testes para cadastros de roles e resources do Modulo Auth
