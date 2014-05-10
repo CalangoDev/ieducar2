@@ -13,6 +13,7 @@
         <!-- Le styles -->
         <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
                         ->prependStylesheet($this->basePath() . '/css/style.css')
+                        ->prependStylesheet($this->basePath() . '/css/font-awesome.min.css')
                         ->prependStylesheet($this->basePath() . '/css/bootstrap-theme.min.css')
                         ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css') ?>
 
@@ -38,12 +39,127 @@
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Home') ?></a></li>
-                        <li>
-                            <a href="#">
-                                
-                            </a>
+                        <li class="active">
+                            <a href="<?php echo $this->url('home') ?>"><i class="icon icon-home"></i> <?php echo $this->translate('Home') ?></a>
                         </li>
+                        <?php
+                        if ($user = $this->identity()) {
+                        ?>
+                            
+                            
+                            
+                            <li>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                  <i class="icon icon-pencil"></i> i-Escola <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="#">Apresentação</a>
+                                    </li>
+                                    <li class="dropdown-submenu">
+                                        <a href="#">Cadastros...</a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="#">Instituição</a>
+                                            </li>                                            
+                                            <li class="dropdown-submenu">
+                                                <a href="#">Regras de avaliação..</a>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a href="#">Listar Regras</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Fórmulas de cálculo de média</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Tabelas de arrendondamento</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown-submenu">
+                                                <a href="#">Cursos..</a>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a href="#">Cadastrar</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Habilitação</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown-submenu">
+                                        <a href="#">Servidores...</a>
+                                    </li>
+                                    <li class="dropdown-submenu">
+                                        <a href="#">Movimentação...</a>
+                                    </li>
+                                    <li class="dropdown-submenu">
+                                        <a href="#">Administrativo...</a>
+                                    </li>
+                                    <li class="dropdown-submenu">
+                                        <a href="#">Relatórios...</a>
+                                    </li>
+                                    <li class="dropdown-submenu">
+                                        <a href="#">Documentos...</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                  <i class="icon icon-book"></i> i-Biblioteca <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="#">Apresentação</a>
+                                    </li>                                  
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                  <i class="icon icon-group"></i> Administração <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="#">Cadastro de Setores</a>
+                                    </li> 
+                                    <li>
+                                        <a href="#">Cadastro de Funcionários</a>                                        
+                                    </li>                                 
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="icon icon-group"></i> Pessoa F/J <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="/usuario/fisica">Pessoa Física</a>
+                                    </li>
+                                    <li>
+                                        <a href="/usuario/juridica">Pessoa Jurídica</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                  <i class="icon icon-cogs"></i> Configurações <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="/auth/resource">Recursos</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="/auth/index/logout">
+                                    <i class="icon icon-signout"></i> Sair
+                                </a>
+                            </li>
+                        <?php
+                        }
+                        ?>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
@@ -66,7 +182,7 @@
             </div>
         <?php endif; ?>
 
-        <div class="container">
+        <div class="container">            
             <?php echo $this->content; ?>            
         </div> <!-- /container -->        
         <div class="container">

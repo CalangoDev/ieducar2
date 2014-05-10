@@ -14,6 +14,7 @@ namespace Auth;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
+use Zend\Authentication\AuthenticationService;
 
 class Module
 {
@@ -40,9 +41,18 @@ class Module
 
         $authService = $di->get('Auth\Service\Auth');        
         if (!$authService->authorize($moduleName, $controllerName, $actionName)){            
-            $redirect = $event->getTarget()->redirect();                
-           $redirect->toUrl('/auth');            
-            // throw new \Exception("Você não tem permissão para acessar este recurso");            
+            $redirect = $event->getTarget()->redirect();
+            /**
+             * So redireciona para /auth se o usuario nao estiver logado
+             * caso esteja logado, redirecionar para uma tela de permissao negada
+             */
+            $auth = new AuthenticationService();        
+            if ($auth->hasIdentity()){
+                //formatar uma tela bonita depois e mandar o redirect para a mesma
+                throw new \Exception("Você não tem permissão para acessar este recurso");
+            } else {
+               $redirect->toUrl('/auth'); 
+            }
         } 
         
         return true;      

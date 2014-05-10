@@ -64,6 +64,7 @@ class Builder implements ServiceManagerAwareInterface
 		$acl->addRole(new Role('visitante'), null);
 		$acl->addRole(new Role(7), 'visitante');		
 		$acl->addResource(new Resource('Auth\Controller\Index.index'));	
+		$acl->addResource(new Resource('Auth\Controller\Index.logout'));	
 		$acl->addResource(new Resource('DoctrineORMModule\Yuml\YumlController.index'));
 
 		$resources = $this->getEntityManager()->getRepository('Auth\Entity\Resource')->findAll();
@@ -72,6 +73,7 @@ class Builder implements ServiceManagerAwareInterface
 		}
 
 		$acl->allow('visitante', 'Auth\Controller\Index.index');
+		$acl->allow('visitante', 'Auth\Controller\Index.logout');
 		$acl->allow('visitante', 'DoctrineORMModule\Yuml\YumlController.index');
 		
 		$roles = $this->getEntityManager()->getRepository('Auth\Entity\Role')->findAll();

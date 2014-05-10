@@ -73,6 +73,7 @@ return array(
     'controllers' => array(
         'invokables' => array(            
             'Auth\Controller\Index' => 'Auth\Controller\IndexController',
+            'Auth\Controller\Resource' => 'Auth\Controller\ResourceController',
             
         ),
     ),
