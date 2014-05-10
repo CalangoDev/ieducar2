@@ -105,7 +105,7 @@ class Auth extends Service
      * @return boolean
      */
     public function authorize($moduleName, $controllerName, $actionName)
-    {    	
+    {    	    	
         //$auth = new AuthenticationService(); simples retorna so o id
         $auth = $this->getServiceManager()->get('Zend\Authentication\AuthenticationService');
         $role = 'visitante';
@@ -118,15 +118,15 @@ class Auth extends Service
             // $user = $session->offsetGet('usuario');
             $role = $user->getRefCodPessoaFj()->getId();//pega o codigo da pessoa fisica 
         } 
-        $resource = $controllerName . '.' . $actionName;           
+        $resource = $controllerName . '.' . $actionName;                 
         /* monta as acls de acordo com o arquivo de configurações */
         $acl = $this->getServiceManager()
                     ->get('Core\Acl\Builder')
-                    ->build();                    
+                    ->build();        
         /* verifica se o usuário tem permissão para acessar o recurso atual */        
-        // if ($acl->isAllowed($role, $resource)) {        	
-        //     return true;
-        // }        
+        if ($acl->isAllowed($role, $resource)) {        	
+            return true;
+        }        
         return false;
     }
 }

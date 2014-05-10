@@ -18,11 +18,7 @@ use Zend\Mvc\MvcEvent;
 class Module
 {
     public function onBootstrap(MvcEvent $e)
-    {
-        // var_dump("ENTROU NO BOOTSTRAP");
-        // $eventManager        = $e->getApplication()->getEventManager();
-        // $moduleRouteListener = new ModuleRouteListener();
-        // $moduleRouteListener->attach($eventManager);
+    {        
         $moduleManager = $e->getApplication()->getServiceManager()->get('modulemanager');
         
         $sharedEvents = $moduleManager->getEventManager()->getSharedManager();
@@ -35,58 +31,23 @@ class Module
      */
     
     public function mvcPreDispatch($event)
-    {
-        // var_dump("ENTROU NO MVCPREDISPATCH");
+    {        
         $di = $event->getTarget()->getServiceLocator();
         $routeMatch = $event->getRouteMatch();
         $moduleName = $routeMatch->getParam('module');
         $controllerName = $routeMatch->getParam('controller');
         $actionName = $routeMatch->getParam('action');
 
-        $authService = $di->get('Auth\Service\Auth');
-        if (!$authService->authorize($moduleName, $controllerName, $actionName)){
+        $authService = $di->get('Auth\Service\Auth');        
+        if (!$authService->authorize($moduleName, $controllerName, $actionName)){            
             $redirect = $event->getTarget()->redirect();                
-            $redirect->toUrl('/auth');            
+           $redirect->toUrl('/auth');            
             // throw new \Exception("Você não tem permissão para acessar este recurso");            
-        }
+        } 
         
-        return true;
-        // var_dump($moduleName);
-        // var_dump($controllerName);
-        // if ($moduleName == 'admin' && $controllerName != 'Admin\Controller\Auth') {
-        // $authService = $di->get('Admin\Service\Auth');
-        //     if (! $authService->authorize()) {
-        //         $redirect = $event->getTarget()->redirect();
-        //         $redirect->toUrl('/admin/auth');
-        //     }
-        // }
-        
-        // if ($controllerName != 'Auth\Controller\Index') {
-        //     $authService = $di->get('Zend\Authentication\AuthenticationService'); 
-        //     if (!$authService->getIdentity()) {
-        //         $redirect = $event->getTarget()->redirect();
-        //         $redirect->toUrl('/auth');
-        //     } 
-        // }
-        // return true;
-        
-
-        // $di = $event->getTarget()->getServiceLocator();
-        // $routeMatch = $event->getRouteMatch();
-        // $moduleName = $routeMatch->getParam('module');
-        // $controllerName = $routeMatch->getParam('controller');
-        // $actionName = $routeMatch->getParam('action');
-
-        // $authService = $di->get('Admin\Service\Auth');
-        // //passa os novos parâmetros
-        // if (!
-        //     $authService->authorize($moduleName, $controllerName, $actionName)
-        // ) {
-        //     throw new \Exception('Você não tem permissão para acessar este recurso');
-        // }
-
-        // return true;
+        return true;      
     }
+    
 
     public function getConfig()
     {
