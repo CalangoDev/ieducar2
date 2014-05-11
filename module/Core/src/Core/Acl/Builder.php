@@ -80,7 +80,7 @@ class Builder implements ServiceManagerAwareInterface
 		foreach ($roles as $role) {
 			/**
 			 * Se a regra nao existe, insere ele
-			 */
+			 */			
 			if (! $acl->hasRole($role->getFuncionario()->getId()))
 				$acl->addRole(new Role($role->getFuncionario()->getId(), 'visitante'));				
 			/**
