@@ -1,9 +1,12 @@
 <?php
 use Core\Test\ControllerTestCase;
-use Auth\Controller\IndexController;
+use Auth\Controller\RoleController;
 use Zend\Http\Request;
 use Zend\Stdlib\Parameters;
 use Zend\View\Renderer\PhpRenderer;
+use Auth\Entity\Role;
+use Auth\Entity\Resource;
+use Usuario\Entity\Fisica;
 
 /**
  * @group Controller
@@ -23,13 +26,68 @@ class RoleControllerTest extends ControllerTestCase
 	protected $controllerRoute = 'auth';
 
 	/**
-	 * Testa a tela de autenticacao
+	 * Testa a pagina inicial, que deve mostrar as regras
+	 */
+	public function testRoleIndexAction()
+	{		
+		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
+	
+		$fisica = $this->buildFisica();				
+		$em->persist($fisica);
+
+		$fisicadeny = $this->buildFisica();
+		$em->persist($fisicadeny);
+		
+		$resource = $this->buildResource();
+		$em->persist($resource);
+		
+		$role = $this->buildRole();
+		$role->setFuncionario($fisica);
+		$role->setResource($resource);
+		$em->persist($role);
+
+		$roledeny = $this->buildRole();
+		$roledeny->setPrivilegio(1);
+		$roledeny->setFuncionario($fisicadeny);
+		$roledeny->setResource($resource);
+		$em->persist($roledeny);
+		
+		$em->flush();		
+
+		//	Invoca a rota index
+		$this->routeMatch->setParam('action', 'index');
+		$result = $this->controller->dispatch(
+			$this->request, $this->response
+		);
+
+		//	Verifica o response
+		$response = $this->controller->getResponse();		
+		$this->assertEquals(200, $response->getStatusCode());
+
+		//	Testa se um ViewModel foi retornado
+		$this->assertInstanceOf('Zend\View\Model\ViewModel', $result);
+		
+
+		//	Testa os dados da View
+		$variables = $result->getVariables();
+
+		$this->assertArrayHasKey('dados', $variables);
+
+		//	Faz a comparação dos dados
+		$controllerData = $variables['dados'];
+		$this->assertEquals($role->getResource(), $controllerData[0]->getResource());
+		$this->assertEquals($roledeny->getResource(), $controllerData[1]->getResource());
+
+	}
+
+	/**
+	 * Testa a tela de nova regra
 	 * @return  void
 	 */
-	public function testAuthRoleActionNewRequest()
+	public function testRoleActionNewRequest()
 	{
 		//	Dispara a acao
-		$this->routeMatch->setParam('action', 'index');
+		$this->routeMatch->setParam('action', 'save');
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
 		);
@@ -47,201 +105,292 @@ class RoleControllerTest extends ControllerTestCase
 		$form = $variables['form'];
 
 		//	Testa os itens do formulario
-		$matricula = $form->get('matricula');
-		$this->assertEquals('matricula', $matricula->getName());
-		$this->assertEquals('text', $matricula->getAttribute('type'));
+		$id = $form->get('id');
+		$this->assertEquals('id', $id->getName());
+		$this->assertEquals('hidden', $id->getAttribute('type'));
 
-		$senha = $form->get('senha');
-		$this->assertEquals('senha', $senha->getName());
-		$this->assertEquals('password', $senha->getAttribute('type'));
+		$funcionario = $form->get('funcionario');
+		$this->assertEquals('funcionario', $funcionario->getName());
+		$this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $funcionario->getAttribute('type'));
+
+		$resource = $form->get('resource');
+		$this->assertEquals('resource', $resource->getName());
+		$this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $resource->getAttribute('type'));
+
+		$privilegio = $form->get('privilegio');
+		$this->assertEquals('privilegio', $privilegio->getName());
+		$this->assertEquals('Zend\Form\Element\Select', $privilegio->getAttribute('type'));
 	}
 
 	/**
-	 * Testa a autenticacao 
+	 * Testa a tela de alteracao de um registro
 	 */
-	public function testAuthIndexActionPostRequest()
+	public function testRoleSaveActionUpdateFormRequest()
 	{
-		//	Gravando uma pessoa no banco pre requisito para um funcionario existir
-		$fisica = $this->buildFisica();
 		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
+	
+		$fisica = $this->buildFisica();				
 		$em->persist($fisica);
-		//	Gravando um funcionario
-		$funcionario = $this->buildFuncionario();
-		// $funcionario->setId($fisica);
+
+		$resource = $this->buildResource();
+		$em->persist($resource);
 		
-		$funcionario->setRefCodPessoaFj($fisica);
-
-		$em->persist($funcionario);
+		$role = $this->buildRole();
+		$role->setFuncionario($fisica);
+		$role->setResource($resource);
+		$em->persist($role);		
 		$em->flush();
 
 		//	Dispara a acao
-		$this->routeMatch->setParam('action', 'index');
-
-		$this->request->setMethod('post');
-		$this->request->getPost()->set('matricula', 'admin');
-		$this->request->getPost()->set('senha', 'admin');
-
+		$this->routeMatch->setParam('action', 'save');
+		$this->routeMatch->setParam('id', $role->getId());
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
 		);
 
 		//	Verifica a resposta
 		$response = $this->controller->getResponse();
-		//	a pagina redireciona, entao o status = 302
-		$this->assertEquals(302, $response->getStatusCode());
-		$headers = $response->getHeaders();
-		$this->assertEquals('Location: /', $headers->get('Location'));
-
-	}
-
-	/**
-	 * Testa a autenticacao com dados invalidos
-	 */
-	public function testAuthInvalidIndexActionPostRequest()
-	{
-		//	Gravando uma pessoa no banco pre requisito para um funcionario existir
-		$fisica = $this->buildFisica();
-		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-		$em->persist($fisica);
-		//	Gravando um funcionario
-		$funcionario = $this->buildFuncionario();
-		// $funcionario->setId($fisica);
-		$funcionario->setRefCodPessoaFj($fisica);
-		$em->persist($funcionario);
-		$em->flush();
-
-		//	Dispara a acao
-		$this->routeMatch->setParam('action', 'index');
-
-		$this->request->setMethod('post');
-		$this->request->getPost()->set('matricula', 'admin');
-		$this->request->getPost()->set('senha', '123456');
-
-		$result = $this->controller->dispatch(
-			$this->request, $this->response
-		);
-
-		//	Verifica a resposta
-		$response = $this->controller->getResponse();
-		//	a pagina nao redireciona, entao o status = 200 
 		$this->assertEquals(200, $response->getStatusCode());
-		//	Verificar flashMessages
-		$messenger = new \Zend\Mvc\Controller\Plugin\FlashMessenger();
-		//	Verifica se existe flashMessages
-		$this->assertTrue($messenger->hasMessages());
-		//	Get Messages		
-		$messages = $messenger->getMessages();
-		//	Verifica se a mensagem é uma mensagem de error do tipo Matrícula ou senha inválidos
-		$this->assertEquals($messages[0]['error'], "<b>Matrícula ou senha inválidos</b>");
+		
+		//	Testa se recebeu um ViewModel
+		$this->assertInstanceOf('Zend\View\Model\ViewModel', $result);		
+		$variables = $result->getVariables();
+
+		//	Verifica se existe um form
+		$this->assertInstanceOf('Zend\Form\Form', $variables['form']);
+		$form = $variables['form'];
+
+		//	Testa os itens do formulario
+		$id = $form->get('id');
+		$this->assertEquals('id', $id->getName());
+		$this->assertEquals('hidden', $id->getAttribute('type'));
+
+		$funcionario = $form->get('funcionario');
+		$this->assertEquals('funcionario', $funcionario->getName());
+		$this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $funcionario->getAttribute('type'));
+
+		$resource = $form->get('resource');
+		$this->assertEquals('resource', $resource->getName());
+		$this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $resource->getAttribute('type'));
+
+		$privilegio = $form->get('privilegio');
+		$this->assertEquals('privilegio', $privilegio->getName());
+		$this->assertEquals('Zend\Form\Element\Select', $privilegio->getAttribute('type'));
 	}
 
 	/**
-	 * Test verifica se usuario ta logado
+	 * Testa a inclusao de uma nova regra
 	 */
-	public function testAuthLogadoAction()
+	public function testRoleSaveActionPostRequest()
 	{
-		//	Gravando uma pessoa no banco pre requisito para um funcionario existir
-		$fisica = $this->buildFisica();
 		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
+	
+		$fisica = $this->buildFisica();				
 		$em->persist($fisica);
-		//	Gravando um funcionario
-		$funcionario = $this->buildFuncionario();
-		// $funcionario->setId($fisica);
-		$funcionario->setRefCodPessoaFj($fisica);
-		$em->persist($funcionario);
+
+		$resource = $this->buildResource();
+		$em->persist($resource);
+		
+		$role = $this->buildRole();
+		$role->setFuncionario($fisica);
+		$role->setResource($resource);
+		$em->persist($role);		
 		$em->flush();
 
 		//	Dispara a acao
-		$this->routeMatch->setParam('action', 'index');
-
+		$this->routeMatch->setParam('action', 'save');
 		$this->request->setMethod('post');
-		$this->request->getPost()->set('matricula', 'admin');
-		$this->request->getPost()->set('senha', 'admin');
-
+		$this->request->getPost()->set('id', '');
+		$this->request->getPost()->set('funcionario', $fisica->getId());
+		$this->request->getPost()->set('resource', $resource->getId());
+		$this->request->getPost()->set('privilegio', 0);
+		
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
 		);
 		//	Verifica a resposta
 		$response = $this->controller->getResponse();		
-
-		//	Disparando a acao
-		$this->routeMatch->setParam('action', 'logado');
-
-		$result = $this->controller->dispatch(
-			$this->request, $this->response
-		);
-		//	Verifica a resposta
-		$response = $this->controller->getResponse();
-		
-		//	Verificar flashMessages
-		$messenger = new \Zend\Mvc\Controller\Plugin\FlashMessenger();
-		//	Verifica se existe flashMessages
-		$this->assertTrue($messenger->hasMessages());
-		//	Get Messages		
-		$messages = $messenger->getMessages();
-		//	Verifica se a mensagem é uma mensagem sucesso Você logou com sucesso!
-		$this->assertEquals($messages[0]['sucess'], "Você logou com sucesso!");
+		//	a pagina redireciona, estao o status = 302
+		$this->assertEquals(302, $response->getStatusCode());
+		$headers = $response->getHeaders();
+		$this->assertEquals('Location: /auth/role', $headers->get('Location'));
 	}
 
 	/**
-	 * Testa o logout  
-	 */	
-	public function testAuthLogoutAction()
+	 * Testa o update de uma regra
+	 */
+	public function testRoleUpdateAction()
 	{
-		//	Gravando uma pessoa no banco pre requisito para um funcionario existir
-		$fisica = $this->buildFisica();
 		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
+	
+		$fisica = $this->buildFisica();				
 		$em->persist($fisica);
-		//	Gravando um funcionario
-		$funcionario = $this->buildFuncionario();
-		// $funcionario->setId($fisica);
-		$funcionario->setRefCodPessoaFj($fisica);
-		$em->persist($funcionario);
+
+		$resource = $this->buildResource();
+		$em->persist($resource);
+		
+		$role = $this->buildRole();
+		$role->setFuncionario($fisica);
+		$role->setResource($resource);
+		$em->persist($role);		
 		$em->flush();
 
 		//	Dispara a acao
-		$this->routeMatch->setParam('action', 'index');
+		$this->routeMatch->setParam('action', 'save');
+		$this->request->setMethod('post');
+		$this->request->getPost()->set('id', $role->getId());
+		$this->request->getPost()->set('funcionario', $fisica->getId());
+		$this->request->getPost()->set('resource', $resource->getId());
+		$this->request->getPost()->set('privilegio', 1);
+		
+		$result = $this->controller->dispatch(
+			$this->request, $this->response
+		);
+		//	Verifica a resposta
+		$response = $this->controller->getResponse();		
+		//	a pagina redireciona, estao o status = 302
+		$this->assertEquals(302, $response->getStatusCode());
+		$headers = $response->getHeaders();
+		$this->assertEquals('Location: /auth/role', $headers->get('Location'));
+	}
+
+	/**
+	 * Testa salvar com dados invalidos
+	 */
+	public function testRoleSaveActionInvalidPostRequest()
+	{
+		//	Dispara a acao
+		$this->routeMatch->setParam('action', 'save');
 
 		$this->request->setMethod('post');
-		$this->request->getPost()->set('matricula', 'admin');
-		$this->request->getPost()->set('senha', 'admin');
+		$this->request->getPost()->set('privilegio', 3);
+
 
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
 		);
-		//	Verifica a resposta
-		$response = $this->controller->getResponse();	
-		$this->assertEquals(302, $response->getStatusCode());	
 
+		//	Verifica se existe um form		
+		$variables = $result->getVariables();
+		$this->assertInstanceOf('Zend\Form\Form', $variables['form']);
+		$form = $variables['form'];
 
-		//	Disparando a acao
-		$this->routeMatch->setParam('action', 'logout');
+		//	testa os erros do formulario
+		$funcionario = $form->get('funcionario');
+		$funcionarioErrors = $funcionario->getMessages();
+
+		$this->assertEquals(
+			"Value is required and can't be empty", $funcionarioErrors['isEmpty']
+		);
+
+		$resource = $form->get('resource');
+		$resourceErrors = $resource->getMessages();
+
+		$this->assertEquals(
+			"Value is required and can't be empty", $resourceErrors['isEmpty']
+		);
+
+		$privilegio = $form->get('privilegio');
+		$privilegioErrors = $privilegio->getMessages();		
+		$this->assertEquals(
+			"The input was not found in the haystack", $privilegioErrors['notInArray']
+		);
+	}
+
+	/**
+	 * Testa a exclusao sem passar o id da regra
+	 * @expectedException Exception
+	 * @expectedExceptionMessage Código Obrigatório
+	 */
+	public function testRoleInvalidDeleteAction()
+	{
+		//	Dispara a acao
+		$this->routeMatch->setParam('action', 'delete');
 
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
 		);
+
 		//	Verifica a resposta
 		$response = $this->controller->getResponse();
-		// $this->assertEquals(200, $response->getStatusCode());
+	}
 
+	/**
+	 * Testa a exclusao de uma regra
+	 */
+	public function testRoleDeleteAction()
+	{
+		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
+	
+		$fisica = $this->buildFisica();				
+		$em->persist($fisica);
 
-		//	Disparando a acao
-		$this->routeMatch->setParam('action', 'logado');
-
-		$result = $this->controller->dispatch(
-			$this->request, $this->response
-		);
-		//	Verifica a resposta
-		$response = $this->controller->getResponse();
+		$resource = $this->buildResource();
+		$em->persist($resource);
 		
-		//	Verificar flashMessages
-		$messenger = new \Zend\Mvc\Controller\Plugin\FlashMessenger();
-		//	Verifica se existe flashMessages
-		$this->assertTrue($messenger->hasMessages());
-		//	Get Messages		
-		$messages = $messenger->getMessages();
-		//	Verifica se a mensagem é uma mensagem error Você não está logado!
-		$this->assertEquals($messages[0]['error'], "Você não está logado!");
+		$role = $this->buildRole();
+		$role->setFuncionario($fisica);
+		$role->setResource($resource);
+		$em->persist($role);		
+		$em->flush();		
+		
+		//	Dispara a acao
+		$this->routeMatch->setParam('action', 'delete');
+		$this->routeMatch->setParam('id', $role->getId());
+
+		$result = $this->controller->dispatch(
+			$this->request, $this->response
+		);
+
+		//	Verifica a reposta
+		$response = $this->controller->getResponse();
+
+		//	A pagina redireciona, entao o status = 302
+		$this->assertEquals(302, $response->getStatusCode());
+		$headers = $response->getHeaders();
+		$this->assertEquals(
+			'Location: /auth/role', $headers->get('Location')
+		);
+	}
+
+	/**
+	 * Testa a exlusao passando um id inexistente
+	 * @expectedException Exception
+	 * @expectedExceptionMessage Registro não encontrado
+	 */
+	public function testRoleInvalidIdDeleteAction()
+	{
+		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
+	
+		$fisica = $this->buildFisica();				
+		$em->persist($fisica);
+
+		$resource = $this->buildResource();
+		$em->persist($resource);
+		
+		$role = $this->buildRole();
+		$role->setFuncionario($fisica);
+		$role->setResource($resource);
+		$em->persist($role);		
+		$em->flush();
+		
+		//	Dispara a acao
+		$this->routeMatch->setParam('action', 'delete');
+		$this->routeMatch->setParam('id', 2);
+
+		$result = $this->controller->dispatch(
+			$this->request, $this->response
+		);
+
+		//	Verifica a reposta
+		$response = $this->controller->getResponse();
+
+		//	A pagina redireciona, entao o status = 302
+		$this->assertEquals(302, $response->getStatusCode());
+		$headers = $response->getHeaders();
+		$this->assertEquals(
+			'Location: /auth/role', $headers->get('Location')
+		);	
 	}
 
 	private function buildFisica()
@@ -249,29 +398,33 @@ class RoleControllerTest extends ControllerTestCase
     	/**
     	 * Dados fisica
     	 */    	
-		$fisica = new \Usuario\Entity\Fisica;		
+		$fisica = new Fisica;		
 		$fisica->setSexo("M");
 		$fisica->setOrigemGravacao("M");
 		$fisica->setOperacao("I");
 		$fisica->setIdsisCad(1);
-		$fisica->setNome('Steve Jobs');
-		$fisica->setSituacao('A');
-		$fisica->setOrigemGravacao('U');
-		$fisica->setOperacao('I');
-		$fisica->setIdsisCad(1);
-		$fisica->setCpf('111.111.111-11');
+		$fisica->setNome("Steve Jobs");
+		$fisica->setTipo("F");
+		$fisica->setSituacao("A");
 
     	return $fisica;
 	}
-
-	private function buildFuncionario()
+	
+	private function buildResource()
 	{
-		$funcionario = new \Portal\Entity\Funcionario;
-		$funcionario->setMatricula('admin');
-		$funcionario->setSenha('admin');
-		$funcionario->setAtivo(1);		
+		$resource = new Resource;
+		$resource->setNome('Application\Entity\Index.index');
+		$resource->setDescricao('Tela inicial do sistema');
 
-		return $funcionario;
+		return $resource;
+	}
+
+	private function buildRole()
+	{
+		$role = new Role;
+		$role->setPrivilegio(0);
+    	
+    	return $role;
 	}
 
 }

@@ -1,0 +1,91 @@
+<div class="row">
+	<ol class="breadcrumb">
+		<li><a href="/">Ínicio</a></li>
+	  	<li><a href="/auth/role">Permissões</a></li>
+	  	<li class="active">Salvar</li>
+	</ol>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<div class="page-header">
+  			<h1><i class="icon icon-lock"></i> Permissões <small>de usuários</small></h1>
+		</div>
+	</div>	
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<div class="panel panel-default">
+  			<div class="panel-heading">
+  				<b>Salvar</b>
+  			</div>  			
+			<div class="row">			
+				<div class="col-md-12 p-20">
+					<?php
+					echo $this->form()->openTag($form);
+					$id = $this->form->get('id');
+					$funcionario = $this->form->get('funcionario');
+					$resource = $this->form->get('resource');
+					$privilegio = $this->form->get('privilegio');
+					echo $this->formInput($id);
+					?>	  				
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-4">
+								<label for="funcionario">
+									<?php
+									echo $funcionario->getOption('label');
+									?>
+								</label>								
+								<?php
+								echo $this->formSelect($funcionario);
+								echo $this->formElementErrors($funcionario);
+								?>
+							</div>
+							<div class="col-md-4">
+								<label for="resource">
+									<?php
+									echo $resource->getOption('label');
+									?>
+								</label>
+								<?php
+								echo $this->formSelect($resource);
+								echo $this->formElementErrors($resource);
+								?>
+							</div>
+							<div class="col-md-4">
+								<label for="privilegio">
+									<?php echo $privilegio->getOption('label');?>
+								</label>
+								<?php
+								echo $this->formSelect($privilegio);
+								echo $this->formElementErrors($privilegio);
+								?>
+							</div>
+						</div>
+					</div>					
+					<?php
+					$enviar = $this->form->get('submit');
+    				echo $this->formElement($enviar);
+					echo $this->form()->closeTag();
+					?>
+	    		</div>
+			</div>			
+		</div>
+	</div>
+</div>
+<?php
+echo $this->headLink()->prependStylesheet($this->basePath() . '/componentes/chosen/chosen.min.css');                      
+echo $this->headScript()->prependFile($this->basePath() . '/componentes/chosen/chosen.jquery.min.js', 'text/javascript');
+?>
+<script type="text/javascript">
+    var config = {
+      '.chosen-select'           : {},
+      '.chosen-select-deselect'  : {allow_single_deselect:true},
+      '.chosen-select-no-single' : {disable_search_threshold:10},
+      '.chosen-select-no-results': {no_results_text:'Oops, nada foi encontrado!'},
+      '.chosen-select-width'     : {width:"95%"}
+    }
+    for (var selector in config) {    	
+    	$(selector).chosen(config[selector]);
+    }
+</script>

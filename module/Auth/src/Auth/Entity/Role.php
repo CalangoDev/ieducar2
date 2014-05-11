@@ -66,7 +66,7 @@ class Role extends Entity
 	 * 
 	 * @ORM\Column(type="smallint", nullable=false)
 	 */
-	protected $privilegio = 1;
+	protected $privilegio = 0;
 
 	/**
 	 * getters and setters
@@ -88,7 +88,7 @@ class Role extends Entity
 	
 	public function setFuncionario($value)
 	{
-		$this->funcionario = $this->valid("funcionario", $value);
+		$this->funcionario = $value;
 	}
 
 	public function getResource()
@@ -98,7 +98,7 @@ class Role extends Entity
 	
 	public function setResource($value)
 	{
-		$this->resource = $this->valid("resource", $value);
+		$this->resource = $value;
 	}
 
 	public function getPrivilegio()

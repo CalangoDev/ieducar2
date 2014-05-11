@@ -35,6 +35,11 @@ return array(
                             'defaults' => array(
                             ),
                         ),
+                        'child_routes' => array( //permite mandar dados pela url 
+                            'wildcard' => array(
+                                'type' => 'Wildcard'
+                            ),
+                        ),
                     ),
                 ),
             ),
@@ -74,6 +79,7 @@ return array(
         'invokables' => array(            
             'Auth\Controller\Index' => 'Auth\Controller\IndexController',
             'Auth\Controller\Resource' => 'Auth\Controller\ResourceController',
+            'Auth\Controller\Role' => 'Auth\Controller\RoleController',
             
         ),
     ),
