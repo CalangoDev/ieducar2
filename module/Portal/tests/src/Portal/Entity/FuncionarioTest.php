@@ -32,9 +32,9 @@ class FuncionarioTest extends EntityTestCase
 	 */
 	public function testInputFilterValid($if)
 	{
-		$this->assertEquals(22, $if->count());
+		$this->assertEquals(21, $if->count());
 
-		$this->assertTrue($if->has('id'));
+		// $this->assertTrue($if->has('id'));
 		$this->assertTrue($if->has('matricula'));
 		$this->assertTrue($if->has('senha'));
 		$this->assertTrue($if->has('ativo'));
@@ -71,16 +71,19 @@ class FuncionarioTest extends EntityTestCase
 		$this->em->persist($funcionario);
 		$this->em->flush();
 
-		$this->assertNotNull($funcionario->getId());		
+		// $this->assertNotNull($funcionario->getId());		
+		$this->assertNotNull($funcionario->getRefCodPessoaFj());		
 		$this->assertEquals($fisica, $funcionario->getRefCodPessoaFj());
 
 		/**
 		 * Buscando no banco de dados o funcionario que foi cadastrado
 		 */
-		$savedFuncionario = $this->em->find(get_class($funcionario), $funcionario->getId());
+		// $savedFuncionario = $this->em->find(get_class($funcionario), $funcionario->getId());
+		$savedFuncionario = $this->em->find(get_class($funcionario), $funcionario->getRefCodPessoaFj());
 
 		$this->assertInstanceOf(get_class($funcionario), $savedFuncionario);
-		$this->assertEquals($funcionario->getId(), $savedFuncionario->getId());		
+		// $this->assertEquals($funcionario->getId(), $savedFuncionario->getId());
+		$this->assertEquals($funcionario->getRefCodPessoaFj(), $savedFuncionario->getRefCodPessoaFj());
 		$this->assertEquals(md5('admin'), $savedFuncionario->getSenha());
 	}
 
@@ -111,7 +114,8 @@ class FuncionarioTest extends EntityTestCase
 		$funcionario->setRefCodPessoaFj($fisica);
 		$this->em->persist($funcionario);
 
-		$savedFuncionario = $this->em->find('Portal\Entity\Funcionario', $funcionario->getId());
+		// $savedFuncionario = $this->em->find('Portal\Entity\Funcionario', $funcionario->getId());
+		$savedFuncionario = $this->em->find('Portal\Entity\Funcionario', $funcionario->getRefCodPessoaFj());
 
 		$this->assertEquals('admin', $savedFuncionario->getMatricula());
 
@@ -119,7 +123,8 @@ class FuncionarioTest extends EntityTestCase
 		$this->em->persist($savedFuncionario);
 		$this->em->flush();
 
-		$savedFuncionario = $this->em->find('Portal\Entity\Funcionario', $savedFuncionario->getId());
+		// $savedFuncionario = $this->em->find('Portal\Entity\Funcionario', $savedFuncionario->getId());
+		$savedFuncionario = $this->em->find('Portal\Entity\Funcionario', $savedFuncionario->getRefCodPessoaFj());
 
 		$this->assertEquals('gold', $savedFuncionario->getMatricula());
 

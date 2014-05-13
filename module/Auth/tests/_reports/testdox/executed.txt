@@ -1,3 +1,10 @@
+IndexController
+ [x] Auth index action new request
+ [x] Auth index action post request
+ [x] Auth invalid index action post request
+ [x] Auth logado action
+ [x] Auth logout action
+
 RoleController
  [x] Role index action
  [x] Role action new request
@@ -8,4 +15,12 @@ RoleController
  [x] Role invalid delete action
  [x] Role delete action
  [x] Role invalid id delete action
+
+Auth\Entity\Role
+ [x] Get input filter
+ [x] Input filter valid
+ [x] Insert
+ [x] Input filter invalido tipo
+ [x] Update
+ [x] Delete
 

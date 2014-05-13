@@ -62,7 +62,7 @@ class Builder implements ServiceManagerAwareInterface
 	{	
 		$acl = new Acl();				 
 		$acl->addRole(new Role('visitante'), null);
-		$acl->addRole(new Role(7), 'visitante');		
+		// $acl->addRole(new Role(7), 'visitante');		
 		$acl->addResource(new Resource('Auth\Controller\Index.index'));	
 		$acl->addResource(new Resource('Auth\Controller\Index.logout'));	
 		$acl->addResource(new Resource('DoctrineORMModule\Yuml\YumlController.index'));
@@ -80,16 +80,17 @@ class Builder implements ServiceManagerAwareInterface
 		foreach ($roles as $role) {
 			/**
 			 * Se a regra nao existe, insere ele
-			 */			
-			if (! $acl->hasRole($role->getFuncionario()->getId()))
-				$acl->addRole(new Role($role->getFuncionario()->getId(), 'visitante'));				
+			 */
+			// var_dump($role->getFuncionario()->getRefCodPessoaFj()->getId());
+			if (! $acl->hasRole($role->getFuncionario()->getRefCodPessoaFj()->getId()))
+				$acl->addRole(new Role($role->getFuncionario()->getRefCodPessoaFj()->getId(), 'visitante'));
 			/**
 			 * Verifica o privilegio
 			 * 
 			 * 0 - allow
 			 * 1 - denny			
 			 */
-			($role->getPrivilegio == 0) ? $acl->allow($role->getFuncionario()->getId(), $role->getResource()->getNome()) : $acl->deny($role->getFuncionario()->getId(), $role->getResource()->getNome());
+			($role->getPrivilegio() == 0) ? $acl->allow($role->getFuncionario()->getRefCodPessoaFj()->getId(), $role->getResource()->getNome()) : $acl->deny($role->getFuncionario()->getRefCodPessoaFj()->getId(), $role->getResource()->getNome());
 		}
 		return $acl;
 	}

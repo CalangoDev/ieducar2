@@ -88,6 +88,5 @@ Criar os schemas antes de rodar a Aplicação
 ## Todo ##
 
 1. **Auth + ACL**
-2. Testes para cadastros de roles e resources do Modulo Auth
-3. Mudar o relacionamento de funcionario em role para tabela funcionario e nao a fisica... 
-4. Criar a logica, onde se o usuario for superadmin liberar acesso a todos os resources cadastrados
+2. **Testes para cadastros de roles e resources do Modulo Auth**
+3. **Criar a logica, onde se o usuario for superadmin liberar acesso a todos os resources cadastrados**

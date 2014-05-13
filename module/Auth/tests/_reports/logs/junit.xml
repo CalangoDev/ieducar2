@@ -1,17 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="Auth Test Suite" tests="9" assertions="41" failures="0" errors="0" time="62.372076">
-    <testsuite name="IndexControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/IndexControllerTest.php" tests="0" assertions="0" failures="0" errors="0" time="0.000000"/>
-    <testsuite name="RoleControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/RoleControllerTest.php" tests="9" assertions="41" failures="0" errors="0" time="62.372076">
-      <testcase name="testRoleIndexAction" class="RoleControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/RoleControllerTest.php" line="31" assertions="5" time="43.107152"/>
-      <testcase name="testRoleActionNewRequest" class="RoleControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/RoleControllerTest.php" line="87" assertions="11" time="3.779587"/>
-      <testcase name="testRoleSaveActionUpdateFormRequest" class="RoleControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/RoleControllerTest.php" line="128" assertions="11" time="1.649945"/>
-      <testcase name="testRoleSaveActionPostRequest" class="RoleControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/RoleControllerTest.php" line="184" assertions="2" time="2.846972"/>
-      <testcase name="testRoleUpdateAction" class="RoleControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/RoleControllerTest.php" line="222" assertions="2" time="1.639506"/>
-      <testcase name="testRoleSaveActionInvalidPostRequest" class="RoleControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/RoleControllerTest.php" line="260" assertions="4" time="3.458066"/>
-      <testcase name="testRoleInvalidDeleteAction" class="RoleControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/RoleControllerTest.php" line="305" assertions="2" time="2.122298"/>
-      <testcase name="testRoleDeleteAction" class="RoleControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/RoleControllerTest.php" line="321" assertions="2" time="1.821419"/>
-      <testcase name="testRoleInvalidIdDeleteAction" class="RoleControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/RoleControllerTest.php" line="361" assertions="2" time="1.947131"/>
+  <testsuite name="Auth Test Suite" tests="20" assertions="68" failures="0" errors="0" time="731.641683">
+    <testsuite name="IndexControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/IndexControllerTest.php" tests="5" assertions="17" failures="0" errors="0" time="136.875988">
+      <testcase name="testAuthIndexActionNewRequest" class="IndexControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/IndexControllerTest.php" line="29" assertions="7" time="43.189736"/>
+      <testcase name="testAuthIndexActionPostRequest" class="IndexControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/IndexControllerTest.php" line="62" assertions="2" time="38.690937"/>
+      <testcase name="testAuthInvalidIndexActionPostRequest" class="IndexControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/IndexControllerTest.php" line="100" assertions="3" time="16.256571"/>
+      <testcase name="testAuthLogadoAction" class="IndexControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/IndexControllerTest.php" line="141" assertions="2" time="24.644159"/>
+      <testcase name="testAuthLogoutAction" class="IndexControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/IndexControllerTest.php" line="189" assertions="3" time="14.094585"/>
+    </testsuite>
+    <testsuite name="RoleControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/RoleControllerTest.php" tests="9" assertions="41" failures="0" errors="0" time="465.291979">
+      <testcase name="testRoleIndexAction" class="RoleControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/RoleControllerTest.php" line="31" assertions="5" time="33.422781"/>
+      <testcase name="testRoleActionNewRequest" class="RoleControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/RoleControllerTest.php" line="93" assertions="11" time="46.203363"/>
+      <testcase name="testRoleSaveActionUpdateFormRequest" class="RoleControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/RoleControllerTest.php" line="134" assertions="11" time="54.001118"/>
+      <testcase name="testRoleSaveActionPostRequest" class="RoleControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/RoleControllerTest.php" line="193" assertions="2" time="100.077334"/>
+      <testcase name="testRoleUpdateAction" class="RoleControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/RoleControllerTest.php" line="234" assertions="2" time="47.229673"/>
+      <testcase name="testRoleSaveActionInvalidPostRequest" class="RoleControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/RoleControllerTest.php" line="276" assertions="4" time="39.329728"/>
+      <testcase name="testRoleInvalidDeleteAction" class="RoleControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/RoleControllerTest.php" line="321" assertions="2" time="24.448085"/>
+      <testcase name="testRoleDeleteAction" class="RoleControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/RoleControllerTest.php" line="337" assertions="2" time="57.391166"/>
+      <testcase name="testRoleInvalidIdDeleteAction" class="RoleControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Controller/RoleControllerTest.php" line="381" assertions="2" time="63.188731"/>
+    </testsuite>
+    <testsuite name="Auth\Entity\RoleTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Entity/RoleTest.php" namespace="Auth\Entity" fullPackage="Auth.Entity" tests="6" assertions="10" failures="0" errors="0" time="129.473717">
+      <testcase name="testGetInputFilter" class="Auth\Entity\RoleTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Entity/RoleTest.php" line="24" assertions="1" time="17.479372"/>
+      <testcase name="testInputFilterValid" class="Auth\Entity\RoleTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Entity/RoleTest.php" line="35" assertions="3" time="22.521531"/>
+      <testcase name="testInsert" class="Auth\Entity\RoleTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Entity/RoleTest.php" line="48" assertions="2" time="36.849820"/>
+      <testcase name="testInputFilterInvalidoTipo" class="Auth\Entity\RoleTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Entity/RoleTest.php" line="93" assertions="1" time="40.968134"/>
+      <testcase name="testUpdate" class="Auth\Entity\RoleTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Entity/RoleTest.php" line="113" assertions="2" time="7.523948"/>
+      <testcase name="testDelete" class="Auth\Entity\RoleTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Auth/tests/src/Auth/Entity/RoleTest.php" line="161" assertions="1" time="4.130912"/>
     </testsuite>
   </testsuite>
 </testsuites>

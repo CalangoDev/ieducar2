@@ -7,6 +7,7 @@ use Core\Controller\ActionController;
 use Auth\Form\Login as LoginForm;
 // use DoctrineORMModule\Stdlib\Hydrator\DoctrineEntity;
 use Doctrine\ORM\EntityManager;
+use Zend\Authentication\AuthenticationService;
 
 /**
  * Controlador que gerencia a autenticacao
@@ -78,10 +79,12 @@ class IndexController extends ActionController
 
     public function logadoAction()
     {        
-    	$authService = $this->getServiceLocator()->get('Zend\Authentication\AuthenticationService');        
-    	// $loggedUser = $authService->getIdentity();    	
-    	
-    	($user = $authService->getIdentity()) ? $this->flashMessenger()->addMessage(array("sucess" => 'Você logou com sucesso!')) : $this->flashMessenger()->addMessage(array("error" => "Você não está logado!"));
+    	// $authService = $this->getServiceLocator()->get('Zend\Authentication\AuthenticationService');  
+        $authService = new AuthenticationService();              
+    	// $loggedUser = $authService->getIdentity(); 	
+        // 
+    	($authService->hasIdentity()) ? $this->flashMessenger()->addMessage(array("sucess" => 'Você logou com sucesso!')) : $this->flashMessenger()->addMessage(array("error" => "Você não está logado!"));
+    	//($user = $authService->getIdentity()) ? $this->flashMessenger()->addMessage(array("sucess" => 'Você logou com sucesso!')) : $this->flashMessenger()->addMessage(array("error" => "Você não está logado!"));
     		
     	return new ViewModel();
     }

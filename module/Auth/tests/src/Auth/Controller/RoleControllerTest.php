@@ -34,21 +34,27 @@ class RoleControllerTest extends ControllerTestCase
 	
 		$fisica = $this->buildFisica();				
 		$em->persist($fisica);
+		$funcionario = $this->buildFuncionario();
+		$funcionario->setRefCodPessoaFj($fisica);
+		$em->persist($funcionario);
 
-		$fisicadeny = $this->buildFisica();
+		$fisicadeny = $this->buildFisica();		
 		$em->persist($fisicadeny);
+		$funcionariodeny = $this->buildFuncionario();
+		$funcionariodeny->setRefCodPessoaFj($fisicadeny);
+		$em->persist($funcionariodeny);
 		
 		$resource = $this->buildResource();
 		$em->persist($resource);
 		
 		$role = $this->buildRole();
-		$role->setFuncionario($fisica);
+		$role->setFuncionario($funcionario);
 		$role->setResource($resource);
 		$em->persist($role);
 
 		$roledeny = $this->buildRole();
 		$roledeny->setPrivilegio(1);
-		$roledeny->setFuncionario($fisicadeny);
+		$roledeny->setFuncionario($funcionariodeny);
 		$roledeny->setResource($resource);
 		$em->persist($roledeny);
 		
@@ -131,12 +137,15 @@ class RoleControllerTest extends ControllerTestCase
 	
 		$fisica = $this->buildFisica();				
 		$em->persist($fisica);
+		$funcionario = $this->buildFuncionario();
+		$funcionario->setRefCodPessoaFj($fisica);
+		$em->persist($funcionario);
 
 		$resource = $this->buildResource();
 		$em->persist($resource);
 		
 		$role = $this->buildRole();
-		$role->setFuncionario($fisica);
+		$role->setFuncionario($funcionario);
 		$role->setResource($resource);
 		$em->persist($role);		
 		$em->flush();
@@ -187,12 +196,15 @@ class RoleControllerTest extends ControllerTestCase
 	
 		$fisica = $this->buildFisica();				
 		$em->persist($fisica);
+		$funcionario = $this->buildFuncionario();
+		$funcionario->setRefCodPessoaFj($fisica);
+		$em->persist($funcionario);
 
 		$resource = $this->buildResource();
 		$em->persist($resource);
 		
 		$role = $this->buildRole();
-		$role->setFuncionario($fisica);
+		$role->setFuncionario($funcionario);
 		$role->setResource($resource);
 		$em->persist($role);		
 		$em->flush();
@@ -226,11 +238,15 @@ class RoleControllerTest extends ControllerTestCase
 		$fisica = $this->buildFisica();				
 		$em->persist($fisica);
 
+		$funcionario = $this->buildFuncionario();
+		$funcionario->setRefCodPessoaFj($fisica);
+		$em->persist($funcionario);
+
 		$resource = $this->buildResource();
 		$em->persist($resource);
 		
 		$role = $this->buildRole();
-		$role->setFuncionario($fisica);
+		$role->setFuncionario($funcionario);
 		$role->setResource($resource);
 		$em->persist($role);		
 		$em->flush();
@@ -325,11 +341,15 @@ class RoleControllerTest extends ControllerTestCase
 		$fisica = $this->buildFisica();				
 		$em->persist($fisica);
 
+		$funcionario = $this->buildFuncionario();
+		$funcionario->setRefCodPessoaFj($fisica);
+		$em->persist($funcionario);
+
 		$resource = $this->buildResource();
 		$em->persist($resource);
 		
 		$role = $this->buildRole();
-		$role->setFuncionario($fisica);
+		$role->setFuncionario($funcionario);
 		$role->setResource($resource);
 		$em->persist($role);		
 		$em->flush();		
@@ -365,11 +385,15 @@ class RoleControllerTest extends ControllerTestCase
 		$fisica = $this->buildFisica();				
 		$em->persist($fisica);
 
+		$funcionario = $this->buildFuncionario();
+		$funcionario->setRefCodPessoaFj($fisica);
+		$this->em->persist($funcionario);
+
 		$resource = $this->buildResource();
 		$em->persist($resource);
 		
 		$role = $this->buildRole();
-		$role->setFuncionario($fisica);
+		$role->setFuncionario($funcionario);
 		$role->setResource($resource);
 		$em->persist($role);		
 		$em->flush();
@@ -408,6 +432,16 @@ class RoleControllerTest extends ControllerTestCase
 		$fisica->setSituacao("A");
 
     	return $fisica;
+	}
+
+	private function buildFuncionario()
+	{
+		$funcionario = new \Portal\Entity\Funcionario;
+		$funcionario->setMatricula('admin');
+		$funcionario->setSenha('admin');
+		$funcionario->setAtivo(1);		
+
+		return $funcionario;
 	}
 	
 	private function buildResource()

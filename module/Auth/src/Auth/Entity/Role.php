@@ -44,9 +44,9 @@ class Role extends Entity
 
 	/**
 	 * @var int $funcionario Id do funcionario 
-	 * 
-	 * @ORM\ManyToOne(targetEntity="Usuario\Entity\Fisica", cascade={"persist"})
-	 * @ORM\JoinColumn(name="funcionario_id", referencedColumnName="idpes", onDelete="RESTRICT")
+	 * 	 
+	 * @ORM\ManyToOne(targetEntity="Portal\Entity\Funcionario", cascade={"persist"})
+	 * @ORM\JoinColumn(name="funcionario_id", referencedColumnName="id", onDelete="RESTRICT")
 	 */
 	protected $funcionario;
 

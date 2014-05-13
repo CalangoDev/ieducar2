@@ -49,11 +49,18 @@ class RoleTest extends EntityTestCase
 	{
 		$fisica = $this->buildFisica();				
 		$this->em->persist($fisica);
+
+		$funcionario = $this->buildFuncionario();
+		$funcionario->setRefCodPessoaFj($fisica);
+		$this->em->persist($funcionario);
+
 		$resource = $this->buildResource();
 		$this->em->persist($resource);
+
 		$role = $this->buildRole();
-		$role->setFuncionario($fisica);
+		$role->setFuncionario($funcionario);
 		$role->setResource($resource);
+		
 		$this->em->persist($role);
 		$this->em->flush();
 
@@ -63,7 +70,7 @@ class RoleTest extends EntityTestCase
 		/**
 		 * Verificando se salvou o registro no banco para a pessoaA
 		 */
-		$this->assertEquals('Steve Jobs', $role->getFuncionario()->getNome());
+		$this->assertEquals('admin', $role->getFuncionario()->getMatricula());
 		$this->assertEquals(1, $role->getId());		
 	}
 
@@ -87,10 +94,16 @@ class RoleTest extends EntityTestCase
 	{
 		$fisica = $this->buildFisica();				
 		$this->em->persist($fisica);
+
+		$funcionario = $this->buildFuncionario();
+		$funcionario->setRefCodPessoaFj($fisica);
+		$this->em->persist($funcionario);
+
 		$resource = $this->buildResource();
 		$this->em->persist($resource);
+
 		$role = $this->buildRole();
-		$role->setFuncionario($fisica);
+		$role->setFuncionario($funcionario);
 		$role->setResource($resource);
 		$role->setPrivilegio(2);
 		$this->em->persist($role);
@@ -101,10 +114,16 @@ class RoleTest extends EntityTestCase
 	{
 		$fisica = $this->buildFisica();				
 		$this->em->persist($fisica);
+
+		$funcionario = $this->buildFuncionario();
+		$funcionario->setRefCodPessoaFj($fisica);
+		$this->em->persist($funcionario);
+
 		$resource = $this->buildResource();
 		$this->em->persist($resource);
+
 		$role = $this->buildRole();
-		$role->setFuncionario($fisica);
+		$role->setFuncionario($funcionario);
 		$role->setResource($resource);
 		$this->em->persist($role);
 		$this->em->flush();
@@ -143,10 +162,16 @@ class RoleTest extends EntityTestCase
 	{
 		$fisica = $this->buildFisica();				
 		$this->em->persist($fisica);
+
+		$funcionario = $this->buildFuncionario();
+		$funcionario->setRefCodPessoaFj($fisica);
+		$this->em->persist($funcionario);
+
 		$resource = $this->buildResource();
 		$this->em->persist($resource);
+
 		$role = $this->buildRole();
-		$role->setFuncionario($fisica);
+		$role->setFuncionario($funcionario);
 		$role->setResource($resource);
 		$this->em->persist($role);
 		$this->em->flush();
@@ -180,6 +205,16 @@ class RoleTest extends EntityTestCase
 		$fisica->setSituacao("A");
 
     	return $fisica;
+	}
+
+	private function buildFuncionario()
+	{
+		$funcionario = new \Portal\Entity\Funcionario;
+		$funcionario->setMatricula('admin');
+		$funcionario->setSenha('admin');
+		$funcionario->setAtivo(1);		
+
+		return $funcionario;
 	}
 	
 	private function buildResource()
