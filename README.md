@@ -84,9 +84,3 @@ Criar os schemas antes de rodar a Aplicação
 ## Padrão CamelCase ##
 
 	Mudanças para uso de padrão CamelCase em todo o projeto, tava um mix com uso de underscore devido aos atributos das classes de persistencias
-	
-## Todo ##
-
-1. **Auth + ACL**
-2. **Testes para cadastros de roles e resources do Modulo Auth**
-3. **Criar a logica, onde se o usuario for superadmin liberar acesso a todos os resources cadastrados**

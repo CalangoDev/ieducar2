@@ -1,0 +1,75 @@
+<div class="row">
+	<ol class="breadcrumb">
+		<li><a href="/">Ínicio</a></li>
+	  	<li><a href="/auth/resource">Recursos</a></li>
+	  	<li class="active">Salvar</li>
+	</ol>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<div class="page-header">
+  			<h1><i class="icon icon-sitemap"></i> Recursos <small>do sistema</small></h1>
+		</div>
+	</div>	
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<div class="panel panel-default">
+  			<div class="panel-heading">
+  				<b>Salvar</b>
+  			</div>  			
+			<div class="row">			
+				<div class="col-md-12 p-20">
+					<?php
+					echo $this->form()->openTag($form);
+					$id = $this->form->get('id');
+					$nome = $this->form->get('nome');
+					$descricao = $this->form->get('descricao');					
+					echo $this->formInput($id);
+					?>	  				
+					<div class="form-group">
+						<div class="row p-20">
+							<div class="col-md-4">
+								<label for="nome">
+									<?php
+									echo $nome->getOption('label');
+									?>
+								</label>								
+								<?php
+								echo $this->formInput($nome);
+								echo $this->formElementErrors($nome);
+								?>
+							</div>
+						</div>
+						<div class="row p-20">
+							<div class="col-md-12">
+								<label for="descricao">
+									<?php
+									echo $descricao->getOption('label');
+									?>
+								</label>
+							</div>
+							<div class="col-md-6">
+								<?php
+									echo $this->formElement($descricao);
+									echo $this->formElementErrors($descricao);
+								?>							
+							</div>							
+						</div>
+						<div class="row p-20">
+							<div class="col-md-12">
+							<?php
+							$enviar = $this->form->get('submit');
+		    				echo $this->formElement($enviar);
+		    				?>
+		    				</div>
+						</div>
+						<?php						
+						echo $this->form()->closeTag();
+						?>
+					</div>					
+	    		</div>
+			</div>			
+		</div>
+	</div>
+</div>

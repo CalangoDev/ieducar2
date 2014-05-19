@@ -74,16 +74,17 @@ class Builder implements ServiceManagerAwareInterface
 
 		$acl->allow('visitante', 'Auth\Controller\Index.index');
 		$acl->allow('visitante', 'Auth\Controller\Index.logout');
-		$acl->allow('visitante', 'DoctrineORMModule\Yuml\YumlController.index');
-		
+		$acl->allow('visitante', 'DoctrineORMModule\Yuml\YumlController.index');		
 		$roles = $this->getEntityManager()->getRepository('Auth\Entity\Role')->findAll();
 		foreach ($roles as $role) {
 			/**
 			 * Se a regra nao existe, insere ele
 			 */
-			// var_dump($role->getFuncionario()->getRefCodPessoaFj()->getId());
-			if (! $acl->hasRole($role->getFuncionario()->getRefCodPessoaFj()->getId()))
+			// var_dump($role->getFuncionario()->getRefCodPessoaFj()->getId());			
+			if (! $acl->hasRole($role->getFuncionario()->getRefCodPessoaFj()->getId())){				
 				$acl->addRole(new Role($role->getFuncionario()->getRefCodPessoaFj()->getId(), 'visitante'));
+				$acl->allow($role->getFuncionario()->getRefCodPessoaFj()->getId(), 'Auth\Controller\Index.logout');
+			}
 			/**
 			 * Verifica o privilegio
 			 * 
@@ -92,6 +93,7 @@ class Builder implements ServiceManagerAwareInterface
 			 */
 			($role->getPrivilegio() == 0) ? $acl->allow($role->getFuncionario()->getRefCodPessoaFj()->getId(), $role->getResource()->getNome()) : $acl->deny($role->getFuncionario()->getRefCodPessoaFj()->getId(), $role->getResource()->getNome());
 		}
+
 		return $acl;
 	}
 }

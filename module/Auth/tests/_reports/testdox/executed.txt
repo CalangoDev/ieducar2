@@ -5,6 +5,17 @@ IndexController
  [x] Auth logado action
  [x] Auth logout action
 
+ResourceController
+ [x] Resource index action
+ [x] Resource action new request
+ [x] Resource save action update form request
+ [x] Resource save action post request
+ [x] Resource update action
+ [x] Resource save action invalid post request
+ [x] Resource invalid delete action
+ [x] Resource delete action
+ [x] Resource invalid id delete action
+
 RoleController
  [x] Role index action
  [x] Role action new request
@@ -15,6 +26,14 @@ RoleController
  [x] Role invalid delete action
  [x] Role delete action
  [x] Role invalid id delete action
+
+Auth\Entity\Resource
+ [x] Get input filter
+ [x] Input filter valid
+ [x] Insert
+ [x] Input filter invalido tipo
+ [x] Update
+ [x] Delete
 
 Auth\Entity\Role
  [x] Get input filter
