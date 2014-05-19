@@ -43,12 +43,12 @@ class Funcionario extends Entity
 
 	/**
 	 * @var Integer $id Referencia ao codigo da pessoa do modulo usuario
-	 * 	 
+	 * ORM\Id	 
 	 * @ORM\OneToOne(targetEntity="Usuario\Entity\Fisica")
 	 * @ORM\JoinColumn(name="ref_cod_pessoa_fj", referencedColumnName="idpes", nullable=false)
 	 */
 	protected $refCodPessoaFj;
-
+	
 	/**
 	 * @var string $matricula Matricula do funcionario
 	 * 
@@ -281,15 +281,15 @@ class Funcionario extends Entity
 	 * getters and setters
 	 */
 	
-	public function getId()
-	{
-		return $this->id;
-	}
+	// public function getId()
+	// {
+	// 	return $this->id;
+	// }
 	
-	public function setId($value)
-	{
-		$this->id = $this->valid("id", $value);
-	}
+	// public function setId($value)
+	// {
+	// 	$this->id = $this->valid("id", $value);
+	// }
 
 	public function getRefCodPessoaFj()
 	{
@@ -541,13 +541,13 @@ class Funcionario extends Entity
 			$inputFilter = new InputFilter();
 			$factory = new InputFactory();
 
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'id',
-				'required' => true,	
-				'filters' => array(
-					array('name' => 'Int'),
-				),			
-			)));			
+			// $inputFilter->add($factory->createInput(array(
+			// 	'name' => 'id',
+			// 	'required' => true,	
+			// 	'filters' => array(
+			// 		array('name' => 'Int'),
+			// 	),			
+			// )));			
 
 			$inputFilter->add($factory->createInput(array(
 				'name' => 'matricula',

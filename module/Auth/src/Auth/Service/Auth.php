@@ -106,24 +106,35 @@ class Auth extends Service
      */
     public function authorize($moduleName, $controllerName, $actionName)
     {    	    	
-        //$auth = new AuthenticationService(); simples retorna so o id
+    	/**
+    	 * problema serio com o authentication service
+    	 * 
+    	 * como a entidade funcionario tem um relacionamento one to one, ela nao tem a coluna id 
+    	 * e por isso ao usar getservicemanager da um erro quando tenta pegar a identity,
+    	 * tentei usar uma composisao de chave primaria, porem sem sucesso ate entao tentar mais isso depois
+    	 * pois do jeito que foi feito agora nao tem como funcionar direito
+    	 */
+        // $auth = new AuthenticationService(); //simples retorna so o id
         $auth = $this->getServiceManager()->get('Zend\Authentication\AuthenticationService');
         $role = 'visitante';
-
-        if ($auth->hasIdentity()) {
+        
+        if ($auth->hasIdentity()) {        	        	
         	$user = $auth->getIdentity();
-        	// var_dump($user->getRefCodPessoaFj()->getId());
-            /* pega o role do usuário logado */
-            // $session = $this->getServiceManager()->get('Session');
-            // $user = $session->offsetGet('usuario');
-            $role = $user->getRefCodPessoaFj()->getId();//pega o codigo da pessoa fisica 
+            $role = $user->getRefCodPessoaFj()->getId();//pega o codigo da pessoa fisica                                     
+            // foreach ($auth->getIdentity()['refCodPessoaFj'] as $key => $value) {
+            // 	if ($key == 'id'){
+            // 		$id = $value;
+            // 	}
+            // }            
+            // $role = $id;
+            // var_dump($auth->getIdentity()['refCodPessoaFj']);
         } 
         $resource = $controllerName . '.' . $actionName;                 
         /* monta as acls de acordo com o arquivo de configurações */
         $acl = $this->getServiceManager()
                     ->get('Core\Acl\Builder')
                     ->build();        
-        /* verifica se o usuário tem permissão para acessar o recurso atual */        
+        /* verifica se o usuário tem permissão para acessar o recurso atual */             
         if ($acl->isAllowed($role, $resource)) {        	
             return true;
         }        

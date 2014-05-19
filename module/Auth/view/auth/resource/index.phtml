@@ -2,13 +2,13 @@
 	<ol class="breadcrumb">
 		<li><a href="/">Ínicio</a></li>
 	  	<li><a href="#">Configurações</a></li>
-	  	<li class="active">Permissões</li>
+	  	<li class="active">Recursos</li>
 	</ol>
 </div>
 <div class="row">
 	<div class="col-md-12">
 		<div class="page-header">
-  			<h1><i class="icon icon-lock"></i> Permissões <small>de usuários</small></h1>
+  			<h1><i class="icon icon-sitemap"></i> Recursos <small>do sistema</small></h1>
 		</div>
 	</div>	
 </div>
@@ -16,11 +16,11 @@
 	<div class="col-md-12">
 		<div class="panel panel-default">
   			<div class="panel-heading">
-  				<b>Lista de Permissões</b>
+  				<b>Lista de Recursos</b>
   			</div>
   			<div class="row">
 				<div class="col-md-4 p-20">
-					<a href="/auth/role/save" class="btn btn-primary"><i class="icon icon-plus"></i> Nova Permissão</a>
+					<a href="/auth/resource/save" class="btn btn-primary"><i class="icon icon-plus"></i> Novo Recurso</a>
 				</div>
 				<div class="col-md-4 col-md-offset-4 p-20">
 					<form action="">
@@ -37,47 +37,31 @@
 	  				<thead>
 			  			<tr>
 			  				<th width="5%">#</th>
-			  				<th>Funcionário</th>
-			  				<th>Recurso</th>
-			  				<th>Privilégio</th>
+			  				<th>Nome</th>			  				
 			  				<th width="30%">AÇÕES</th>
 			  			</tr> 
 	  				</thead>
 	  				<tbody>
 	  					<?php						
 						if (count($this->dados) > 0):
-							foreach ($this->dados as $role):
+							foreach ($this->dados as $resource):
 	  					?>
 					  			<tr>
 					  				<td>
 					  					<?php 
 					  					
-					  						echo $role->getId();
+					  						echo $resource->getId();
 					  					?>				
 					  				</td>
 					  				<td>
 					  					<?php
-					  					echo $role->getFuncionario()->getMatricula();
+					  					echo $resource->getNome();
 					  					?>
-					  				</td>
+					  				</td>					  									  				
 					  				<td>
-					  					<?php
-					  					echo $role->getResource()->getNome();
-					  					?>
-					  				</td>
-					  				<td>
-					  					<span class="label label-<?php
-						  					echo ($role->getPrivilegio() == 0) ? "success" : "danger";					  						
-						  					?>">
-						  					<?php
-						  					echo ($role->getPrivilegio() == 0) ? "Permitir" : "Negado";					  						
-						  					?>
-					  					</span>
-					  				</td>
-					  				<td>
-					  					<a href="/auth/role/ver/id/<?php echo $role->getId()?>" class="btn btn-info"><i class="icon icon-list"></i> Ver detalhes</a>
-					  					<a href="/auth/role/save/id/<?php echo $role->getId()?>" class="btn btn-primary"><i class="icon icon-pencil"></i> Editar</a>
-					  					<a href="/auth/role/delete/id/<?php echo $role->getId()?>" class="btn btn-danger"><i class="icon icon-trash"></i> Apagar</a>
+					  					<a href="/auth/resource/ver/id/<?php echo $resource->getId()?>" class="btn btn-info"><i class="icon icon-list"></i> Ver detalhes</a>
+					  					<a href="/auth/resource/save/id/<?php echo $resource->getId()?>" class="btn btn-primary"><i class="icon icon-pencil"></i> Editar</a>
+					  					<a href="/auth/resource/delete/id/<?php echo $resource->getId()?>" class="btn btn-danger"><i class="icon icon-trash"></i> Apagar</a>
 					  				</td>
 					  			</tr>
 				  		<?php

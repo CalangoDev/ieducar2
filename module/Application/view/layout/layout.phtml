@@ -42,7 +42,7 @@
                         <li class="active">
                             <a href="<?php echo $this->url('home') ?>"><i class="icon icon-home"></i> <?php echo $this->translate('Home') ?></a>
                         </li>
-                        <?php
+                        <?php                        
                         if ($user = $this->identity()) {
                         ?>
                             
@@ -218,18 +218,193 @@
                                     </li>
                                     <li class="dropdown-submenu">
                                         <a href="#">Servidores...</a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="#">Cadastrar</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Escolaridade</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Motivo de Afastamento</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Categoria Níveis</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Função</a>
+                                            </li>
+                                            <li class="dropdown-submenu">
+                                                <a href="#">Relatórios Servidores..</a>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a href="#">Relatórios Professores</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Professores por Disciplina</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Servidores por Nível</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
                                     </li>
                                     <li class="dropdown-submenu">
                                         <a href="#">Movimentação...</a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="#">Reserva de Vaga</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Quadro de Horário</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Enturmação</a>
+                                            </li>
+                                            <li class="dropdown-submenu">
+                                                <a href="#">Faltas/Notas..</a>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a href="#">Lançamento por Aluno</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Lançamento por Turma</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <a href="#">Rematrícula Automática</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Relatório Quadros de Horário</a>
+                                            </li>
+                                        </ul>
                                     </li>
                                     <li class="dropdown-submenu">
                                         <a href="#">Administrativo...</a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="#">Tipo de Usuário</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Usuários</a>
+                                            </li>
+                                        </ul>
                                     </li>
                                     <li class="dropdown-submenu">
                                         <a href="#">Relatórios...</a>
+                                        <ul class="dropdown-menu">
+                                            <li class="dropdown-submenu">
+                                                <a href="#">Mais..</a>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a href="#">Ficha de Rematrícula</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Registro de Transações Expedidas</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Relatório Alunos Idade x Sexo</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Alunos em Exame</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Ata Resultado Final</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Relatório de alunos por idade</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Registro de Matrículas</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Resultado Final</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Levantamento Alfabetizado e não Alfabetizado</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Alunos Benefícios</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Acompanhamento Mensal</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Levantamento Turma Período</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Demonstração Alunos Defasados Nominal</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Ficha de Leitura Escrita</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Acompanhamento Leitura</a>
+                                                    </li>
+                                                </ul>
+                                            </li>  
+                                            <li>
+                                                <a href="#">Relação de Alunos ANEEs</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Quadro Sintético Alunos</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Alunos ANEEs Instituição</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Demonstrativo Alunos Defasados</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Demonstrativo Aluno Defasado Geral</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Controle Desempenho de Alunos</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Relatório Mov. Mensal Alunos</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Relação dos Alunos Enturmados</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Relação dos Alunos Não Enturmados</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Quadro Curricular</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Espelho de Notas Bimestral</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Espelho de Notas</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Alunos Matriculados Sintético</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Documentos Pendentes</a>
+                                            </li>                                                                                      
+                                        </ul>
                                     </li>
                                     <li class="dropdown-submenu">
                                         <a href="#">Documentos...</a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="#">Boletim Escolar</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Diário de Frequência</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Diário de Avaliações</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Histórico Escolar</a>
+                                            </li>
+                                        </ul>
                                     </li>
                                 </ul>
                             </li>

@@ -61,7 +61,8 @@ class FuncionarioController extends ActionController
 		// $form = new FuncionarioForm();
 		$request = $this->getRequest();
 
-		$id = (int) $this->getEvent()->getRouteMatch()->getParam('id');
+		// $id = (int) $this->getEvent()->getRouteMatch()->getParam('id');
+		$id = (int) $this->getEvent()->getRouteMatch()->getParam('refCodPessoaFj');
 		if ($id > 0){			
 			$funcionario = $this->getEntityManager()->find('Portal\Entity\Funcionario', $id);
 			$form->get('submit')->setAttribute('value', 'Edit');
@@ -69,11 +70,11 @@ class FuncionarioController extends ActionController
 		$form->setHydrator(new DoctrineEntity($this->getEntityManager(), 'Portal\Entity\Funcionario'));		
 		$form->bind($funcionario);
 
-		if ($request->isPost()){		
+		if ($request->isPost()){
+			$id = (int) $this->params()->fromPost('refCodPessoaFj', 0);
 			$form->setInputFilter($funcionario->getInputFilter());
 			$form->setData($request->getPost());						
-			if ($form->isValid()){				
-				
+			if ($form->isValid()){								
 				$refCodPessoaFj = $form->get('refCodPessoaFj')->getValue();				
 				/**
 				 * Buscar a Pessoa Fisica pelo o ID passado e associar a entity fisica com a de funcionario
@@ -93,7 +94,8 @@ class FuncionarioController extends ActionController
 				/**
 				 * Persistindo os dados
 				 */
-				$this->getEntityManager()->persist($funcionario);
+				
+				// $this->getEntityManager()->persist($funcionario);
 				$this->getEntityManager()->flush();
 				$this->flashMessenger()->addSuccessMessage('Novo Funcionário Inserido');
 				/**
@@ -105,7 +107,8 @@ class FuncionarioController extends ActionController
 				return $this->redirect()->toUrl('/portal/funcionario');
 			} 	
 		}
-		$id = (int) $this->params()->fromRoute('id', 0);
+		// $id = (int) $this->params()->fromRoute('id', 0);
+		$id = (int) $this->params()->fromRoute('refCodPessoaFj', 0);
 		if ($id >0){			
 			$funcionario = $this->getEntityManager()->find('Portal\Entity\Funcionario', $id);
 			$form->get('submit')->setAttribute('value', 'Edit');
