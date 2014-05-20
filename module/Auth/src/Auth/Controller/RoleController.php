@@ -7,6 +7,11 @@ use DoctrineORMModule\Stdlib\Hydrator\DoctrineEntity;
 use Doctrine\ORM\EntityManager;
 use Auth\Entity\Role;
 use Auth\Form\Role as RoleForm;
+
+
+use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
+use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+use Zend\Paginator\Paginator;
 /**
  * Controlador que gerencia as regras de permissões para cada usuario
  * 
@@ -40,12 +45,41 @@ class RoleController extends ActionController
 	 */
 	public function indexAction()
 	{
-		$dados = $this->getEntityManager()->getRepository('Auth\Entity\Role')->findAll();
+		// $dados = $this->getEntityManager()->getRepository('Auth\Entity\Role')->findAll();
+		$query = $this->getEntityManager()->createQuery('SELECT r FROM Auth\Entity\Role r');
+
+		$dados = new Paginator(
+			new DoctrinePaginator(new ORMPaginator($query))
+		);		
+		
+		$dados->setCurrentPageNumber($this->params()->fromRoute('page'))->setItemCountPerPage(10);
 
 		return new ViewModel(array(
 			'dados' => $dados
 		));
 	}
+
+	/**
+	 * Busca
+	 */
+	public function buscaAction()
+	{
+		$q = (string) $this->params()->fromPost('q');
+		// $q = (string) $this->params()->fromRoute('query');
+		// var_dump($q);
+		// $query = $em->createQuery("SELECT u FROM CmsUser u LEFT JOIN u.articles a WITH a.topic LIKE '%foo%'");
+		$query = $this->getEntityManager()->createQuery("SELECT re.nome FROM Auth\Entity\Role r LEFT JOIN r.resource re WHERE re.nome LIKE :query");
+		$query->setParameter('query', "%".$q."%");		
+		$dados = $query->getResult();		
+		
+		$view = new ViewModel(array(
+			'dados' => $dados
+		));
+		$view->setTerminal(true);
+
+		return $view;
+	}
+
 
 	public function saveAction()
 	{

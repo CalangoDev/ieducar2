@@ -1,0 +1,107 @@
+<?php if ($this->pageCount > 1): ?>
+	<ul class="pagination">
+        <?php
+        if ($this->current != 1):
+        ?>
+            <li>
+                <a href="<?php echo $this->url($this->route, array('page' => 1), true); ?>">
+                    &laquo;
+                </a>
+            </li>
+        <?php
+        else:
+        ?>
+            <li class="disabled">
+                <a href="#">
+                    &laquo;
+                </a>
+            </li>
+        <?php
+        endif;
+        ?>
+        
+        <?php
+        if (isset($this->previous)):
+        ?>
+            <li>
+                <a href="<?php echo $this->url($this->route, array('page' => $this->previous), true);?>">
+                    &lt;
+                </a>
+            </li>
+        <?php
+        else:
+        ?>
+            <li class="disabled">
+                <a href="#">
+                    &lt;
+                </a>
+            </li>
+        <?php
+        endif;?>
+
+		<!-- Numbered page links -->
+		<?php
+		foreach ($this->pagesInRange as $page):            
+		?>
+			<?php
+			if ($page != $this->current):
+			?>
+				<li>                    
+					<a href="<?php echo $this->url($this->route, array('page' => $page), true);?>">
+						<?php echo $page;?>
+                    </a>                        					
+				</li>
+			<?php
+			else:
+			?>
+				<li class="active">
+					<a href="#">
+						<?php echo $page;?>
+					</a>
+				</li>
+			<?php
+			endif;
+			?>
+		<?php 
+		endforeach;
+		?>
+
+        <?php
+        if (isset($this->next)):
+        ?>
+            <li>
+                <a href="<?php echo $this->url($this->route, array('page' => $this->next), true);?>">
+                    &gt;
+                </a>
+            </li>
+        <?php 
+        else:
+        ?>
+            <li class="disabled">
+                <a href="#">&gt;</a>
+            </li>
+        <?php
+        endif;
+        ?>
+
+        <?php
+        if ($this->current != $this->pageCount):
+        ?>
+            <li>
+                <a href="<?php echo $this->url($this->route, array('page' => $this->pageCount), true);?>">
+                    &raquo;
+                </a>
+            </li>
+        <?php
+        else:
+        ?>
+            <li class="disabled">
+                <a href="#">
+                    &raquo;
+                </a>
+            </li>
+        <?php
+        endif;
+        ?>    
+	</ul> 
+<?php endif; ?>
