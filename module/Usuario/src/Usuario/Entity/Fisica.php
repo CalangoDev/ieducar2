@@ -51,7 +51,7 @@ class Fisica extends Pessoa
 	/**
 	 * @var Datetime $data_nasc Data de nascimento
 	 * 
-	 * @ORM\Column(name="data_nasc", type="datetime", nullable=true)
+	 * @ORM\Column(name="data_nasc", type="date", nullable=true)
 	 */
 	protected $dataNasc;
 
@@ -384,7 +384,7 @@ class Fisica extends Pessoa
 
 	public function setDataNasc($value)
 	{
-		$this->dataNasc = $this->valid("dataNasc", $value);
+		$this->dataNasc = $value;
 	}
 
 	public function getSexo()
@@ -772,14 +772,57 @@ class Fisica extends Pessoa
 				),
 			)));			
 
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'nome',
+				'required' => true,
+				'filters'	=>	array(
+					array('name'	=>	'StripTags'),
+					array('name'	=>	'StringTrim'),
+				),
+				'validators' => array(
+					array(
+						'name' => 'StringLength',
+						'options' => array(
+							'encoding' => 'UTF-8',
+							'min' => 1,
+							'max' => 150,
+						),
+					),
+				),				
+			)));
+
 			$inputFilter->add($factory->createInput(array(
 				'name' => 'dataNasc',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'StripTags'),
 					array('name' => 'StringTrim'),
-				),
-				'validators' => array(
+				),				
+				// 'validators' => array(
+    //                array(  
+    //                 'name'=>'Date',
+    //                 'break_chain_on_failure' => true,
+    //                 'options' => array(
+    //                         'format'=>'y-m-D',
+    //                         'messages' => array(
+    //                             'dateFalseFormat'=>'Invalid date format, must be dd-mm-yyyy', 
+    //                             'dateInvalidDate'=>'Invalid date, must be dd-mm-yyyy'
+    //                         ),
+    //                     ),      
+    //                 ),      
+    //                 array(  
+    //                     'name'=>'Regex',
+    //                     'options'=>array(
+    //                         'messages'=>array('regexNotMatch'=>'Invalid date format, must be dd-mm-yyyy'),
+    //                         //'pattern'=>'/^\d{1,2}-\d{1,2}-\d{4}$/',
+    //                         //'pattern' => '\d{1,2}/\d{1,2}/\d{4}',
+    //                         'pattern'=>'/^\d{1,2}-\d{1,2}-\d{4}$/',
+
+    //                     ),      
+    //                 ),      
+    //             ),
+                'validators' => array(
 					'name' => new \Zend\Validator\Date(),
 				),
 			)));

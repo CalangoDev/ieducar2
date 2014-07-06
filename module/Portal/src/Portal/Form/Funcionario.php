@@ -24,6 +24,7 @@ class Funcionario extends Form
 			'name' => 'refCodPessoaFj',
 			'attributes' => array(
 				'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+				'class' => 'form-control chosen-select'
 			),
 			'type' => 'DoctrineModule\Form\Element\ObjectSelect',
 			'options' => array(
@@ -176,6 +177,7 @@ class Funcionario extends Form
 			'attributes' => array(
 				'type' => 'submit',
 				'value' => 'Enviar',
+				'class' => 'btn btn-lg btn-primary',
 				'id' => 'submitbutton',
 			),			
 		));

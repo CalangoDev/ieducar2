@@ -1,0 +1,170 @@
+<div class="row">
+	<ol class="breadcrumb">
+		<li><a href="/">Ínicio</a></li>
+	  	<li><a href="#">Pessoa Física</a></li>
+	  	<li class="active">Cadastro de Pessoa Física</li>
+	</ol>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<div class="page-header">
+  			<h1><i class="icon icon-group"></i> Cadastro <small>de pessoa física</small></h1>
+		</div>
+	</div>	
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<div class="panel panel-default">
+  			<div class="panel-heading">
+  				<b>Lista de Pessoas Físicas</b>
+  			</div>
+  			<div class="row">
+				<div class="col-md-4 p-20">
+					<a href="/usuario/fisica/save" class="btn btn-primary">
+						<i class="icon icon-plus"></i> Nova Pessoa Física
+					</a>
+				</div>
+				<div class="col-md-4 col-md-offset-4 p-20">
+					<form id="busca" method="post" action="/usuario/fisica/busca">
+						<div class="input-group">
+		  					<span class="input-group-addon"><i class="icon icon-search"></i></span>
+		  					<input type="text" class="form-control" name="q" placeholder="Pesquisar">
+						</div>
+					</form>
+				</div>
+			</div>			
+			<div class="row">			
+				<div class="col-md-12 p-20">
+					<table class="table table-bordered table-hover"> 
+	  				<thead>
+			  			<tr>
+			  				<th width="5%">#</th>
+			  				<th>NOME</th>
+			  				<th width="5%">CPF</th>	
+			  				<th width="5%">SITUAÇÃO</th>		  				
+			  				<th width="30%">AÇÕES</th>
+			  			</tr> 
+	  				</thead>
+	  				<tbody class="dados">
+	  					<?php						
+						if (count($this->dados) > 0):
+							foreach ($this->dados as $fisica):
+	  					?>
+					  			<tr>
+					  				<td>
+					  					<?php 
+					  					
+					  						echo $fisica->getId();
+					  					?>				
+					  				</td>
+					  				<td>
+					  					<?php
+					  					echo $fisica->getNome();
+					  					?>
+					  				</td>
+					  				<td>
+					  					<?php
+					  					echo $fisica->getCpf();
+					  					?>
+					  				</td>
+					  				<td>
+					  					<?php
+					  					echo $fisica->getSituacao();
+					  					?>
+					  				</td>	  									  				
+					  				<td>
+					  					<a href="/usuario/fisica/ver/id/<?php echo $fisica->getId()?>" class="btn btn-info"><i class="icon icon-list"></i> Ver detalhes</a>
+					  					<a href="/usuario/fisica/save/id/<?php echo $fisica->getId()?>" class="btn btn-primary"><i class="icon icon-pencil"></i> Editar</a>
+					  					<a href="/usuario/fisica/delete/id/<?php echo $fisica->getId()?>" class="btn btn-danger delete"><i class="icon icon-trash"></i> Apagar</a>
+					  				</td>
+					  			</tr>
+				  		<?php
+				  			endforeach;
+				  		else:
+				  		?>
+				  			<tr class="warning">
+				  				<td colspan="5" class="text-center">
+				  					<b>Nenhum registro encontrado</b>
+				  				</td>
+				  			</tr>
+				  		<?php
+				  		endif;
+				  		?>
+		  			</tbody>
+		  			<tr class="loading">
+                        <td class="info text-center" colspan="5">
+                            <i class='glyphicon icon-spinner icon-spin icon-large'></i> Carregando...                            
+                        </td>
+                    </tr>
+	  				</table>
+	    		</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 col-md-offset-4">
+					<?php					
+	                echo $this->paginationControl($dados, 'Sliding', 'partials/paginator/control.phtml');
+	                ?>
+				</div>
+			</div>  			
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Apagar?</h4>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger">
+                    <p>Tem certeza que deseja remover esse registro?</p>    
+                </div>                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Não</button>
+                <button type="button" class="btn btn-primary confirmation">Sim</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        url = null;
+        $('.dados').on("click", ".delete", function(event){
+            event.preventDefault();
+            url = $(this).attr('href');
+            $("#deleteModal").modal();
+        });
+        $(".confirmation").click(function(event){            
+            $("#deleteModal").modal('hide');
+            window.location.href = url;            
+        });
+        $( "#busca" ).submit(function( event ) {            
+            event.preventDefault();
+            // var query = $(this).serialize(); 
+            var query = $("input[name=q]").val();
+            $.ajax({
+                type : "POST",
+                data : { q:query },
+                url : $(this).attr('action'),
+                success : function(result){
+                    $(".dados").html(result);
+                },
+                beforeSend : function(){
+                    $(".dados").html('');
+                    $(".dados").hide();
+                    $(".loading").show();
+                }, 
+                complete : function(msg){                    
+                    $(".loading").hide();
+                    $(".dados").show();                    
+                } 
+            })
+        });
+
+        $("#go").click(function(event) {            
+            $("#busca").submit();
+        });
+    });
+</script>

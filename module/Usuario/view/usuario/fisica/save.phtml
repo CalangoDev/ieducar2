@@ -1,0 +1,182 @@
+<div class="row">
+	<ol class="breadcrumb">
+		<li><a href="/">Ínicio</a></li>
+	  	<li><a href="/usuario/fisica">Cadastro de Pessoa Física</a></li>
+	  	<li class="active">Salvar</li>
+	</ol>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<div class="page-header">
+  			<h1><i class="icon icon-group"></i> Cadastro <small>de pessoa física</small></h1>
+		</div>
+	</div>	
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<div class="panel panel-default">
+  			<div class="panel-heading">
+  				<b>Salvar</b>
+  			</div>  			
+			<div class="row">			
+				<div class="col-md-12 p-20">
+					<?php
+					echo $this->form()->openTag($form);
+					$id = $this->form->get('id');
+					$nome = $this->form->get('nome');
+					$situacao = $this->form->get('situacao');
+					$dataNasc = $this->form->get('dataNasc');
+					$cpf = $this->form->get('cpf');
+					$sexo = $this->form->get('sexo');
+					$url = $this->form->get('url');
+					$email = $this->form->get('email');
+					/**
+					 * @todo 
+					 * - Raça
+					 * - Endereço 
+					 */
+					echo $this->formInput($id);
+					?>	  				
+					<div class="form-group">
+						<div class="row p-20">
+							<div class="col-md-5">
+								<label for="nome">
+									<?php
+									echo $nome->getOption('label');
+									?>
+								</label>								
+								<?php
+								echo $this->formInput($nome);
+								echo $this->formElementErrors($nome);
+								?>
+							</div>
+							<div class="col-md-3">
+								<label for="cpf">
+									<?php
+									echo $cpf->getOption('label');
+									?>
+								</label>
+								<?php
+								echo $this->formInput($cpf);
+								echo $this->formElementErrors($cpf);
+								?>
+							</div>
+							<div class="col-md-2">
+								<label for="dataNasc">
+									<?php
+									echo $dataNasc->getOption('label');
+									?>
+								</label>
+								<?php
+								echo $this->formInput($dataNasc);
+								echo $this->formElementErrors($dataNasc);
+								?>
+							</div>							
+						</div>
+						<dir class="row p-20">
+							<div class="col-md-2">
+								<label for="sexo">
+									<?php
+									echo $sexo->getOption('label');
+									?>
+								</label>
+								<?php
+								echo $this->formSelect($sexo);
+								echo $this->formElementErrors($sexo);
+								?>
+							</div>
+							<div class="col-md-4">
+								<label for="url">
+									<?php echo $url->getOption('label');?>
+								</label>
+								<?php
+								echo $this->formInput($url);
+								echo $this->formElementErrors($url);
+								?>
+							</div>
+							<div class="col-md-4">
+								<label for="email">
+									<?php echo $email->getOption('label');?>
+								</label>
+								<?php
+								echo $this->formElement($email);
+								echo $this->formElementErrors($email);
+								?>
+							</div>
+							<div class="col-md-2">
+								<label for="situacao">
+									<?php 
+									echo $situacao->getOption('label');
+									?>
+								</label>
+								<?php
+								echo $this->formSelect($situacao);
+								echo $this->formElementErrors($situacao);
+								?>
+							</div>
+						</dir>
+						<div class="row p-20">
+							
+						</div>
+						<div class="row p-20">
+							<div class="col-md-12">
+								<?php
+								$enviar = $this->form->get('submit');
+    							echo $this->formElement($enviar);
+    							?>	
+							</div>
+						</div>						
+    				<?php
+					echo $this->form()->closeTag();
+					?>
+					</div>										
+	    		</div>
+			</div>			
+		</div>
+	</div>
+</div>
+<?php
+echo $this->headLink()->prependStylesheet($this->basePath() . '/componentes/chosen/chosen.min.css');                      
+echo $this->headScript()->prependFile($this->basePath() . '/componentes/chosen/chosen.jquery.min.js', 'text/javascript');
+echo $this->headScript()->prependFile($this->basePath() 
+	. '/componentes/jquery.masked-input/jquery.maskedinput.min.js');
+?>
+<script type="text/javascript">
+    var config = {
+      '.chosen-select'           : {},
+      '.chosen-select-deselect'  : {allow_single_deselect:true},
+      '.chosen-select-no-single' : {disable_search_threshold:10},
+      '.chosen-select-no-results': {no_results_text:'Oops, nada foi encontrado!'},
+      '.chosen-select-width'     : {width:"95%"}
+    }
+    for (var selector in config) {    	
+    	$(selector).chosen(config[selector]);
+    }
+    $(document).ready(function() {	
+		//$(".vendedor").before("<div style='display: none;' class='carregandovend'>Carregando...</div>");
+		//$(".vendedor").after("<a href='#modal' class='btn2 submit cadnovo'>Cadastrar Novo</a><br/>");
+		jQuery(function($){       		
+       		$(".cpf").mask("999.999.999-99");
+       		$(".dataNasc").mask("99-99-9999");
+		});
+		$(".novo").click(function(event){
+			event.preventDefault();
+			$("#modal").modal();
+			endereco = $(this).attr('href');
+			$.ajax({
+	  			url: endereco,
+	  			beforeSend: function() {
+	  				$('.dados').hide();
+	  				$('.loading').show();
+					//mostrar o loading
+				},
+	  			success: function(data) {
+	  				$('.loading').hide();
+	    			$('.dados').html(data);
+	    			$('.dados').show();
+	    			alert('Dados carregado.');    			
+	  			}
+			});
+		});
+	});	
+</script>

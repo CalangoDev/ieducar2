@@ -12,6 +12,8 @@
 
         <!-- Le styles -->
         <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                        ->prependStylesheet($this->basePath() 
+                            . '/componentes/jquery-ui-1.10.4.custom/css/cupertino/jquery-ui-1.10.4.custom.min.css')
                         ->prependStylesheet($this->basePath() . '/css/style.css')
                         ->prependStylesheet($this->basePath() . '/css/font-awesome.min.css')
                         ->prependStylesheet($this->basePath() . '/css/bootstrap-theme.min.css')
@@ -19,11 +21,41 @@
 
         <!-- Scripts -->
         <?php echo $this->headScript()
+            ->prependFile($this->basePath() . '/componentes/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js')
+            ->prependFile($this->basePath() . '/js/modernizr.custom.js')
             ->prependFile($this->basePath() . '/js/bootstrap.min.js')
             ->prependFile($this->basePath() . '/js/jquery.min.js')
             ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
             ->prependFile($this->basePath() . '/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
-        ; ?>
+        ; ?>        
+
+        <script type="text/javascript">
+        var initDatepicker = function() {
+            $('input[type=date]').each(function() {
+                var $input = $(this);
+                $input.datepicker({
+                    minDate: $input.attr('min'),
+                    maxDate: $input.attr('max'),
+                    changeMonth: true,
+                    changeYear: true,                    
+                    dateFormat: 'dd-mm-yy',
+                    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+                    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+                    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+                    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto',
+                    'Setembro','Outubro','Novembro','Dezembro'],
+                    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+                    nextText: 'Próximo',
+                    prevText: 'Anterior',
+                    yearRange: "1950:<?php echo date('Y');?>"
+                });
+            });
+        };
+     
+        if(!Modernizr.inputtypes.date){
+            $(document).ready(initDatepicker);
+        };
+        </script>
 
     </head>
     <body>
@@ -430,7 +462,7 @@
                                         <a href="#">DRH...</a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="#">Cadastro de Funcionários</a> 
+                                                <a href="/portal/funcionario">Cadastro de Funcionários</a> 
                                             </li>
                                         </ul>
                                     </li>
