@@ -107,3 +107,7 @@ div.container a.brand {
     margin: 0 auto;
 
 }
+
+.loading {
+  display: none;
+}

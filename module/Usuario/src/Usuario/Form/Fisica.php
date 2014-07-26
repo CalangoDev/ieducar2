@@ -9,7 +9,7 @@ class Fisica extends Form
 	{
 		parent::__construct('fisica');
 		$this->setAttribute('method', 'post');
-		$this->setAttribute('action', 'usuario/fisica/save');
+		$this->setAttribute('action', '/usuario/fisica/save');
 
 		$this->add(array(
 			'name' => 'id',
@@ -21,7 +21,8 @@ class Fisica extends Form
 		$this->add(array(
 			'name' => 'nome',
 			'attributes' => array(
-				'type' => 'text'
+				'type' => 'text',
+				'class' => 'form-control'
 			),
 			'options' => array(
 				'label' => 'Nome'
@@ -29,27 +30,31 @@ class Fisica extends Form
 		));
 
 		$this->add(array(
+			'type' => 'Zend\Form\Element\Select',
 			'name' => 'situacao',
 			'attributes' => array(
-				'type' => 'Zend\Form\Element\Select'
-			),
+				'type' => 'Zend\Form\Element\Select',				
+			),			
 			'options' => array(
 				'label' => 'Situação',
 				'value_options' => array(
 					'A'	=> 'Ativo',
 					'P' => 'Provisorio',
 					'I' => 'Inativo'
-				),
+				),				
 			),
 			'attributes' => array(
-				'value' => 'A'
+				'value' => 'A',
+				'class' => 'form-control'
 			),
 		));		
 
 		$this->add(array(
 			'name' => 'dataNasc',
+			'type' => 'date',
 			'attributes' => array(
-				'type' => 'text'
+				'type' => 'date',
+				'class' => 'form-control dataNasc'
 			),
 			'options' => array(
 				'label' => 'Data de Nascimento',
@@ -58,9 +63,11 @@ class Fisica extends Form
 
 		$this->add(array(
 			'name' => 'sexo',
+			'type' => 'Zend\Form\Element\Select',
 			'attributes' => array(
 				'type' => 'Zend\Form\Element\Select',
-				'value' => 'M'
+				'value' => 'M',
+				'class' => 'form-control'
 			),
 			'options' => array(
 				'label' => 'Sexo',
@@ -74,7 +81,8 @@ class Fisica extends Form
 		$this->add(array(
 			'name' => 'dataUniao',
 			'attributes' => array(
-				'type' => 'text'
+				'type' => 'text',
+				'class' => 'form-control'
 			),
 			'options' => array(
 				'label' => 'Data de União'
@@ -84,7 +92,8 @@ class Fisica extends Form
 		$this->add(array(
 			'name' => 'dataObito',
 			'attributes' => array(
-				'type' => 'text'
+				'type' => 'text',
+				'class' => 'form-control'
 			),
 			'options' => array(
 				'label' => 'Data do Obito'
@@ -95,7 +104,8 @@ class Fisica extends Form
 			'name' => 'nacionalidade',
 			'attributes' => array(
 				'type' => 'Zend\Form\Element\Select',
-				'value' => '1'
+				'value' => '1',
+				'class' => 'form-control'
 			),
 			'options' => array(
 				'label' => 'Nacionalidade',
@@ -110,7 +120,8 @@ class Fisica extends Form
 		$this->add(array(
 			'name' => 'dataChegadaBrasil',
 			'attributes' => array(
-				'type' => 'text'
+				'type' => 'text',
+				'class' => 'form-control'
 			),
 			'options' => array(
 				'label' => 'Data de chegada ao Brasil'
@@ -120,7 +131,8 @@ class Fisica extends Form
 		$this->add(array(
 			'name' => 'ultimaEmpresa',
 			'attributes' => array(
-				'type' => 'text'
+				'type' => 'text',
+				'class' => 'form-control'
 			),
 			'options' => array(
 				'label' => 'Última Empresa'
@@ -130,7 +142,8 @@ class Fisica extends Form
 		$this->add(array(
 			'name' => 'nomeMae',
 			'attributes' => array(
-				'type' => 'text'
+				'type' => 'text',
+				'class' => 'form-control'
 			),
 			'options' => array(
 				'label' => 'Nome da Mãe'
@@ -140,7 +153,8 @@ class Fisica extends Form
 		$this->add(array(
 			'name' => 'nomePai',
 			'attributes' => array(
-				'type' => 'text'
+				'type' => 'text',
+				'class' => 'form-control'
 			),
 			'options' => array(
 				'label' => 'Nome do Pai'
@@ -150,7 +164,8 @@ class Fisica extends Form
 		$this->add(array(
 			'name' => 'nomeConjuge',
 			'attributes' => array(
-				'type' => 'text'
+				'type' => 'text',
+				'class' => 'form-control'
 			),
 			'options' => array(
 				'label' => 'Nome Conjuge'
@@ -160,7 +175,8 @@ class Fisica extends Form
 		$this->add(array(
 			'name' => 'nomeResponsavel',
 			'attributes' => array(
-				'type' => 'text'
+				'type' => 'text',
+				'class' => 'form-control'
 			),
 			'options' => array(
 				'label' => 'Nome do Responsável'
@@ -170,7 +186,8 @@ class Fisica extends Form
 		$this->add(array(
 			'name' => 'justificativaProvisorio',
 			'attributes' => array(
-				'type' => 'text'
+				'type' => 'text',
+				'class' => 'form-control'
 			),
 			'options' => array(
 				'label' => 'Justificativa Provisorio'
@@ -180,10 +197,13 @@ class Fisica extends Form
 		$this->add(array(
 			'name' => 'cpf',
 			'attributes' => array(
-				'type' => 'text'
+				'type' => 'text',
+				'class' => 'form-control cpf',
+				'pattern' => "\d{3}\.\d{3}\.\d{3}-\d{2}",
+				'title' => "Digite o CPF no formato nnn.nnn.nnn-nn"
 			),
 			'options' => array(
-				'label' => 'CPF'
+				'label' => 'CPF <small>nnn.nnn.nnn-nn</small>'
 			),
 		));
 
@@ -191,7 +211,8 @@ class Fisica extends Form
 		$this->add(array(
 			'name' => 'idmunNascimento',
 			'attributes' => array(
-				'type' => 'Zend\Form\Element\Select'
+				'type' => 'Zend\Form\Element\Select',
+				'class' => 'form-control'
 			),
 			'options' => array(
 				'label' => 'Municipio de Nascimento'
@@ -201,7 +222,8 @@ class Fisica extends Form
 		$this->add(array(
 			'name' => 'idpaisEstrangeiro',
 			'attributes' => array(
-				'type' => 'Zend\Form\Element\Select'
+				'type' => 'Zend\Form\Element\Select',
+				'class' => 'form-control'
 			),
 			'options' => array(
 				'label' => 'Pais Estrangeiro'
@@ -211,7 +233,8 @@ class Fisica extends Form
 		$this->add(array(
 			'name' => 'idesco',
 			'attributes' => array(
-				'type' => 'Zend\Form\Element\Select'
+				'type' => 'Zend\Form\Element\Select',
+				'class' => 'form-control'
 			),
 			'options' => array(
 				'label' => 'Escolaridade'
@@ -221,7 +244,8 @@ class Fisica extends Form
 		$this->add(array(
 			'name' => 'ideciv',
 			'attributes' => array(
-				'type' => 'Zend\Form\Element\Select'
+				'type' => 'Zend\Form\Element\Select',
+				'class' => 'form-control'
 			),
 			'options' => array(
 				'label' => 'Estado Civil'
@@ -231,7 +255,8 @@ class Fisica extends Form
 		$this->add(array(
 			'name' => 'idocup',
 			'attributes' => array(
-				'type' => 'text'
+				'type' => 'text',
+				'class' => 'form-control'
 			),
 			'options' => array(
 				'label' => 'Ocupação'
@@ -241,10 +266,33 @@ class Fisica extends Form
 		$this->add(array(
 			'name' => 'refCodReligiao',
 			'attributes' => array(
-				'type' => 'Zend\Form\Element\Select'
+				'type' => 'Zend\Form\Element\Select',
+				'class' => 'form-control'
 			),
 			'options' => array(
 				'label' => 'Religião'
+			),
+		));
+
+		$this->add(array(
+			'name' => 'url',
+			'attributes' => array(
+				'type' => 'text',
+				'class' => 'form-control'
+			),
+			'options' => array(
+				'label' => 'Site',
+			),
+		));
+
+		$this->add(array(
+			'name' => 'email',
+			'attributes' => array(
+				'type' => 'email',
+				'class' => 'form-control'
+			),
+			'options' => array(
+				'label' => 'Email',
 			),
 		));
 
@@ -254,6 +302,7 @@ class Fisica extends Form
 				'type' => 'submit',
 				'value' => 'Enviar',
 				'id' => 'submitbutton',
+				'class' => 'btn btn-lg btn-primary',
 			),
 		));
 	}

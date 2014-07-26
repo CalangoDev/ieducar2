@@ -23,7 +23,7 @@ use Zend\InputFilter\InputFilterInterface;
  * @copyright  Copyright (c) 2014 Eduardo Junior.com (http://www.eduardojunior.com)
  * 
  * @ORM\Entity
- * @ORM\Table(name="""portal"".""funcionario""")
+ * @ORM\Table(name="portal.funcionario")
  * 
  * OBS: esta classe poderia utilizar heranca da classe Usuario\Entity\Fisica, porem 
  * teria que ver a questao de acoplamento, utilizando tornaria essa ligação forte
@@ -281,15 +281,15 @@ class Funcionario extends Entity
 	 * getters and setters
 	 */
 	
-	// public function getId()
-	// {
-	// 	return $this->id;
-	// }
+	public function getId()
+	{
+		return $this->id;
+	}
 	
-	// public function setId($value)
-	// {
-	// 	$this->id = $this->valid("id", $value);
-	// }
+	public function setId($value)
+	{
+		$this->id = $this->valid("id", $value);
+	}
 
 	public function getRefCodPessoaFj()
 	{

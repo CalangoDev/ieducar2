@@ -11,21 +11,7 @@ namespace Usuario;
 
 return array(
     'router' => array(
-        'routes' => array(
-            'home' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
-                'options' => array(
-                    'route'    => '/',
-                    'defaults' => array(
-                        'controller' => 'Usuario\Controller\Index',
-                        'action'     => 'index',
-                    ),
-                ),
-            ),
-            // The following is a route to simplify getting started creating
-            // new controllers and actions without needing to create a new
-            // module. Simply drop new controllers in, and you can access them
-            // using the path /usuario/:controller/:action
+        'routes' => array(            
             'usuario' => array(
                 'type'    => 'Literal',
                 'options' => array(
@@ -47,6 +33,11 @@ return array(
                                 'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
                             ),
                             'defaults' => array(
+                            ),
+                        ),
+                        'child_routes' => array(
+                            'wildcard' => array(
+                                'type' => 'Wildcard'
                             ),
                         ),
                     ),
@@ -82,6 +73,7 @@ return array(
             'Usuario\Controller\Escolaridade' => 'Usuario\Controller\EscolaridadeController',
             'Usuario\Controller\EstadoCivil' => 'Usuario\Controller\EstadoCivilController',
             'Usuario\Controller\Religiao' => 'Usuario\Controller\ReligiaoController',
+            'Usuario\Controller\Raca' => 'Usuario\Controller\RacaController',
         ),
     ),
     'view_manager' => array(

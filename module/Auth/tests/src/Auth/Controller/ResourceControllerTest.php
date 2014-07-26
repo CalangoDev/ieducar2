@@ -59,9 +59,10 @@ class ResourceControllerTest extends ControllerTestCase
 		$this->assertArrayHasKey('dados', $variables);
 
 		//	Faz a comparação dos dados
-		$controllerData = $variables['dados'];
-		$this->assertEquals($resource->getNome(), $controllerData[0]->getNome());
-		$this->assertEquals($resourceB->getNome(), $controllerData[1]->getNome());
+		$paginator = $variables['dados'];
+		$this->assertEquals('Zend\Paginator\Paginator', get_class($paginator));
+		$this->assertEquals($resource->getNome(), $paginator->getItem(1)->getNome());
+		$this->assertEquals($resourceB->getNome(), $paginator->getItem(2)->getNome());
 
 	}
 

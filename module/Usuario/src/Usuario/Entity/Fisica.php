@@ -33,12 +33,12 @@ class Fisica extends Pessoa
 	/**
 	 * @var Int $id Identificador da entidade fisica
 	 * 
-	 * @ORM\Id
-	 * @ORM\Column(type="integer", nullable=false)
-	 * @ORM\GeneratedValue(strategy="SEQUENCE")
-	 * @SequenceGenerator(sequenceName="cadastro.seq_fisica", initialValue=1, allocationSize=1)	 
+	 * ORM\Id
+	 * ORM\Column(type="integer", nullable=false)
+	 * ORM\GeneratedValue(strategy="SEQUENCE")
+	 * SequenceGenerator(sequenceName="cadastro.seq_fisica", initialValue=1, allocationSize=1)	 
 	 */
-	protected $id;
+	// protected $id;
 
 	/**
 	 * @var Pessoa $pessoa Entity Associada Pessoa
@@ -51,7 +51,7 @@ class Fisica extends Pessoa
 	/**
 	 * @var Datetime $data_nasc Data de nascimento
 	 * 
-	 * @ORM\Column(name="data_nasc", type="datetime", nullable=true)
+	 * @ORM\Column(name="data_nasc", type="date", nullable=true)
 	 */
 	protected $dataNasc;
 
@@ -69,8 +69,8 @@ class Fisica extends Pessoa
 	 * @ORM\PrePersist
 	 */
 	public function checkSexo()
-	{			
-		if(($this->getSexo() != "M") && ($this->getSexo() != "F"))
+	{	
+		if(($this->getSexo() != "M") && ($this->getSexo() != "F") && ($this->getSexo() != "") )
 			throw new EntityException("O atributo sexo recebeu um valor inválido: \"" . $this->getSexo() . "\"", 1);
 	}
 
@@ -384,7 +384,7 @@ class Fisica extends Pessoa
 
 	public function setDataNasc($value)
 	{
-		$this->dataNasc = $this->valid("dataNasc", $value);
+		$this->dataNasc = $value;
 	}
 
 	public function getSexo()
@@ -700,38 +700,55 @@ class Fisica extends Pessoa
 	public function setData($data)
 	{
 		$this->setId(isset($data['id']) ? $data['id'] : null);
+		
 		if (!empty($data['dataNasc']))
 			$this->setDataNasc(isset($data['dataNasc']) ? $data['dataNasc'] : null);
-		$this->setSexo(isset($data['sexo']) ? $data['sexo'] : null);
+
+		if (!empty($data['sexo']))
+			$this->setSexo(isset($data['sexo']) ? $data['sexo'] : null);
+
 		if (!empty($data['dataUniao']))
 			$this->setDataUniao(isset($data['dataUniao']) ? $data['dataUniao'] : null);
+
 		if (!empty($data['dataObito']))
 			$this->setDataObito(isset($data['dataObito']) ? $data['dataObito'] : null);
+		
 		$this->setNacionalidade(isset($data['nacionalidade']) ? $data['nacionalidade'] : null);
+		
 		if (!empty($data['dataChegadaBrasil']))
 			$this->setDataChegadaBrasil(isset($data['dataChegadaBrasil']) ? $data['dataChegadaBrasil'] : null);
+		
 		if (!empty($data['ultimaEmpresa']))
 			$this->setUltimaEmpresa(isset($data['ultimaEmpresa']) ? $data['ultimaEmpresa'] : null);
+		
 		if (!empty($data['nomeMae']))
 			$this->setNomeMae(isset($data['nomeMae']) ? $data['nomeMae'] : null);
+		
 		if (!empty($data['nomePai']))
 			$this->setNomePai(isset($data['nomePai']) ? $data['nomePai'] : null);
+		
 		if (!empty($data['nomeConjuge']))
 			$this->setNomeConjuge(isset($data['nomeConjuge']) ? $data['nomeConjuge'] : null);
+		
 		if (!empty($data['nomeResponsavel']))
 			$this->setNomeResponsavel(isset($data['nomeResponsavel']) ? $data['nomeResponsavel'] : null);
+		
 		if (!empty($data['justificativaProvisorio']))
 			$this->setJustificativaProvisorio(isset($data['justificativaProvisorio']) ? $data['justificativaProvisorio'] : null);
+		
 		if (!empty($data['dataRev']))
 			$this->setDataRev(isset($data['dataRev']) ? $data['dataRev'] : null);
+		
 		//$this->setOrigemGravacao(isset($data['origem_gravacao']) ? $data['origem_gravacao'] : null);
 		$this->setDataCad(isset($data['dataCad']) ? $data['dataCad'] : null);
 		//$this->setOperacao(isset($data['operacao']) ? $data['operacao'] : null);
 		$this->setIdsisRev(isset($data['idsisRev']) ? $data['idsisRev'] : null);
 		//$this->setIdsisCad(isset($data['idsis_cad']) ? $data['idsis_cad'] : null);
 		$this->setRefCodSistema(isset($data['refCodSistema']) ? $data['refCodSistema'] : null);
+
 		if (!empty($data['cpf']))
 			$this->setCpf(isset($data['cpf']) ? $data['cpf'] : null);
+		
 		$this->setIdpesMae(isset($data['idpesMae']) ? $data['idpesMae'] : null);
 		$this->setIdpesPai(isset($data['idpesPai']) ? $data['idpesPai'] : null);
 		$this->setIdpesResponsavel(isset($data['idpesResponsavel']) ? $data['idpesResponsavel'] : null);
@@ -740,8 +757,7 @@ class Fisica extends Pessoa
 		$this->setIdesco(isset($data['idesco']) ? $data['idesco'] : null);
 		$this->setIdeciv(isset($data['ideciv']) ? $data['ideciv'] : null);
 		$this->setIdpesCon(isset($data['idpesCon']) ? $data['idpesCon'] : null);
-		$this->setIdocup(isset($data['idocup']) ? $data['idocup'] : null);		
-
+		$this->setIdocup(isset($data['idocup']) ? $data['idocup'] : null);
 		$this->setNome(isset($data['nome']) ? $data['nome'] : null);
 		$this->setSituacao(isset($data['situacao']) ? $data['situacao'] : null);
 	}
@@ -772,14 +788,57 @@ class Fisica extends Pessoa
 				),
 			)));			
 
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'nome',
+				'required' => true,
+				'filters'	=>	array(
+					array('name'	=>	'StripTags'),
+					array('name'	=>	'StringTrim'),
+				),
+				'validators' => array(
+					array(
+						'name' => 'StringLength',
+						'options' => array(
+							'encoding' => 'UTF-8',
+							'min' => 1,
+							'max' => 150,
+						),
+					),
+				),				
+			)));
+
 			$inputFilter->add($factory->createInput(array(
 				'name' => 'dataNasc',
 				'required' => false,
 				'filters' => array(
 					array('name' => 'StripTags'),
 					array('name' => 'StringTrim'),
-				),
-				'validators' => array(
+				),				
+				// 'validators' => array(
+    //                array(  
+    //                 'name'=>'Date',
+    //                 'break_chain_on_failure' => true,
+    //                 'options' => array(
+    //                         'format'=>'y-m-D',
+    //                         'messages' => array(
+    //                             'dateFalseFormat'=>'Invalid date format, must be dd-mm-yyyy', 
+    //                             'dateInvalidDate'=>'Invalid date, must be dd-mm-yyyy'
+    //                         ),
+    //                     ),      
+    //                 ),      
+    //                 array(  
+    //                     'name'=>'Regex',
+    //                     'options'=>array(
+    //                         'messages'=>array('regexNotMatch'=>'Invalid date format, must be dd-mm-yyyy'),
+    //                         //'pattern'=>'/^\d{1,2}-\d{1,2}-\d{4}$/',
+    //                         //'pattern' => '\d{1,2}/\d{1,2}/\d{4}',
+    //                         'pattern'=>'/^\d{1,2}-\d{1,2}-\d{4}$/',
+
+    //                     ),      
+    //                 ),      
+    //             ),
+                'validators' => array(
 					'name' => new \Zend\Validator\Date(),
 				),
 			)));

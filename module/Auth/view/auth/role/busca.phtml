@@ -1,0 +1,48 @@
+<?php						
+if (count($this->dados) > 0):
+	foreach ($this->dados as $role):
+	?>
+		<tr>
+			<td>
+				<?php 
+				
+					echo $role->getId();
+				?>				
+			</td>
+			<td>
+				<?php
+				echo $role->getFuncionario()->getMatricula();
+				?>
+			</td>
+			<td>
+				<?php
+				echo $role->getResource()->getNome();
+				?>
+			</td>
+			<td>
+				<span class="label label-<?php
+					echo ($role->getPrivilegio() == 0) ? "success" : "danger";					  						
+					?>">
+					<?php
+					echo ($role->getPrivilegio() == 0) ? "Permitir" : "Negado";					  						
+					?>
+				</span>
+			</td>
+			<td>
+				<a href="/auth/role/ver/id/<?php echo $role->getId()?>" class="btn btn-info"><i class="icon icon-list"></i> Ver detalhes</a>
+				<a href="/auth/role/save/id/<?php echo $role->getId()?>" class="btn btn-primary"><i class="icon icon-pencil"></i> Editar</a>
+				<a href="/auth/role/delete/id/<?php echo $role->getId()?>" class="btn btn-danger delete"><i class="icon icon-trash"></i> Apagar</a>
+			</td>
+		</tr>
+<?php
+	endforeach;
+else:
+?>
+	<tr class="warning">
+		<td colspan="3" class="text-center">
+			<b>Nenhum registro encontrado</b>
+		</td>
+	</tr>
+<?php
+endif;
+?>

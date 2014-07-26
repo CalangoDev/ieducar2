@@ -187,6 +187,32 @@ class Funcionario extends \Portal\Entity\Funcionario implements \Doctrine\ORM\Pr
     /**
      * {@inheritDoc}
      */
+    public function getId()
+    {
+        if ($this->__isInitialized__ === false) {
+            return (int)  parent::getId();
+        }
+
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', array());
+
+        return parent::getId();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setId($value)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setId', array($value));
+
+        return parent::setId($value);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getRefCodPessoaFj()
     {
 
@@ -743,6 +769,17 @@ class Funcionario extends \Portal\Entity\Funcionario implements \Doctrine\ORM\Pr
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeInputFilter', array($input));
 
         return parent::removeInputFilter($input);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function toArray()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'toArray', array());
+
+        return parent::toArray();
     }
 
 }

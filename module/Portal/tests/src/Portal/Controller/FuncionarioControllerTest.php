@@ -70,9 +70,9 @@ class FuncionarioControllerTest extends ControllerTestCase
 		$this->assertArrayHasKey('dados', $variables);
 
 		//	Faz a comparação dos dados
-		$controllerData = $variables['dados'];
-		$this->assertEquals($funcionarioA->getMatricula(), $controllerData[0]->getMatricula());
-		$this->assertEquals($funcionarioB->getMatricula(), $controllerData[1]->getMatricula());
+		$pagination = $variables['dados'];
+		$this->assertEquals($funcionarioA->getMatricula(), $pagination->getItem(1)->getMatricula());
+		$this->assertEquals($funcionarioB->getMatricula(), $pagination->getItem(2)->getMatricula());
 
 	}
 

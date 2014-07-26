@@ -20,8 +20,8 @@ class OcupacaoTest extends EntityTestCase
 	 */
 	public function testGetInputFilter()
 	{
-		$escolaridade = new Escolaridade();
-		$if = $escolaridade->getInputFilter();
+		$ocupacao = new Ocupacao();
+		$if = $ocupacao->getInputFilter();
 		$this->assertInstanceOf('Zend\InputFilter\InputFilter', $if);
 
 		return $if;
@@ -39,7 +39,7 @@ class OcupacaoTest extends EntityTestCase
 	}
 
 	/**
-	 * Teste de insercao de escolaridade
+	 * Teste de insercao de ocupacao
 	 */
 	public function testInsert()
 	{

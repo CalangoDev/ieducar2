@@ -1,22 +1,19 @@
-EscolaridadeController
- [x] Escolaridade index action
- [x] Escolaridade save action new request
- [x] Escolaridade save action update form request
- [x] Escolaridade save action post request
- [x] Escolaridade update action
- [x] Escolaridade save action invalid post request
- [x] Escolaridade invalid delete action
- [x] Escolaridade delete action
- [x] Escolaridade invalid id delete action
+RacaController
+ [x] Raca index action
+ [x] Raca save action new request
+ [x] Raca save action update form request
+ [x] Raca save action post request
+ [x] Raca update action
+ [x] Raca save action invalid post request
+ [x] Raca invalid delete action
+ [x] Raca delete action
+ [x] Raca invalid id delete action
 
-ReligiaoController
- [x] Escolaridade save action invalid post request
-
-Usuario\Entity\Escolaridade
+Usuario\Entity\Raca
  [x] Get input filter
  [x] Input filter valid
  [x] Insert
- [x] Input filter invalid descricao
+ [x] Input filter invalid nome
  [x] Update
  [x] Delete
 

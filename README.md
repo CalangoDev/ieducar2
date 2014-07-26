@@ -46,6 +46,8 @@ Criar os schemas antes de rodar a Aplicação
 
 	phpunit -c module/Usuario/tests/phpunit.xml --filter=Religiao
 
+	phpunit -c module/Usuario/tests/phpunit.xml --filter=Raca
+
 #####Módulo Portal#####
 
 	phpunit -c module/Portal/tests/phpunit.xml --filter=Funcionario

@@ -1,0 +1,37 @@
+<?php						
+if (count($this->dados) > 0):
+	foreach ($this->dados as $raca):
+	?>
+		<tr>
+			<td>
+				<?php 
+				
+					echo $raca->getId();
+				?>				
+			</td>
+			<td>
+				<?php
+				echo $raca->getNome();
+				?>
+			</td>					  									  				
+			<td>
+				<a href="/usuario/raca/ver/id/<?php echo $raca->getId()?>" 
+				class="btn btn-info"><i class="icon icon-list"></i> Ver detalhes</a>
+				<a href="/usuario/raca/save/id/<?php echo $raca->getId()?>" 
+				class="btn btn-primary"><i class="icon icon-pencil"></i> Editar</a>
+				<a href="/usuario/raca/delete/id/<?php echo $raca->getId()?>" 
+				class="btn btn-danger delete"><i class="icon icon-trash"></i> Apagar</a>
+			</td>
+		</tr>
+	<?php
+	endforeach;
+else:
+?>
+	<tr class="warning">
+		<td colspan="5" class="text-center">
+			<b>Nenhum registro encontrado</b>
+		</td>
+	</tr>
+<?php
+endif;
+?>

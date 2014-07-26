@@ -33,7 +33,7 @@ class FisicaTest extends EntityTestCase
 	public function testInputFilterValid($if)
 	{
 		//testa os filtros 
-		$this->assertEquals(32, $if->count());
+		$this->assertEquals(33, $if->count());
 
 		$this->assertTrue($if->has('id'));		
 		$this->assertTrue($if->has('dataNasc'));
@@ -180,19 +180,16 @@ class FisicaTest extends EntityTestCase
 		$fisica->setIdsisCad(1);
 		$fisica->setCpf('111.111.111-11');
 		$this->em->persist($fisica);
-
-		$savedFisica = $this->em->find('Usuario\Entity\Fisica', $fisica->getId());
-
-		$this->assertEquals('Steve Jobs', $fisica->getNome());
-
-		$savedFisica->setNome("Gold");
-
-		$this->em->persist($savedFisica);
 		$this->em->flush();
 
-		$savedFisica = $this->em->find('Usuario\Entity\Fisica', $savedFisica->getId());
+		$savedFisica = $this->em->find('Usuario\Entity\Fisica', $fisica->getId());
+		$this->assertEquals('Steve Jobs', $savedFisica->getNome());
+		$savedFisica->setNome("Gold");				
+		$this->em->flush();
+		// $this->em->flush();
 
-		$this->assertEquals('Gold', $savedFisica->getNome());
+		$savedFisica2 = $this->em->find('Usuario\Entity\Fisica', $savedFisica->getId());
+		$this->assertEquals('Gold', $savedFisica2->getNome());
 	}
 
 	public function testDelete()

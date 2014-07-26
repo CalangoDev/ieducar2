@@ -8,6 +8,10 @@ use Doctrine\ORM\EntityManager;
 use Auth\Entity\Resource;
 use Auth\Form\Resource as ResourceForm;
 
+use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
+use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+use Zend\Paginator\Paginator;
+
 /**
  * Controlador que gerencia os resources do sistema
  * 
@@ -43,11 +47,39 @@ class ResourceController extends ActionController
 	 */
 	public function indexAction()
 	{
-		$dados = $this->getEntityManager()->getRepository('Auth\Entity\Resource')->findAll();
+		// $dados = $this->getEntityManager()->getRepository('Auth\Entity\Resource')->findAll();
+		$query = $this->getEntityManager()->createQuery('SELECT r FROM Auth\Entity\Resource r');
+
+		$dados = new Paginator(
+			new DoctrinePaginator(new ORMPaginator($query))
+		);		
+		
+		$dados->setCurrentPageNumber($this->params()->fromRoute('page'))->setItemCountPerPage(10);
 
 		return new ViewModel(array(
 			'dados' => $dados
 		));
+	}
+
+	/**
+	 * Busca
+	 */
+	public function buscaAction()
+	{
+		$q = (string) $this->params()->fromPost('q');
+		// $q = (string) $this->params()->fromRoute('query');
+		// var_dump($q);
+		// $query = $em->createQuery("SELECT u FROM CmsUser u LEFT JOIN u.articles a WITH a.topic LIKE '%foo%'");
+		$query = $this->getEntityManager()->createQuery("SELECT r FROM Auth\Entity\Resource r WHERE r.nome LIKE :query OR r.descricao LIKE :query ");
+		$query->setParameter('query', "%".$q."%");		
+		$dados = $query->getResult();		
+		
+		$view = new ViewModel(array(
+			'dados' => $dados
+		));
+		$view->setTerminal(true);
+
+		return $view;
 	}
 
 	public function saveAction()
@@ -59,7 +91,7 @@ class ResourceController extends ActionController
 		$id = (int) $this->getEvent()->getRouteMatch()->getParam('id');
 		if ($id > 0){			
 			$resource = $this->getEntityManager()->find('Auth\Entity\Resource', $id);
-			$form->get('submit')->setAttribute('value', 'Edit');
+			$form->get('submit')->setAttribute('value', 'Editar');
 		}
 		$form->setHydrator(new DoctrineEntity($this->getEntityManager(), 'Auth\Entity\Resource'));
 		$form->bind($resource);

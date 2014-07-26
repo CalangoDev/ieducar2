@@ -8,6 +8,10 @@ use Portal\Form\Funcionario as FuncionarioForm;
 use DoctrineORMModule\Stdlib\Hydrator\DoctrineEntity;
 use Doctrine\ORM\EntityManager;
 
+use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
+use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+use Zend\Paginator\Paginator;
+
 // use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 
 /**
@@ -43,11 +47,56 @@ class FuncionarioController extends ActionController
 	 */
 	public function indexAction()
 	{
-		$dados = $this->getEntityManager()->getRepository('Portal\Entity\Funcionario')->findAll();
+		// $dados = $this->getEntityManager()->getRepository('Portal\Entity\Funcionario')->findAll();
+		$query = $this->getEntityManager()->createQuery('SELECT f FROM Portal\Entity\Funcionario f');
+
+		$dados = new Paginator(
+			new DoctrinePaginator(new ORMPaginator($query))
+		);		
+		
+		$dados->setCurrentPageNumber($this->params()->fromRoute('page'))->setItemCountPerPage(10);
 
 		return new ViewModel(array(
 			'dados' => $dados
 		));
+	}
+
+	/**
+	 * Busca
+	 */
+	public function buscaAction()
+	{
+		$q = (string) $this->params()->fromPost('q');		
+		$query = $this->getEntityManager()->createQuery("
+			SELECT
+
+				f
+
+			FROM
+
+				Portal\Entity\Funcionario f
+
+			LEFT JOIN
+
+				f.refCodPessoaFj fj
+
+			WHERE
+
+				f.matricula LIKE :query 
+
+			OR 
+
+				fj.nome LIKE :query
+		");
+		$query->setParameter('query', "%".$q."%");		
+		$dados = $query->getResult();		
+		
+		$view = new ViewModel(array(
+			'dados' => $dados
+		));
+		$view->setTerminal(true);
+
+		return $view;
 	}
 
 	/**
