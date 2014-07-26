@@ -1,43 +1,41 @@
 <?php
 use Core\Test\ControllerTestCase;
-use Auth\Controller\RoleController;
+use Usuario\Controller\RacaController;
+use Usuario\Entity\Raca;
 use Zend\Http\Request;
 use Zend\Stdlib\Parameters;
 use Zend\View\Renderer\PhpRenderer;
-use Auth\Entity\Resource;
 
 /**
- * @group Controller
+ * @group  Controller
  */
-class ResourceControllerTest extends ControllerTestCase
+class RacaControllerTest extends ControllerTestCase
 {
 	/**
-	 * Namespace completa do controller
-	 * @var string ResourceController
+	 * Namespace completa do Controller
+	 * @var string RacaController
 	 */
-	protected $controllerFQDN = 'Auth\Controller\ResourceController';
+	protected $controllerFQDN = 'Usuario\Controller\RacaController';
 
 	/**
 	 * Nome da rota. geralmente o nome do modulo
-	 * @var string auth
+	 * @var string usuario
 	 */
-	protected $controllerRoute = 'auth';
+	protected $controllerRoute = 'usuario';
 
-	/**	 
-	 * Show resources data save
+	/**
+	 * Testa a pagina inicial que lista as racas
 	 */
-	public function testResourceIndexAction()
-	{		
-		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');		
-		
-		$resource = $this->buildResource();
-		$em->persist($resource);		
-		
-		$resourceB = $this->buildResource();
-		$resourceB->setNome('Application\Controller\Index.save');
-		$em->persist($resourceB);
+	public function testRacaIndexAction()
+	{
+		$raca1 = $this->buildRaca();
+		$raca2 = $this->buildRaca();
+		$raca2->setNome('Preta');
 
-		$em->flush();		
+		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
+		$em->persist($raca1);
+		$em->persist($raca2);
+		$em->flush();
 
 		//	Invoca a rota index
 		$this->routeMatch->setParam('action', 'index');
@@ -46,34 +44,28 @@ class ResourceControllerTest extends ControllerTestCase
 		);
 
 		//	Verifica o response
-		$response = $this->controller->getResponse();		
+		$response = $this->controller->getResponse();
 		$this->assertEquals(200, $response->getStatusCode());
 
 		//	Testa se um ViewModel foi retornado
 		$this->assertInstanceOf('Zend\View\Model\ViewModel', $result);
-		
 
 		//	Testa os dados da View
 		$variables = $result->getVariables();
-
 		$this->assertArrayHasKey('dados', $variables);
 
-		//	Faz a comparação dos dados
-		$paginator = $variables['dados'];
+		//	Faz a comparação dos dados		
+		$paginator = $variables["dados"];
 		$this->assertEquals('Zend\Paginator\Paginator', get_class($paginator));
-		$this->assertEquals($resource->getNome(), $paginator->getItem(1)->getNome());
-		$this->assertEquals($resourceB->getNome(), $paginator->getItem(2)->getNome());
-
+		$this->assertEquals($raca1->getNome(), $paginator->getItem(1)->getNome());
+		$this->assertEquals($raca2->getNome(), $paginator->getItem(2)->getNome());	
 	}
 
 	/**
-	 * Testa a tela de um novo resource
-	 * 
-	 * Test screen of new resource
-	 * 
-	 * @return  void
+	 * Testa a tela de inclusão de um novo registro
+	 * @return void 
 	 */
-	public function testResourceActionNewRequest()
+	public function testRacaSaveActionNewRequest()
 	{
 		//	Dispara a acao
 		$this->routeMatch->setParam('action', 'save');
@@ -101,29 +93,21 @@ class ResourceControllerTest extends ControllerTestCase
 		$nome = $form->get('nome');
 		$this->assertEquals('nome', $nome->getName());
 		$this->assertEquals('text', $nome->getAttribute('type'));
-
-		$descricao = $form->get('descricao');
-		$this->assertEquals('descricao', $descricao->getName());
-		$this->assertEquals('textarea', $descricao->getAttribute('type'));
-
 	}
 
 	/**
 	 * Testa a tela de alteracao de um registro
-	 * 
-	 * Test screen update registry
 	 */
-	public function testResourceSaveActionUpdateFormRequest()
+	public function testRacaSaveActionUpdateFormRequest()
 	{
+		$raca = $this->buildRaca();
 		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-		
-		$resource = $this->buildResource();
-		$em->persist($resource);		
+		$em->persist($raca);
 		$em->flush();
 
 		//	Dispara a acao
 		$this->routeMatch->setParam('action', 'save');
-		$this->routeMatch->setParam('id', $resource->getId());
+		$this->routeMatch->setParam('id', $raca->getId());
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
 		);
@@ -131,9 +115,9 @@ class ResourceControllerTest extends ControllerTestCase
 		//	Verifica a resposta
 		$response = $this->controller->getResponse();
 		$this->assertEquals(200, $response->getStatusCode());
-		
+
 		//	Testa se recebeu um ViewModel
-		$this->assertInstanceOf('Zend\View\Model\ViewModel', $result);		
+		$this->assertInstanceOf('Zend\View\Model\ViewModel', $result);
 		$variables = $result->getVariables();
 
 		//	Verifica se existe um form
@@ -142,93 +126,82 @@ class ResourceControllerTest extends ControllerTestCase
 
 		//	Testa os itens do formulario
 		$id = $form->get('id');
-		$this->assertEquals('id', $id->getName());
-		$this->assertEquals('hidden', $id->getAttribute('type'));
-
 		$nome = $form->get('nome');
-		$this->assertEquals('nome', $nome->getName());
-		$this->assertEquals('text', $nome->getAttribute('type'));
-
-		$descricao = $form->get('descricao');
-		$this->assertEquals('descricao', $descricao->getName());
-		$this->assertEquals('textarea', $descricao->getAttribute('type'));
-
+		$this->assertEquals('id', $id->getName());
+		$this->assertEquals($raca->getId(), $id->getValue());
+		$this->assertEquals($raca->getNome(), $nome->getValue());
 	}
 
 	/**
-	 * Testa a inclusao de um novo resource
-	 * 
-	 * Test insert of new resource
+	 * Testa a inclusao de uma nova raça
 	 */
-	public function testResourceSaveActionPostRequest()
+	public function testRacaSaveActionPostRequest()
 	{
-		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-		
-
-		$resource = $this->buildResource();
-		// $em->persist($resource);		
-		// $em->flush();
-
 		//	Dispara a acao
 		$this->routeMatch->setParam('action', 'save');
+
 		$this->request->setMethod('post');
 		$this->request->getPost()->set('id', '');
-		$this->request->getPost()->set('nome', $resource->getNome());
-		$this->request->getPost()->set('descricao', $resource->getDescricao());			
+		$this->request->getPost()->set('nome', 'Branca');
+
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
 		);
+
 		//	Verifica a resposta
-		$response = $this->controller->getResponse();		
-		//	a pagina redireciona, estao o status = 302
+		$response = $this->controller->getResponse();
+		//	a pagina redireciona, entao o status = 302
 		$this->assertEquals(302, $response->getStatusCode());
 		$headers = $response->getHeaders();
-		$this->assertEquals('Location: /auth/resource', $headers->get('Location'));
+		$this->assertEquals('Location: /usuario/raca', $headers->get('Location'));
 	}
 
 	/**
-	 * Testa o update
-	 * 
-	 * Test update
+	 * Testa o update de uma ocupacao
 	 */
-	public function testResourceUpdateAction()
+	public function testRacaUpdateAction()
 	{
+		$raca = $this->buildRaca();
 		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-			
-		$resource = $this->buildResource();
-		$em->persist($resource);		
+		$em->persist($raca);
 		$em->flush();
 
 		//	Dispara a acao
 		$this->routeMatch->setParam('action', 'save');
+		$this->routeMatch->setParam('id', $raca->getId());
+
 		$this->request->setMethod('post');
-		$this->request->getPost()->set('id', $resource->getId());
-		$this->request->getPost()->set('nome', "Application\Controller\Index.save");
-		$this->request->getPost()->set('descricao', $resource->getDescricao());		
-		
+		$this->request->getPost()->set('id', $raca->getId());
+		$this->request->getPost()->set('nome', 'Preta');		
+
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
 		);
-		//	Verifica a resposta
-		$response = $this->controller->getResponse();		
-		//	a pagina redireciona, estao o status = 302
+
+		$response = $this->controller->getResponse();
+		//	a pagina rediriciona, entao o status = 302
 		$this->assertEquals(302, $response->getStatusCode());
 		$headers = $response->getHeaders();
-		$this->assertEquals('Location: /auth/resource', $headers->get('Location'));
+
+		$this->assertEquals(
+			'Location: /usuario/raca', $headers->get('Location')
+		);
 	}
 
 	/**
-	 * Testa salvar com dados invalidos
+	 * Tenta salvar com dados invalidos
 	 */
-	public function testResourceSaveActionInvalidPostRequest()
+	public function testRacaSaveActionInvalidPostRequest()
 	{
 		//	Dispara a acao
 		$this->routeMatch->setParam('action', 'save');
 
 		$this->request->setMethod('post');
-		$this->request->getPost()->set('nome', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.');
-
-
+		$this->request->getPost()->set('nome', 'Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá,
+		depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum
+		girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i 
+		pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.');
+		
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
 		);
@@ -241,18 +214,17 @@ class ResourceControllerTest extends ControllerTestCase
 		//	testa os erros do formulario
 		$nome = $form->get('nome');
 		$nomeErrors = $nome->getMessages();
-
 		$this->assertEquals(
-			"The input is more than 120 characters long", $nomeErrors['stringLengthTooLong']
-		);		
+			"The input is more than 50 characters long", $nomeErrors['stringLengthTooLong']
+		);
 	}
 
 	/**
-	 * Testa a exclusao sem passar o id da regra
+	 * Testa a exclusao sem passar o id da pessoa
 	 * @expectedException Exception
 	 * @expectedExceptionMessage Código Obrigatório
 	 */
-	public function testResourceInvalidDeleteAction()
+	public function testRacaInvalidDeleteAction()
 	{
 		//	Dispara a acao
 		$this->routeMatch->setParam('action', 'delete');
@@ -266,19 +238,18 @@ class ResourceControllerTest extends ControllerTestCase
 	}
 
 	/**
-	 * Testa a exclusao de uma regra
+	 * Testa a exclusao de uma raca
 	 */
-	public function testResourceDeleteAction()
+	public function testRacaDeleteAction()
 	{
+		$raca = $this->buildRaca();
 		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-			
-		$resource = $this->buildResource();
-		$em->persist($resource);		
-		$em->flush();		
+		$em->persist($raca);
+    	$em->flush();		
 		
 		//	Dispara a acao
 		$this->routeMatch->setParam('action', 'delete');
-		$this->routeMatch->setParam('id', $resource->getId());
+		$this->routeMatch->setParam('id', $raca->getId());
 
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
@@ -291,7 +262,7 @@ class ResourceControllerTest extends ControllerTestCase
 		$this->assertEquals(302, $response->getStatusCode());
 		$headers = $response->getHeaders();
 		$this->assertEquals(
-			'Location: /auth/resource', $headers->get('Location')
+			'Location: /usuario/raca', $headers->get('Location')
 		);
 	}
 
@@ -300,13 +271,12 @@ class ResourceControllerTest extends ControllerTestCase
 	 * @expectedException Exception
 	 * @expectedExceptionMessage Registro não encontrado
 	 */
-	public function testResourceInvalidIdDeleteAction()
+	public function testRacaInvalidIdDeleteAction()
 	{
+		$raca = $this->buildRaca();
 		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-			
-		$resource = $this->buildResource();
-		$em->persist($resource);
-		$em->flush();
+		$em->persist($raca);
+    	$em->flush();		
 		
 		//	Dispara a acao
 		$this->routeMatch->setParam('action', 'delete');
@@ -323,17 +293,17 @@ class ResourceControllerTest extends ControllerTestCase
 		$this->assertEquals(302, $response->getStatusCode());
 		$headers = $response->getHeaders();
 		$this->assertEquals(
-			'Location: /auth/resource', $headers->get('Location')
+			'Location: /usuario/raca', $headers->get('Location')
 		);	
 	}
-	
-	private function buildResource()
+
+
+	public function buildRaca()
 	{
-		$resource = new Resource;
-		$resource->setNome('Application\Entity\Index.index');
-		$resource->setDescricao('Tela inicial do sistema');
+		$raca = new Raca;
+		$raca->setNome('Branca');
+		$raca->setAtivo(true);
 
-		return $resource;
+		return $raca;
 	}
-
 }

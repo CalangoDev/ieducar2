@@ -73,6 +73,7 @@ return array(
             'Usuario\Controller\Escolaridade' => 'Usuario\Controller\EscolaridadeController',
             'Usuario\Controller\EstadoCivil' => 'Usuario\Controller\EstadoCivilController',
             'Usuario\Controller\Religiao' => 'Usuario\Controller\ReligiaoController',
+            'Usuario\Controller\Raca' => 'Usuario\Controller\RacaController',
         ),
     ),
     'view_manager' => array(

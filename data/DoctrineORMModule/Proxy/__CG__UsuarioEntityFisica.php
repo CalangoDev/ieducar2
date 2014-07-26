@@ -64,10 +64,10 @@ class Fisica extends \Usuario\Entity\Fisica implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'dataNasc', 'sexo', 'dataUniao', 'dataObito', 'nacionalidade', 'dataChegadaBrasil', 'ultimaEmpresa', 'nomeMae', 'nomePai', 'nomeConjuge', 'nomeResponsavel', 'justificativaProvisorio', 'refCodSistema', 'cpf', 'pessoaMae', 'pessoaPai', 'pessoaResponsavel', 'municipioNascimento', 'paisEstrangeiro', 'escola', 'estadoCivil', 'pessoaConjuge', 'ocupacao', 'refCodReligiao', 'inputFilter', 'nome', 'dataCad', 'url', 'tipo', 'dataRev', 'email', 'situacao', 'origemGravacao', 'operacao', 'idsisRev', 'idsisCad', 'pessoaCad', 'pessoaRev', 'usuario', 'oldId');
+            return array('__isInitialized__', 'dataNasc', 'sexo', 'dataUniao', 'dataObito', 'nacionalidade', 'dataChegadaBrasil', 'ultimaEmpresa', 'nomeMae', 'nomePai', 'nomeConjuge', 'nomeResponsavel', 'justificativaProvisorio', 'refCodSistema', 'cpf', 'pessoaMae', 'pessoaPai', 'pessoaResponsavel', 'municipioNascimento', 'paisEstrangeiro', 'escola', 'estadoCivil', 'pessoaConjuge', 'ocupacao', 'refCodReligiao', 'inputFilter', 'id', 'nome', 'dataCad', 'url', 'tipo', 'dataRev', 'email', 'situacao', 'origemGravacao', 'operacao', 'idsisRev', 'idsisCad', 'pessoaCad', 'pessoaRev', 'usuario', 'oldId');
         }
 
-        return array('__isInitialized__', 'id', 'dataNasc', 'sexo', 'dataUniao', 'dataObito', 'nacionalidade', 'dataChegadaBrasil', 'ultimaEmpresa', 'nomeMae', 'nomePai', 'nomeConjuge', 'nomeResponsavel', 'justificativaProvisorio', 'refCodSistema', 'cpf', 'pessoaMae', 'pessoaPai', 'pessoaResponsavel', 'municipioNascimento', 'paisEstrangeiro', 'escola', 'estadoCivil', 'pessoaConjuge', 'ocupacao', 'refCodReligiao', 'inputFilter', 'nome', 'dataCad', 'url', 'tipo', 'dataRev', 'email', 'situacao', 'origemGravacao', 'operacao', 'idsisRev', 'idsisCad', 'pessoaCad', 'pessoaRev', 'usuario', 'oldId');
+        return array('__isInitialized__', 'dataNasc', 'sexo', 'dataUniao', 'dataObito', 'nacionalidade', 'dataChegadaBrasil', 'ultimaEmpresa', 'nomeMae', 'nomePai', 'nomeConjuge', 'nomeResponsavel', 'justificativaProvisorio', 'refCodSistema', 'cpf', 'pessoaMae', 'pessoaPai', 'pessoaResponsavel', 'municipioNascimento', 'paisEstrangeiro', 'escola', 'estadoCivil', 'pessoaConjuge', 'ocupacao', 'refCodReligiao', 'inputFilter', 'id', 'nome', 'dataCad', 'url', 'tipo', 'dataRev', 'email', 'situacao', 'origemGravacao', 'operacao', 'idsisRev', 'idsisCad', 'pessoaCad', 'pessoaRev', 'usuario', 'oldId');
     }
 
     /**
@@ -1275,6 +1275,17 @@ class Fisica extends \Usuario\Entity\Fisica implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeInputFilter', array($input));
 
         return parent::removeInputFilter($input);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function toArray()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'toArray', array());
+
+        return parent::toArray();
     }
 
 }

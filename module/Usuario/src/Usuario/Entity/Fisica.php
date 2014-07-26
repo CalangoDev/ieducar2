@@ -33,12 +33,12 @@ class Fisica extends Pessoa
 	/**
 	 * @var Int $id Identificador da entidade fisica
 	 * 
-	 * @ORM\Id
-	 * @ORM\Column(type="integer", nullable=false)
-	 * @ORM\GeneratedValue(strategy="SEQUENCE")
-	 * @SequenceGenerator(sequenceName="cadastro.seq_fisica", initialValue=1, allocationSize=1)	 
+	 * ORM\Id
+	 * ORM\Column(type="integer", nullable=false)
+	 * ORM\GeneratedValue(strategy="SEQUENCE")
+	 * SequenceGenerator(sequenceName="cadastro.seq_fisica", initialValue=1, allocationSize=1)	 
 	 */
-	protected $id;
+	// protected $id;
 
 	/**
 	 * @var Pessoa $pessoa Entity Associada Pessoa
@@ -69,8 +69,8 @@ class Fisica extends Pessoa
 	 * @ORM\PrePersist
 	 */
 	public function checkSexo()
-	{			
-		if(($this->getSexo() != "M") && ($this->getSexo() != "F"))
+	{	
+		if(($this->getSexo() != "M") && ($this->getSexo() != "F") && ($this->getSexo() != "") )
 			throw new EntityException("O atributo sexo recebeu um valor inválido: \"" . $this->getSexo() . "\"", 1);
 	}
 
@@ -700,38 +700,55 @@ class Fisica extends Pessoa
 	public function setData($data)
 	{
 		$this->setId(isset($data['id']) ? $data['id'] : null);
+		
 		if (!empty($data['dataNasc']))
 			$this->setDataNasc(isset($data['dataNasc']) ? $data['dataNasc'] : null);
-		$this->setSexo(isset($data['sexo']) ? $data['sexo'] : null);
+
+		if (!empty($data['sexo']))
+			$this->setSexo(isset($data['sexo']) ? $data['sexo'] : null);
+
 		if (!empty($data['dataUniao']))
 			$this->setDataUniao(isset($data['dataUniao']) ? $data['dataUniao'] : null);
+
 		if (!empty($data['dataObito']))
 			$this->setDataObito(isset($data['dataObito']) ? $data['dataObito'] : null);
+		
 		$this->setNacionalidade(isset($data['nacionalidade']) ? $data['nacionalidade'] : null);
+		
 		if (!empty($data['dataChegadaBrasil']))
 			$this->setDataChegadaBrasil(isset($data['dataChegadaBrasil']) ? $data['dataChegadaBrasil'] : null);
+		
 		if (!empty($data['ultimaEmpresa']))
 			$this->setUltimaEmpresa(isset($data['ultimaEmpresa']) ? $data['ultimaEmpresa'] : null);
+		
 		if (!empty($data['nomeMae']))
 			$this->setNomeMae(isset($data['nomeMae']) ? $data['nomeMae'] : null);
+		
 		if (!empty($data['nomePai']))
 			$this->setNomePai(isset($data['nomePai']) ? $data['nomePai'] : null);
+		
 		if (!empty($data['nomeConjuge']))
 			$this->setNomeConjuge(isset($data['nomeConjuge']) ? $data['nomeConjuge'] : null);
+		
 		if (!empty($data['nomeResponsavel']))
 			$this->setNomeResponsavel(isset($data['nomeResponsavel']) ? $data['nomeResponsavel'] : null);
+		
 		if (!empty($data['justificativaProvisorio']))
 			$this->setJustificativaProvisorio(isset($data['justificativaProvisorio']) ? $data['justificativaProvisorio'] : null);
+		
 		if (!empty($data['dataRev']))
 			$this->setDataRev(isset($data['dataRev']) ? $data['dataRev'] : null);
+		
 		//$this->setOrigemGravacao(isset($data['origem_gravacao']) ? $data['origem_gravacao'] : null);
 		$this->setDataCad(isset($data['dataCad']) ? $data['dataCad'] : null);
 		//$this->setOperacao(isset($data['operacao']) ? $data['operacao'] : null);
 		$this->setIdsisRev(isset($data['idsisRev']) ? $data['idsisRev'] : null);
 		//$this->setIdsisCad(isset($data['idsis_cad']) ? $data['idsis_cad'] : null);
 		$this->setRefCodSistema(isset($data['refCodSistema']) ? $data['refCodSistema'] : null);
+
 		if (!empty($data['cpf']))
 			$this->setCpf(isset($data['cpf']) ? $data['cpf'] : null);
+		
 		$this->setIdpesMae(isset($data['idpesMae']) ? $data['idpesMae'] : null);
 		$this->setIdpesPai(isset($data['idpesPai']) ? $data['idpesPai'] : null);
 		$this->setIdpesResponsavel(isset($data['idpesResponsavel']) ? $data['idpesResponsavel'] : null);
@@ -740,8 +757,7 @@ class Fisica extends Pessoa
 		$this->setIdesco(isset($data['idesco']) ? $data['idesco'] : null);
 		$this->setIdeciv(isset($data['ideciv']) ? $data['ideciv'] : null);
 		$this->setIdpesCon(isset($data['idpesCon']) ? $data['idpesCon'] : null);
-		$this->setIdocup(isset($data['idocup']) ? $data['idocup'] : null);		
-
+		$this->setIdocup(isset($data['idocup']) ? $data['idocup'] : null);
 		$this->setNome(isset($data['nome']) ? $data['nome'] : null);
 		$this->setSituacao(isset($data['situacao']) ? $data['situacao'] : null);
 	}

@@ -91,7 +91,7 @@ class ResourceController extends ActionController
 		$id = (int) $this->getEvent()->getRouteMatch()->getParam('id');
 		if ($id > 0){			
 			$resource = $this->getEntityManager()->find('Auth\Entity\Resource', $id);
-			$form->get('submit')->setAttribute('value', 'Edit');
+			$form->get('submit')->setAttribute('value', 'Editar');
 		}
 		$form->setHydrator(new DoctrineEntity($this->getEntityManager(), 'Auth\Entity\Resource'));
 		$form->bind($resource);

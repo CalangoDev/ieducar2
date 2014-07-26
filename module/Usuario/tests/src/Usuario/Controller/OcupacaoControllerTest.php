@@ -238,7 +238,7 @@ class OcupacaoControllerTest extends ControllerTestCase
 
 
 	/**
-	 * Testa a exclusao de um estadocivil
+	 * Testa a exclusao de uma ocupacao
 	 */
 	public function testOcupacaoDeleteAction()
 	{

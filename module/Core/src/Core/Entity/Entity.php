@@ -8,7 +8,7 @@ use Zend\InputFilter\InputFilterInterface;
 use Zend\InputFilter\Exception\InvalidArgumentException;
 
 abstract class Entity implements InputFilterAwareInterface
-{
+{    
 
 	/**
      * Filters
@@ -136,4 +136,13 @@ abstract class Entity implements InputFilterAwareInterface
         return $this->inputFilter;
     }
 	
+    /*
+     * Used by TableGateway
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return $this->getData();
+    }
 }

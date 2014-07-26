@@ -80,9 +80,9 @@ class RoleControllerTest extends ControllerTestCase
 		$this->assertArrayHasKey('dados', $variables);
 
 		//	Faz a comparação dos dados
-		$controllerData = $variables['dados'];
-		$this->assertEquals($role->getResource(), $controllerData[0]->getResource());
-		$this->assertEquals($roledeny->getResource(), $controllerData[1]->getResource());
+		$paginator = $variables['dados'];
+		$this->assertEquals($role->getResource(), $paginator->getItem(1)->getResource());
+		$this->assertEquals($roledeny->getResource(), $paginator->getItem(2)->getResource());
 
 	}
 

@@ -331,11 +331,12 @@ class Pessoa extends Entity implements EventSubscriber
 		$entity = $args->getEntity();
 		if ((get_class($entity) == 'Usuario\Entity\Pessoa') || (get_class($entity) == 'Usuario\Entity\Fisica') 
 			|| (get_class($entity) == 'Usuario\Entity\Juridica')){
-
-			$this->usuario = $entity;
+			
+			$this->usuario = clone $entity;
 			$this->oldId = $entity->id;
 
-			($args->hasChangedField('nome')) ? $this->usuario->nome = $args->getOldValue('nome') : null;		
+			($args->hasChangedField('nome')) ? $this->usuario->nome = $args->getOldValue('nome') : null;
+
 			($args->hasChangedField('url')) ? $this->usuario->url = $args->getOldValue('url') : null;
 			($args->hasChangedField('tipo')) ? $this->usuario->tipo = $args->getOldValue('tipo') : null;
 			($args->hasChangedField('email')) ? $this->usuario->email = $args->getOldValue('email') : null;
@@ -345,7 +346,7 @@ class Pessoa extends Entity implements EventSubscriber
 			($args->hasChangedField('idsisCad')) ? $this->usuario->idsisCad = $args->getOldValue('idsisCad') : null;
 			($args->hasChangedField('idsisRev')) ? $this->usuario->idsisRev = $args->getOldValue('idsisRev') : null;
 			($args->hasChangedField('pessoaCad')) ? $this->usuario->pessoaCad = $args->getOldValue('pessoaCad') : null;
-			($args->hasChangedField('pessoaRev')) ? $this->usuario->pessoaRev = $args->getOldValue('pessoaRev') : null;
+			($args->hasChangedField('pessoaRev')) ? $this->usuario->pessoaRev = $args->getOldValue('pessoaRev') : null;			
 
 		}
 		/**
@@ -376,7 +377,7 @@ class Pessoa extends Entity implements EventSubscriber
 			($args->hasChangedField('estadoCivil')) ? $this->usuario->estadoCivil = $args->getOldValue('estadoCivil') : null;
 			($args->hasChangedField('pessoaConjuge')) ? $this->usuario->pessoaConjuge = $args->getOldValue('pessoaConjuge') : null;
 			($args->hasChangedField('ocupacao')) ? $this->usuario->ocupacao = $args->getOldValue('ocupacao') : null;
-			($args->hasChangedField('refCodReligiao')) ? $this->usuario->refCodReligiao = $args->getOldValue('refCodReligiao') : null;
+			($args->hasChangedField('refCodReligiao')) ? $this->usuario->refCodReligiao = $args->getOldValue('refCodReligiao') : null;			
 		}
 
 		/**
@@ -610,7 +611,7 @@ class Pessoa extends Entity implements EventSubscriber
 	}
 
 	public function setNome($value)
-	{
+	{		
 		$this->nome = $this->valid("nome", $value);
 	}
 

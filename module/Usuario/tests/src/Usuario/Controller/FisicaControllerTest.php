@@ -58,10 +58,11 @@ class FisicaControllerTest extends ControllerTestCase
 
 		$this->assertArrayHasKey('dados', $variables);
 
-		//	Faz a comparação dos dados
-		$controllerData = $variables['dados'];
-		$this->assertEquals($pA->getNome(), $controllerData[0]->getNome());
-		$this->assertEquals($pB->getNome(), $controllerData[1]->getNome());
+		//	Faz a comparação dos dados		
+		$paginator = $variables["dados"];
+		$this->assertEquals('Zend\Paginator\Paginator', get_class($paginator));		
+		$this->assertEquals($pA->getNome(), $paginator->getItem(1)->getNome());
+		$this->assertEquals($pB->getNome(), $paginator->getItem(2)->getNome());
 
 	}
 
@@ -95,7 +96,7 @@ class FisicaControllerTest extends ControllerTestCase
 
 		$dataNasc = $form->get('dataNasc');
 		$this->assertEquals('dataNasc', $dataNasc->getName());
-		$this->assertEquals('text', $dataNasc->getAttribute('type'));
+		$this->assertEquals('date', $dataNasc->getAttribute('type'));
 
 		$sexo = $form->get('sexo');
 		$this->assertEquals('sexo', $sexo->getName());

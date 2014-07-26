@@ -103,7 +103,12 @@ class FisicaController extends ActionController
 		$id = (int) $this->getEvent()->getRouteMatch()->getParam('id');
 		if ($id > 0){
 			$fisica = $this->getEntityManager()->find('Usuario\Entity\Fisica', $id);			
-			$fisica->setDataNasc($fisica->getDataNasc()->format('d-m-Y'));
+			if ($fisica->getDataNasc() == null){
+				$date = new \DateTime($fisica->getDataNasc(), new \DateTimeZone('America/Sao_Paulo'));	
+				$fisica->setDataNasc($date->format('d-m-Y'));
+			} else {
+				$fisica->setDataNasc($fisica->getDataNasc()->format('d-m-Y'));
+			}			
 			$form->get('submit')->setAttribute('value', 'Editar');
 		}
 		$form->setHydrator(new DoctrineEntity($this->getEntityManager(), 'Usuario\Entity\Fisica'));
@@ -121,13 +126,11 @@ class FisicaController extends ActionController
 			 */
 			$id  = (int) $this->params()->fromPost('id', 0);			
 			$fisica->setOperacao(($id > 0) ? "A" : "I");						
-
-			$fisica->setIdsisCad(1);
+			$fisica->setIdsisCad(1);		 	
 						
-			$date = new \DateTime($this->params()->fromPost('dataNasc'), new \DateTimeZone('America/Sao_Paulo'));
-			$data = $request->getPost()->toArray();			
-			$data['dataNasc'] = $date->format('Y-m-d');
-			// $fisica->setDataNasc($date->format('Y-m-d'));			
+			$date = new \DateTime($this->params()->fromPost('dataNasc'), new \DateTimeZone('America/Sao_Paulo'));			
+			$fisica->setDataNasc($date->format('Y-m-d'));
+			$request->getPost()->set('dataNasc', $fisica->getDataNasc());
 			
 			$form->setInputFilter($fisica->getInputFilter());			
 
@@ -137,30 +140,43 @@ class FisicaController extends ActionController
 			$fisica->removeInputFilter('origemGravacao');
 			$fisica->removeInputFilter('operacao');
 			$fisica->removeInputFilter('idsisCad');
-			$cpf  = $this->params()->fromPost('cpf', 0);
-			if ($cpf == '')
+			$cpf  = $this->params()->fromPost('cpf', 0);	
+
+			if ($cpf == ''){
 				$fisica->removeInputFilter('cpf');
+				// $form->remove('cpf');
+				// unset($data['cpf']);
+			}	
+
 			$dataNasc  = $this->params()->fromPost('dataNasc', 0);
 			if ($dataNasc == '')
 				$fisica->removeInputFilter('dataNasc');
-
-			$form->setData($data);			
+			
+			// $form->setData($data);	
+						
+			$form->setData($request->getPost());
+			// var_dump($request->getPost());
 			if ($form->isValid()){				
 				// $data = $form->getData();				
 				// unset($data['submit']);
 				// $fisica->setData($data);
 				/**
 				 * Persistindo os dados
-				 */
-				$this->getEntityManager()->persist($fisica);
-				$this->getEntityManager()->flush();
-				$this->flashMessenger()->addSuccessMessage('Pessoa Salva');
+				 */				
+				$id = (int) $this->params()->fromPost('id', 0);
+				// var_dump($id);
+				if ($id == 0){
+					$this->getEntityManager()->persist($fisica);					
+					$this->flashMessenger()->addSuccessMessage('Pessoa Salva');
+				} else {
+					$this->flashMessenger()->addSuccessMessage('Pessoa foi alterada!');
+				}
+				// var_dump($fisica->getId());
+				$this->getEntityManager()->flush();								
 				/**
 				 * Redirecionando para lista de pessoas fisicas
 				 */
 				return $this->redirect()->toUrl('/usuario/fisica');
-			} else{
-				var_dump("nao valido");
 			}
 		}
 		$id = (int) $this->params()->fromRoute('id', 0);

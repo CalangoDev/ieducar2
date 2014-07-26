@@ -771,4 +771,15 @@ class Funcionario extends \Portal\Entity\Funcionario implements \Doctrine\ORM\Pr
         return parent::removeInputFilter($input);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function toArray()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'toArray', array());
+
+        return parent::toArray();
+    }
+
 }
