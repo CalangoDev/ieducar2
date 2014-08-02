@@ -64,10 +64,10 @@ class Fisica extends \Usuario\Entity\Fisica implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'dataNasc', 'sexo', 'dataUniao', 'dataObito', 'nacionalidade', 'dataChegadaBrasil', 'ultimaEmpresa', 'nomeMae', 'nomePai', 'nomeConjuge', 'nomeResponsavel', 'justificativaProvisorio', 'refCodSistema', 'cpf', 'pessoaMae', 'pessoaPai', 'pessoaResponsavel', 'municipioNascimento', 'paisEstrangeiro', 'escola', 'estadoCivil', 'pessoaConjuge', 'ocupacao', 'refCodReligiao', 'inputFilter', 'id', 'nome', 'dataCad', 'url', 'tipo', 'dataRev', 'email', 'situacao', 'origemGravacao', 'operacao', 'idsisRev', 'idsisCad', 'pessoaCad', 'pessoaRev', 'usuario', 'oldId');
+            return array('__isInitialized__', 'dataNasc', 'sexo', 'dataUniao', 'dataObito', 'nacionalidade', 'dataChegadaBrasil', 'ultimaEmpresa', 'nomeMae', 'nomePai', 'nomeConjuge', 'nomeResponsavel', 'justificativaProvisorio', 'refCodSistema', 'cpf', 'pessoaMae', 'pessoaPai', 'pessoaResponsavel', 'municipioNascimento', 'paisEstrangeiro', 'escola', 'estadoCivil', 'pessoaConjuge', 'ocupacao', 'refCodReligiao', 'raca', 'inputFilter', 'id', 'nome', 'dataCad', 'url', 'tipo', 'dataRev', 'email', 'situacao', 'origemGravacao', 'operacao', 'idsisRev', 'idsisCad', 'pessoaCad', 'pessoaRev', 'usuario', 'oldId');
         }
 
-        return array('__isInitialized__', 'dataNasc', 'sexo', 'dataUniao', 'dataObito', 'nacionalidade', 'dataChegadaBrasil', 'ultimaEmpresa', 'nomeMae', 'nomePai', 'nomeConjuge', 'nomeResponsavel', 'justificativaProvisorio', 'refCodSistema', 'cpf', 'pessoaMae', 'pessoaPai', 'pessoaResponsavel', 'municipioNascimento', 'paisEstrangeiro', 'escola', 'estadoCivil', 'pessoaConjuge', 'ocupacao', 'refCodReligiao', 'inputFilter', 'id', 'nome', 'dataCad', 'url', 'tipo', 'dataRev', 'email', 'situacao', 'origemGravacao', 'operacao', 'idsisRev', 'idsisCad', 'pessoaCad', 'pessoaRev', 'usuario', 'oldId');
+        return array('__isInitialized__', 'dataNasc', 'sexo', 'dataUniao', 'dataObito', 'nacionalidade', 'dataChegadaBrasil', 'ultimaEmpresa', 'nomeMae', 'nomePai', 'nomeConjuge', 'nomeResponsavel', 'justificativaProvisorio', 'refCodSistema', 'cpf', 'pessoaMae', 'pessoaPai', 'pessoaResponsavel', 'municipioNascimento', 'paisEstrangeiro', 'escola', 'estadoCivil', 'pessoaConjuge', 'ocupacao', 'refCodReligiao', 'raca', 'inputFilter', 'id', 'nome', 'dataCad', 'url', 'tipo', 'dataRev', 'email', 'situacao', 'origemGravacao', 'operacao', 'idsisRev', 'idsisCad', 'pessoaCad', 'pessoaRev', 'usuario', 'oldId');
     }
 
     /**
@@ -875,6 +875,28 @@ class Fisica extends \Usuario\Entity\Fisica implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setRefCodReligiao', array($value));
 
         return parent::setRefCodReligiao($value);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getRaca()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getRaca', array());
+
+        return parent::getRaca();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setRaca($value)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setRaca', array($value));
+
+        return parent::setRaca($value);
     }
 
     /**

@@ -20,26 +20,9 @@ use Zend\Paginator\Paginator;
  * @package Controller
  * @author Eduardo Junior <ej@eduardojunior.com>
  */
-class FisicaController extends ActionController
-{
-	/**
-	 * @var Doctrine\ORM\EntityManager
-	 */
-	protected $em;
-
-	public function setEntityManager(EntityManager $em)
-	{
-		$this->em = $em;
-	}
-
-	public function getEntityManager()
-	{
-		if (null === $this->em){
-			$this->em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-		}		
-		return $this->em;
-	}
-
+class FisicaController 
+	extends ActionController
+{	
 	/**
 	 * Mostra as pessoas fisicas cadastradas
 	 * @return  void
@@ -97,7 +80,7 @@ class FisicaController extends ActionController
 	public function saveAction()
 	{
 		$fisica = new Fisica;
-		$form = new FisicaForm();
+		$form = new FisicaForm($this->getEntityManager());
 		$request = $this->getRequest();
 
 		$id = (int) $this->getEvent()->getRouteMatch()->getParam('id');
@@ -143,9 +126,9 @@ class FisicaController extends ActionController
 			$cpf  = $this->params()->fromPost('cpf', 0);	
 
 			if ($cpf == ''){
-				$fisica->removeInputFilter('cpf');
-				// $form->remove('cpf');
-				// unset($data['cpf']);
+				$fisica->removeInputFilter('cpf');				
+				$form->remove('cpf');
+				// unset($data['cpf']);				
 			}	
 
 			$dataNasc  = $this->params()->fromPost('dataNasc', 0);
@@ -156,6 +139,8 @@ class FisicaController extends ActionController
 						
 			$form->setData($request->getPost());
 			// var_dump($request->getPost());
+			
+			
 			if ($form->isValid()){				
 				// $data = $form->getData();				
 				// unset($data['submit']);
@@ -177,6 +162,26 @@ class FisicaController extends ActionController
 				 * Redirecionando para lista de pessoas fisicas
 				 */
 				return $this->redirect()->toUrl('/usuario/fisica');
+			} else {				
+				if ($this->params()->fromPost('dataNasc')){
+					$date = new \DateTime($this->params()->fromPost('dataNasc'), new \DateTimeZone('America/Sao_Paulo'));
+					$date = $date->format('d-m-Y');					
+					$form->get('dataNasc')->setAttribute('value', $date);
+				}
+				if ($cpf == ''){
+					$form->add(array(
+					'name' => 'cpf',
+					'attributes' => array(
+						'type' => 'text',
+						'class' => 'form-control cpf',
+						'pattern' => "\d{3}\.\d{3}\.\d{3}-\d{2}",
+						'title' => "Digite o CPF no formato nnn.nnn.nnn-nn"
+					),
+					'options' => array(
+						'label' => 'CPF <small>nnn.nnn.nnn-nn</small>'
+					),
+				));					
+				}				
 			}
 		}
 		$id = (int) $this->params()->fromRoute('id', 0);

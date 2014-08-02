@@ -1,142 +1,195 @@
-<div class="row">
-	<ol class="breadcrumb">
-		<li><a href="/">Ínicio</a></li>
-	  	<li><a href="/usuario/fisica">Cadastro de Pessoa Física</a></li>
-	  	<li class="active">Salvar</li>
-	</ol>
+<div class="container">
+	<div class="row">
+		<ol class="breadcrumb">
+			<li><a href="/">Ínicio</a></li>
+		  	<li><a href="/usuario/fisica">Cadastro de Pessoa Física</a></li>
+		  	<li class="active">Salvar</li>
+		</ol>
+	</div>
 </div>
-<div class="row">
-	<div class="col-md-12">
-		<div class="page-header">
-  			<h1><i class="icon icon-group"></i> Cadastro <small>de pessoa física</small></h1>
-		</div>
-	</div>	
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="page-header">
+	  			<h1><i class="icon icon-group"></i> Cadastro <small>de pessoa física</small></h1>
+			</div>
+		</div>	
+	</div>
 </div>
-<div class="row">
-	<div class="col-md-12">
-		<div class="panel panel-default">
-  			<div class="panel-heading">
-  				<b>Salvar</b>
-  			</div>  			
-			<div class="row">			
-				<div class="col-md-12 p-20">
-					<?php
-					echo $this->form()->openTag($form);
-					$id = $this->form->get('id');
-					$nome = $this->form->get('nome');
-					$situacao = $this->form->get('situacao');
-					$dataNasc = $this->form->get('dataNasc');
-					$cpf = $this->form->get('cpf');
-					$sexo = $this->form->get('sexo');
-					$url = $this->form->get('url');
-					$email = $this->form->get('email');
-					/**
-					 * @todo 
-					 * - Raça
-					 * - Endereço 
-					 */
-					echo $this->formInput($id);
-					?>	  				
-					<div class="form-group">
-						<div class="row p-20">
-							<div class="col-md-5">
-								<label for="nome">
-									<?php
-									echo $nome->getOption('label');
-									?>
-								</label>								
-								<?php
-								echo $this->formInput($nome);
-								echo $this->formElementErrors($nome);
-								?>
-							</div>
-							<div class="col-md-3">
-								<label for="cpf">
-									<?php
-									echo $cpf->getOption('label');
-									?>
-								</label>
-								<?php
-								echo $this->formInput($cpf);
-								echo $this->formElementErrors($cpf);
-								?>
-							</div>
-							<div class="col-md-2">
-								<label for="dataNasc">
-									<?php
-									echo $dataNasc->getOption('label');
-									?>
-								</label>
-								<?php
-								echo $this->formInput($dataNasc);
-								echo $this->formElementErrors($dataNasc);
-								?>
-							</div>							
-						</div>
-						<dir class="row p-20">
-							<div class="col-md-2">
-								<label for="sexo">
-									<?php
-									echo $sexo->getOption('label');
-									?>
-								</label>
-								<?php
-								echo $this->formSelect($sexo);
-								echo $this->formElementErrors($sexo);
-								?>
-							</div>
-							<div class="col-md-4">
-								<label for="url">
-									<?php echo $url->getOption('label');?>
-								</label>
-								<?php
-								echo $this->formInput($url);
-								echo $this->formElementErrors($url);
-								?>
-							</div>
-							<div class="col-md-4">
-								<label for="email">
-									<?php echo $email->getOption('label');?>
-								</label>
-								<?php
-								echo $this->formElement($email);
-								echo $this->formElementErrors($email);
-								?>
-							</div>
-							<div class="col-md-2">
-								<label for="situacao">
-									<?php 
-									echo $situacao->getOption('label');
-									?>
-								</label>
-								<?php
-								echo $this->formSelect($situacao);
-								echo $this->formElementErrors($situacao);
-								?>
-							</div>
-						</dir>
-						<div class="row p-20">
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+	  			<div class="panel-heading">
+	  				<b>Salvar</b>
+	  			</div>
+	  			<div class="container">
+					<div class="row">			
+						<div class="col-md-12">
+							<?php
+							echo $this->form()->openTag($form);
+							$id = $this->form->get('id');
+							$nome = $this->form->get('nome');
+							$situacao = $this->form->get('situacao');
+							$dataNasc = $this->form->get('dataNasc');
+							$cpf = $this->form->get('cpf');
+							$sexo = $this->form->get('sexo');
+							$url = $this->form->get('url');
+							$email = $this->form->get('email');
+							$raca = $this->form->get('raca');
+							/**
+							 * @todo 
+							 * - Raça
+							 * - Endereço 
+							 */
+							echo $this->formInput($id);
+							?>
+							<br>
 							
-						</div>
-						<div class="row p-20">
-							<div class="col-md-12">
-								<?php
-								$enviar = $this->form->get('submit');
-    							echo $this->formElement($enviar);
-    							?>	
-							</div>
-						</div>						
-    				<?php
-					echo $this->form()->closeTag();
-					?>
-					</div>										
-	    		</div>
-			</div>			
+								<div class="form-group">
+									<label for="nome">
+										<?php
+										echo $nome->getOption('label');
+										?>
+									</label>
+									<div class="row">
+										<div class="col-md-6">
+											<?php
+											echo $this->formInput($nome);
+											echo $this->formElementErrors($nome);
+											?>									
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="cpf">
+										<?php
+										echo $cpf->getOption('label');
+										?>
+									</label>
+									<div class="row">
+										<div class="col-md-2">
+											<?php
+											echo $this->formInput($cpf);
+											echo $this->formElementErrors($cpf);
+											?>
+										</div>			
+									</div>					
+								</div>
+								<div class="form-group">		
+									<label for="dataNasc">
+										<?php
+										echo $dataNasc->getOption('label');
+										?>
+									</label>
+									<div class="row">
+										<div class="col-md-2">
+											<?php
+											echo $this->formInput($dataNasc);
+											echo $this->formElementErrors($dataNasc);
+											?>	
+										</div>
+									</div>										
+								</div>
+								<div class="form-group">
+									<label for="sexo">
+										<?php
+										echo $sexo->getOption('label');
+										?>
+									</label>
+									<div class="row">
+										<div class="col-md-2">
+											<?php
+											echo $this->formSelect($sexo);
+											echo $this->formElementErrors($sexo);
+											?>	
+										</div>
+									</div>										
+								</div>	
+								<div class="form-group">	
+									<label for="raca">
+										<?php
+										echo $raca->getOption('label');
+										?>
+									</label>
+									<div class="row">
+										<div class="col-md-3">
+											<?php
+											echo $this->formSelect($raca);
+											echo $this->formElementErrors($raca);
+											?>		
+										</div>
+									</div>										
+								</div>							
+								<div class="form-group">
+									<label for="url">
+										<?php echo $url->getOption('label');?>
+									</label>
+									<div class="row">
+										<div class="col-md-5">
+											<?php
+											echo $this->formInput($url);
+											echo $this->formElementErrors($url);
+											?>
+										</div>
+									</div>										
+								</div>
+								<div class="form-group">
+									<label for="email">
+										<?php echo $email->getOption('label');?>
+									</label>
+									<div class="row">
+										<div class="col-md-4">
+											<?php
+											echo $this->formElement($email);
+											echo $this->formElementErrors($email);
+											?>	
+										</div>
+									</div>									
+								</div>
+								<div class="form-group">
+									<label for="situacao">
+										<?php 
+										echo $situacao->getOption('label');
+										?>
+									</label>
+									<div class="row">
+										<div class="col-md-3">
+											<?php
+											echo $this->formSelect($situacao);
+											echo $this->formElementErrors($situacao);
+											?>	
+										</div>
+									</div>										
+								</div>
+								<br>
+								
+									<div class="form-group">
+										<div class="row">
+											<div class="col-md-3">
+												<?php
+												$enviar = $this->form->get('submit');
+				    							echo $this->formElement($enviar);
+				    							?>			    					
+											</div>
+										</div>										
+			    					</div>
+		    					
+
+								
+		    				<?php
+							echo $this->form()->closeTag();
+							?>
+							</div>										
+			    		</div>
+					</div>	
+				</div>  					
+			</div>
 		</div>
 	</div>
 </div>
 <?php
-echo $this->headLink()->prependStylesheet($this->basePath() . '/componentes/chosen/chosen.min.css');                      
+echo $this->headLink()->prependStylesheet($this->basePath() . '/componentes/chosen/chosen.css');                      
 echo $this->headScript()->prependFile($this->basePath() . '/componentes/chosen/chosen.jquery.min.js', 'text/javascript');
 echo $this->headScript()->prependFile($this->basePath() 
 	. '/componentes/jquery.masked-input/jquery.maskedinput.min.js');

@@ -2,6 +2,7 @@
 use Core\Test\ControllerTestCase;
 use Usuario\Controller\FisicaController;
 use Usuario\Entity\Fisica;
+use Usuario\Entity\Raca;
 use Zend\Http\Request;
 use Zend\Stdlib\Parameters;
 use Zend\View\Renderer\PhpRenderer;
@@ -209,6 +210,12 @@ class FisicaControllerTest extends ControllerTestCase
 	 */
 	public function testFisicaSaveActionPostRequest()
 	{
+		//	Cadastra uma raça
+		$raca = $this->buildRaca();
+		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
+		$em->persist($raca);
+		$em->flush();		
+
 		//	Dispara a acao
 		$this->routeMatch->setParam('action', 'save');
 
@@ -220,7 +227,7 @@ class FisicaControllerTest extends ControllerTestCase
 		$this->request->getPost()->set('email', 'ej@eduardojunior.com');
 		$this->request->getPost()->set('situacao', 'A');
 		$this->request->getPost()->set('nacionalidade', "1");
-		
+		$this->request->getPost()->set('raca', $raca->getId());
 
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
@@ -238,6 +245,11 @@ class FisicaControllerTest extends ControllerTestCase
 	 */
 	public function testFisicaUpdateAction()
 	{
+		//	Cadastra uma raça
+		$raca = $this->buildRaca();
+		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
+		$em->persist($raca);		
+
 		$fisica = $this->buildFisica();
 		$fisica->setNome('Bill Gates');
 		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
@@ -257,6 +269,7 @@ class FisicaControllerTest extends ControllerTestCase
 		$this->request->getPost()->set('situacao', 'I');
 		$this->request->getPost()->set('sexo', 'M');
 		$this->request->getPost()->set('cpf', '222.222.222-22');
+		$this->request->getPost()->set('raca', $raca->getId());
 
 
 		$result = $this->controller->dispatch(
@@ -398,6 +411,14 @@ class FisicaControllerTest extends ControllerTestCase
 		$fisica->setCpf('111.111.111-11');
 
     	return $fisica;
+	}
+
+	public function buildRaca()
+	{
+		$raca = new Raca;
+		$raca->setNome('Branca');
+
+		return $raca;
 	}
 
 }

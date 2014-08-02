@@ -374,6 +374,14 @@ class Fisica extends Pessoa
 	protected $refCodReligiao;
 
 	/**
+	 * @var int $raca Referencia a raça da pessoa fisica
+	 * 
+	 * @ORM\ManyToOne(targetEntity="Usuario\Entity\Raca")
+	 * @ORM\JoinColumn(name="idraca", referencedColumnName="cod_raca", onDelete="NO ACTION")
+	 */
+	protected $raca;
+
+	/**
 	 * getters and setters
 	 */
 		
@@ -697,6 +705,16 @@ class Fisica extends Pessoa
 		$this->refCodReligiao = $this->valid("refCodReligiao", $value);
 	}
 
+	public function getRaca()
+	{
+		return $this->raca;
+	}
+	
+	public function setRaca($value)
+	{
+		$this->raca = $value;
+	}
+
 	public function setData($data)
 	{
 		$this->setId(isset($data['id']) ? $data['id'] : null);
@@ -760,6 +778,7 @@ class Fisica extends Pessoa
 		$this->setIdocup(isset($data['idocup']) ? $data['idocup'] : null);
 		$this->setNome(isset($data['nome']) ? $data['nome'] : null);
 		$this->setSituacao(isset($data['situacao']) ? $data['situacao'] : null);
+		$this->setRaca(isset($data['raca']) ? $data['raca'] : null);
 	}
 
 

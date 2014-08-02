@@ -2,14 +2,16 @@
 namespace Usuario\Form;
 
 use Zend\Form\Form;
+use Doctrine\ORM\EntityManager;
 
 class Fisica extends Form
 {
-	public function __construct()
+	public function __construct(EntityManager $em)
 	{
 		parent::__construct('fisica');
 		$this->setAttribute('method', 'post');
 		$this->setAttribute('action', '/usuario/fisica/save');
+		// $this->setAttribute('class', 'form-inline');
 
 		$this->add(array(
 			'name' => 'id',
@@ -22,7 +24,8 @@ class Fisica extends Form
 			'name' => 'nome',
 			'attributes' => array(
 				'type' => 'text',
-				'class' => 'form-control'
+				'class' => 'form-control',
+				// 'style' => 'width:510px'
 			),
 			'options' => array(
 				'label' => 'Nome'
@@ -76,6 +79,23 @@ class Fisica extends Form
 					'F' => 'Feminino'
 				),
 			),			
+		));
+
+		$this->add(array(
+			'name' => 'raca',
+			'attributes' => array(
+				'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+				'class' => 'form-control chosen-select',
+				'style' => 'height:100px;'
+			),
+			'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+			'options' => array(
+				'label' => 'Raça',
+				'empty_option' => 'Selecione',
+				'object_manager' => $em,
+				'target_class' => 'Usuario\Entity\Raca',
+				'property' => 'nome',
+			),
 		));
 
 		$this->add(array(

@@ -22,7 +22,6 @@ use Zend\Authentication\AuthenticationService;
 class RacaController 
 	extends ActionController
 {
-	
 	/**
 	 * Mostra as racas cadastradas
 	 * @return void 

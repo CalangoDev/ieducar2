@@ -1,19 +1,11 @@
-RacaController
- [x] Raca index action
- [x] Raca save action new request
- [x] Raca save action update form request
- [x] Raca save action post request
- [x] Raca update action
- [x] Raca save action invalid post request
- [x] Raca invalid delete action
- [x] Raca delete action
- [x] Raca invalid id delete action
-
-Usuario\Entity\Raca
- [x] Get input filter
- [x] Input filter valid
- [x] Insert
- [x] Input filter invalid nome
- [x] Update
- [x] Delete
+FisicaController
+ [x] Fisica index action
+ [x] Fisica save action new request
+ [x] Fisica save action update form request
+ [x] Fisica save action post request
+ [x] Fisica update action
+ [x] Fisica save action invalid post request
+ [x] Fisica invalid delete action
+ [x] Fisica delete action
+ [x] Fisica invalid id delete action
 
