@@ -26,7 +26,8 @@ use Zend\InputFilter\InputFilterInterface;
  * @ORM\Table(name="municipio")
  * 
  */
-class Municipio extends Entity
+class Municipio 
+	extends Entity
 {
 	/**
 	 * @var int $id

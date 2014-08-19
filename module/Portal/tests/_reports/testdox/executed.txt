@@ -1,19 +1,18 @@
 FuncionarioController
- [x] Funcionario index action
- [x] Funcionario save action new request
- [x] Funcionario save action update form request
- [x] Funcionario save action post request
- [x] Funcionario update action
- [x] Funcionario save action invalid post request
- [x] Funcionario invalid delete action
- [x] Funcionario delete action
- [x] Funcionario invalid id delete action
+ [ ] Funcionario index action
+ [ ] Funcionario save action new request
+ [ ] Funcionario save action update form request
+ [ ] Funcionario save action post request
+ [ ] Funcionario update action
+ [ ] Funcionario save action invalid post request
+ [ ] Funcionario invalid delete action
+ [ ] Funcionario delete action
+ [ ] Funcionario invalid id delete action
 
 Portal\Entity\Funcionario
- [x] Get input filter
- [x] Input filter valid
- [x] Insert
- [x] Input filter invalid matricula
- [x] Update
- [x] Delete
+ [ ] Get input filter
+ [ ] Insert
+ [ ] Input filter invalid matricula
+ [ ] Update
+ [ ] Delete
 

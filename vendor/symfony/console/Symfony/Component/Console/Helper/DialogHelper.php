@@ -18,6 +18,9 @@ use Symfony\Component\Console\Formatter\OutputFormatterStyle;
  * The Dialog class provides helpers to interact with the user.
  *
  * @author Fabien Potencier <fabien@symfony.com>
+ *
+ * @deprecated Deprecated since version 2.5, to be removed in 3.0.
+ *             Use the question helper instead.
  */
 class DialogHelper extends InputAwareHelper
 {
@@ -154,7 +157,7 @@ class DialogHelper extends InputAwareHelper
                     $c .= fread($inputStream, 2);
 
                     // A = Up Arrow. B = Down Arrow
-                    if ('A' === $c[2] || 'B' === $c[2]) {
+                    if (isset($c[2]) && ('A' === $c[2] || 'B' === $c[2])) {
                         if ('A' === $c[2] && -1 === $ofs) {
                             $ofs = 0;
                         }
@@ -325,7 +328,7 @@ class DialogHelper extends InputAwareHelper
      * @param OutputInterface $output       An Output instance
      * @param string|array    $question     The question to ask
      * @param callable        $validator    A PHP callback
-     * @param int             $attempts     Max number of times to ask before giving up (false by default, which means infinite)
+     * @param int|false       $attempts     Max number of times to ask before giving up (false by default, which means infinite)
      * @param string          $default      The default answer if none is given by the user
      * @param array           $autocomplete List of values to autocomplete
      *
@@ -354,7 +357,7 @@ class DialogHelper extends InputAwareHelper
      * @param OutputInterface $output    An Output instance
      * @param string|array    $question  The question to ask
      * @param callable        $validator A PHP callback
-     * @param int             $attempts  Max number of times to ask before giving up (false by default, which means infinite)
+     * @param int|false       $attempts  Max number of times to ask before giving up (false by default, which means infinite)
      * @param bool            $fallback  In case the response can not be hidden, whether to fallback on non-hidden question or not
      *
      * @return string         The response
@@ -448,7 +451,7 @@ class DialogHelper extends InputAwareHelper
      * @param callable         $interviewer  A callable that will ask for a question and return the result
      * @param OutputInterface  $output       An Output instance
      * @param callable         $validator    A PHP callback
-     * @param int              $attempts     Max number of times to ask before giving up ; false will ask infinitely
+     * @param int|false        $attempts     Max number of times to ask before giving up ; false will ask infinitely
      *
      * @return string   The validated response
      *

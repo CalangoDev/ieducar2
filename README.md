@@ -15,12 +15,17 @@ Criar os schemas antes de rodar a Aplicação
 * cadastro
 * historico
 * acesso
+* portal
+* pmidrh
+* urbano
 
 
 ## Testes de Unidade
 
 
 ### Rodandos os testes
+
+	http://phpunit.de/manual/current/en/installation.html 
 
 	Exemplo de uso para o modulo Usuario:
 
@@ -86,3 +91,6 @@ Criar os schemas antes de rodar a Aplicação
 ## Padrão CamelCase ##
 
 	Mudanças para uso de padrão CamelCase em todo o projeto, tava um mix com uso de underscore devido aos atributos das classes de persistencias
+
+## apache rewrite ##
+sudo apt-get install php5-intl

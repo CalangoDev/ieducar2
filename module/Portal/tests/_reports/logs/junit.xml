@@ -1,24 +1,256 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="Portal Test Suite" tests="15" assertions="97" failures="0" errors="0" time="21.907598">
-    <testsuite name="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" tests="9" assertions="65" failures="0" errors="0" time="14.840007">
-      <testcase name="testFuncionarioIndexAction" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="29" assertions="5" time="6.451757"/>
-      <testcase name="testFuncionarioSaveActionNewRequest" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="83" assertions="24" time="0.856612"/>
-      <testcase name="testFuncionarioSaveActionUpdateFormRequest" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="151" assertions="24" time="0.899906"/>
-      <testcase name="testFuncionarioSaveActionPostRequest" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="235" assertions="2" time="1.432608"/>
-      <testcase name="testFuncionarioUpdateAction" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="279" assertions="2" time="1.326730"/>
-      <testcase name="testFuncionarioSaveActionInvalidPostRequest" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="332" assertions="2" time="0.988183"/>
-      <testcase name="testFuncionarioInvalidDeleteAction" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="365" assertions="2" time="0.997018"/>
-      <testcase name="testFuncionarioDeleteAction" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="382" assertions="2" time="0.924121"/>
-      <testcase name="testFuncionarioInvalidIdDeleteAction" class="FuncionarioControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="424" assertions="2" time="0.963072"/>
+  <testsuite name="Portal Test Suite" tests="13" assertions="0" failures="0" errors="14" time="43.161192">
+    <testsuite name="FuncionarioControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" tests="9" assertions="0" failures="0" errors="9" time="29.012334">
+      <testcase name="testFuncionarioIndexAction" class="FuncionarioControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="29" assertions="0" time="3.514106">
+        <error type="PDOException">FuncionarioControllerTest::testFuncionarioIndexAction
+PDOException: could not find driver
+
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOConnection.php:40
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOPgSql/Driver.php:41
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:356
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:680
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:419
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Schema/PostgreSqlSchemaManager.php:59
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Schema/AbstractSchemaManager.php:1001
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:148
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:777
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:724
+/Users/eduardojunior/projetos/ieducar2/www/module/Core/src/Core/Test/TestCase.php:103
+/Users/eduardojunior/projetos/ieducar2/www/module/Core/src/Core/Test/TestCase.php:73
+/Users/eduardojunior/projetos/ieducar2/www/module/Core/src/Core/Test/ControllerTestCase.php:65
+</error>
+      </testcase>
+      <testcase name="testFuncionarioSaveActionNewRequest" class="FuncionarioControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="83" assertions="0" time="3.216358">
+        <error type="PDOException">FuncionarioControllerTest::testFuncionarioSaveActionNewRequest
+PDOException: could not find driver
+
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOConnection.php:40
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOPgSql/Driver.php:41
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:356
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:680
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:419
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Schema/PostgreSqlSchemaManager.php:59
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Schema/AbstractSchemaManager.php:1001
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:148
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:777
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:724
+/Users/eduardojunior/projetos/ieducar2/www/module/Core/src/Core/Test/TestCase.php:103
+/Users/eduardojunior/projetos/ieducar2/www/module/Core/src/Core/Test/TestCase.php:73
+/Users/eduardojunior/projetos/ieducar2/www/module/Core/src/Core/Test/ControllerTestCase.php:65
+</error>
+      </testcase>
+      <testcase name="testFuncionarioSaveActionUpdateFormRequest" class="FuncionarioControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="151" assertions="0" time="3.059540">
+        <error type="PDOException">FuncionarioControllerTest::testFuncionarioSaveActionUpdateFormRequest
+PDOException: could not find driver
+
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOConnection.php:40
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOPgSql/Driver.php:41
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:356
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:680
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:419
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Schema/PostgreSqlSchemaManager.php:59
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Schema/AbstractSchemaManager.php:1001
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:148
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:777
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:724
+/Users/eduardojunior/projetos/ieducar2/www/module/Core/src/Core/Test/TestCase.php:103
+/Users/eduardojunior/projetos/ieducar2/www/module/Core/src/Core/Test/TestCase.php:73
+/Users/eduardojunior/projetos/ieducar2/www/module/Core/src/Core/Test/ControllerTestCase.php:65
+</error>
+      </testcase>
+      <testcase name="testFuncionarioSaveActionPostRequest" class="FuncionarioControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="235" assertions="0" time="3.067444">
+        <error type="PDOException">FuncionarioControllerTest::testFuncionarioSaveActionPostRequest
+PDOException: could not find driver
+
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOConnection.php:40
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOPgSql/Driver.php:41
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:356
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:680
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:419
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Schema/PostgreSqlSchemaManager.php:59
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Schema/AbstractSchemaManager.php:1001
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:148
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:777
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:724
+/Users/eduardojunior/projetos/ieducar2/www/module/Core/src/Core/Test/TestCase.php:103
+/Users/eduardojunior/projetos/ieducar2/www/module/Core/src/Core/Test/TestCase.php:73
+/Users/eduardojunior/projetos/ieducar2/www/module/Core/src/Core/Test/ControllerTestCase.php:65
+</error>
+      </testcase>
+      <testcase name="testFuncionarioUpdateAction" class="FuncionarioControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="279" assertions="0" time="3.118582">
+        <error type="PDOException">FuncionarioControllerTest::testFuncionarioUpdateAction
+PDOException: could not find driver
+
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOConnection.php:40
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOPgSql/Driver.php:41
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:356
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:680
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:419
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Schema/PostgreSqlSchemaManager.php:59
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Schema/AbstractSchemaManager.php:1001
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:148
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:777
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:724
+/Users/eduardojunior/projetos/ieducar2/www/module/Core/src/Core/Test/TestCase.php:103
+/Users/eduardojunior/projetos/ieducar2/www/module/Core/src/Core/Test/TestCase.php:73
+/Users/eduardojunior/projetos/ieducar2/www/module/Core/src/Core/Test/ControllerTestCase.php:65
+</error>
+      </testcase>
+      <testcase name="testFuncionarioSaveActionInvalidPostRequest" class="FuncionarioControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="332" assertions="0" time="3.340949">
+        <error type="PDOException">FuncionarioControllerTest::testFuncionarioSaveActionInvalidPostRequest
+PDOException: could not find driver
+
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOConnection.php:40
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOPgSql/Driver.php:41
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:356
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:680
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:419
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Schema/PostgreSqlSchemaManager.php:59
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Schema/AbstractSchemaManager.php:1001
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:148
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:777
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:724
+/Users/eduardojunior/projetos/ieducar2/www/module/Core/src/Core/Test/TestCase.php:103
+/Users/eduardojunior/projetos/ieducar2/www/module/Core/src/Core/Test/TestCase.php:73
+/Users/eduardojunior/projetos/ieducar2/www/module/Core/src/Core/Test/ControllerTestCase.php:65
+</error>
+      </testcase>
+      <testcase name="testFuncionarioInvalidDeleteAction" class="FuncionarioControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="365" assertions="0" time="3.216856">
+        <error type="PDOException">FuncionarioControllerTest::testFuncionarioInvalidDeleteAction
+PDOException: could not find driver
+
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOConnection.php:40
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOPgSql/Driver.php:41
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:356
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:680
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:419
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Schema/PostgreSqlSchemaManager.php:59
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Schema/AbstractSchemaManager.php:1001
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:148
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:777
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:724
+/Users/eduardojunior/projetos/ieducar2/www/module/Core/src/Core/Test/TestCase.php:103
+/Users/eduardojunior/projetos/ieducar2/www/module/Core/src/Core/Test/TestCase.php:73
+/Users/eduardojunior/projetos/ieducar2/www/module/Core/src/Core/Test/ControllerTestCase.php:65
+</error>
+      </testcase>
+      <testcase name="testFuncionarioDeleteAction" class="FuncionarioControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="382" assertions="0" time="3.217165">
+        <error type="PDOException">FuncionarioControllerTest::testFuncionarioDeleteAction
+PDOException: could not find driver
+
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOConnection.php:40
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOPgSql/Driver.php:41
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:356
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:680
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:419
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Schema/PostgreSqlSchemaManager.php:59
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Schema/AbstractSchemaManager.php:1001
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:148
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:777
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:724
+/Users/eduardojunior/projetos/ieducar2/www/module/Core/src/Core/Test/TestCase.php:103
+/Users/eduardojunior/projetos/ieducar2/www/module/Core/src/Core/Test/TestCase.php:73
+/Users/eduardojunior/projetos/ieducar2/www/module/Core/src/Core/Test/ControllerTestCase.php:65
+</error>
+      </testcase>
+      <testcase name="testFuncionarioInvalidIdDeleteAction" class="FuncionarioControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Portal/tests/src/Portal/Controller/FuncionarioControllerTest.php" line="424" assertions="0" time="3.261334">
+        <error type="PDOException">FuncionarioControllerTest::testFuncionarioInvalidIdDeleteAction
+PDOException: could not find driver
+
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOConnection.php:40
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOPgSql/Driver.php:41
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:356
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:680
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:419
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Schema/PostgreSqlSchemaManager.php:59
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Schema/AbstractSchemaManager.php:1001
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:148
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:777
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:724
+/Users/eduardojunior/projetos/ieducar2/www/module/Core/src/Core/Test/TestCase.php:103
+/Users/eduardojunior/projetos/ieducar2/www/module/Core/src/Core/Test/TestCase.php:73
+/Users/eduardojunior/projetos/ieducar2/www/module/Core/src/Core/Test/ControllerTestCase.php:65
+</error>
+      </testcase>
     </testsuite>
-    <testsuite name="Portal\Entity\FuncionarioTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Entity/FuncionarioTest.php" namespace="Portal\Entity" fullPackage="Portal.Entity" tests="6" assertions="32" failures="0" errors="0" time="7.067591">
-      <testcase name="testGetInputFilter" class="Portal\Entity\FuncionarioTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Entity/FuncionarioTest.php" line="21" assertions="1" time="1.052559"/>
-      <testcase name="testInputFilterValid" class="Portal\Entity\FuncionarioTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Entity/FuncionarioTest.php" line="33" assertions="22" time="0.908440"/>
-      <testcase name="testInsert" class="Portal\Entity\FuncionarioTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Entity/FuncionarioTest.php" line="64" assertions="5" time="1.882439"/>
-      <testcase name="testInputFilterInvalidMatricula" class="Portal\Entity\FuncionarioTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Entity/FuncionarioTest.php" line="93" assertions="1" time="0.981031"/>
-      <testcase name="testUpdate" class="Portal\Entity\FuncionarioTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Entity/FuncionarioTest.php" line="108" assertions="2" time="0.963880"/>
-      <testcase name="testDelete" class="Portal\Entity\FuncionarioTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Portal/tests/src/Portal/Entity/FuncionarioTest.php" line="133" assertions="1" time="1.279242"/>
+    <testsuite name="Portal\Entity\FuncionarioTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Portal/tests/src/Portal/Entity/FuncionarioTest.php" tests="4" assertions="0" failures="0" errors="5" time="14.148858">
+      <testcase name="testGetInputFilter" class="Portal\Entity\FuncionarioTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Portal/tests/src/Portal/Entity/FuncionarioTest.php" line="21" assertions="0" time="3.400814">
+        <error type="PDOException">Portal\Entity\FuncionarioTest::testGetInputFilter
+PDOException: could not find driver
+
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOConnection.php:40
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOPgSql/Driver.php:41
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:356
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:680
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:419
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Schema/PostgreSqlSchemaManager.php:59
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Schema/AbstractSchemaManager.php:1001
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:148
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:777
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:724
+/Users/eduardojunior/projetos/ieducar2/www/module/Core/src/Core/Test/TestCase.php:103
+/Users/eduardojunior/projetos/ieducar2/www/module/Core/src/Core/Test/TestCase.php:73
+/Users/eduardojunior/projetos/ieducar2/www/module/Portal/tests/src/Portal/Entity/FuncionarioTest.php:15
+</error>
+      </testcase>
+      <testcase name="testInputFilterInvalidMatricula" class="Portal\Entity\FuncionarioTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Portal/tests/src/Portal/Entity/FuncionarioTest.php" line="93" assertions="0" time="3.518730">
+        <error type="PDOException">Portal\Entity\FuncionarioTest::testInputFilterInvalidMatricula
+PDOException: could not find driver
+
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOConnection.php:40
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOPgSql/Driver.php:41
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:356
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:680
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:419
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Schema/PostgreSqlSchemaManager.php:59
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Schema/AbstractSchemaManager.php:1001
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:148
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:777
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:724
+/Users/eduardojunior/projetos/ieducar2/www/module/Core/src/Core/Test/TestCase.php:103
+/Users/eduardojunior/projetos/ieducar2/www/module/Core/src/Core/Test/TestCase.php:73
+/Users/eduardojunior/projetos/ieducar2/www/module/Portal/tests/src/Portal/Entity/FuncionarioTest.php:15
+</error>
+      </testcase>
+      <testcase name="testUpdate" class="Portal\Entity\FuncionarioTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Portal/tests/src/Portal/Entity/FuncionarioTest.php" line="108" assertions="0" time="3.589570">
+        <error type="PDOException">Portal\Entity\FuncionarioTest::testUpdate
+PDOException: could not find driver
+
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOConnection.php:40
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOPgSql/Driver.php:41
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:356
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:680
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:419
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Schema/PostgreSqlSchemaManager.php:59
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Schema/AbstractSchemaManager.php:1001
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:148
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:777
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:724
+/Users/eduardojunior/projetos/ieducar2/www/module/Core/src/Core/Test/TestCase.php:103
+/Users/eduardojunior/projetos/ieducar2/www/module/Core/src/Core/Test/TestCase.php:73
+/Users/eduardojunior/projetos/ieducar2/www/module/Portal/tests/src/Portal/Entity/FuncionarioTest.php:15
+</error>
+      </testcase>
+      <testcase name="testDelete" class="Portal\Entity\FuncionarioTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Portal/tests/src/Portal/Entity/FuncionarioTest.php" line="133" assertions="0" time="3.639744">
+        <error type="PDOException">Portal\Entity\FuncionarioTest::testDelete
+PDOException: could not find driver
+
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOConnection.php:40
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOPgSql/Driver.php:41
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:356
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:680
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php:419
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Schema/PostgreSqlSchemaManager.php:59
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/dbal/lib/Doctrine/DBAL/Schema/AbstractSchemaManager.php:1001
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:148
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:777
+/Users/eduardojunior/projetos/ieducar2/www/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php:724
+/Users/eduardojunior/projetos/ieducar2/www/module/Core/src/Core/Test/TestCase.php:103
+/Users/eduardojunior/projetos/ieducar2/www/module/Core/src/Core/Test/TestCase.php:73
+/Users/eduardojunior/projetos/ieducar2/www/module/Portal/tests/src/Portal/Entity/FuncionarioTest.php:15
+</error>
+      </testcase>
     </testsuite>
   </testsuite>
 </testsuites>

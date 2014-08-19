@@ -530,7 +530,7 @@ class UnitOfWork implements PropertyChangedListener
             $class = $this->em->getClassMetadata(get_class($entity));
         }
 
-        $invoke = $this->listenersInvoker->getSubscribedSystems($class, Events::preFlush);
+        $invoke = $this->listenersInvoker->getSubscribedSystems($class, Events::preFlush) & ~ListenersInvoker::INVOKE_MANAGER;
 
         if ($invoke !== ListenersInvoker::INVOKE_NONE) {
             $this->listenersInvoker->invoke($class, Events::preFlush, $entity, new PreFlushEventArgs($this->em), $invoke);
@@ -541,7 +541,15 @@ class UnitOfWork implements PropertyChangedListener
         foreach ($class->reflFields as $name => $refProp) {
             $value = $refProp->getValue($entity);
 
-            if ($class->isCollectionValuedAssociation($name) && $value !== null && ! ($value instanceof PersistentCollection)) {
+            if ($class->isCollectionValuedAssociation($name) && $value !== null) {
+                if ($value instanceof PersistentCollection) {
+                    if ($value->getOwner() === $entity) {
+                        continue;
+                    }
+
+                    $value = new ArrayCollection($value->getValues());
+                }
+
                 // If $value is not a Collection then use an ArrayCollection.
                 if ( ! $value instanceof Collection) {
                     $value = new ArrayCollection($value);
@@ -894,9 +902,15 @@ class UnitOfWork implements PropertyChangedListener
         $actualData = array();
 
         foreach ($class->reflFields as $name => $refProp) {
-            if ( ! $class->isIdentifier($name) || ! $class->isIdGeneratorIdentity()) {
+            if (( ! $class->isIdentifier($name) || ! $class->isIdGeneratorIdentity())
+                && ($name !== $class->versionField)
+                && ! $class->isCollectionValuedAssociation($name)) {
                 $actualData[$name] = $refProp->getValue($entity);
             }
+        }
+
+        if ( ! isset($this->originalEntityData[$oid])) {
+            throw new \RuntimeException('Cannot call recomputeSingleEntityChangeSet before computeChangeSet on an entity.');
         }
 
         $originalData = $this->originalEntityData[$oid];
@@ -905,9 +919,7 @@ class UnitOfWork implements PropertyChangedListener
         foreach ($actualData as $propName => $actualValue) {
             $orgValue = isset($originalData[$propName]) ? $originalData[$propName] : null;
 
-            if (is_object($orgValue) && $orgValue !== $actualValue) {
-                $changeSet[$propName] = array($orgValue, $actualValue);
-            } else if ($orgValue != $actualValue || ($orgValue === null ^ $actualValue === null)) {
+            if ($orgValue !== $actualValue) {
                 $changeSet[$propName] = array($orgValue, $actualValue);
             }
         }
@@ -915,8 +927,10 @@ class UnitOfWork implements PropertyChangedListener
         if ($changeSet) {
             if (isset($this->entityChangeSets[$oid])) {
                 $this->entityChangeSets[$oid] = array_merge($this->entityChangeSets[$oid], $changeSet);
+            } else if ( ! isset($this->entityInsertions[$oid])) {
+                $this->entityChangeSets[$oid] = $changeSet;
+                $this->entityUpdates[$oid]    = $entity;
             }
-
             $this->originalEntityData[$oid] = $actualData;
         }
     }
@@ -948,7 +962,7 @@ class UnitOfWork implements PropertyChangedListener
                 $entities[] = $entity;
             }
         }
-        
+
         $postInsertIds = $persister->executeInserts();
 
         if ($postInsertIds) {
@@ -1584,7 +1598,7 @@ class UnitOfWork implements PropertyChangedListener
      * @throws UnexpectedValueException
      */
     private function doPersist($entity, array &$visited)
-    {        
+    {
         $oid = spl_object_hash($entity);
 
         if (isset($visited[$oid])) {
@@ -1736,6 +1750,8 @@ class UnitOfWork implements PropertyChangedListener
                 $associatedId        = $this->getEntityIdentifier($idValue);
 
                 $flatId[$idField] = $associatedId[$targetClassMetadata->identifier[0]];
+            } else {
+                $flatId[$idField] = $idValue;
             }
         }
 
@@ -2231,6 +2247,8 @@ class UnitOfWork implements PropertyChangedListener
             function ($assoc) { return $assoc['isCascadeRemove']; }
         );
 
+        $entitiesToCascade = array();
+
         foreach ($associationMappings as $assoc) {
             if ($entity instanceof Proxy && !$entity->__isInitialized__) {
                 $entity->__load();
@@ -2243,17 +2261,21 @@ class UnitOfWork implements PropertyChangedListener
                 case (is_array($relatedEntities)):
                     // If its a PersistentCollection initialization is intended! No unwrap!
                     foreach ($relatedEntities as $relatedEntity) {
-                        $this->doRemove($relatedEntity, $visited);
+                        $entitiesToCascade[] = $relatedEntity;
                     }
                     break;
 
                 case ($relatedEntities !== null):
-                    $this->doRemove($relatedEntities, $visited);
+                    $entitiesToCascade[] = $relatedEntities;
                     break;
 
                 default:
                     // Do nothing
             }
+        }
+
+        foreach ($entitiesToCascade as $relatedEntity) {
+            $this->doRemove($relatedEntity, $visited);
         }
     }
 
@@ -2471,15 +2493,15 @@ class UnitOfWork implements PropertyChangedListener
                     ? $data[$class->associationMappings[$fieldName]['joinColumns'][0]['name']]
                     : $data[$fieldName];
             }
-
-            $idHash = implode(' ', $id);
         } else {
-            $idHash = isset($class->associationMappings[$class->identifier[0]])
+            $id = isset($class->associationMappings[$class->identifier[0]])
                 ? $data[$class->associationMappings[$class->identifier[0]]['joinColumns'][0]['name']]
                 : $data[$class->identifier[0]];
 
-            $id = array($class->identifier[0] => $idHash);
+            $id = array($class->identifier[0] => $id);
         }
+
+        $idHash = implode(' ', $id);
 
         if (isset($this->identityMap[$class->rootEntityName][$idHash])) {
             $entity = $this->identityMap[$class->rootEntityName][$idHash];
@@ -2490,14 +2512,14 @@ class UnitOfWork implements PropertyChangedListener
                 && isset($hints[Query::HINT_REFRESH_ENTITY])
                 && ($unmanagedProxy = $hints[Query::HINT_REFRESH_ENTITY]) !== $entity
                 && $unmanagedProxy instanceof Proxy
-                && (($unmanagedProxyClass = $this->em->getClassMetadata(get_class($unmanagedProxy))) === $class)
+                && $this->isIdentifierEquals($unmanagedProxy, $entity)
             ) {
                 // DDC-1238 - we have a managed instance, but it isn't the provided one.
                 // Therefore we clear its identifier. Also, we must re-fetch metadata since the
                 // refreshed object may be anything
 
-                foreach ($unmanagedProxyClass->identifier as $fieldName) {
-                    $unmanagedProxyClass->reflFields[$fieldName]->setValue($unmanagedProxy, null);
+                foreach ($class->identifier as $fieldName) {
+                    $class->reflFields[$fieldName]->setValue($unmanagedProxy, null);
                 }
 
                 return $unmanagedProxy;
@@ -3205,5 +3227,38 @@ class UnitOfWork implements PropertyChangedListener
         if ($this->evm->hasListeners(Events::postFlush)) {
             $this->evm->dispatchEvent(Events::postFlush, new PostFlushEventArgs($this->em));
         }
+    }
+
+    /**
+     * Verifies if two given entities actually are the same based on identifier comparison
+     *
+     * @param object $entity1
+     * @param object $entity2
+     *
+     * @return bool
+     */
+    private function isIdentifierEquals($entity1, $entity2)
+    {
+        if ($entity1 === $entity2) {
+            return true;
+        }
+
+        $class = $this->em->getClassMetadata(get_class($entity1));
+
+        if ($class !== $this->em->getClassMetadata(get_class($entity2))) {
+            return false;
+        }
+
+        $oid1 = spl_object_hash($entity1);
+        $oid2 = spl_object_hash($entity2);
+
+        $id1 = isset($this->entityIdentifiers[$oid1])
+            ? $this->entityIdentifiers[$oid1]
+            : $this->flattenIdentifier($class, $class->getIdentifierValues($entity1));
+        $id2 = isset($this->entityIdentifiers[$oid2])
+            ? $this->entityIdentifiers[$oid2]
+            : $this->flattenIdentifier($class, $class->getIdentifierValues($entity2));
+
+        return $id1 === $id2 || implode(' ', $id1) === implode(' ', $id2);
     }
 }

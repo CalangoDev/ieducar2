@@ -1,0 +1,4 @@
+
+- O endereço do usuario é salvo na tabela cadastro.endereco_externo
+
+- A Entidade que fica no schema urbano.tipo_logradouro na versão 2 fica no core do sistema.

@@ -5,6 +5,7 @@ i-Educar 2.0.0
 - Criado atributo idraca na tabela cadastro.fisica que aponta para o atributo cod_raca tabela de raças cadastro.raca
   Na versão anterior tinha uma tabela chamada cadastro.fisica_raca onde se armazenavam o id da pessoa fisica e o codigo
   da raça. 
+- O endereço do usuario é salvo na tabela cadastro.endereco_externo
 
 i-Educar 1.1.0 2010-02-15
 -------------------------
