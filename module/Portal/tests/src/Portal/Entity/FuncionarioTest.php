@@ -32,7 +32,7 @@ class FuncionarioTest extends EntityTestCase
 	 */
 	public function testInputFilterValid($if)
 	{
-		$this->assertEquals(21, $if->count());
+		$this->assertEquals(22, $if->count());
 
 		// $this->assertTrue($if->has('id'));
 		$this->assertTrue($if->has('matricula'));
@@ -56,6 +56,7 @@ class FuncionarioTest extends EntityTestCase
 		$this->assertTrue($if->has('dataLogin'));
 		$this->assertTrue($if->has('email'));
 		$this->assertTrue($if->has('statusToken'));
+		$this->assertTrue($if->has('superAdmin'));
 	}
 
 	/**

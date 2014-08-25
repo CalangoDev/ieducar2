@@ -19,8 +19,7 @@ use Zend\Authentication\AuthenticationService;
  * @package Controller
  * @author Eduardo Junior <ej@eduardojunior.com>
  */
-class RacaController 
-	extends ActionController
+class RacaController extends ActionController
 {
 	/**
 	 * Mostra as racas cadastradas

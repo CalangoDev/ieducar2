@@ -18,29 +18,7 @@ use Zend\Authentication\AuthenticationService;
  */
 class IndexController extends ActionController
 {
-	/**
-	 * @var Doctrine\ORM\EntityManager
-	 */
-	protected $em;
-
-	public function setEntityManager(EntityManager $em)
-	{
-		$this->em = $em;
-	}
-
-	public function getEntityManager()
-	{		
-		if (null === $this->em){
-			$this->em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-		}		
-		return $this->em;
-	}
-
-    // public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
-    // {
-    //     $this->serviceLocator = $serviceLocator;
-    // }
-
+	
     public function indexAction()
     { 
     	$form = new LoginForm();

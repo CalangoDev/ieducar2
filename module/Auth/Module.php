@@ -40,7 +40,7 @@ class Module
         $actionName = $routeMatch->getParam('action');
 
         $authService = $di->get('Auth\Service\Auth');        
-        if (!$authService->authorize($moduleName, $controllerName, $actionName)){            
+        if (!$authService->authorize($moduleName, $controllerName, $actionName)){
             $redirect = $event->getTarget()->redirect();
             /**
              * So redireciona para /auth se o usuario nao estiver logado
@@ -53,7 +53,7 @@ class Module
             } else {
                $redirect->toUrl('/auth'); 
             }
-        } 
+        }
         
         return true;      
     }

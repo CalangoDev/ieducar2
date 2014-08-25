@@ -112,12 +112,18 @@ return array(
                 ),                                
             ),          
         ),
+        'fixture' => array(
+            __NAMESPACE__ . "_fixture" => __DIR__ . '/../src/' . __NAMESPACE__ . '/Fixture',
+        ),
         'eventmanager' => array(
             'orm_default' => array(
                 'subscribers' => array(
                     __NAMESPACE__ . '\Entity\Pessoa'
                 ),
             ),
-        ),
+        ),        
+        // 'data-fixture' => array(
+        //     'location' => __DIR__ . '/../src/' . __NAMESPACE__ . '/Fixture',
+        // ),
     ),    
 );

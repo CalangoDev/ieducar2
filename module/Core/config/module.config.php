@@ -23,6 +23,9 @@ return array(
                     __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver',
                 ),
             ),          
-        )
+        ),
+        'fixture' => array(
+            __NAMESPACE__ . "_fixture" => __DIR__ . '/../src/' . __NAMESPACE__ . '/Fixture',
+        ),
     ),        
 );

@@ -10,6 +10,7 @@ return array(
         'Portal',
         'Drh',
         'Auth',
+        'DoctrineDataFixtureModule',
         'Core'      
     ),    
     'module_listener_options' => array(

@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="Drh Test Suite" tests="15" assertions="60" failures="0" errors="0" time="18.283468">
-    <testsuite name="SetorControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" tests="9" assertions="40" failures="0" errors="0" time="12.642723">
-      <testcase name="testSetorIndexAction" class="SetorControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" line="29" assertions="5" time="1.292536"/>
-      <testcase name="testSetorSaveActionNewRequest" class="SetorControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" line="69" assertions="17" time="0.893321"/>
-      <testcase name="testSetorSaveActionUpdateFormRequest" class="SetorControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" line="127" assertions="6" time="0.778162"/>
-      <testcase name="testSetorSaveActionPostRequest" class="SetorControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" line="164" assertions="2" time="1.045330"/>
-      <testcase name="testSetorUpdateAction" class="SetorControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" line="192" assertions="2" time="0.992994"/>
-      <testcase name="testSetorSaveActionInvalidPostRequest" class="SetorControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" line="230" assertions="2" time="0.914601"/>
-      <testcase name="testSetorInvalidDeleteAction" class="SetorControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" line="263" assertions="2" time="1.015447"/>
-      <testcase name="testSetorDeleteAction" class="SetorControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" line="279" assertions="2" time="3.433279"/>
-      <testcase name="testFuncionarioInvalidIdDeleteAction" class="SetorControllerTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" line="310" assertions="2" time="2.277053"/>
+  <testsuite name="Drh Test Suite" tests="15" assertions="60" failures="0" errors="0" time="158.457421">
+    <testsuite name="SetorControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" tests="9" assertions="40" failures="0" errors="0" time="90.372275">
+      <testcase name="testSetorIndexAction" class="SetorControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" line="29" assertions="5" time="8.173698"/>
+      <testcase name="testSetorSaveActionNewRequest" class="SetorControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" line="69" assertions="17" time="8.710823"/>
+      <testcase name="testSetorSaveActionUpdateFormRequest" class="SetorControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" line="127" assertions="6" time="9.664433"/>
+      <testcase name="testSetorSaveActionPostRequest" class="SetorControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" line="164" assertions="2" time="9.329389"/>
+      <testcase name="testSetorUpdateAction" class="SetorControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" line="192" assertions="2" time="9.832481"/>
+      <testcase name="testSetorSaveActionInvalidPostRequest" class="SetorControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" line="230" assertions="2" time="11.458832"/>
+      <testcase name="testSetorInvalidDeleteAction" class="SetorControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" line="263" assertions="2" time="11.613615"/>
+      <testcase name="testSetorDeleteAction" class="SetorControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" line="279" assertions="2" time="10.562151"/>
+      <testcase name="testFuncionarioInvalidIdDeleteAction" class="SetorControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Drh/tests/src/Drh/Controller/SetorControllerTest.php" line="310" assertions="2" time="11.026853"/>
     </testsuite>
-    <testsuite name="Drh\Entity\SetorTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Entity/SetorTest.php" namespace="Drh\Entity" fullPackage="Drh.Entity" tests="6" assertions="20" failures="0" errors="0" time="5.640745">
-      <testcase name="testGetInputFilter" class="Drh\Entity\SetorTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Entity/SetorTest.php" line="21" assertions="1" time="0.862289"/>
-      <testcase name="testInputFilterValid" class="Drh\Entity\SetorTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Entity/SetorTest.php" line="33" assertions="11" time="0.913095"/>
-      <testcase name="testInsert" class="Drh\Entity\SetorTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Entity/SetorTest.php" line="52" assertions="4" time="0.926679"/>
-      <testcase name="testInputFilterInvalidSetor" class="Drh\Entity\SetorTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Entity/SetorTest.php" line="73" assertions="1" time="1.002184"/>
-      <testcase name="testUpdate" class="Drh\Entity\SetorTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Entity/SetorTest.php" line="84" assertions="2" time="1.011042"/>
-      <testcase name="testDelete" class="Drh\Entity\SetorTest" file="/Users/eduardojunior/Websites/ieducar2/www/module/Drh/tests/src/Drh/Entity/SetorTest.php" line="103" assertions="1" time="0.925456"/>
+    <testsuite name="Drh\Entity\SetorTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Drh/tests/src/Drh/Entity/SetorTest.php" tests="6" assertions="20" failures="0" errors="0" time="68.085146">
+      <testcase name="testGetInputFilter" class="Drh\Entity\SetorTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Drh/tests/src/Drh/Entity/SetorTest.php" line="21" assertions="1" time="12.245391"/>
+      <testcase name="testInputFilterValid" class="Drh\Entity\SetorTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Drh/tests/src/Drh/Entity/SetorTest.php" line="33" assertions="11" time="11.228948"/>
+      <testcase name="testInsert" class="Drh\Entity\SetorTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Drh/tests/src/Drh/Entity/SetorTest.php" line="52" assertions="4" time="12.197976"/>
+      <testcase name="testInputFilterInvalidSetor" class="Drh\Entity\SetorTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Drh/tests/src/Drh/Entity/SetorTest.php" line="73" assertions="1" time="10.860945"/>
+      <testcase name="testUpdate" class="Drh\Entity\SetorTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Drh/tests/src/Drh/Entity/SetorTest.php" line="84" assertions="2" time="11.546351"/>
+      <testcase name="testDelete" class="Drh\Entity\SetorTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Drh/tests/src/Drh/Entity/SetorTest.php" line="103" assertions="1" time="10.005535"/>
     </testsuite>
   </testsuite>
 </testsuites>

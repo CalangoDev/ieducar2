@@ -2,3 +2,10 @@
 - O endereço do usuario é salvo na tabela cadastro.endereco_externo
 
 - A Entidade que fica no schema urbano.tipo_logradouro na versão 2 fica no core do sistema.
+
+- data-fixtures para inserção de dados
+
+- criacao do schema cep, para receber as tabelas com uma base de cep completa :D
+- fixtures do core de cep, salvar o arquivo de acordo com o encoding do banco, salvei como iso, ou pode testar uma,
+funcao para converter na hora de inserir..  utf8_decode com o uso da funcao utf8_decode nao precisa salvar os arquivos das
+fixtures como iso

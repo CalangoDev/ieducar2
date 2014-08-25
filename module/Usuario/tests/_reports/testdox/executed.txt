@@ -121,3 +121,41 @@ Usuario\Entity\Juridica
  [x] Delete
 
 Usuario\Entity\Ocupacao
+ [x] Get input filter
+ [x] Input filter valid
+ [x] Insert
+ [x] Input filter invalid descricao
+ [x] Update
+ [x] Delete
+
+Usuario\Entity\Pessoa
+ [x] Get input filter
+ [x] Input filter valid
+ [x] Insert
+ [x] e insert nome invalido
+ [x] Input filter invalido tipo
+ [x] Input filter invalido data rev
+ [x] Input filter invalido url
+ [x] Update
+ [x] Delete
+ [x] Historico delete
+ [x] Historico update
+
+Usuario\Entity\Raca
+ [x] Get input filter
+ [x] Input filter valid
+ [x] Insert
+ [x] Input filter invalid nome
+ [x] Update
+ [x] Delete
+
+Usuario\Entity\Religiao
+ [x] Get input filter
+ [x] Input filter valid
+ [x] Insert
+ [x] Build pessoa
+ [x] Insert with pessoa
+ [x] Input filter invalid religiao
+ [x] Update
+ [x] Delete
+

@@ -24,8 +24,7 @@ use Zend\InputFilter\InputFilterInterface;
  * @ORM\Entity
  * @ORM\Table(name="urbano.tipo_logradouro")
  */
-class TipoLogradouro 
-	extends Entity
+class TipoLogradouro extends Entity
 {
 	/**
 	 * @var string $id

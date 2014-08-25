@@ -15,21 +15,7 @@ use Doctrine\ORM\EntityManager;
 
 class IndexController extends AbstractActionController
 {
-	private $em;
-
-	public function setEntityManager(EntityManager $em)
-	{
-		$this->em = $em;
-	}
-
-	public function getEntityManager()
-	{
-		if (null === $this->em){                     
-			$this->em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-		}
-		return $this->em;
-	}
-
+	
     public function indexAction()
     {
         $pessoa = new \Usuario\Entity\Pessoa();

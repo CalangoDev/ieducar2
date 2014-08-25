@@ -29,8 +29,7 @@ use Zend\InputFilter\InputFilterInterface;
  * @ORM\Entity
  * @ORM\Table(name="cadastro.endereco_externo")
  */
-class EnderecoExterno 
-	extends Entity		
+class EnderecoExterno extends Entity		
 {	
 	/**
 	 * @var int $pessoa Id da pessoa que tem esse endereco

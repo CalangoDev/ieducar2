@@ -20,8 +20,7 @@ use Zend\Paginator\Paginator;
  * @package Controller
  * @author Eduardo Junior <ej@eduardojunior.com>
  */
-class FisicaController 
-	extends ActionController
+class FisicaController extends ActionController
 {	
 	/**
 	 * Mostra as pessoas fisicas cadastradas

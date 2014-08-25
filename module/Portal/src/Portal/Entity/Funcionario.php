@@ -245,6 +245,14 @@ class Funcionario extends Entity
 	 */
 	protected $statusToken;
 
+	/**
+	 * @var int $superAdmin
+	 * (0 para nao superadmin e 1 para superadmin)
+	 * 
+	 * @ORM\Column(type="smallint", length=1, nullable=true)
+	 */
+	protected $superAdmin = 0;
+
 	public function setData($data)
 	{			
 		// var_dump($data);
@@ -522,6 +530,15 @@ class Funcionario extends Entity
 		$this->email = $this->valid("email", $value);
 	}
 
+	public function getSuperAdmin()
+	{
+		return $this->superAdmin;
+	}
+
+	public function setSuperAdmin($value)
+	{
+		$this->superAdmin = $this->valid("superAdmin", $value);
+	}
 
 	
 	/**
@@ -802,6 +819,13 @@ class Funcionario extends Entity
 				),
 			)));
 
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'superAdmin',
+				'required' => false,
+				'filters' => array(
+					array('name' => 'Int'),					
+				),				
+			)));
 
 			$this->inputFilter = $inputFilter;
 		}

@@ -117,10 +117,18 @@ class Auth extends Service
         // $auth = new AuthenticationService(); //simples retorna so o id
         $auth = $this->getServiceManager()->get('Zend\Authentication\AuthenticationService');
         $role = 'visitante';
+        $superadmin = false;
         
         if ($auth->hasIdentity()) {        	        	
         	$user = $auth->getIdentity();
-            $role = $user->getRefCodPessoaFj()->getId();//pega o codigo da pessoa fisica                                     
+        	if ($user){        		
+            	$role = $user->getRefCodPessoaFj()->getId();//pega o codigo da pessoa fisica 
+            	/*
+	             * Verificando se é superusuario se for liberar acesso ao sistema todo
+	             */            
+	            if ($user->getSuperAdmin() == 1)
+	            	$superadmin = true;
+        	}            
             // foreach ($auth->getIdentity()['refCodPessoaFj'] as $key => $value) {
             // 	if ($key == 'id'){
             // 		$id = $value;
@@ -129,15 +137,25 @@ class Auth extends Service
             // $role = $id;
             // var_dump($auth->getIdentity()['refCodPessoaFj']);
         } 
+        if ($superadmin){
+        	// var_dump("SOU SUPER ADMIN");
+        	return true;
+        }
         $resource = $controllerName . '.' . $actionName;                 
         /* monta as acls de acordo com o arquivo de configurações */
+        // var_dump($resource);
         $acl = $this->getServiceManager()
                     ->get('Core\Acl\Builder')
-                    ->build();        
-        /* verifica se o usuário tem permissão para acessar o recurso atual */             
-        if ($acl->isAllowed($role, $resource)) {        	
-            return true;
-        }        
+                    ->build();         
+        if ($acl->hasRole($role)){        	
+        	if ($acl->isAllowed($role, $resource)) {        	
+        		return true;
+    		}        	        
+        } else {
+        	if (($role != 'visitante') && ( 
+        		($resource == 'Application\Controller\Index.index')  || ($resource == 'Auth\Controller\Index.logout') ) )
+        		return true;
+        }
         return false;
     }
 }

@@ -4,7 +4,6 @@ namespace Auth\Controller;
 use Zend\View\Model\ViewModel;
 use Core\Controller\ActionController;
 use DoctrineORMModule\Stdlib\Hydrator\DoctrineEntity;
-use Doctrine\ORM\EntityManager;
 use Auth\Entity\Resource;
 use Auth\Form\Resource as ResourceForm;
 
@@ -23,24 +22,7 @@ use Zend\Paginator\Paginator;
  */
 class ResourceController extends ActionController
 {
-	/**
-	 * @var Doctrine\ORM\EntityManager
-	 */
-	protected $em;
-
-	public function setEntityManager(EntityManager $em)
-	{
-		$this->em = $em;
-	}
-
-	public function getEntityManager()
-	{		
-		if (null === $this->em){
-			$this->em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-		}		
-		return $this->em;
-	}
-
+	
 	/**
 	 * Mostra as regras cadastradas
 	 * @return void 
