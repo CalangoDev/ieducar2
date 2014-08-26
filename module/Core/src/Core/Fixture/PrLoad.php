@@ -20262,7 +20262,7 @@ class PrLoad implements FixtureInterface
             array(20249, 'Londrina', 'José Tramontini', 'Portal de Versalhes 3', '86055-260', 'Rua'),
             array(20250, 'Paranaguá', 'José Tramujas', 'Tuiuti', '83203-650', 'Rua'),
             array(20251, 'São José dos Pinhais', 'José Trevisan', 'Miringuava', '83090-090', 'Rua'),
-            array(20252, 'Londrina', 'José Trizotti', \', '86084-835', 'Rua'),
+            array(20252, 'Londrina', 'José Trizotti', '', '86084-835', 'Rua'),
             array(20253, 'Ponta Grossa', 'José Trujillo de Freitas', 'Uvaranas', '84030-325', 'Rua'),
             array(20254, 'Araucária', 'José Túlio', 'Tindiquera', '83708-600', 'Rua'),
             array(20255, 'Curitiba', 'José Túlio', 'Santa Felicidade', '82030-470', 'Rua'),
