@@ -4,6 +4,7 @@ namespace Usuario\Fixture;
 use Core\Entity\Al;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\FixtureInterface;
+use Core\Utils\Size;
 
 class AlLoad implements FixtureInterface
 {
@@ -4711,8 +4712,15 @@ class AlLoad implements FixtureInterface
             
             $manager->persist($al); 
             if (($i % $batchSize) === 0) {
+                $size = new Size();
+                echo 'Flushing batch...' . "\n";
+                echo 'Memory: ' . $size->getReadableSize(memory_get_usage()) . "\n";
+
                 $manager->flush();
                 $manager->clear();
+
+                echo 'After batch...' . "\n";
+                echo 'Memory: ' . $size->getReadableSize(memory_get_usage()) . "\n";
             }            
             $i++;
             

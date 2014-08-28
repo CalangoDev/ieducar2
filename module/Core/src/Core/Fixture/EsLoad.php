@@ -16595,8 +16595,14 @@ class EsLoad implements FixtureInterface
             
             $manager->persist($es);
             if (($i % $batchSize) === 0) {
+                echo 'Flushing batch...' . "\n";
+                echo 'Memory: ' . memory_get_usage() . "\n";
+
                 $manager->flush();
                 $manager->clear();
+
+                echo 'After batch...' . "\n";
+                echo 'Memory: ' . memory_get_usage() . "\n";
             }            
             $i++;
             

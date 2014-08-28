@@ -4,6 +4,7 @@ namespace Usuario\Fixture;
 use Core\Entity\Am;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\FixtureInterface;
+use Core\Utils\Size;
 
 class AmLoad implements FixtureInterface
 {
@@ -7953,12 +7954,18 @@ class AmLoad implements FixtureInterface
             $am->setLogradouro(utf8_decode($value[2]));
             $am->setBairro(utf8_decode($value[3]));
             $am->setCep($value[4]);
-            $am->setTipoLogradouro(utf8_decode($value[5]));
-            
+            $am->setTipoLogradouro(utf8_decode($value[5]));            
             $manager->persist($am);
             if (($i % $batchSize) === 0) {
+                $size = new Size();
+                echo 'Flushing batch...' . "\n";
+                echo 'Memory: ' . $size->getReadableSize(memory_get_usage()) . "\n";
+
                 $manager->flush();
                 $manager->clear();
+
+                echo 'After batch...' . "\n";
+                echo 'Memory: ' . $size->getReadableSize(memory_get_usage()) . "\n";
             }            
             $i++;
             
