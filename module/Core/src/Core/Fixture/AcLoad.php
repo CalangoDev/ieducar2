@@ -1,5 +1,5 @@
 <?php
-namespace Usuario\Fixture;
+namespace Core\Fixture;
 
 use Core\Entity\Ac;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -883,9 +883,11 @@ class AcLoad implements FixtureInterface
                 $manager->clear();
 
                 echo 'After batch...' . "\n";
-                echo 'Memory: ' . $size->getReadableSize(memory_get_usage()) . "\n";                
+                echo 'Memory: ' . $size->getReadableSize(memory_get_usage()) . "\n";  
+                unset($size);
             }            
             $i++;
+            unset($ac);
             
         endforeach;        
 

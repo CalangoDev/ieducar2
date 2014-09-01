@@ -1,9 +1,10 @@
 <?php
-namespace Usuario\Fixture;
+namespace Core\Fixture;
 
 use Core\Entity\Rs;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\FixtureInterface;
+use Core\Utils\Size;
 
 class RsLoad implements FixtureInterface
 {
@@ -20475,10 +20476,19 @@ class RsLoad implements FixtureInterface
             
             $manager->persist($rs);
             if (($i % $batchSize) === 0) {
+                $size = new Size();
+                echo 'Flushing batch...' . "\n";
+                echo 'Memory: ' . $size->getReadableSize(memory_get_usage()) . "\n";
+
                 $manager->flush();
                 $manager->clear();
+
+                echo 'After batch...' . "\n";
+                echo 'Memory: ' . $size->getReadableSize(memory_get_usage()) . "\n"; 
+                unset($size);
             }            
             $i++;
+            unset($rs);
             
         endforeach;        
 

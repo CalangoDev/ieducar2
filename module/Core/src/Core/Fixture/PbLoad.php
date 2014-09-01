@@ -1,9 +1,10 @@
 <?php
-namespace Usuario\Fixture;
+namespace Core\Fixture;
 
 use Core\Entity\Pb;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\FixtureInterface;
+use Core\Utils\Size;
 
 class PbLoad implements FixtureInterface
 {
@@ -7987,10 +7988,19 @@ class PbLoad implements FixtureInterface
             
             $manager->persist($pb);
             if (($i % $batchSize) === 0) {
+                $size = new Size();
+                echo 'Flushing batch...' . "\n";
+                echo 'Memory: ' . $size->getReadableSize(memory_get_usage()) . "\n";
+
                 $manager->flush();
                 $manager->clear();
+
+                echo 'After batch...' . "\n";
+                echo 'Memory: ' . $size->getReadableSize(memory_get_usage()) . "\n"; 
+                unset($size);
             }            
             $i++;
+            unset($pb);
             
         endforeach;        
 

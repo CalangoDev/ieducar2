@@ -1,16 +1,17 @@
 <?php
-namespace Usuario\Fixture;
+namespace Core\Fixture;
 
 use Core\Entity\Sp;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\FixtureInterface;
+use Core\Utils\Size;
 
 class Sp2Load implements FixtureInterface
 {
     public function load(ObjectManager $manager)
     {
         $dados = array(
-             array(145388, 'Santa Bárbara D\'Oeste', 'Olívio Saes', 'Vila Linópolis I', '13450-399', 'Rua'),
+            array(145388, 'Santa Bárbara D\'Oeste', 'Olívio Saes', 'Vila Linópolis I', '13450-399', 'Rua'),
             array(145389, 'Jaú', 'Olívio Storti', 'Jardim São José', '17206-110', 'Rua'),
             array(145390, 'Itatiba', 'Olivio Tegon', 'Jardim Palladino', '13257-251', 'Travessa'),
             array(145391, 'Presidente Prudente', 'Olívio Tonetto', 'Residencial III Milênio', '19029-040', 'Rua'),
@@ -23845,10 +23846,19 @@ class Sp2Load implements FixtureInterface
             
             $manager->persist($sp);
             if (($i % $batchSize) === 0) {
+                $size = new Size();
+                echo 'Flushing batch...' . "\n";
+                echo 'Memory: ' . $size->getReadableSize(memory_get_usage()) . "\n";
+
                 $manager->flush();
                 $manager->clear();
+
+                echo 'After batch...' . "\n";
+                echo 'Memory: ' . $size->getReadableSize(memory_get_usage()) . "\n"; 
+                unset($size);
             }            
             $i++;
+            unset($sp);
             
         endforeach;        
 

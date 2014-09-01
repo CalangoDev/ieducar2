@@ -2,7 +2,7 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
-  <title>Dashboard for /Users/eduardojunior/projetos/ieducar2/www/module/Usuario/src/Usuario/Controller</title>
+  <title>Dashboard for /Users/eduardojunior/projetos/ieducar2/www/module/Usuario/src/Usuario/Fixture</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="../../../css/bootstrap.min.css" rel="stylesheet">
   <link href="../../../css/nv.d3.css" rel="stylesheet">
@@ -21,7 +21,7 @@
         <li><a href="../../../index.html">/Users/eduardojunior/projetos/ieducar2/www/module/Usuario</a></li>
         <li><a href="../../index.html">src</a></li>
         <li><a href="../index.html">Usuario</a></li>
-        <li><a href="index.html">Controller</a></li>
+        <li><a href="index.html">Fixture</a></li>
         <li class="active">(Dashboard)</li>
 
       </ol>
@@ -61,7 +61,8 @@
         </tr>
        </thead>
        <tbody>
-       <tr><td><a href="src/Usuario/Controller/IndexController.php.html#16">IndexController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="src/Usuario/Fixture/RacaLoad.php.html#8">RacaLoad</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="src/Usuario/Fixture/FisicaLoad.php.html#11">FisicaLoad</a></td><td class="text-right">0%</td></tr>
 
        </tbody>
       </table>
@@ -78,6 +79,7 @@
         </tr>
        </thead>
        <tbody>
+       <tr><td><a href="src/Usuario/Fixture/RacaLoad.php.html#8">RacaLoad</a></td><td class="text-right">6</td></tr>
 
        </tbody>
       </table>
@@ -115,12 +117,10 @@
         </tr>
        </thead>
        <tbody>
-       <tr><td><a href="src/Usuario/Controller/IndexController.php.html#37"><abbr title="IndexController::deletePessoaHistorico">deletePessoaHistorico</a></a></td><td class="text-right">0%</td></tr>
-       <tr><td><a href="src/Usuario/Controller/RacaController.php.html#47"><abbr title="RacaController::buscaAction">buscaAction</a></a></td><td class="text-right">0%</td></tr>
-       <tr><td><a href="src/Usuario/Controller/IndexController.php.html#19"><abbr title="IndexController::indexAction">indexAction</a></a></td><td class="text-right">0%</td></tr>
-       <tr><td><a href="src/Usuario/Controller/FisicaController.php.html#48"><abbr title="FisicaController::buscaAction">buscaAction</a></a></td><td class="text-right">0%</td></tr>
-       <tr><td><a href="src/Usuario/Controller/EstadoCivilController.php.html#25"><abbr title="EstadoCivilController::setEntityManager">setEntityManager</a></a></td><td class="text-right">0%</td></tr>
-       <tr><td><a href="src/Usuario/Controller/EscolaridadeController.php.html#25"><abbr title="EscolaridadeController::setEntityManager">setEntityManager</a></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="src/Usuario/Fixture/RacaLoad.php.html#10"><abbr title="RacaLoad::load">load</a></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="src/Usuario/Fixture/FisicaLoad.php.html#37"><abbr title="FisicaLoad::getOrder">getOrder</a></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="src/Usuario/Fixture/FisicaLoad.php.html#20"><abbr title="FisicaLoad::load">load</a></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="src/Usuario/Fixture/FisicaLoad.php.html#15"><abbr title="FisicaLoad::setReferenceRepository">setReferenceRepository</a></a></td><td class="text-right">0%</td></tr>
 
        </tbody>
       </table>
@@ -137,6 +137,7 @@
         </tr>
        </thead>
        <tbody>
+       <tr><td><a href="src/Usuario/Fixture/RacaLoad.php.html#10"><abbr title="RacaLoad::load">load</abbr></a></td><td class="text-right">6</td></tr>
 
        </tbody>
       </table>
@@ -167,7 +168,7 @@ $(document).ready(function() {
       .yAxis.tickFormat(d3.format('d'));
 
     d3.select('#classCoverageDistribution svg')
-      .datum(getCoverageDistributionData([1,0,0,0,0,0,0,0,2,0,2,4], "Class Coverage"))
+      .datum(getCoverageDistributionData([2,0,0,0,0,0,0,0,0,0,0,0], "Class Coverage"))
       .transition().duration(500).call(chart);
 
     nv.utils.windowResize(chart.update);
@@ -185,7 +186,7 @@ $(document).ready(function() {
       .yAxis.tickFormat(d3.format('d'));
 
     d3.select('#methodCoverageDistribution svg')
-      .datum(getCoverageDistributionData([6,0,0,0,0,0,0,0,0,2,1,23], "Method Coverage"))
+      .datum(getCoverageDistributionData([4,0,0,0,0,0,0,0,0,0,0,0], "Method Coverage"))
       .transition().duration(500).call(chart);
 
     nv.utils.windowResize(chart.update);
@@ -236,7 +237,7 @@ $(document).ready(function() {
     chart.yAxis.axisLabel('Cyclomatic Complexity');
 
     d3.select('#classComplexity svg')
-      .datum(getComplexityData([[95.454545454545,12,"<a href=\"src\/Usuario\/Controller\/EscolaridadeController.php.html#18\">EscolaridadeController<\/a>"],[95.454545454545,12,"<a href=\"src\/Usuario\/Controller\/EstadoCivilController.php.html#18\">EstadoCivilController<\/a>"],[79.569892473118,17,"<a href=\"src\/Usuario\/Controller\/FisicaController.php.html#23\">FisicaController<\/a>"],[0,2,"<a href=\"src\/Usuario\/Controller\/IndexController.php.html#16\">IndexController<\/a>"],[100,10,"<a href=\"src\/Usuario\/Controller\/JuridicaController.php.html#18\">JuridicaController<\/a>"],[100,9,"<a href=\"src\/Usuario\/Controller\/OcupacaoController.php.html#18\">OcupacaoController<\/a>"],[100,11,"<a href=\"src\/Usuario\/Controller\/PessoaController.php.html#19\">PessoaController<\/a>"],[77.464788732394,14,"<a href=\"src\/Usuario\/Controller\/RacaController.php.html#22\">RacaController<\/a>"],[100,9,"<a href=\"src\/Usuario\/Controller\/ReligiaoController.php.html#18\">ReligiaoController<\/a>"]], 'Class Complexity'))
+      .datum(getComplexityData([[0,3,"<a href=\"src\/Usuario\/Fixture\/FisicaLoad.php.html#11\">FisicaLoad<\/a>"],[0,2,"<a href=\"src\/Usuario\/Fixture\/RacaLoad.php.html#8\">RacaLoad<\/a>"]], 'Class Complexity'))
       .transition()
       .duration(500)
       .call(chart);
@@ -261,7 +262,7 @@ $(document).ready(function() {
     chart.yAxis.axisLabel('Method Complexity');
 
     d3.select('#methodComplexity svg')
-      .datum(getComplexityData([[0,1,"<a href=\"src\/Usuario\/Controller\/EscolaridadeController.php.html#25\">EscolaridadeController::setEntityManager<\/a>"],[100,2,"<a href=\"src\/Usuario\/Controller\/EscolaridadeController.php.html#30\">EscolaridadeController::getEntityManager<\/a>"],[100,1,"<a href=\"src\/Usuario\/Controller\/EscolaridadeController.php.html#42\">EscolaridadeController::indexAction<\/a>"],[100,5,"<a href=\"src\/Usuario\/Controller\/EscolaridadeController.php.html#51\">EscolaridadeController::saveAction<\/a>"],[100,3,"<a href=\"src\/Usuario\/Controller\/EscolaridadeController.php.html#97\">EscolaridadeController::deleteAction<\/a>"],[0,1,"<a href=\"src\/Usuario\/Controller\/EstadoCivilController.php.html#25\">EstadoCivilController::setEntityManager<\/a>"],[100,2,"<a href=\"src\/Usuario\/Controller\/EstadoCivilController.php.html#30\">EstadoCivilController::getEntityManager<\/a>"],[100,1,"<a href=\"src\/Usuario\/Controller\/EstadoCivilController.php.html#42\">EstadoCivilController::indexAction<\/a>"],[100,5,"<a href=\"src\/Usuario\/Controller\/EstadoCivilController.php.html#51\">EstadoCivilController::saveAction<\/a>"],[100,3,"<a href=\"src\/Usuario\/Controller\/EstadoCivilController.php.html#97\">EstadoCivilController::deleteAction<\/a>"],[100,1,"<a href=\"src\/Usuario\/Controller\/FisicaController.php.html#29\">FisicaController::indexAction<\/a>"],[0,1,"<a href=\"src\/Usuario\/Controller\/FisicaController.php.html#48\">FisicaController::buscaAction<\/a>"],[85.294117647059,12,"<a href=\"src\/Usuario\/Controller\/FisicaController.php.html#79\">FisicaController::saveAction<\/a>"],[100,3,"<a href=\"src\/Usuario\/Controller\/FisicaController.php.html#202\">FisicaController::deleteAction<\/a>"],[0,1,"<a href=\"src\/Usuario\/Controller\/IndexController.php.html#19\">IndexController::indexAction<\/a>"],[0,1,"<a href=\"src\/Usuario\/Controller\/IndexController.php.html#37\">IndexController::deletePessoaHistorico<\/a>"],[100,1,"<a href=\"src\/Usuario\/Controller\/JuridicaController.php.html#25\">JuridicaController::indexAction<\/a>"],[100,6,"<a href=\"src\/Usuario\/Controller\/JuridicaController.php.html#34\">JuridicaController::saveAction<\/a>"],[100,3,"<a href=\"src\/Usuario\/Controller\/JuridicaController.php.html#102\">JuridicaController::deleteAction<\/a>"],[100,1,"<a href=\"src\/Usuario\/Controller\/OcupacaoController.php.html#25\">OcupacaoController::indexAction<\/a>"],[100,5,"<a href=\"src\/Usuario\/Controller\/OcupacaoController.php.html#34\">OcupacaoController::saveAction<\/a>"],[100,3,"<a href=\"src\/Usuario\/Controller\/OcupacaoController.php.html#80\">OcupacaoController::deleteAction<\/a>"],[100,1,"<a href=\"src\/Usuario\/Controller\/PessoaController.php.html#26\">PessoaController::indexAction<\/a>"],[100,7,"<a href=\"src\/Usuario\/Controller\/PessoaController.php.html#35\">PessoaController::saveAction<\/a>"],[100,3,"<a href=\"src\/Usuario\/Controller\/PessoaController.php.html#125\">PessoaController::deleteAction<\/a>"],[100,1,"<a href=\"src\/Usuario\/Controller\/RacaController.php.html#28\">RacaController::indexAction<\/a>"],[0,1,"<a href=\"src\/Usuario\/Controller\/RacaController.php.html#47\">RacaController::buscaAction<\/a>"],[91.428571428571,7,"<a href=\"src\/Usuario\/Controller\/RacaController.php.html#78\">RacaController::saveAction<\/a>"],[83.333333333333,5,"<a href=\"src\/Usuario\/Controller\/RacaController.php.html#144\">RacaController::deleteAction<\/a>"],[100,1,"<a href=\"src\/Usuario\/Controller\/ReligiaoController.php.html#25\">ReligiaoController::indexAction<\/a>"],[100,5,"<a href=\"src\/Usuario\/Controller\/ReligiaoController.php.html#34\">ReligiaoController::saveAction<\/a>"],[100,3,"<a href=\"src\/Usuario\/Controller\/ReligiaoController.php.html#83\">ReligiaoController::deleteAction<\/a>"]], 'Method Complexity'))
+      .datum(getComplexityData([[0,1,"<a href=\"src\/Usuario\/Fixture\/FisicaLoad.php.html#15\">FisicaLoad::setReferenceRepository<\/a>"],[0,1,"<a href=\"src\/Usuario\/Fixture\/FisicaLoad.php.html#20\">FisicaLoad::load<\/a>"],[0,1,"<a href=\"src\/Usuario\/Fixture\/FisicaLoad.php.html#37\">FisicaLoad::getOrder<\/a>"],[0,2,"<a href=\"src\/Usuario\/Fixture\/RacaLoad.php.html#10\">RacaLoad::load<\/a>"]], 'Method Complexity'))
       .transition()
       .duration(500)
       .call(chart);

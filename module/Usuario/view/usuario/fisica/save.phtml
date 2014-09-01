@@ -37,6 +37,14 @@
 							$url = $this->form->get('url');
 							$email = $this->form->get('email');
 							$raca = $this->form->get('raca');
+							$cep = $this->form->get('cep');
+							$logradouro = $this->form->get('logradouro');
+							$numero = $this->form->get('numero');
+							$cidade = $this->form->get('cidade');
+							$bairro = $this->form->get('bairro');
+							$uf = $this->form->get('uf');
+							$letra = $this->form->get('letra');
+							$complemento = $this->form->get('complemento');
 							/**
 							 * @todo
 							 * - Endereço 
@@ -121,7 +129,122 @@
 											?>		
 										</div>
 									</div>										
-								</div>							
+								</div>
+								<div class="form-group">
+									<label for="cep">
+										<?php echo $cep->getOption('label');?>
+									</label>
+									<div class="row">
+										<div class="col-md-1">
+											<?php 
+											echo $this->formInput($cep);
+											echo $this->formElementErrors($cep);
+											?>											
+										</div>
+										<div class="col-md-1" style="padding-left:25px; padding-top:4px; display:none;">
+											<i class='glyphicon icon-spinner icon-spin icon-large'></i>
+										</div>
+
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="logradouro">
+										<?php echo $logradouro->getOption('label'); ?>
+									</label>
+									<div class="row">
+										<div class="col-md-5">
+											<?php
+											echo $this->formInput($logradouro);
+											echo $this->formElementErrors($logradouro);
+											?>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="numero">
+										<?php echo $numero->getOption('label'); ?>
+									</label>
+									<div class="row">
+										<div class="col-md-2">
+											<?php
+											echo $this->formInput($numero);
+											echo $this->formElementErrors($numero);
+											?>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="complemento">
+										<?php echo $complemento->getOption('label'); ?>
+									</label>
+									<div class="row">
+										<div class="col-md-5">
+											<?php
+											echo $this->formInput($complemento);
+											echo $this->formElementErrors($complemento);
+											?>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="letra">
+										<?php echo $letra->getOption('label'); ?>
+									</label>
+									<div class="row">
+										<div class="col-md-1">
+											<?php
+											echo $this->formInput($letra);
+											echo $this->formElementErrors($letra);
+											?>
+										</div>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="bairro">
+										<?php echo $bairro->getOption('label');?>
+									</label>
+									<div class="row">
+										<div class="col-md-5">
+											<?php
+											echo $this->formInput($bairro);
+											echo $this->formElementErrors($bairro);
+											?>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="cidade">
+										<?php echo $cidade->getOption('label'); ?>
+									</label>
+									<div class="row">
+										<div class="col-md-5">
+											<?php
+											echo $this->formInput($cidade);
+											echo $this->formElementErrors($cidade);
+											?>
+										</div>
+									</div>
+								</div>
+								
+								<div class="form-group">	
+									<label for="uf">
+										<?php
+										echo $uf->getOption('label');
+										?>
+									</label>
+									<div class="row">
+										<div class="col-md-3">
+											<?php
+											echo $this->formSelect($uf);
+											echo $this->formElementErrors($uf);
+											?>		
+										</div>
+									</div>										
+								</div>
 								<div class="form-group">
 									<label for="url">
 										<?php echo $url->getOption('label');?>
@@ -209,10 +332,30 @@ echo $this->headScript()->prependFile($this->basePath()
     $(document).ready(function() {	
 		//$(".vendedor").before("<div style='display: none;' class='carregandovend'>Carregando...</div>");
 		//$(".vendedor").after("<a href='#modal' class='btn2 submit cadnovo'>Cadastrar Novo</a><br/>");
+
+
 		jQuery(function($){       		
        		$(".cpf").mask("999.999.999-99");
        		$(".dataNasc").mask("99-99-9999");
+       		$(".cep").mask("99999-999");
+
 		});
+		
+		var last_cep = 0;
+
+		$('.cep').on('keyup', function(){
+            var cep = $.trim($('.cep').val()).replace('_','');
+            if(cep.length >= 9){
+                if(cep != last_cep){
+                    busca();
+                }
+            }            
+        }); 	
+
+        function busca(){
+        	
+        }
+
 		$(".novo").click(function(event){
 			event.preventDefault();
 			$("#modal").modal();

@@ -1,9 +1,10 @@
 <?php
-namespace Usuario\Fixture;
+namespace Core\Fixture;
 
 use Core\Entity\Sc;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\FixtureInterface;
+use Core\Utils\Size;
 
 class ScLoad implements FixtureInterface
 {
@@ -21803,10 +21804,19 @@ class ScLoad implements FixtureInterface
             
             $manager->persist($sc);
             if (($i % $batchSize) === 0) {
+                $size = new Size();
+                echo 'Flushing batch...' . "\n";
+                echo 'Memory: ' . $size->getReadableSize(memory_get_usage()) . "\n";
+
                 $manager->flush();
                 $manager->clear();
+
+                echo 'After batch...' . "\n";
+                echo 'Memory: ' . $size->getReadableSize(memory_get_usage()) . "\n";  
+                unset($size);
             }            
             $i++;
+            unset($sc);
             
         endforeach;        
 

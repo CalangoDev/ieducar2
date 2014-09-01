@@ -1,5 +1,5 @@
 <?php
-namespace Usuario\Fixture;
+namespace Core\Fixture;
 
 use Core\Entity\Al;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -4721,8 +4721,10 @@ class AlLoad implements FixtureInterface
 
                 echo 'After batch...' . "\n";
                 echo 'Memory: ' . $size->getReadableSize(memory_get_usage()) . "\n";
+                unset($size);
             }            
             $i++;
+            unset($al);
             
         endforeach;        
 

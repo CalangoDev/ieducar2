@@ -31,6 +31,8 @@ class TipoLogradouro extends Entity
 	 * 
 	 * @ORM\Id
 	 * @ORM\Column(name="idtlog", type="string", nullable=false, length=5)
+	 * @ORM\GeneratedValue(strategy="SEQUENCE")
+	 * @SequenceGenerator(sequenceName="urbano.seq_tp_logradouro", initialValue=1, allocationSize=1)
 	 */
 	protected $id;
 
@@ -39,4 +41,24 @@ class TipoLogradouro extends Entity
 	 * @ORM\Column(type="string", length=40, nullable=false)
 	 */
 	protected $descricao;
+
+	public function getId()
+	{
+		return $this->id;
+	}
+
+	public function setId($value)
+	{
+		$this->id = $this->valid("id", $value);
+	}
+
+	public function getDescricao()
+	{
+		return $this->descricao;
+	}
+
+	public function setDescricao($value)
+	{
+		$this->descricao = $this->valid("descricao", $value);
+	}
 }

@@ -1,9 +1,10 @@
 <?php
-namespace Usuario\Fixture;
+namespace Core\Fixture;
 
 use Core\Entity\Se;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\FixtureInterface;
+use Core\Utils\Size;
 
 class SeLoad implements FixtureInterface
 {
@@ -2436,10 +2437,19 @@ class SeLoad implements FixtureInterface
             
             $manager->persist($se);
             if (($i % $batchSize) === 0) {
+                $size = new Size();
+                echo 'Flushing batch...' . "\n";
+                echo 'Memory: ' . $size->getReadableSize(memory_get_usage()) . "\n";
+
                 $manager->flush();
                 $manager->clear();
+
+                echo 'After batch...' . "\n";
+                echo 'Memory: ' . $size->getReadableSize(memory_get_usage()) . "\n"; 
+                unset($size);
             }            
             $i++;
+            unset($se);
             
         endforeach;        
 

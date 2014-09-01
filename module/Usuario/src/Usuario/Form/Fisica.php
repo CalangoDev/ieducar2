@@ -28,7 +28,7 @@ class Fisica extends Form
 				// 'style' => 'width:510px'
 			),
 			'options' => array(
-				'label' => 'Nome'
+				'label' => 'Nome:'
 			),
 		));
 
@@ -39,7 +39,7 @@ class Fisica extends Form
 				'type' => 'Zend\Form\Element\Select',				
 			),			
 			'options' => array(
-				'label' => 'Situação',
+				'label' => 'Situação:',
 				'value_options' => array(
 					'A'	=> 'Ativo',
 					'P' => 'Provisorio',
@@ -60,7 +60,7 @@ class Fisica extends Form
 				'class' => 'form-control dataNasc'
 			),
 			'options' => array(
-				'label' => 'Data de Nascimento',
+				'label' => 'Data de Nascimento:',
 			),
 		));
 
@@ -73,7 +73,7 @@ class Fisica extends Form
 				'class' => 'form-control'
 			),
 			'options' => array(
-				'label' => 'Sexo',
+				'label' => 'Sexo:',
 				'value_options' => array(
 					'M' => 'Masculino',
 					'F' => 'Feminino'
@@ -90,11 +90,119 @@ class Fisica extends Form
 			),
 			'type' => 'DoctrineModule\Form\Element\ObjectSelect',
 			'options' => array(
-				'label' => 'Raça',
+				'label' => 'Raça:',
 				'empty_option' => 'Selecione',
 				'object_manager' => $em,
 				'target_class' => 'Usuario\Entity\Raca',
 				'property' => 'nome',
+				'find_method' => array(
+					'name' => 'findBy',
+					'params' => array(
+						'criteria' => array('ativo' => true),
+						'orderBy' => array('nome' => 'ASC')
+					),
+				),
+			),
+		));
+
+		$this->add(array(
+			'name' => 'cep',
+			'attributes' => array(
+				'type' => 'text',
+				'class' => 'form-control cep',
+				'style' => 'width:100px'
+			),
+			'options' => array(
+				'label' => 'CEP:'
+			),
+		));
+
+		$this->add(array(
+			'name' => 'logradouro',
+			'attributes' => array(
+				'type' => 'text',
+				'class' => 'form-control logradouro',		
+				'placeholder' => 'Nome da Rua / Logradouro'		
+			),
+			'options' => array(
+				'label' => 'Logradouro:'
+			),
+		));
+
+		$this->add(array(
+			'name' => 'numero',
+			'attributes' => array(
+				'type' => 'text',
+				'class' => 'form-control numero',		
+				'placeholder' => 'Número'		
+			),
+			'options' => array(
+				'label' => 'Número:'
+			),
+		));
+
+		$this->add(array(
+			'name' => 'letra',
+			'attributes' => array(
+				'type' => 'text',
+				'class' => 'form-control letra',
+				'placeholder' => 'Letra'		
+			),
+			'options' => array(
+				'label' => 'Letra:'
+			),
+		));
+
+		$this->add(array(
+			'name' => 'complemento',
+			'attributes' => array(
+				'type' => 'text',
+				'class' => 'form-control complemento',
+				'placeholder' => 'Informe o Complemento'
+			),
+			'options' => array(
+				'label' => 'Complemento:'
+			),
+		));
+
+		$this->add(array(
+			'name' => 'cidade',
+			'attributes' => array(
+				'type' => 'text',
+				'class' => 'form-control cidade',		
+				'placeholder' => 'Informe a Cidade'		
+			),
+			'options' => array(
+				'label' => 'Cidade:'
+			),
+		));
+
+		$this->add(array(
+			'name' => 'bairro',
+			'attributes' => array(
+				'type' => 'text',
+				'class' => 'form-control bairro',
+				'placeholder' => 'Informe o Bairro'		
+			),
+			'options' => array(
+				'label' => 'Bairro:'
+			),
+		));
+
+		$this->add(array(
+			'name' => 'uf',
+			'attributes' => array(
+				'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+				'class' => 'form-control chosen-select uf',
+				'style' => 'height:100px;'
+			),
+			'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+			'options' => array(
+				'label' => 'Estado:',
+				'empty_option' => 'Selecione',
+				'object_manager' => $em,
+				'target_class' => 'Core\Entity\Uf',
+				'property' => 'nome'				
 			),
 		));
 

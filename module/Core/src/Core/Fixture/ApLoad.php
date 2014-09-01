@@ -1,5 +1,5 @@
 <?php
-namespace Usuario\Fixture;
+namespace Core\Fixture;
 
 use Core\Entity\Ap;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -943,8 +943,10 @@ class ApLoad implements FixtureInterface
 
                 echo 'After batch...' . "\n";
                 echo 'Memory: ' . $size->getReadableSize(memory_get_usage()) . "\n";
+                unset($size);
             }            
             $i++;
+            unset($ap);
             
         endforeach;        
 
