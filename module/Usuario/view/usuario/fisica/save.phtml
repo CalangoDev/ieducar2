@@ -353,6 +353,16 @@ echo $this->headScript()->prependFile($this->basePath()
         }); 	
 
         function busca(){
+        	var cep = $('.cep').val();
+        	$.ajax({
+        		url: '',
+        		beforeSend : function(){
+
+        		},
+        		success : function(data){
+
+        		}
+        	});
         	
         }
 

@@ -11,6 +11,52 @@ namespace Core;
 
 return array(
 	'di' => array(),
+    'controllers' => array(
+        'invokables' => array(
+            'Core\Controller\Index' => 'Core\Controller\IndexController',
+            'Core\Controller\Cep' => 'Core\Controller\CepController'            
+        ),
+    ),
+    'router' => array(
+        'routes' => array(            
+            'core' => array(
+                'type'    => 'Literal',
+                'options' => array(
+                    'route'    => '/core',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Core\Controller',
+                        'controller'    => 'Index',
+                        'action'        => 'index',
+                    ),
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'default' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'    => '/[:controller[/:action]]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                            ),
+                        ),
+                        'child_routes' => array(
+                            'wildcard' => array(
+                                'type' => 'Wildcard'
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        ),
+    ),
+    'view_manager' => array(        
+        'template_path_stack' => array(
+            __DIR__ . '/../view',
+        ),
+    ),
 	'doctrine' => array(
         'driver' => array(            
             __NAMESPACE__ . '_driver' => array(
