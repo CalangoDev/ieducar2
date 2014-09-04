@@ -38,6 +38,7 @@
 							$email = $this->form->get('email');
 							$raca = $this->form->get('raca');
 							$cep = $this->form->get('cep');
+							$tipoLogradouro = $this->form->get('tipoLogradouro');
 							$logradouro = $this->form->get('logradouro');
 							$numero = $this->form->get('numero');
 							$cidade = $this->form->get('cidade');
@@ -147,6 +148,21 @@
 										</div>
 
 									</div>
+								</div>
+								<div class="form-group">	
+									<label for="uf">
+										<?php
+										echo $tipoLogradouro->getOption('label');
+										?>
+									</label>
+									<div class="row">
+										<div class="col-md-3">
+											<?php
+											echo $this->formSelect($tipoLogradouro);
+											echo $this->formElementErrors($tipoLogradouro);
+											?>		
+										</div>
+									</div>										
 								</div>
 								<div class="form-group">
 									<label for="logradouro">
@@ -363,11 +379,15 @@ echo $this->headScript()->prependFile($this->basePath()
         			$(".ceploading").show();
         		},
         		success : function(data){
+        			$(".cidade").val("");
+        			$(".logradouro").val("");
+        			$(".bairro").val("");        				
+        			$('.uf').val('').trigger('chosen:updated');
+        			$('.tipoLogradouro').val('').trigger('chosen:updated');
+        			//$('.uf').find('option:first-child').prop('selected', true).end().trigger('liszt:updated');
         			if (typeof data.length == "undefined"){
         				//limpando os dados
-        				$(".cidade").val("");
-        				$(".logradouro").val("");
-        				$(".bairro").val("");        				
+        						
         				if (data.id){        				
 	        				// console.log(data.id);	
 	        			}
@@ -376,7 +396,8 @@ echo $this->headScript()->prependFile($this->basePath()
 	        			}
 	        			if (data.nome){
 	        				$(".cidade").val(data.nome);
-	        				$(".logradouro").focus();        				
+	        				//$(".logradouro").focus();        				
+	        				$(".tipoLogradouro").trigger('chosen:activate');
 	        			}
 	        			if (data.cidade){
 	        				$(".cidade").val(data.cidade);        				
@@ -397,8 +418,12 @@ echo $this->headScript()->prependFile($this->basePath()
 	        			if (data.nomeSemAcento){
 	        				
 	        			} 
-	        			if (data.idEstado){
-	        				//tem estado escolher o estado no select :D
+	        			if (data.idEstado){	        				
+	        				//tem estado escolher o estado no select :D		        				
+	        				$('.uf').val(data.idEstado).trigger('chosen:updated');
+	        			}
+	        			if (data.idTipoLogradouro) {
+	        				$('.tipoLogradouro').val(data.idTipoLogradouro).trigger('chosen:updated');
 	        			}
         			} else {
         				decisao = confirm("CEP! Não encontrado na base de dados!, Deseja digitar novamente o CEP? Clique no botão OK");

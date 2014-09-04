@@ -37,10 +37,11 @@ class TipoLogradouro extends Entity
 	protected $id;
 
 	/**
-	 * @var string $descricao
+	 * @var string $descricao	 
 	 * @ORM\Column(type="string", length=40, nullable=false)
 	 */
 	protected $descricao;
+	
 
 	public function getId()
 	{

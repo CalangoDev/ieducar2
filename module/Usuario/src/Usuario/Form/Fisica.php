@@ -118,6 +118,30 @@ class Fisica extends Form
 		));
 
 		$this->add(array(
+			'name' => 'tipoLogradouro',
+			'attributes' => array(
+				'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+				'class' => 'form-control chosen-select tipoLogradouro',
+				'style' => 'height:100px;'
+			),
+			'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+			'options' => array(
+				'label' => 'Tipo de Logradouro:',
+				'empty_option' => 'Selecione',
+				'object_manager' => $em,
+				'target_class' => 'Core\Entity\TipoLogradouro',
+				'property' => 'descricao',
+				'find_method' => array(
+					'name' => 'findBy',
+					'params' => array(
+						'criteria' => array(),
+						'orderBy' => array('descricao' => 'ASC')
+					)
+				)
+			),
+		));
+
+		$this->add(array(
 			'name' => 'logradouro',
 			'attributes' => array(
 				'type' => 'text',

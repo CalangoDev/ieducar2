@@ -44,29 +44,46 @@ class CepController extends ActionController
 				$idEstado = $dados[0]->getId();
 				//Verificar se existe no cep por estado
 				$entity = 'Core\Entity\\' . $uf;				
-				$query = $this->getEntityManager()->createQuery("
+				/*$query = $this->getEntityManager()->createQuery("
 					SELECT 
 						r
 					FROM
+						" . $entity ." r					
+					WHERE
+						r.cep = :cep
+				");				*/
+				
+				
+				$query = $this->getEntityManager()->createQuery("
+					SELECT 
+						r, tp.id as idTipoLogra
+					FROM
 						" . $entity ." r
+					LEFT JOIN
+						Core\Entity\TipoLogradouro tp
+					WITH
+						r.tipoLogradouro = tp.descricao
 					WHERE
 						r.cep = :cep
 				");				
 				$query->setParameter('cep', $cep);
-				$dados = $query->getResult();
-				if ($dados[0]) {
+				$dados = $query->getResult();								
+
+				if ($dados[0]) {					
 					// var_dump($dados[0]);
 					$dados = array(
-						'id' => $dados[0]->getId(),
-						'cidade' => $dados[0]->getCidade(),
-						'logradouro' => utf8_encode($dados[0]->getLogradouro()),
-						'bairro' => utf8_encode($dados[0]->getBairro()),
-						'cep' => $dados[0]->getCep(),
-						'tipoLogradouro' => $dados[0]->getTipoLogradouro(),
+						'id' => $dados[0][0]->getId(),
+						'cidade' => $dados[0][0]->getCidade(),
+						'logradouro' => utf8_encode($dados[0][0]->getLogradouro()),
+						'bairro' => utf8_encode($dados[0][0]->getBairro()),
+						'cep' => $dados[0][0]->getCep(),
+						'tipoLogradouro' => $dados[0][0]->getTipoLogradouro(),
 						'uf' => $uf,
-						'idEstado' => $idEstado
+						'idEstado' => $idEstado,
+						'idTipoLogradouro' => $dados[0]['idTipoLogra']
 					);
 
+					//var_dump($dados);
 				}
 
 				/**

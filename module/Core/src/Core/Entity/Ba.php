@@ -68,7 +68,7 @@ class Ba extends Entity
 
 	/**
 	 * @var string $tipoLogradouro
-	 * 
+	 * 	 
 	 * @ORM\Column(name="tp_logradouro", type="string", length=20, nullable=true)
 	 */
 	protected $tipoLogradouro;
@@ -135,6 +135,8 @@ class Ba extends Entity
 	{
 		$this->tipoLogradouro = $this->valid("tipoLogradouro", $value);
 	}
+
+
 
 	/**
 	 * @todo make filters 
