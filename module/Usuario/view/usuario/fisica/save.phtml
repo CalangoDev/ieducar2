@@ -141,8 +141,9 @@
 											echo $this->formElementErrors($cep);
 											?>											
 										</div>
-										<div class="col-md-1" style="padding-left:25px; padding-top:4px; display:none;">
-											<i class='glyphicon icon-spinner icon-spin icon-large'></i>
+										<div class="col-md-3 ceploading" style="padding-left:25px; padding-top:4px; display:none;">
+											<i class='glyphicon icon-spinner icon-spin icon-large'></i> 
+											Pesquisando CEP, aguarde!
 										</div>
 
 									</div>
@@ -346,21 +347,72 @@ echo $this->headScript()->prependFile($this->basePath()
 		$('.cep').on('keyup', function(){
             var cep = $.trim($('.cep').val()).replace('_','');
             if(cep.length >= 9){
-                if(cep != last_cep){
+                if(cep != last_cep){                	
                     busca();
+                    last_cep = cep;
                 }
             }            
         }); 	
 
-        function busca(){
+        function busca(){        	
         	var cep = $('.cep').val();
         	$.ajax({
-        		url: '',
+        		url: '/core/cep/index/value/' + cep,
+        		dataType: "json",   		
         		beforeSend : function(){
-
+        			$(".ceploading").show();
         		},
         		success : function(data){
+        			if (typeof data.length == "undefined"){
+        				//limpando os dados
+        				$(".cidade").val("");
+        				$(".logradouro").val("");
+        				$(".bairro").val("");        				
+        				if (data.id){        				
+	        				// console.log(data.id);	
+	        			}
+	        			if (data.cep){
+	        				// console.log(data.cep);	
+	        			}
+	        			if (data.nome){
+	        				$(".cidade").val(data.nome);
+	        				$(".logradouro").focus();        				
+	        			}
+	        			if (data.cidade){
+	        				$(".cidade").val(data.cidade);        				
+	        			}
+	        			if (data.logradouro){
+	        				$(".logradouro").val(data.logradouro);
+	        				$(".numero").focus();
+	        			}
+	        			if (data.bairro){
+	        				$(".bairro").val(data.bairro);
+	        			}
+	        			if (data.tipoLogradouro){
 
+	        			}
+	        			if (data.uf){
+
+	        			}   
+	        			if (data.nomeSemAcento){
+	        				
+	        			} 
+	        			if (data.idEstado){
+	        				//tem estado escolher o estado no select :D
+	        			}
+        			} else {
+        				decisao = confirm("CEP! Não encontrado na base de dados!, Deseja digitar novamente o CEP? Clique no botão OK");
+						if (decisao){
+							$(".cep").val("");
+						    $(".cep").focus();
+						    last_cep = 0;
+						} else {
+						    $(".logradouro").focus();
+						}        				
+        			}        			        			
+        		},
+        		complete: function(){        			
+        			$(".ceploading").hide();
         		}
         	});
         	
