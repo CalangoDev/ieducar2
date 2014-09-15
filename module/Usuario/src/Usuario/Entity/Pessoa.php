@@ -62,8 +62,7 @@ class Pessoa extends Entity implements EventSubscriber
 	 * 
 	 * @ORM\Id
 	 * @ORM\Column(name="idpes", type="integer", nullable=false);
-	 * @ORM\GeneratedValue(strategy="SEQUENCE") 
-	 * @SequenceGenerator(sequenceName="cadastro.seq_pessoa", initialValue=1, allocationSize=1)	 
+	 * @ORM\GeneratedValue(strategy="AUTO")	 
 	 */
 	protected $id;
 
@@ -422,6 +421,9 @@ class Pessoa extends Entity implements EventSubscriber
 		$uow = $em->getUnitOfWork(); 				
 		if (!empty($this->usuario)) {			
 			// var_dump("ativando historico");
+			/**
+			 * @todo verfiicar isso depois das alteracoes de sequence
+			 */
 			$historicoPessoa = new \Historico\Entity\Pessoa();
 			$sequenceName = 'historico.seq_pessoa';
 			$sequenceGenerator = new SeqGen($sequenceName, 1);

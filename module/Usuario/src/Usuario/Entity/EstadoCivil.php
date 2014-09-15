@@ -32,8 +32,7 @@ class EstadoCivil extends Entity
 	 * 
 	 * @ORM\Id
 	 * @ORM\Column(name="ideciv", type="integer", nullable=false)
-	 * @ORM\GeneratedValue(strategy="SEQUENCE")
-	 * @SequenceGenerator(sequenceName="cadastro.seq_estado_civil", initialValue=1, allocationSize=1)
+	 * @ORM\GeneratedValue(strategy="AUTO")	 
 	 */
 	protected $id;
 

@@ -33,8 +33,7 @@ class Escolaridade extends Entity
 	 * 
 	 * @ORM\Id
 	 * @ORM\Column(name="idesco", type="integer", nullable=false)
-	 * @ORM\GeneratedValue(strategy="SEQUENCE")
-	 * @SequenceGenerator(sequenceName="cadastro.seq_escolaridade", initialValue=1, allocationSize=1)
+	 * @ORM\GeneratedValue(strategy="AUTO")	 
 	 */
 	protected $id;
 

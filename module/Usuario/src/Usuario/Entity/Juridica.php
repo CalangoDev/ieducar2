@@ -41,8 +41,7 @@ class Juridica extends Pessoa implements EventSubscriber
 	 * 
 	 * @ORM\Id
 	 * @ORM\Column(type="integer", nullable=false)
-	 * @ORM\GeneratedValue(strategy="SEQUENCE")
-	 * @SequenceGenerator(sequenceName="cadastro.seq_juridica", initialValue=1, allocationSize=1)	 
+	 * @ORM\GeneratedValue(strategy="AUTO")	 
 	 */
 	protected $id;
 

@@ -23,7 +23,7 @@ use Zend\InputFilter\InputFilterInterface;
  * @copyright  Copyright (c) 2014 Eduardo Junior.com (http://www.eduardojunior.com)
  * 
  * @ORM\Entity
- * @ORM\Table(name="""cadastro"".""ocupacao""")
+ * @ORM\Table(name="cadastro.ocupacao")
  * 
  */
 class Ocupacao extends Entity
@@ -33,8 +33,7 @@ class Ocupacao extends Entity
 	 * 
 	 * @ORM\Id
 	 * @ORM\Column(name="idocup", type="integer", nullable=false)
-	 * @ORM\GeneratedValue(strategy="SEQUENCE")
-	 * @SequenceGenerator(sequenceName="cadastro.seq_ocupacao", initialValue=1, allocationSize=1)
+	 * @ORM\GeneratedValue(strategy="AUTO")	 
 	 */
 	protected $id;
 

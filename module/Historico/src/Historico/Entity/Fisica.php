@@ -22,7 +22,7 @@ use Zend\InputFilter\InputFilterInterface;
  * @copyright  Copyright (c) 2013 Eduardo Junior.com (http://www.eduardojunior.com)
  * 
  * @ORM\Entity
- * @ORM\Table(name="""historico"".""fisica""")
+ * @ORM\Table(name="historico.fisica")
  * @ORM\HasLifecycleCallbacks
  * 
  */
@@ -33,8 +33,7 @@ class Fisica extends Entity implements InputFilterAwareInterface
 	 * 
 	 * @ORM\Id
 	 * @ORM\Column(type="integer")
-	 * @ORM\GeneratedValue(strategy="SEQUENCE")
-	 * @SequenceGenerator(sequenceName="historico.seq_fisica", initialValue=1, allocationSize=1)
+	 * @ORM\GeneratedValue(strategy="AUTO")	 
 	 */
 	protected $id;
 
