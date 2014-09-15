@@ -18,6 +18,7 @@ Criar os schemas antes de rodar a Aplicação
 * portal
 * pmidrh
 * urbano
+* cep
 
 
 ## Testes de Unidade
@@ -94,3 +95,5 @@ Criar os schemas antes de rodar a Aplicação
 
 ## apache rewrite ##
 sudo apt-get install php5-intl
+
+@todo padronizar a codificação - transformar tudo em UTF-8 e arrumar um jeito de converter a base antiga de LATIN1 para UTF8

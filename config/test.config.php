@@ -11,7 +11,7 @@ return array(
             'orm_default' => array(                
                 'params' => array(
                     'host' => 'localhost',
-                    'port' => '5432',
+                    'port' => '5433',
                     'user' => 'ieducar',
                     'password' => 'ieducar',
                     'dbname' => 'ieducar_test'
