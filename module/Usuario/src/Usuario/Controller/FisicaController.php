@@ -124,7 +124,7 @@ class FisicaController extends ActionController
 			$fisica->removeInputFilter('idsisCad');
 			$cpf  = $this->params()->fromPost('cpf', 0);	
 
-			if ($cpf == ''){
+			if ($cpf == '' || $cpf == 0){
 				$fisica->removeInputFilter('cpf');				
 				$form->remove('cpf');
 				// unset($data['cpf']);				
@@ -138,8 +138,7 @@ class FisicaController extends ActionController
 						
 			$form->setData($request->getPost());
 			// var_dump($request->getPost());
-			
-			
+						
 			if ($form->isValid()){				
 				// $data = $form->getData();				
 				// unset($data['submit']);
@@ -161,7 +160,8 @@ class FisicaController extends ActionController
 				 * Redirecionando para lista de pessoas fisicas
 				 */
 				return $this->redirect()->toUrl('/usuario/fisica');
-			} else {				
+			} else {
+				
 				if ($this->params()->fromPost('dataNasc')){
 					$date = new \DateTime($this->params()->fromPost('dataNasc'), new \DateTimeZone('America/Sao_Paulo'));
 					$date = $date->format('d-m-Y');					

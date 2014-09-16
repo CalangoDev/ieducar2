@@ -1,0 +1,649 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1410885867">
+  <project timestamp="1410885867">
+    <package name="Auth">
+      <file name="/Users/eduardojunior/projetos/ieducar2/www/module/Auth/Module.php">
+        <class name="Module" namespace="Auth">
+          <metrics methods="4" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="23" coveredstatements="5" elements="27" coveredelements="7"/>
+        </class>
+        <line num="21" type="method" name="onBootstrap" crap="2" count="0"/>
+        <line num="23" type="stmt" count="0"/>
+        <line num="25" type="stmt" count="0"/>
+        <line num="26" type="stmt" count="0"/>
+        <line num="27" type="stmt" count="0"/>
+        <line num="34" type="method" name="mvcPreDispatch" crap="12" count="0"/>
+        <line num="36" type="stmt" count="0"/>
+        <line num="37" type="stmt" count="0"/>
+        <line num="38" type="stmt" count="0"/>
+        <line num="39" type="stmt" count="0"/>
+        <line num="40" type="stmt" count="0"/>
+        <line num="42" type="stmt" count="0"/>
+        <line num="43" type="stmt" count="0"/>
+        <line num="44" type="stmt" count="0"/>
+        <line num="49" type="stmt" count="0"/>
+        <line num="50" type="stmt" count="0"/>
+        <line num="52" type="stmt" count="0"/>
+        <line num="54" type="stmt" count="0"/>
+        <line num="56" type="stmt" count="0"/>
+        <line num="58" type="stmt" count="0"/>
+        <line num="62" type="method" name="getConfig" crap="1" count="35"/>
+        <line num="64" type="stmt" count="35"/>
+        <line num="67" type="method" name="getAutoloaderConfig" crap="1" count="35"/>
+        <line num="72" type="stmt" count="35"/>
+        <line num="73" type="stmt" count="35"/>
+        <line num="74" type="stmt" count="35"/>
+        <line num="75" type="stmt" count="35"/>
+        <metrics loc="78" ncloc="58" classes="1" methods="4" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="23" coveredstatements="5" elements="27" coveredelements="7"/>
+      </file>
+    </package>
+    <file name="/Users/eduardojunior/projetos/ieducar2/www/module/Auth/config/module.config.php">
+      <line num="16" type="stmt" count="35"/>
+      <line num="18" type="stmt" count="35"/>
+      <line num="20" type="stmt" count="35"/>
+      <line num="21" type="stmt" count="35"/>
+      <line num="22" type="stmt" count="35"/>
+      <line num="23" type="stmt" count="35"/>
+      <line num="24" type="stmt" count="35"/>
+      <line num="25" type="stmt" count="35"/>
+      <line num="28" type="stmt" count="35"/>
+      <line num="30" type="stmt" count="35"/>
+      <line num="32" type="stmt" count="35"/>
+      <line num="33" type="stmt" count="35"/>
+      <line num="34" type="stmt" count="35"/>
+      <line num="36" type="stmt" count="35"/>
+      <line num="37" type="stmt" count="35"/>
+      <line num="41" type="stmt" count="35"/>
+      <line num="42" type="stmt" count="35"/>
+      <line num="43" type="stmt" count="35"/>
+      <line num="44" type="stmt" count="35"/>
+      <line num="45" type="stmt" count="35"/>
+      <line num="46" type="stmt" count="35"/>
+      <line num="47" type="stmt" count="35"/>
+      <line num="50" type="stmt" count="35"/>
+      <line num="51" type="stmt" count="35"/>
+      <line num="52" type="stmt" count="35"/>
+      <line num="54" type="stmt" count="35"/>
+      <line num="55" type="stmt" count="35"/>
+      <line num="63" type="stmt" count="4"/>
+      <line num="66" type="stmt" count="35"/>
+      <line num="67" type="stmt" count="35"/>
+      <line num="69" type="stmt" count="35"/>
+      <line num="72" type="stmt" count="35"/>
+      <line num="73" type="stmt" count="35"/>
+      <line num="74" type="stmt" count="35"/>
+      <line num="75" type="stmt" count="35"/>
+      <line num="76" type="stmt" count="35"/>
+      <line num="77" type="stmt" count="35"/>
+      <line num="80" type="stmt" count="35"/>
+      <line num="81" type="stmt" count="35"/>
+      <line num="82" type="stmt" count="35"/>
+      <line num="84" type="stmt" count="35"/>
+      <line num="85" type="stmt" count="35"/>
+      <line num="88" type="stmt" count="35"/>
+      <line num="89" type="stmt" count="35"/>
+      <line num="90" type="stmt" count="35"/>
+      <line num="93" type="stmt" count="35"/>
+      <line num="94" type="stmt" count="35"/>
+      <line num="95" type="stmt" count="35"/>
+      <line num="96" type="stmt" count="35"/>
+      <line num="97" type="stmt" count="35"/>
+      <line num="100" type="stmt" count="35"/>
+      <line num="101" type="stmt" count="35"/>
+      <line num="102" type="stmt" count="35"/>
+      <line num="103" type="stmt" count="35"/>
+      <line num="105" type="stmt" count="35"/>
+      <line num="106" type="stmt" count="35"/>
+      <line num="109" type="stmt" count="35"/>
+      <line num="110" type="stmt" count="35"/>
+      <line num="111" type="stmt" count="35"/>
+      <line num="112" type="stmt" count="35"/>
+      <line num="113" type="stmt" count="35"/>
+      <line num="114" type="stmt" count="35"/>
+      <line num="115" type="stmt" count="35"/>
+      <line num="116" type="stmt" count="35"/>
+      <metrics loc="116" ncloc="95" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="64" coveredstatements="64" elements="64" coveredelements="64"/>
+    </file>
+    <package name="Auth\Controller">
+      <file name="/Users/eduardojunior/projetos/ieducar2/www/module/Auth/src/Auth/Controller/IndexController.php">
+        <class name="IndexController" namespace="Auth\Controller" fullPackage="Controller" category="Auth" package="Controller">
+          <metrics methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="23" coveredstatements="23" elements="26" coveredelements="26"/>
+        </class>
+        <line num="22" type="method" name="indexAction" crap="3" count="5"/>
+        <line num="24" type="stmt" count="5"/>
+        <line num="25" type="stmt" count="5"/>
+        <line num="27" type="stmt" count="5"/>
+        <line num="28" type="stmt" count="4"/>
+        <line num="31" type="stmt" count="4"/>
+        <line num="34" type="stmt" count="4"/>
+        <line num="35" type="stmt" count="4"/>
+        <line num="36" type="stmt" count="4"/>
+        <line num="37" type="stmt" count="4"/>
+        <line num="38" type="stmt" count="4"/>
+        <line num="40" type="stmt" count="4"/>
+        <line num="42" type="stmt" count="3"/>
+        <line num="43" type="stmt" count="3"/>
+        <line num="45" type="stmt" count="1"/>
+        <line num="50" type="stmt" count="1"/>
+        <line num="53" type="stmt" count="2"/>
+        <line num="55" type="stmt" count="2"/>
+        <line num="58" type="method" name="logadoAction" crap="2" count="2"/>
+        <line num="61" type="stmt" count="2"/>
+        <line num="64" type="stmt" count="2"/>
+        <line num="67" type="stmt" count="2"/>
+        <line num="73" type="method" name="logoutAction" crap="1" count="1"/>
+        <line num="76" type="stmt" count="1"/>
+        <line num="77" type="stmt" count="1"/>
+        <line num="79" type="stmt" count="1"/>
+        <metrics loc="81" ncloc="45" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="23" coveredstatements="23" elements="26" coveredelements="26"/>
+      </file>
+      <file name="/Users/eduardojunior/projetos/ieducar2/www/module/Auth/src/Auth/Controller/ResourceController.php">
+        <class name="ResourceController" namespace="Auth\Controller" fullPackage="Controller" category="Auth" package="Controller">
+          <metrics methods="4" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="54" coveredstatements="46" elements="58" coveredelements="49"/>
+        </class>
+        <line num="30" type="method" name="indexAction" crap="1" count="1"/>
+        <line num="33" type="stmt" count="1"/>
+        <line num="35" type="stmt" count="1"/>
+        <line num="36" type="stmt" count="1"/>
+        <line num="37" type="stmt" count="1"/>
+        <line num="39" type="stmt" count="1"/>
+        <line num="41" type="stmt" count="1"/>
+        <line num="43" type="stmt" count="1"/>
+        <line num="49" type="method" name="buscaAction" crap="2" count="0"/>
+        <line num="51" type="stmt" count="0"/>
+        <line num="55" type="stmt" count="0"/>
+        <line num="56" type="stmt" count="0"/>
+        <line num="57" type="stmt" count="0"/>
+        <line num="59" type="stmt" count="0"/>
+        <line num="61" type="stmt" count="0"/>
+        <line num="62" type="stmt" count="0"/>
+        <line num="64" type="stmt" count="0"/>
+        <line num="67" type="method" name="saveAction" crap="6" count="5"/>
+        <line num="69" type="stmt" count="5"/>
+        <line num="70" type="stmt" count="5"/>
+        <line num="71" type="stmt" count="5"/>
+        <line num="73" type="stmt" count="5"/>
+        <line num="74" type="stmt" count="5"/>
+        <line num="75" type="stmt" count="1"/>
+        <line num="76" type="stmt" count="1"/>
+        <line num="77" type="stmt" count="1"/>
+        <line num="78" type="stmt" count="5"/>
+        <line num="79" type="stmt" count="5"/>
+        <line num="81" type="stmt" count="5"/>
+        <line num="82" type="stmt" count="3"/>
+        <line num="83" type="stmt" count="3"/>
+        <line num="84" type="stmt" count="3"/>
+        <line num="89" type="stmt" count="2"/>
+        <line num="90" type="stmt" count="2"/>
+        <line num="91" type="stmt" count="1"/>
+        <line num="92" type="stmt" count="1"/>
+        <line num="93" type="stmt" count="1"/>
+        <line num="94" type="stmt" count="1"/>
+        <line num="96" type="stmt" count="2"/>
+        <line num="101" type="stmt" count="2"/>
+        <line num="103" type="stmt" count="1"/>
+        <line num="105" type="stmt" count="3"/>
+        <line num="106" type="stmt" count="3"/>
+        <line num="107" type="stmt" count="1"/>
+        <line num="108" type="stmt" count="1"/>
+        <line num="109" type="stmt" count="1"/>
+        <line num="111" type="stmt" count="3"/>
+        <line num="113" type="stmt" count="3"/>
+        <line num="121" type="method" name="deleteAction" crap="3" count="3"/>
+        <line num="123" type="stmt" count="3"/>
+        <line num="124" type="stmt" count="3"/>
+        <line num="125" type="stmt" count="3"/>
+        <line num="128" type="stmt" count="2"/>
+        <line num="129" type="stmt" count="2"/>
+        <line num="130" type="stmt" count="1"/>
+        <line num="131" type="stmt" count="2"/>
+        <line num="132" type="stmt" count="1"/>
+        <line num="135" type="stmt" count="1"/>
+        <metrics loc="137" ncloc="102" classes="1" methods="4" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="54" coveredstatements="46" elements="58" coveredelements="49"/>
+      </file>
+      <file name="/Users/eduardojunior/projetos/ieducar2/www/module/Auth/src/Auth/Controller/RoleController.php">
+        <class name="RoleController" namespace="Auth\Controller" fullPackage="Controller" category="Auth" package="Controller">
+          <metrics methods="4" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="54" coveredstatements="46" elements="58" coveredelements="49"/>
+        </class>
+        <line num="29" type="method" name="indexAction" crap="1" count="1"/>
+        <line num="32" type="stmt" count="1"/>
+        <line num="34" type="stmt" count="1"/>
+        <line num="35" type="stmt" count="1"/>
+        <line num="36" type="stmt" count="1"/>
+        <line num="38" type="stmt" count="1"/>
+        <line num="40" type="stmt" count="1"/>
+        <line num="42" type="stmt" count="1"/>
+        <line num="48" type="method" name="buscaAction" crap="2" count="0"/>
+        <line num="50" type="stmt" count="0"/>
+        <line num="54" type="stmt" count="0"/>
+        <line num="55" type="stmt" count="0"/>
+        <line num="56" type="stmt" count="0"/>
+        <line num="58" type="stmt" count="0"/>
+        <line num="60" type="stmt" count="0"/>
+        <line num="61" type="stmt" count="0"/>
+        <line num="63" type="stmt" count="0"/>
+        <line num="67" type="method" name="saveAction" crap="6" count="5"/>
+        <line num="69" type="stmt" count="5"/>
+        <line num="70" type="stmt" count="5"/>
+        <line num="71" type="stmt" count="5"/>
+        <line num="73" type="stmt" count="5"/>
+        <line num="74" type="stmt" count="5"/>
+        <line num="75" type="stmt" count="1"/>
+        <line num="76" type="stmt" count="1"/>
+        <line num="77" type="stmt" count="1"/>
+        <line num="78" type="stmt" count="5"/>
+        <line num="79" type="stmt" count="5"/>
+        <line num="81" type="stmt" count="5"/>
+        <line num="82" type="stmt" count="3"/>
+        <line num="84" type="stmt" count="3"/>
+        <line num="85" type="stmt" count="3"/>
+        <line num="90" type="stmt" count="2"/>
+        <line num="91" type="stmt" count="2"/>
+        <line num="92" type="stmt" count="1"/>
+        <line num="93" type="stmt" count="1"/>
+        <line num="94" type="stmt" count="1"/>
+        <line num="95" type="stmt" count="1"/>
+        <line num="97" type="stmt" count="2"/>
+        <line num="102" type="stmt" count="2"/>
+        <line num="104" type="stmt" count="1"/>
+        <line num="109" type="stmt" count="3"/>
+        <line num="110" type="stmt" count="3"/>
+        <line num="111" type="stmt" count="1"/>
+        <line num="112" type="stmt" count="1"/>
+        <line num="113" type="stmt" count="1"/>
+        <line num="115" type="stmt" count="3"/>
+        <line num="117" type="stmt" count="3"/>
+        <line num="125" type="method" name="deleteAction" crap="3" count="3"/>
+        <line num="127" type="stmt" count="3"/>
+        <line num="128" type="stmt" count="3"/>
+        <line num="129" type="stmt" count="3"/>
+        <line num="132" type="stmt" count="2"/>
+        <line num="133" type="stmt" count="2"/>
+        <line num="134" type="stmt" count="1"/>
+        <line num="135" type="stmt" count="2"/>
+        <line num="136" type="stmt" count="1"/>
+        <line num="139" type="stmt" count="1"/>
+        <metrics loc="140" ncloc="102" classes="1" methods="4" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="54" coveredstatements="46" elements="58" coveredelements="49"/>
+      </file>
+    </package>
+    <package name="Auth\Entity">
+      <file name="/Users/eduardojunior/projetos/ieducar2/www/module/Auth/src/Auth/Entity/Resource.php">
+        <class name="Resource" namespace="Auth\Entity" fullPackage="Auth" category="Entidade" package="Auth">
+          <metrics methods="7" coveredmethods="7" conditionals="0" coveredconditionals="0" statements="43" coveredstatements="43" elements="50" coveredelements="50"/>
+        </class>
+        <line num="55" type="method" name="getId" crap="1" count="11"/>
+        <line num="57" type="stmt" count="11"/>
+        <line num="60" type="method" name="setId" crap="1" count="2"/>
+        <line num="62" type="stmt" count="2"/>
+        <line num="63" type="stmt" count="2"/>
+        <line num="65" type="method" name="getNome" crap="1" count="10"/>
+        <line num="67" type="stmt" count="10"/>
+        <line num="70" type="method" name="setNome" crap="1" count="20"/>
+        <line num="72" type="stmt" count="20"/>
+        <line num="73" type="stmt" count="20"/>
+        <line num="75" type="method" name="getDescricao" crap="1" count="5"/>
+        <line num="77" type="stmt" count="5"/>
+        <line num="80" type="method" name="setDescricao" crap="1" count="20"/>
+        <line num="82" type="stmt" count="20"/>
+        <line num="83" type="stmt" count="20"/>
+        <line num="96" type="method" name="getInputFilter" crap="2" count="22"/>
+        <line num="98" type="stmt" count="22"/>
+        <line num="99" type="stmt" count="22"/>
+        <line num="100" type="stmt" count="22"/>
+        <line num="102" type="stmt" count="22"/>
+        <line num="103" type="stmt" count="22"/>
+        <line num="104" type="stmt" count="22"/>
+        <line num="106" type="stmt" count="22"/>
+        <line num="107" type="stmt" count="22"/>
+        <line num="108" type="stmt" count="22"/>
+        <line num="110" type="stmt" count="22"/>
+        <line num="111" type="stmt" count="22"/>
+        <line num="112" type="stmt" count="22"/>
+        <line num="114" type="stmt" count="22"/>
+        <line num="115" type="stmt" count="22"/>
+        <line num="116" type="stmt" count="22"/>
+        <line num="119" type="stmt" count="22"/>
+        <line num="120" type="stmt" count="22"/>
+        <line num="122" type="stmt" count="22"/>
+        <line num="123" type="stmt" count="22"/>
+        <line num="124" type="stmt" count="22"/>
+        <line num="125" type="stmt" count="22"/>
+        <line num="126" type="stmt" count="22"/>
+        <line num="127" type="stmt" count="22"/>
+        <line num="128" type="stmt" count="22"/>
+        <line num="130" type="stmt" count="22"/>
+        <line num="131" type="stmt" count="22"/>
+        <line num="132" type="stmt" count="22"/>
+        <line num="134" type="stmt" count="22"/>
+        <line num="135" type="stmt" count="22"/>
+        <line num="136" type="stmt" count="22"/>
+        <line num="137" type="stmt" count="22"/>
+        <line num="139" type="stmt" count="22"/>
+        <line num="140" type="stmt" count="22"/>
+        <line num="141" type="stmt" count="22"/>
+        <metrics loc="143" ncloc="100" classes="1" methods="7" coveredmethods="7" conditionals="0" coveredconditionals="0" statements="43" coveredstatements="43" elements="50" coveredelements="50"/>
+      </file>
+      <file name="/Users/eduardojunior/projetos/ieducar2/www/module/Auth/src/Auth/Entity/Role.php">
+        <class name="Role" namespace="Auth\Entity">
+          <metrics methods="10" coveredmethods="10" conditionals="0" coveredconditionals="0" statements="33" coveredstatements="33" elements="43" coveredelements="43"/>
+        </class>
+        <line num="73" type="method" name="getId" crap="1" count="9"/>
+        <line num="75" type="stmt" count="9"/>
+        <line num="78" type="method" name="setId" crap="1" count="2"/>
+        <line num="80" type="stmt" count="2"/>
+        <line num="81" type="stmt" count="2"/>
+        <line num="83" type="method" name="getFuncionario" crap="1" count="6"/>
+        <line num="85" type="stmt" count="6"/>
+        <line num="88" type="method" name="setFuncionario" crap="1" count="10"/>
+        <line num="90" type="stmt" count="10"/>
+        <line num="91" type="stmt" count="10"/>
+        <line num="93" type="method" name="getResource" crap="1" count="6"/>
+        <line num="95" type="stmt" count="6"/>
+        <line num="98" type="method" name="setResource" crap="1" count="10"/>
+        <line num="100" type="stmt" count="10"/>
+        <line num="101" type="stmt" count="10"/>
+        <line num="103" type="method" name="getPrivilegio" crap="1" count="12"/>
+        <line num="105" type="stmt" count="12"/>
+        <line num="108" type="method" name="setPrivilegio" crap="1" count="10"/>
+        <line num="110" type="stmt" count="10"/>
+        <line num="111" type="stmt" count="10"/>
+        <line num="119" type="method" name="checkPrivilegio" crap="3" count="10"/>
+        <line num="121" type="stmt" count="10"/>
+        <line num="122" type="stmt" count="10"/>
+        <line num="123" type="stmt" count="9"/>
+        <line num="136" type="method" name="getInputFilter" crap="2" count="12"/>
+        <line num="138" type="stmt" count="12"/>
+        <line num="139" type="stmt" count="12"/>
+        <line num="140" type="stmt" count="12"/>
+        <line num="142" type="stmt" count="12"/>
+        <line num="143" type="stmt" count="12"/>
+        <line num="144" type="stmt" count="12"/>
+        <line num="146" type="stmt" count="12"/>
+        <line num="147" type="stmt" count="12"/>
+        <line num="148" type="stmt" count="12"/>
+        <line num="150" type="stmt" count="12"/>
+        <line num="151" type="stmt" count="12"/>
+        <line num="152" type="stmt" count="12"/>
+        <line num="154" type="stmt" count="12"/>
+        <line num="155" type="stmt" count="12"/>
+        <line num="156" type="stmt" count="12"/>
+        <line num="158" type="stmt" count="12"/>
+        <line num="159" type="stmt" count="12"/>
+        <line num="161" type="stmt" count="12"/>
+        <metrics loc="162" ncloc="99" classes="1" methods="10" coveredmethods="10" conditionals="0" coveredconditionals="0" statements="33" coveredstatements="33" elements="43" coveredelements="43"/>
+      </file>
+    </package>
+    <package name="Auth\Fixture">
+      <file name="/Users/eduardojunior/projetos/ieducar2/www/module/Auth/src/Auth/Fixture/ResourceLoad.php">
+        <class name="ResourceLoad" namespace="Auth\Fixture">
+          <metrics methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="71" coveredstatements="0" elements="72" coveredelements="0"/>
+        </class>
+        <line num="12" type="method" name="load" crap="6" count="0"/>
+        <line num="13" type="stmt" count="0"/>
+        <line num="14" type="stmt" count="0"/>
+        <line num="15" type="stmt" count="0"/>
+        <line num="16" type="stmt" count="0"/>
+        <line num="17" type="stmt" count="0"/>
+        <line num="18" type="stmt" count="0"/>
+        <line num="19" type="stmt" count="0"/>
+        <line num="20" type="stmt" count="0"/>
+        <line num="21" type="stmt" count="0"/>
+        <line num="22" type="stmt" count="0"/>
+        <line num="23" type="stmt" count="0"/>
+        <line num="24" type="stmt" count="0"/>
+        <line num="25" type="stmt" count="0"/>
+        <line num="26" type="stmt" count="0"/>
+        <line num="27" type="stmt" count="0"/>
+        <line num="28" type="stmt" count="0"/>
+        <line num="29" type="stmt" count="0"/>
+        <line num="30" type="stmt" count="0"/>
+        <line num="31" type="stmt" count="0"/>
+        <line num="32" type="stmt" count="0"/>
+        <line num="33" type="stmt" count="0"/>
+        <line num="34" type="stmt" count="0"/>
+        <line num="35" type="stmt" count="0"/>
+        <line num="36" type="stmt" count="0"/>
+        <line num="37" type="stmt" count="0"/>
+        <line num="38" type="stmt" count="0"/>
+        <line num="39" type="stmt" count="0"/>
+        <line num="40" type="stmt" count="0"/>
+        <line num="41" type="stmt" count="0"/>
+        <line num="42" type="stmt" count="0"/>
+        <line num="43" type="stmt" count="0"/>
+        <line num="44" type="stmt" count="0"/>
+        <line num="45" type="stmt" count="0"/>
+        <line num="46" type="stmt" count="0"/>
+        <line num="47" type="stmt" count="0"/>
+        <line num="48" type="stmt" count="0"/>
+        <line num="49" type="stmt" count="0"/>
+        <line num="50" type="stmt" count="0"/>
+        <line num="51" type="stmt" count="0"/>
+        <line num="52" type="stmt" count="0"/>
+        <line num="53" type="stmt" count="0"/>
+        <line num="54" type="stmt" count="0"/>
+        <line num="55" type="stmt" count="0"/>
+        <line num="56" type="stmt" count="0"/>
+        <line num="57" type="stmt" count="0"/>
+        <line num="58" type="stmt" count="0"/>
+        <line num="60" type="stmt" count="0"/>
+        <line num="61" type="stmt" count="0"/>
+        <line num="62" type="stmt" count="0"/>
+        <line num="63" type="stmt" count="0"/>
+        <line num="64" type="stmt" count="0"/>
+        <line num="65" type="stmt" count="0"/>
+        <line num="66" type="stmt" count="0"/>
+        <line num="67" type="stmt" count="0"/>
+        <line num="68" type="stmt" count="0"/>
+        <line num="69" type="stmt" count="0"/>
+        <line num="70" type="stmt" count="0"/>
+        <line num="71" type="stmt" count="0"/>
+        <line num="72" type="stmt" count="0"/>
+        <line num="73" type="stmt" count="0"/>
+        <line num="74" type="stmt" count="0"/>
+        <line num="75" type="stmt" count="0"/>
+        <line num="77" type="stmt" count="0"/>
+        <line num="79" type="stmt" count="0"/>
+        <line num="80" type="stmt" count="0"/>
+        <line num="81" type="stmt" count="0"/>
+        <line num="82" type="stmt" count="0"/>
+        <line num="84" type="stmt" count="0"/>
+        <line num="85" type="stmt" count="0"/>
+        <line num="87" type="stmt" count="0"/>
+        <line num="88" type="stmt" count="0"/>
+        <metrics loc="88" ncloc="86" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="71" coveredstatements="0" elements="72" coveredelements="0"/>
+      </file>
+    </package>
+    <package name="Auth\Form">
+      <file name="/Users/eduardojunior/projetos/ieducar2/www/module/Auth/src/Auth/Form/Login.php">
+        <class name="Login" namespace="Auth\Form">
+          <metrics methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="32" coveredstatements="32" elements="33" coveredelements="33"/>
+        </class>
+        <line num="8" type="method" name="__construct" crap="1" count="5"/>
+        <line num="10" type="stmt" count="5"/>
+        <line num="11" type="stmt" count="5"/>
+        <line num="12" type="stmt" count="5"/>
+        <line num="13" type="stmt" count="5"/>
+        <line num="15" type="stmt" count="5"/>
+        <line num="16" type="stmt" count="5"/>
+        <line num="18" type="stmt" count="5"/>
+        <line num="19" type="stmt" count="5"/>
+        <line num="20" type="stmt" count="5"/>
+        <line num="21" type="stmt" count="5"/>
+        <line num="23" type="stmt" count="5"/>
+        <line num="26" type="stmt" count="5"/>
+        <line num="27" type="stmt" count="5"/>
+        <line num="29" type="stmt" count="5"/>
+        <line num="30" type="stmt" count="5"/>
+        <line num="32" type="stmt" count="5"/>
+        <line num="33" type="stmt" count="5"/>
+        <line num="34" type="stmt" count="5"/>
+        <line num="36" type="stmt" count="5"/>
+        <line num="39" type="stmt" count="5"/>
+        <line num="40" type="stmt" count="5"/>
+        <line num="42" type="stmt" count="5"/>
+        <line num="43" type="stmt" count="5"/>
+        <line num="44" type="stmt" count="5"/>
+        <line num="46" type="stmt" count="5"/>
+        <line num="47" type="stmt" count="5"/>
+        <line num="48" type="stmt" count="5"/>
+        <line num="50" type="stmt" count="5"/>
+        <line num="52" type="stmt" count="5"/>
+        <line num="53" type="stmt" count="5"/>
+        <line num="54" type="stmt" count="5"/>
+        <line num="55" type="stmt" count="5"/>
+        <metrics loc="55" ncloc="55" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="32" coveredstatements="32" elements="33" coveredelements="33"/>
+      </file>
+      <file name="/Users/eduardojunior/projetos/ieducar2/www/module/Auth/src/Auth/Form/Resource.php">
+        <class name="Resource" namespace="Auth\Form">
+          <metrics methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="37" coveredstatements="37" elements="38" coveredelements="38"/>
+        </class>
+        <line num="8" type="method" name="__construct" crap="1" count="5"/>
+        <line num="10" type="stmt" count="5"/>
+        <line num="11" type="stmt" count="5"/>
+        <line num="12" type="stmt" count="5"/>
+        <line num="13" type="stmt" count="5"/>
+        <line num="15" type="stmt" count="5"/>
+        <line num="16" type="stmt" count="5"/>
+        <line num="18" type="stmt" count="5"/>
+        <line num="19" type="stmt" count="5"/>
+        <line num="20" type="stmt" count="5"/>
+        <line num="22" type="stmt" count="5"/>
+        <line num="23" type="stmt" count="5"/>
+        <line num="25" type="stmt" count="5"/>
+        <line num="26" type="stmt" count="5"/>
+        <line num="27" type="stmt" count="5"/>
+        <line num="29" type="stmt" count="5"/>
+        <line num="31" type="stmt" count="5"/>
+        <line num="32" type="stmt" count="5"/>
+        <line num="33" type="stmt" count="5"/>
+        <line num="35" type="stmt" count="5"/>
+        <line num="36" type="stmt" count="5"/>
+        <line num="38" type="stmt" count="5"/>
+        <line num="39" type="stmt" count="5"/>
+        <line num="40" type="stmt" count="5"/>
+        <line num="41" type="stmt" count="5"/>
+        <line num="44" type="stmt" count="5"/>
+        <line num="45" type="stmt" count="5"/>
+        <line num="47" type="stmt" count="5"/>
+        <line num="48" type="stmt" count="5"/>
+        <line num="49" type="stmt" count="5"/>
+        <line num="51" type="stmt" count="5"/>
+        <line num="52" type="stmt" count="5"/>
+        <line num="53" type="stmt" count="5"/>
+        <line num="55" type="stmt" count="5"/>
+        <line num="57" type="stmt" count="5"/>
+        <line num="58" type="stmt" count="5"/>
+        <line num="59" type="stmt" count="5"/>
+        <line num="60" type="stmt" count="5"/>
+        <metrics loc="60" ncloc="60" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="37" coveredstatements="37" elements="38" coveredelements="38"/>
+      </file>
+      <file name="/Users/eduardojunior/projetos/ieducar2/www/module/Auth/src/Auth/Form/Role.php">
+        <class name="Role" namespace="Auth\Form">
+          <metrics methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="57" coveredstatements="57" elements="58" coveredelements="58"/>
+        </class>
+        <line num="9" type="method" name="__construct" crap="1" count="5"/>
+        <line num="11" type="stmt" count="5"/>
+        <line num="12" type="stmt" count="5"/>
+        <line num="13" type="stmt" count="5"/>
+        <line num="14" type="stmt" count="5"/>
+        <line num="16" type="stmt" count="5"/>
+        <line num="17" type="stmt" count="5"/>
+        <line num="19" type="stmt" count="5"/>
+        <line num="20" type="stmt" count="5"/>
+        <line num="21" type="stmt" count="5"/>
+        <line num="23" type="stmt" count="5"/>
+        <line num="24" type="stmt" count="5"/>
+        <line num="26" type="stmt" count="5"/>
+        <line num="27" type="stmt" count="5"/>
+        <line num="28" type="stmt" count="5"/>
+        <line num="30" type="stmt" count="5"/>
+        <line num="31" type="stmt" count="5"/>
+        <line num="33" type="stmt" count="5"/>
+        <line num="34" type="stmt" count="5"/>
+        <line num="35" type="stmt" count="5"/>
+        <line num="36" type="stmt" count="5"/>
+        <line num="37" type="stmt" count="5"/>
+        <line num="38" type="stmt" count="5"/>
+        <line num="39" type="stmt" count="5"/>
+        <line num="41" type="stmt" count="5"/>
+        <line num="42" type="stmt" count="5"/>
+        <line num="44" type="stmt" count="5"/>
+        <line num="46" type="stmt" count="5"/>
+        <line num="47" type="stmt" count="5"/>
+        <line num="49" type="stmt" count="5"/>
+        <line num="50" type="stmt" count="5"/>
+        <line num="51" type="stmt" count="5"/>
+        <line num="52" type="stmt" count="5"/>
+        <line num="53" type="stmt" count="5"/>
+        <line num="54" type="stmt" count="5"/>
+        <line num="55" type="stmt" count="5"/>
+        <line num="57" type="stmt" count="5"/>
+        <line num="58" type="stmt" count="5"/>
+        <line num="59" type="stmt" count="5"/>
+        <line num="61" type="stmt" count="5"/>
+        <line num="63" type="stmt" count="5"/>
+        <line num="66" type="stmt" count="5"/>
+        <line num="67" type="stmt" count="5"/>
+        <line num="69" type="stmt" count="5"/>
+        <line num="70" type="stmt" count="5"/>
+        <line num="72" type="stmt" count="5"/>
+        <line num="73" type="stmt" count="5"/>
+        <line num="75" type="stmt" count="5"/>
+        <line num="76" type="stmt" count="5"/>
+        <line num="77" type="stmt" count="5"/>
+        <line num="79" type="stmt" count="5"/>
+        <line num="80" type="stmt" count="5"/>
+        <line num="81" type="stmt" count="5"/>
+        <line num="83" type="stmt" count="5"/>
+        <line num="85" type="stmt" count="5"/>
+        <line num="86" type="stmt" count="5"/>
+        <line num="87" type="stmt" count="5"/>
+        <line num="88" type="stmt" count="5"/>
+        <metrics loc="88" ncloc="88" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="57" coveredstatements="57" elements="58" coveredelements="58"/>
+      </file>
+    </package>
+    <package name="Auth\Service">
+      <file name="/Users/eduardojunior/projetos/ieducar2/www/module/Auth/src/Auth/Service/Auth.php">
+        <class name="Auth" namespace="Auth\Service" fullPackage="Service" category="Auth" package="Service">
+          <metrics methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="33" coveredstatements="0" elements="35" coveredelements="0"/>
+        </class>
+        <line num="29" type="method" name="__construct" crap="2" count="0"/>
+        <line num="30" type="stmt" count="0"/>
+        <line num="31" type="stmt" count="0"/>
+        <line num="32" type="stmt" count="0"/>
+        <line num="107" type="method" name="authorize" crap="110" count="0"/>
+        <line num="108" type="stmt" count="0"/>
+        <line num="118" type="stmt" count="0"/>
+        <line num="119" type="stmt" count="0"/>
+        <line num="120" type="stmt" count="0"/>
+        <line num="122" type="stmt" count="0"/>
+        <line num="123" type="stmt" count="0"/>
+        <line num="124" type="stmt" count="0"/>
+        <line num="125" type="stmt" count="0"/>
+        <line num="129" type="stmt" count="0"/>
+        <line num="130" type="stmt" count="0"/>
+        <line num="131" type="stmt" count="0"/>
+        <line num="139" type="stmt" count="0"/>
+        <line num="140" type="stmt" count="0"/>
+        <line num="142" type="stmt" count="0"/>
+        <line num="143" type="stmt" count="0"/>
+        <line num="144" type="stmt" count="0"/>
+        <line num="147" type="stmt" count="0"/>
+        <line num="148" type="stmt" count="0"/>
+        <line num="149" type="stmt" count="0"/>
+        <line num="150" type="stmt" count="0"/>
+        <line num="151" type="stmt" count="0"/>
+        <line num="152" type="stmt" count="0"/>
+        <line num="153" type="stmt" count="0"/>
+        <line num="154" type="stmt" count="0"/>
+        <line num="155" type="stmt" count="0"/>
+        <line num="156" type="stmt" count="0"/>
+        <line num="157" type="stmt" count="0"/>
+        <line num="158" type="stmt" count="0"/>
+        <line num="159" type="stmt" count="0"/>
+        <line num="160" type="stmt" count="0"/>
+        <metrics loc="160" ncloc="30" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="33" coveredstatements="0" elements="35" coveredelements="0"/>
+      </file>
+    </package>
+    <metrics files="12" loc="1308" ncloc="920" classes="11" methods="38" coveredmethods="31" conditionals="0" coveredconditionals="0" statements="524" coveredstatements="386" elements="562" coveredelements="417"/>
+  </project>
+</coverage>

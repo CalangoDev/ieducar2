@@ -12,8 +12,8 @@ return array(
                 'params' => array(
                     'host' => 'localhost',
                     'port' => '5433',
-                    'user' => 'ieducar',
-                    'password' => 'ieducar',
+                    'user' => 'postgres',
+                    'password' => 'postgres',
                     'dbname' => 'ieducar_test'
                 ),
             ),

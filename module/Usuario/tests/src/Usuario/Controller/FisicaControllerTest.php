@@ -3,6 +3,8 @@ use Core\Test\ControllerTestCase;
 use Usuario\Controller\FisicaController;
 use Usuario\Entity\Fisica;
 use Usuario\Entity\Raca;
+use Core\Entity\tipoLogradouro;
+use Core\Entity\Uf;
 use Zend\Http\Request;
 use Zend\Stdlib\Parameters;
 use Zend\View\Renderer\PhpRenderer;
@@ -210,10 +212,17 @@ class FisicaControllerTest extends ControllerTestCase
 	 */
 	public function testFisicaSaveActionPostRequest()
 	{
+		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
 		//	Cadastra uma raça
 		$raca = $this->buildRaca();
-		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
 		$em->persist($raca);
+		// Cadastra um tipo de logradouro
+		$tipoLogradouro = $this->buildTipoLogradouro();
+		$em->persist($tipoLogradouro);
+		// Cadastra um Uf
+		$uf = $this->buildUf();
+		$em->persist($uf);
+		
 		$em->flush();		
 
 		//	Dispara a acao
@@ -228,6 +237,9 @@ class FisicaControllerTest extends ControllerTestCase
 		$this->request->getPost()->set('situacao', 'A');
 		$this->request->getPost()->set('nacionalidade', "1");
 		$this->request->getPost()->set('raca', $raca->getId());
+		$this->request->getPost()->set('cpf', '');
+		$this->request->getPost()->set('tipoLogradouro', $tipoLogradouro->getId());
+		$this->request->getPost()->set('uf', $uf->getId());
 
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
@@ -245,10 +257,17 @@ class FisicaControllerTest extends ControllerTestCase
 	 */
 	public function testFisicaUpdateAction()
 	{
-		//	Cadastra uma raça
-		$raca = $this->buildRaca();
 		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-		$em->persist($raca);		
+		//	Cadastra uma raça
+		$raca = $this->buildRaca();		
+		$em->persist($raca);
+		// Cadastra um tipo de logradouro
+		$tipoLogradouro = $this->buildTipoLogradouro();
+		$em->persist($tipoLogradouro);
+		// Cadastra um Uf
+		$uf = $this->buildUf();
+		$em->persist($uf);
+		
 
 		$fisica = $this->buildFisica();
 		$fisica->setNome('Bill Gates');
@@ -270,6 +289,9 @@ class FisicaControllerTest extends ControllerTestCase
 		$this->request->getPost()->set('sexo', 'M');
 		$this->request->getPost()->set('cpf', '222.222.222-22');
 		$this->request->getPost()->set('raca', $raca->getId());
+		$this->request->getPost()->set('tipoLogradouro', $tipoLogradouro->getId());
+		$this->request->getPost()->set('uf', $uf->getId());
+
 
 
 		$result = $this->controller->dispatch(
@@ -411,6 +433,25 @@ class FisicaControllerTest extends ControllerTestCase
 		$fisica->setCpf('111.111.111-11');
 
     	return $fisica;
+	}
+
+	private function buildTipoLogradouro()
+	{
+		$tipoLogradouro = new tipoLogradouro;
+		$tipoLogradouro->setDescricao('Rua');
+
+		return $tipoLogradouro;
+	}
+
+	private function buildUf()
+	{
+		$uf = new Uf;
+		$uf->setUf('BA');
+		$uf->setNome('Bahia');
+		$uf->setCep1('44900');
+		$uf->setCep2('44905');
+
+		return $uf;
 	}
 
 	public function buildRaca()
