@@ -1122,7 +1122,7 @@ class Fisica extends Pessoa
 
 			$inputFilter->add($factory->createInput(array(
 				'name' => 'cpf',
-				'required' => false,
+				'required' => true,
 				'filters' => array(
 					array('name' => 'StripTags'),
 					array('name' => 'StringTrim'),

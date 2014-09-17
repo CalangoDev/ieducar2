@@ -1,6 +1,7 @@
 <?php
 namespace Core\Test;
 
+use SebastianBergmann\Exporter\Exception;
 use Zend\Db\Adapter\Adapter;
 use Zend\Mvc\Application;
 use Zend\Di\Di;
@@ -34,7 +35,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 
 	public function setup()
 	{
-		parent::setup();
+
 		
 		$config = include 'config/application.config.php';
 		$config['module_listener_options']['config_static_paths'] = array(getcwd() . '/config/test.config.php');				
@@ -71,6 +72,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 					->setRouter($this->serviceManager->get('Router'));							
 		$this->em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
 		$this->createDatabase();
+        parent::setup();
 		
 	}
 
@@ -80,7 +82,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 		 * @todo  apagar essa linha depois que verificar nos testes
 		 */		
 		parent::tearDown();		
-		$this->dropDatabase();
+		//$this->dropDatabase();
 	}
 
 	/**
@@ -97,19 +99,33 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 	 * @return void
 	 */
 	public function createDatabase()
-	{		
+	{
+        /*
+         *
+        $cmf = $em->getMetadataFactory();
+        $classes = $cmf->getAllMetadata();
+
+        $schemaTool->dropDatabase();
+        $schemaTool->createSchema($classes);
+        */
+
 		$tool = new SchemaTool($this->em);
-		$classes = $this->em->getMetadataFactory()->getAllMetadata();				
-		$tool->dropSchema($classes);
-		$tool->createSchema($classes);
+		$classes = $this->em->getMetadataFactory()->getAllMetadata();
+        $cmf = $this->em->getMetadataFactory();
+        $classes = $cmf->getAllMetadata();
+        
+        $tool->dropSchema($classes);
+        $tool->dropDatabase();
+        $tool->createSchema($classes);
 	}
 	/**
 	 * @return void
 	 */
 	public function dropDatabase()
-	{		
+	{
 		$tool = new SchemaTool($this->em);
 		$classes = $this->em->getMetadataFactory()->getAllMetadata();		
-		//$tool->dropSchema($classes);
+		$tool->dropSchema($classes);
+        $tool->dropDatabase();
 	}
 }

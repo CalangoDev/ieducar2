@@ -99,7 +99,7 @@ class FisicaControllerTest extends ControllerTestCase
 
 		$dataNasc = $form->get('dataNasc');
 		$this->assertEquals('dataNasc', $dataNasc->getName());
-		$this->assertEquals('date', $dataNasc->getAttribute('type'));
+		$this->assertEquals('text', $dataNasc->getAttribute('type'));
 
 		$sexo = $form->get('sexo');
 		$this->assertEquals('sexo', $sexo->getName());
@@ -241,6 +241,7 @@ class FisicaControllerTest extends ControllerTestCase
 		$this->request->getPost()->set('tipoLogradouro', $tipoLogradouro->getId());
 		$this->request->getPost()->set('uf', $uf->getId());
 
+
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
 		);
@@ -251,6 +252,56 @@ class FisicaControllerTest extends ControllerTestCase
 		$headers = $response->getHeaders();
 		$this->assertEquals('Location: /usuario/fisica', $headers->get('Location'));
 	}
+
+
+
+    /**
+     * Testa a inclusao, formulario invalido e cpf vazio
+     */
+    public function testFisicaSaveActionInvalidFormPostRequest()
+    {
+        $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
+        //	Cadastra uma raça
+        $raca = $this->buildRaca();
+        $em->persist($raca);
+        // Cadastra um tipo de logradouro
+        $tipoLogradouro = $this->buildTipoLogradouro();
+        $em->persist($tipoLogradouro);
+        // Cadastra um Uf
+        $uf = $this->buildUf();
+        $em->persist($uf);
+
+        $em->flush();
+
+        //	Dispara a acao
+        $this->routeMatch->setParam('action', 'save');
+
+        $this->request->setMethod('post');
+        $this->request->getPost()->set('id', '');
+        $this->request->getPost()->set('sexo', 'M');
+        $this->request->getPost()->set('nome', 'Garrincha');
+        $this->request->getPost()->set('url', 'www.eduardojunior.com');
+        $this->request->getPost()->set('email', 'ej@eduardojunior.com');
+        $this->request->getPost()->set('situacao', 'A');
+        $this->request->getPost()->set('nacionalidade', "1");
+        $this->request->getPost()->set('raca', $raca->getId());
+        $this->request->getPost()->set('cpf', '');
+        $this->request->getPost()->set('tipoLogradouro', $tipoLogradouro->getId());
+        $this->request->getPost()->set('uf', '');
+
+
+        $result = $this->controller->dispatch(
+            $this->request, $this->response
+        );
+        //	Verifica a resposta
+        $response = $this->controller->getResponse();
+        //	a pagina nao redireciona por causa do erro, estao o status = 200
+        $this->assertEquals(200, $response->getStatusCode());
+        $headers = $response->getHeaders();
+
+        // @todo fazer outro assert pegando mensagem de erro por falta do uf
+
+    }
 
 	/**
 	 * Testa o update de uma pessoa fisica
@@ -271,6 +322,8 @@ class FisicaControllerTest extends ControllerTestCase
 
 		$fisica = $this->buildFisica();
 		$fisica->setNome('Bill Gates');
+        $date = new \DateTime('03/05/1982', new \DateTimeZone('America/Sao_Paulo'));
+        $fisica->setDataNasc($date);
 		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
 		$em->persist($fisica);
     	$em->flush();
@@ -291,6 +344,7 @@ class FisicaControllerTest extends ControllerTestCase
 		$this->request->getPost()->set('raca', $raca->getId());
 		$this->request->getPost()->set('tipoLogradouro', $tipoLogradouro->getId());
 		$this->request->getPost()->set('uf', $uf->getId());
+        $this->request->getPost()->set('dataNasc', '03/05/1982');
 
 
 
@@ -306,6 +360,11 @@ class FisicaControllerTest extends ControllerTestCase
 		$this->assertEquals(
 			'Location: /usuario/fisica', $headers->get('Location')
 		);
+
+        //$savedPessoa = $this->em->find('Usuario\Entity\Pessoa', 1);
+        $savedFisica = $em->find('Usuario\Entity\Fisica', $fisica->getId());
+        $date = new \DateTime('03/05/1982', new \DateTimeZone('America/Sao_Paulo'));
+        $this->assertEquals($date, $savedFisica->getDataNasc());
 	}
 
 	/**

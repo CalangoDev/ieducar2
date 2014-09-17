@@ -167,20 +167,25 @@ class FisicaController extends ActionController
 					$date = $date->format('d-m-Y');					
 					$form->get('dataNasc')->setAttribute('value', $date);
 				}
+
+                /**
+                 * Checar isso e ver o teste
+                 * form invalido, onde nao tenha cpf
+                 */
 				if ($cpf == ''){
 					$form->add(array(
-					'name' => 'cpf',
-					'attributes' => array(
-						'type' => 'text',
-						'class' => 'form-control cpf',
-						'pattern' => "\d{3}\.\d{3}\.\d{3}-\d{2}",
-						'title' => "Digite o CPF no formato nnn.nnn.nnn-nn"
-					),
-					'options' => array(
-						'label' => 'CPF <small>nnn.nnn.nnn-nn</small>'
-					),
-				));					
-				}				
+					    'name' => 'cpf',
+					    'attributes' => array(
+                            'type' => 'text',
+                            'class' => 'form-control cpf',
+                            'pattern' => "\d{3}\.\d{3}\.\d{3}-\d{2}",
+                            'title' => "Digite o CPF no formato nnn.nnn.nnn-nn"
+					    ),
+					    'options' => array(
+						    'label' => 'CPF <small>nnn.nnn.nnn-nn</small>'
+					    ),
+				    ));
+				}
 			}
 		}
 		$id = (int) $this->params()->fromRoute('id', 0);

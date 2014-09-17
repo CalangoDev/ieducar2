@@ -25,6 +25,7 @@ class Fisica extends Form
 			'attributes' => array(
 				'type' => 'text',
 				'class' => 'form-control',
+                'required' => 'required'
 				// 'style' => 'width:510px'
 			),
 			'options' => array(
@@ -54,9 +55,9 @@ class Fisica extends Form
 
 		$this->add(array(
 			'name' => 'dataNasc',
-			'type' => 'date',
+			'type' => 'text',
 			'attributes' => array(
-				'type' => 'date',
+//				'type' => 'text',
 				'class' => 'form-control dataNasc'
 			),
 			'options' => array(
@@ -86,7 +87,8 @@ class Fisica extends Form
 			'attributes' => array(
 				'type' => 'DoctrineModule\Form\Element\ObjectSelect',
 				'class' => 'form-control chosen-select',
-				'style' => 'height:100px;'
+				'style' => 'height:100px;',
+                'required' => 'required'
 			),
 			'type' => 'DoctrineModule\Form\Element\ObjectSelect',
 			'options' => array(
@@ -110,7 +112,8 @@ class Fisica extends Form
 			'attributes' => array(
 				'type' => 'text',
 				'class' => 'form-control cep',
-				'style' => 'width:100px'
+				'style' => 'width:100px',
+                'required' => 'required'
 			),
 			'options' => array(
 				'label' => 'CEP:'
@@ -122,7 +125,8 @@ class Fisica extends Form
 			'attributes' => array(
 				'type' => 'DoctrineModule\Form\Element\ObjectSelect',
 				'class' => 'form-control chosen-select tipoLogradouro',
-				'style' => 'height:100px;'
+				'style' => 'height:100px;',
+                'required' => 'required'
 			),
 			'type' => 'DoctrineModule\Form\Element\ObjectSelect',
 			'options' => array(
@@ -218,7 +222,8 @@ class Fisica extends Form
 			'attributes' => array(
 				'type' => 'DoctrineModule\Form\Element\ObjectSelect',
 				'class' => 'form-control chosen-select uf',
-				'style' => 'height:100px;'
+				'style' => 'height:100px;',
+                'required' => 'required'
 			),
 			'type' => 'DoctrineModule\Form\Element\ObjectSelect',
 			'options' => array(

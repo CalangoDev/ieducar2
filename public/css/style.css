@@ -111,3 +111,14 @@ div.container a.brand {
 .loading {
   display: none;
 }
+
+/**
+ * form required
+ */
+.form-group.required label:after {
+    color: #d00;
+    content: "*";
+    /*position: absolute;
+    margin-left: 8px;
+    top:7px;*/
+}
