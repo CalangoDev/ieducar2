@@ -38,8 +38,7 @@ class Setor extends Entity
 	 * 
 	 * @ORM\Id
 	 * @ORM\Column(name="cod_setor", type="integer", nullable=false)
-	 * @ORM\GeneratedValue(strategy="SEQUENCE")
-	 * @SequenceGenerator(sequenceName="pmidrh.setor_cod_setor_seq", initialValue=1, allocationSize=1)
+	 * @ORM\GeneratedValue(strategy="AUTO")	 
 	 */
 	protected $id;
 

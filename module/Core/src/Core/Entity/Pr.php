@@ -33,8 +33,7 @@ class Pr extends Entity
 	 * 
 	 * @ORM\Id
 	 * @ORM\Column(name="id", type="integer", nullable=false)
-	 * @ORM\GeneratedValue(strategy="SEQUENCE")
-	 * @SequenceGenerator(sequenceName="cep.seq_pr", initialValue=1, allocationSize=1)
+	 * @ORM\GeneratedValue(strategy="AUTO")	 
 	 */
 	protected $id;
 

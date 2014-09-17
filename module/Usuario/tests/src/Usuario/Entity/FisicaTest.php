@@ -143,6 +143,7 @@ class FisicaTest extends EntityTestCase
 		$fisica->setNome($teste->getNome());
 		$fisica->setDataCad($teste->getDataCad());
 		$fisica->setSituacao($teste->getSituacao());		
+		
 		$this->em->persist($fisica);
 		$this->em->flush();
 

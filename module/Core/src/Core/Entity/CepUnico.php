@@ -33,8 +33,7 @@ class CepUnico extends Entity
 	 * 
 	 * @ORM\Id
 	 * @ORM\Column(name="seq", type="integer", nullable=false)
-	 * @ORM\GeneratedValue(strategy="SEQUENCE")
-	 * @SequenceGenerator(sequenceName="cep.seq_cepunico", initialValue=1, allocationSize=1)
+	 * @ORM\GeneratedValue(strategy="AUTO")	 
 	 */
 	protected $id;
 

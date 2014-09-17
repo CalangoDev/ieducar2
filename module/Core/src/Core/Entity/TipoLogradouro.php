@@ -31,8 +31,7 @@ class TipoLogradouro extends Entity
 	 * 
 	 * @ORM\Id
 	 * @ORM\Column(name="idtlog", type="string", nullable=false, length=5)
-	 * @ORM\GeneratedValue(strategy="SEQUENCE")
-	 * @SequenceGenerator(sequenceName="urbano.seq_tp_logradouro", initialValue=1, allocationSize=1)
+	 * @ORM\GeneratedValue(strategy="AUTO")	 
 	 */
 	protected $id;
 

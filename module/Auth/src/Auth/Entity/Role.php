@@ -37,8 +37,7 @@ class Role extends Entity
 	 * 
 	 * @ORM\Id
 	 * @ORM\Column(type="integer", nullable=false)
-	 * @ORM\GeneratedValue(strategy="SEQUENCE")
-	 * @SequenceGenerator(sequenceName="portal.seq_role", initialValue=1, allocationSize=1)
+	 * @ORM\GeneratedValue(strategy="AUTO")	 
 	 */
 	protected $id;
 

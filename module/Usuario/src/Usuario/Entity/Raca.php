@@ -33,8 +33,7 @@ class Raca extends Entity
 	 * 
 	 * @ORM\Id
 	 * @ORM\Column(name="cod_raca", type="integer", nullable=false)
-	 * @ORM\GeneratedValue(strategy="SEQUENCE")
-	 * @SequenceGenerator(sequenceName="cadastro.seq_raca", initialValue=1, allocationSize=1)
+	 * @ORM\GeneratedValue(strategy="AUTO")	 
 	 */
 	protected $id;
 

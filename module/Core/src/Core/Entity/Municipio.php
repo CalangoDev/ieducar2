@@ -33,8 +33,7 @@ class Municipio extends Entity
 	 * 
 	 * @ORM\Id
 	 * @ORM\Column(name="idmun", type="integer", nullable=false)
-	 * @ORM\GeneratedValue(strategy="SEQUENCE")
-	 * @SequenceGenerator(sequenceName="seq_municipio", initialValue=1, allocationSize=1)
+	 * @ORM\GeneratedValue(strategy="AUTO")	 
 	 */
 	protected $id;
 }

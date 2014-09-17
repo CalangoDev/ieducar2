@@ -62,8 +62,7 @@ class Pessoa extends Entity implements EventSubscriber
 	 * 
 	 * @ORM\Id
 	 * @ORM\Column(name="idpes", type="integer", nullable=false);
-	 * @ORM\GeneratedValue(strategy="SEQUENCE") 
-	 * @SequenceGenerator(sequenceName="cadastro.seq_pessoa", initialValue=1, allocationSize=1)	 
+	 * @ORM\GeneratedValue(strategy="AUTO")	 
 	 */
 	protected $id;
 
@@ -422,12 +421,19 @@ class Pessoa extends Entity implements EventSubscriber
 		$uow = $em->getUnitOfWork(); 				
 		if (!empty($this->usuario)) {			
 			// var_dump("ativando historico");
+			/**
+			 * @todo verfiicar isso depois das alteracoes de sequence
+			 */
 			$historicoPessoa = new \Historico\Entity\Pessoa();
-			$sequenceName = 'historico.seq_pessoa';
-			$sequenceGenerator = new SeqGen($sequenceName, 1);
-			$newId = $sequenceGenerator->generate($em, $historicoPessoa);
 
-			$historicoPessoa->setId($newId);
+			$metadata = $em->getClassMetaData(get_class($historicoPessoa));			
+			//$metadata->setIdGenerator(new \Doctrine\ORM\Id\AssignedGenerator());
+			// var_dump($metadata);
+			$sequenceName = $metadata->sequenceGeneratorDefinition['sequenceName'];
+			//$sequenceName = 'historico.seq_pessoa';
+			$sequenceGenerator = new SeqGen($sequenceName, 1);
+			$newId = $sequenceGenerator->generate($em, $historicoPessoa);			
+			$historicoPessoa->setId($newId);			
 			$historicoPessoa->setIdpes($this->oldId);
 			$historicoPessoa->setNome($this->usuario->nome);//->format('Y-m-d H:i:s')
 			//$historicoPessoa->data_cad = new \DateTime($this->usuario->getDataCad());
@@ -460,7 +466,9 @@ class Pessoa extends Entity implements EventSubscriber
 
 			if (get_class($this->usuario) == 'Usuario\Entity\Fisica'){					
 				$historicoFisica = new \Historico\Entity\Fisica();
-				$sequenceName = 'historico.seq_fisica';
+				$metadata = $em->getClassMetaData(get_class($historicoFisica));						
+				$sequenceName = $metadata->sequenceGeneratorDefinition['sequenceName'];
+				// $sequenceName = 'historico.seq_fisica';
 				$sequenceGenerator = new SeqGen($sequenceName, 1);
 				$newId = $sequenceGenerator->generate($em, $historicoFisica);
 
@@ -500,7 +508,9 @@ class Pessoa extends Entity implements EventSubscriber
 
 			if (get_class($this->usuario) == 'Usuario\Entity\Juridica'){
 				$historicoJuridica = new \Historico\Entity\Juridica();
-				$sequenceName = 'historico.seq_juridica';
+				$metadata = $em->getClassMetaData(get_class($historicoJuridica));						
+				$sequenceName = $metadata->sequenceGeneratorDefinition['sequenceName'];
+				// $sequenceName = 'historico.seq_juridica';
 				$sequenceGenerator = new SeqGen($sequenceName, 1);
 				$newId = $sequenceGenerator->generate($em, $historicoJuridica);
 
