@@ -64,7 +64,7 @@ Criar os schemas antes de rodar a Aplicação
 
 ##### Módulo Auth#####
 
-	phpunit -c module/Auth/tests/phpunit.xml 
+	phpunit -c module/Auth/tests/phpunit.xml
 
 ## Usando o doctrine
 
