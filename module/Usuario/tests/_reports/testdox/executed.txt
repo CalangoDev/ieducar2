@@ -6,6 +6,7 @@ FisicaController
  [x] Fisica save action invalid form post request
  [x] Fisica update action
  [x] Fisica save action invalid post request
+ [x] Fisica busca post action request
  [x] Fisica invalid delete action
  [x] Fisica delete action
  [x] Fisica invalid id delete action

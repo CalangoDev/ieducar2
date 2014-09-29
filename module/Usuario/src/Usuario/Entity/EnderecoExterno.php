@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\SequenceGenerator;
 use Doctrine\ORM\Mapping\PrePersist;
 
-use Zend\InputFiter\InputFilter;
+use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
@@ -28,6 +28,7 @@ use Zend\InputFilter\InputFilterInterface;
  * 
  * @ORM\Entity
  * @ORM\Table(name="cadastro.endereco_externo")
+ * @ORM\HasLifecycleCallbacks
  */
 class EnderecoExterno extends Entity		
 {	
@@ -227,6 +228,19 @@ class EnderecoExterno extends Entity
 	{	
 		if(($this->getOrigemGravacao() != "M") && ($this->getOrigemGravacao() != "U") && ($this->getOrigemGravacao() != "C") && ($this->getOrigemGravacao() != "O"))
 			throw new EntityException("O atributo origem_gravacao recebeu um valor inválido: \"" . $this->getOrigemGravacao(). "\"", 1);
+	}
+
+	/**
+	 * Função para gerar o timestamp para o atributo data_cad, é executada antes de salvar os dados no banco
+	 * @access  public
+	 * @return  void 
+	 * @ORM\PrePersist
+	 */
+	public function timestamp()
+	{
+		if (is_null($this->getDataCad())) {			
+			$this->setDataCad(new \DateTime());
+		}		
 	}
 
 	public function getPessoa()

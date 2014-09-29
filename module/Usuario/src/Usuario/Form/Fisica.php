@@ -3,6 +3,8 @@ namespace Usuario\Form;
 
 use Zend\Form\Form;
 use Doctrine\ORM\EntityManager;
+use Usuario\Entity\EnderecoExterno;
+use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 
 class Fisica extends Form
 {
@@ -12,6 +14,9 @@ class Fisica extends Form
 		$this->setAttribute('method', 'post');
 		$this->setAttribute('action', '/usuario/fisica/save');
 		// $this->setAttribute('class', 'form-inline');
+
+		$this->setHydrator(new DoctrineHydrator($em, 'Usuario\Entity\EnderecoExterno'))
+             ->setObject(new EnderecoExterno());
 
 		$this->add(array(
 			'name' => 'id',
@@ -451,6 +456,155 @@ class Fisica extends Form
 			'options' => array(
 				'label' => 'Email',
 			),
+		));
+
+        $this->add(array(
+            'name' => 'apartamento',
+            'attributes' => array(
+                'type' => 'text',
+                'class' => 'form-control',
+                'placeholder' => 'Nº'
+            ),
+            'options' => array(
+                'label' => 'Número Apartamento'
+            )
+        ));
+
+        $this->add(array(
+            'name' => 'bloco',
+            'attributes' => array(
+                'type' => 'text',
+                'class' => 'form-control',
+                'placeholder' => 'Informe o Bloco'
+            ),
+            'options' => array(
+                'label' => 'Bloco'
+            )
+        ));
+
+        $this->add(array(
+        	'name' => 'andar', 
+        	'attributes' => array(
+        		'type' => 'text',
+        		'class' => 'form-control',
+        		'placeholder' => 'Nº'
+        	),
+        	'options' => array(
+        		'label' => 'Andar'
+        	)
+        ));
+
+        $this->add(array(
+			'name' => 'zonaLocalizacao',
+			'attributes' => array(				
+				'value' => '1',
+				'class' => 'form-control chosen-select',
+				'required' => 'required'
+			),
+			'type' => 'Zend\Form\Element\Select',
+			'options' => array(
+				'label' => 'Zona Localização',
+				'value_options' => array(
+					'1'  => 'Urbana',
+     				'2'  => 'Rural',     				
+				),
+			),
+		));
+
+		$this->add(array(
+			'name' => 'dddTelefone1',
+			'attributes' => array(
+				'type' => 'text',
+				'class' => 'form-control',
+				'placeholder' => 'DDD'
+			),
+			'options' => array(
+				'label' => 'DDD Telefone 1'
+			)
+		));
+
+		$this->add(array(
+			'name' => 'telefone1',
+			'attributes' => array(
+				'type' => 'text',
+				'class' => 'form-control',
+				'placeholder' => 'Telefone'
+			),
+			'options' => array(
+				 'label' => 'Telefone 1'
+			)
+		));
+
+		$this->add(array(
+			'name' => 'dddTelefone2',
+			'attributes' => array(
+				'type' => 'text',
+				'class' => 'form-control',
+				'placeholder' => 'DDD'
+			),
+			'options' => array(
+				'label' => 'DDD Telefone 2'
+			)
+		));
+
+		$this->add(array(
+			'name' => 'telefone2',
+			'attributes' => array(
+				'type' => 'text',
+				'class' => 'form-control',
+				'placeholder' => 'Telefone'
+			),
+			'options' => array(
+				 'label' => 'Telefone 2'
+			)
+		));
+
+		$this->add(array(
+			'name' => 'dddCelular',
+			'attributes' => array(
+				'type' => 'text',
+				'class' => 'form-control',
+				'placeholder' => 'DDD'
+			),
+			'options' => array(
+				'label' => 'DDD Celular'
+			)
+		));
+
+		$this->add(array(
+			'name' => 'celular',
+			'attributes' => array(
+				'type' => 'text',
+				'class' => 'form-control',
+				'placeholder' => 'Telefone'
+			),
+			'options' => array(
+				 'label' => 'Celular'
+			)
+		));
+
+		$this->add(array(
+			'name' => 'dddFax',
+			'attributes' => array(
+				'type' => 'text',
+				'class' => 'form-control',
+				'placeholder' => 'DDD'
+			),
+			'options' => array(
+				'label' => 'DDD Fax'
+			)
+		));
+
+		$this->add(array(
+			'name' => 'fax',
+			'attributes' => array(
+				'type' => 'text',
+				'class' => 'form-control',
+				'placeholder' => 'Telefone'
+			),
+			'options' => array(
+				 'label' => 'Fax'
+			)
 		));
 
 		$this->add(array(

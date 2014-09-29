@@ -5,8 +5,11 @@ use Zend\View\Model\ViewModel;
 use Core\Controller\ActionController;
 use Usuario\Entity\Fisica;
 use Usuario\Form\Fisica as FisicaForm;
+use Usuario\Entity\EnderecoExterno;
 use DoctrineORMModule\Stdlib\Hydrator\DoctrineEntity;
+use DoctrineModule\Stdlibe\Hydrator\DoctrineObject;
 use Doctrine\ORM\EntityManager;
+
 
 use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
@@ -149,7 +152,17 @@ class FisicaController extends ActionController
 				$id = (int) $this->params()->fromPost('id', 0);
 				// var_dump($id);
 				if ($id == 0){
+					$enderecoExterno = new EnderecoExterno();
+					$enderecoExterno->setPessoa($fisica);
+					$enderecoExterno->setLogradouro($this->params()->fromPost('logradouro'));
+					$enderecoExterno->setCidade($this->params()->fromPost('cidade'));
+					$enderecoExterno->setSiglaUf($this->params()->fromPost('uf'));
+					$enderecoExterno->setSiglaUf($this->params()->fromPost('uf'));
+					$enderecoExterno->setOrigemGravacao("U");
+					$enderecoExterno->setOperacao(($id > 0) ? "A" : "I");
+					$enderecoExterno->setIdsisCad(1);
 					$this->getEntityManager()->persist($fisica);					
+
 					$this->flashMessenger()->addSuccessMessage('Pessoa Salva');
 				} else {
 					$this->flashMessenger()->addSuccessMessage('Pessoa foi alterada!');

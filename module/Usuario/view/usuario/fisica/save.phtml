@@ -45,7 +45,19 @@
 							$bairro = $this->form->get('bairro');
 							$uf = $this->form->get('uf');
 							$letra = $this->form->get('letra');
+                            $apartamento = $this->form->get('apartamento');
+                            $bloco = $this->form->get('bloco');
+                            $andar = $this->form->get('andar');
+                            $zonaLocalizacao = $this->form->get('zonaLocalizacao');
 							$complemento = $this->form->get('complemento');
+							$dddTelefone1 = $this->form->get('dddTelefone1');
+							$telefone1 = $this->form->get('telefone1');
+							$dddTelefone2 = $this->form->get('dddTelefone2');
+							$telefone2 = $this->form->get('telefone2');
+							$dddCelular = $this->form->get('dddCelular');
+							$celular = $this->form->get('celular');
+							$dddFax = $this->form->get('dddFax');
+							$fax = $this->form->get('fax');
 							/**
 							 * @todo
 							 * - Endereço 
@@ -142,7 +154,8 @@
 											echo $this->formElementErrors($cep);
 											?>											
 										</div>
-										<div class="col-md-3 ceploading" style="padding-left:25px; padding-top:4px; display:none;">
+										<div class="col-md-3 ceploading"
+                                             style="padding-left:25px; padding-top:4px; display:none;">
 											<i class='glyphicon icon-spinner icon-spin icon-large'></i> 
 											Pesquisando CEP, aguarde!
 										</div>
@@ -219,6 +232,48 @@
 										</div>
 									</div>
 								</div>
+
+                                <div class="form-group">
+                                    <label for="apartamento">
+                                        <?php echo $apartamento->getOption('label');?>
+                                    </label>
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                            <?php
+                                            echo $this->formInput($apartamento);
+                                            echo $this->formElementErrors($apartamento);
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                	<label for="bloco">
+                                		<?php echo $bloco->getOption('label');?>
+                                	</label>
+                                	<div class="row">
+                                		<div class="col-md-3">
+                                			<?php
+                                			echo $this->formInput($bloco);
+                                			echo $this->formElementErrors($bloco);
+                                			?>
+                                		</div>
+                                	</div>
+                                </div>
+
+                                <div class="form-group">
+                                	<label for="andar">
+                                		<?php echo $andar->getOption('label');?>
+                                	</label>
+                                	<div class="row">
+                                		<div class="col-md-1">
+                                			<?php
+                                			echo $this->formInput($andar);
+                                			echo $this->formElementErrors($andar);
+                                			?>
+                                		</div>
+                                	</div>
+                                </div>
 								
 								<div class="form-group">
 									<label for="bairro">
@@ -233,6 +288,21 @@
 										</div>
 									</div>
 								</div>
+								<div class="form-group required">
+									<label for="zonaLocalizacao">
+										<?php
+										echo $zonaLocalizacao->getOption('label');
+										?>
+									</label>
+									<div class="row">
+										<div class="col-md-3">
+											<?php
+											echo $this->formSelect($zonaLocalizacao);
+											echo $this->formElementErrors($zonaLocalizacao);
+											?>		
+										</div>
+									</div>										
+								</div>
 								<div class="form-group">
 									<label for="cidade">
 										<?php echo $cidade->getOption('label'); ?>
@@ -245,7 +315,7 @@
 											?>
 										</div>
 									</div>
-								</div>
+								</div>								
 								
 								<div class="form-group required">
 									<label for="uf">
@@ -262,6 +332,120 @@
 										</div>
 									</div>										
 								</div>
+
+								<div class="form-group">
+									<label for="dddTelefone1">
+										<?php echo $dddTelefone1->getOption('label');?>
+									</label>
+									<div class="row">
+										<div class="col-md-1">
+											<?php
+											echo $this->formInput($dddTelefone1);
+											echo $this->formElementErrors($dddTelefone1);
+											?>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="telefone1">
+										<?php echo $telefone1->getOption('label');?>
+									</label>
+									<div class="row">
+										<div class="col-md-2">
+											<?php
+											echo $this->formInput($telefone1);
+											echo $this->formElementErrors($telefone1);
+											?>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="dddTelefone2">
+										<?php echo $dddTelefone2->getOption('label');
+										?>
+									</label>
+									<div class="row">
+										<div class="col-md-1">
+											<?php
+											echo $this->formInput($dddTelefone2);
+											echo $this->formElementErrors($dddTelefone2);
+											?>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="telefone2">
+										<?php echo $telefone2->getOption('label');?>
+									</label>
+									<div class="row">
+										<div class="col-md-2">
+											<?php
+											echo $this->formInput($telefone2);
+											echo $this->formElementErrors($telefone2);
+											?>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="dddCelular">
+										<?php echo $dddCelular->getOption('label');?>
+									</label>
+									<div class="row">
+										<div class="col-md-1">
+											<?php
+											echo $this->formInput($dddCelular);
+											echo $this->formElementErrors($dddCelular);
+											?>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="celular">
+										<?php echo $celular->getOption('label');?>
+									</label>
+									<div class="row">
+										<div class="col-md-2">
+											<?php 
+											echo $this->formInput($celular);
+											echo $this->formElementErrors($celular);
+											?>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="dddFax">
+										<?php echo $dddFax->getOption('label');?>
+									</label>
+									<div class="row">
+										<div class="col-md-1">
+											<?php
+											echo $this->formInput($dddFax);
+											echo $this->formElementErrors($dddFax);
+											?>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="fax">
+										<?php echo $fax->getOption('label');?>
+									</label>
+									<div class="row">
+										<div class="col-md-2">
+											<?php
+											echo $this->formInput($fax);
+											echo $this->formElementErrors($fax);
+											?>
+										</div>
+									</div>
+								</div>
+
 								<div class="form-group">
 									<label for="url">
 										<?php echo $url->getOption('label');?>

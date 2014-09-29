@@ -168,6 +168,55 @@ class FisicaControllerTest extends ControllerTestCase
 		$refCodReligiao = $form->get('refCodReligiao');
 		$this->assertEquals('refCodReligiao', $refCodReligiao->getName());
 		$this->assertEquals('Zend\Form\Element\Select', $refCodReligiao->getAttribute('type'));
+
+		$apartamento = $form->get('apartamento');
+		$this->assertEquals('apartamento', $apartamento->getName());
+		$this->assertEquals('text', $apartamento->getAttribute('type'));
+
+		$bloco = $form->get('bloco');
+		$this->assertEquals('bloco', $bloco->getName());
+		$this->assertEquals('text', $bloco->getAttribute('type'));
+
+		$andar = $form->get('andar');
+		$this->assertEquals('andar', $andar->getName());
+		$this->assertEquals('text', $andar->getAttribute('type'));
+
+		$zonaLocalizacao = $form->get('zonaLocalizacao');
+		$this->assertEquals('zonaLocalizacao', $zonaLocalizacao->getName());
+		$this->assertEquals('select', $zonaLocalizacao->getAttribute('type'));
+
+		$dddTelefone1 = $form->get('dddTelefone1');
+		$this->assertEquals('dddTelefone1', $dddTelefone1->getName());
+		$this->assertEquals('text', $dddTelefone1->getAttribute('type'));
+
+		$telefone1 = $form->get('telefone1');
+		$this->assertEquals('telefone1', $telefone1->getName());
+		$this->assertEquals('text', $telefone1->getAttribute('type'));
+
+		$dddTelefone2 = $form->get('dddTelefone2');
+		$this->assertEquals('dddTelefone2', $dddTelefone2->getName());
+		$this->assertEquals('text', $dddTelefone2->getAttribute('type'));
+
+		$telefone2 = $form->get('telefone2');
+		$this->assertEquals('telefone2', $telefone2->getName());
+		$this->assertEquals('text', $telefone2->getAttribute('type'));
+
+		$dddCelular = $form->get('dddCelular');
+		$this->assertEquals('dddCelular', $dddCelular->getName());
+		$this->assertEquals('text', $dddCelular->getAttribute('type'));
+
+		$celular = $form->get('celular');
+		$this->assertEquals('celular', $celular->getName());
+		$this->assertEquals('text', $celular->getAttribute('type'));
+
+		$dddFax = $form->get('dddFax');
+		$this->assertEquals('dddFax', $dddFax->getName());
+		$this->assertEquals('text', $dddFax->getAttribute('type'));
+
+		$fax = $form->get('fax');
+		$this->assertEquals('fax', $fax->getName());
+		$this->assertEquals('text', $fax->getAttribute('type'));
+
 	}
 
 	/**
@@ -240,7 +289,18 @@ class FisicaControllerTest extends ControllerTestCase
 		$this->request->getPost()->set('cpf', '');
 		$this->request->getPost()->set('tipoLogradouro', $tipoLogradouro->getId());
 		$this->request->getPost()->set('uf', $uf->getId());
-
+		$this->request->getPost()->set('apartamento', '001');
+		$this->request->getPost()->set('bloco', 'A');
+		$this->request->getPost()->set('andar', '1');
+		$this->request->getPost()->set('zonaLocalizacao', '1');
+		$this->request->getPost()->set('dddTelefone1', '71');
+		$this->request->getPost()->set('telefone1', '1111-1111');
+		$this->request->getPost()->set('dddTelefone2', '71');
+		$this->request->getPost()->set('telefone2', '1111-1111');
+		$this->request->getPost()->set('dddCelular', '71');
+		$this->request->getPost()->set('celular', '1111-1111');
+		$this->request->getPost()->set('dddFax', '71');
+		$this->request->getPost()->set('fax', '1111-1111');
 
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
@@ -288,7 +348,18 @@ class FisicaControllerTest extends ControllerTestCase
         $this->request->getPost()->set('cpf', '');
         $this->request->getPost()->set('tipoLogradouro', $tipoLogradouro->getId());
         $this->request->getPost()->set('uf', '');
-
+        $this->request->getPost()->set('apartamento', '001');
+		$this->request->getPost()->set('bloco', 'A');
+		$this->request->getPost()->set('andar', '1');
+		$this->request->getPost()->set('zonaLocalizacao', '1');
+		$this->request->getPost()->set('dddTelefone1', '71');
+		$this->request->getPost()->set('telefone1', '1111-1111');
+		$this->request->getPost()->set('dddTelefone2', '71');
+		$this->request->getPost()->set('telefone2', '1111-1111');
+		$this->request->getPost()->set('dddCelular', '71');
+		$this->request->getPost()->set('celular', '1111-1111');
+		$this->request->getPost()->set('dddFax', '71');
+		$this->request->getPost()->set('fax', '1111-1111');
 
         $result = $this->controller->dispatch(
             $this->request, $this->response
@@ -345,8 +416,18 @@ class FisicaControllerTest extends ControllerTestCase
 		$this->request->getPost()->set('tipoLogradouro', $tipoLogradouro->getId());
 		$this->request->getPost()->set('uf', $uf->getId());
         $this->request->getPost()->set('dataNasc', '03/05/1982');
-
-
+        $this->request->getPost()->set('apartamento', '001');
+		$this->request->getPost()->set('bloco', 'A');
+		$this->request->getPost()->set('andar', '1');
+		$this->request->getPost()->set('zonaLocalizacao', '1');
+		$this->request->getPost()->set('dddTelefone1', '71');
+		$this->request->getPost()->set('telefone1', '1111-1111');
+		$this->request->getPost()->set('dddTelefone2', '71');
+		$this->request->getPost()->set('telefone2', '1111-1111');
+		$this->request->getPost()->set('dddCelular', '71');
+		$this->request->getPost()->set('celular', '1111-1111');
+		$this->request->getPost()->set('dddFax', '71');
+		$this->request->getPost()->set('fax', '1111-1111');
 
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
@@ -395,6 +476,47 @@ class FisicaControllerTest extends ControllerTestCase
 		);
 	}
 
+    /**
+     * Testa a busca com resultados
+     */
+    public function testFisicaBuscaPostActionRequest()
+    {
+        //	cria pessoas fisicas para testar
+        $pA = $this->buildFisica();
+        $pA->setCpf("111.111.111-11");
+        $pB = $this->buildFisica();
+        $pB->setNome("GOLD");
+        $pB->setCpf("222.222.222-22");
+        $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
+        $em->persist($pA);
+        $em->persist($pB);
+        $em->flush();
+
+        //	Invoca a rota index
+        $this->routeMatch->setParam('action', 'busca');
+        $this->request->getPost()->set('q', 'GOLD');
+
+        $result = $this->controller->dispatch(
+            $this->request, $this->response
+        );
+
+        //	Verifica o response
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+
+        //	Testa se um ViewModel foi retornado
+        $this->assertInstanceOf('Zend\View\Model\ViewModel', $result);
+
+
+        //	Testa os dados da View
+        $variables = $result->getVariables();
+
+        $this->assertArrayHasKey('dados', $variables);
+
+        //	Faz a comparação dos dados
+        $dados = $variables["dados"];
+        $this->assertEquals($pB->getNome(), $dados[0]->getNome());
+    }
 	/**
 	 * Testa a exclusao sem passar o id da pessoa
 	 * @expectedException Exception
