@@ -22191,11 +22191,11 @@ class DfLoad implements FixtureInterface
             
             $df = new Df(); 
             $df->setId($value[0]);
-            $df->setCidade(utf8_decode($value[1]));
-            $df->setLogradouro(utf8_decode($value[2]));
-            $df->setBairro(utf8_decode($value[3]));
+            $df->setCidade($value[1]);
+            $df->setLogradouro($value[2]);
+            $df->setBairro($value[3]);
             $df->setCep($value[4]);
-            $df->setTipoLogradouro(utf8_decode($value[5]));
+            $df->setTipoLogradouro($value[5]);
             
             $manager->persist($df);
             if (($i % $batchSize) === 0) {

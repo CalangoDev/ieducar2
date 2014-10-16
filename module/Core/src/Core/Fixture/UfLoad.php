@@ -52,9 +52,9 @@ class UfLoad implements FixtureInterface
             
             $uf = new Uf(); 
             $uf->setUf($value[0]);
-            $uf->setNome(utf8_decode($value[1]));
-            $uf->setCep1(utf8_decode($value[2]));
-            $uf->setCep2(utf8_decode($value[3]));            
+            $uf->setNome($value[1]);
+            $uf->setCep1($value[2]);
+            $uf->setCep2($value[3]);            
             
             $manager->persist($uf);
             if (($i % $batchSize) === 0) {

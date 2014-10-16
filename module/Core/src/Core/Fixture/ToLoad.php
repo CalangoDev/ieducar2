@@ -5063,11 +5063,11 @@ class ToLoad implements FixtureInterface
             
             $to = new To(); 
             $to->setId($value[0]);
-            $to->setCidade(utf8_decode($value[1]));
-            $to->setLogradouro(utf8_decode($value[2]));
-            $to->setBairro(utf8_decode($value[3]));
+            $to->setCidade($value[1]);
+            $to->setLogradouro($value[2]);
+            $to->setBairro($value[3]);
             $to->setCep($value[4]);
-            $to->setTipoLogradouro(utf8_decode($value[5]));
+            $to->setTipoLogradouro($value[5]);
             
             $manager->persist($to);
             if (($i % $batchSize) === 0) {

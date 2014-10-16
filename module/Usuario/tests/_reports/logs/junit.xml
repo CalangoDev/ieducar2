@@ -1,27 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="Usuario Test Suite" tests="18" assertions="140" failures="0" errors="0" time="458.412476">
-    <testsuite name="FisicaControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/FisicaControllerTest.php" tests="11" assertions="95" failures="0" errors="0" time="280.641708">
-      <testcase name="testFisicaIndexAction" class="FisicaControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/FisicaControllerTest.php" line="32" assertions="6" time="16.601534"/>
-      <testcase name="testFisicaSaveActionNewRequest" class="FisicaControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/FisicaControllerTest.php" line="76" assertions="65" time="19.462298"/>
-      <testcase name="testFisicaSaveActionUpdateFormRequest" class="FisicaControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/FisicaControllerTest.php" line="225" assertions="6" time="23.517866"/>
-      <testcase name="testFisicaSaveActionPostRequest" class="FisicaControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/FisicaControllerTest.php" line="262" assertions="2" time="26.682171"/>
-      <testcase name="testFisicaSaveActionInvalidFormPostRequest" class="FisicaControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/FisicaControllerTest.php" line="321" assertions="1" time="25.221248"/>
-      <testcase name="testFisicaUpdateAction" class="FisicaControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/FisicaControllerTest.php" line="380" assertions="3" time="30.602660"/>
-      <testcase name="testFisicaSaveActionInvalidPostRequest" class="FisicaControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/FisicaControllerTest.php" line="454" assertions="2" time="26.798330"/>
-      <testcase name="testFisicaBuscaPostActionRequest" class="FisicaControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/FisicaControllerTest.php" line="482" assertions="4" time="28.345039"/>
-      <testcase name="testFisicaInvalidDeleteAction" class="FisicaControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/FisicaControllerTest.php" line="525" assertions="2" time="27.809600"/>
-      <testcase name="testFisicaDeleteAction" class="FisicaControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/FisicaControllerTest.php" line="542" assertions="2" time="28.740125"/>
-      <testcase name="testFisicaInvalidIdDeleteAction" class="FisicaControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/FisicaControllerTest.php" line="573" assertions="2" time="26.860837"/>
-    </testsuite>
-    <testsuite name="Usuario\Entity\FisicaTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/FisicaTest.php" tests="7" assertions="45" failures="0" errors="0" time="177.770768">
-      <testcase name="testGetInputFilter" class="Usuario\Entity\FisicaTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/FisicaTest.php" line="22" assertions="1" time="25.712050"/>
-      <testcase name="testInputFilterValid" class="Usuario\Entity\FisicaTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/FisicaTest.php" line="33" assertions="33" time="24.745818"/>
-      <testcase name="testInsert" class="Usuario\Entity\FisicaTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/FisicaTest.php" line="81" assertions="4" time="26.563390"/>
-      <testcase name="testInsertAfter" class="Usuario\Entity\FisicaTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/FisicaTest.php" line="116" assertions="3" time="24.432574"/>
-      <testcase name="testInputFilterInvalidCpf" class="Usuario\Entity\FisicaTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/FisicaTest.php" line="161" assertions="1" time="24.885700"/>
-      <testcase name="testUpdate" class="Usuario\Entity\FisicaTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/FisicaTest.php" line="174" assertions="2" time="25.629727"/>
-      <testcase name="testDelete" class="Usuario\Entity\FisicaTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Usuario/tests/src/Usuario/Entity/FisicaTest.php" line="196" assertions="1" time="25.801509"/>
+  <testsuite name="Usuario Test Suite" tests="1" assertions="2" failures="0" errors="0" time="19.024945">
+    <testsuite name="FisicaControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/FisicaControllerTest.php" tests="1" assertions="2" failures="0" errors="0" time="19.024945">
+      <testcase name="testFisicaSaveActionPostRequest" class="FisicaControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/FisicaControllerTest.php" line="267" assertions="2" time="19.024945"/>
     </testsuite>
   </testsuite>
 </testsuites>

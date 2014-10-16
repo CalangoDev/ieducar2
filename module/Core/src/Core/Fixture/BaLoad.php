@@ -24227,11 +24227,11 @@ class BaLoad implements FixtureInterface
             
             $ba = new Ba(); 
             $ba->setId($value[0]);
-            $ba->setCidade(utf8_decode($value[1]));
-            $ba->setLogradouro(utf8_decode($value[2]));
-            $ba->setBairro(utf8_decode($value[3]));
+            $ba->setCidade($value[1]);
+            $ba->setLogradouro($value[2]);
+            $ba->setBairro($value[3]);
             $ba->setCep($value[4]);
-            $ba->setTipoLogradouro(utf8_decode($value[5]));
+            $ba->setTipoLogradouro($value[5]);
             
             $manager->persist($ba);
             if (($i % $batchSize) === 0) {

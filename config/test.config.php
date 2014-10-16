@@ -10,8 +10,8 @@ return array(
     	'connection' => array(
             'orm_default' => array(                
                 'params' => array(
-                    'host' => 'localhost',
-                    'port' => '5433',
+                    'host' => '192.168.59.103',
+                    'port' => '5432',
                     'user' => 'postgres',
                     'password' => 'postgres',
                     'dbname' => 'ieducar_test'

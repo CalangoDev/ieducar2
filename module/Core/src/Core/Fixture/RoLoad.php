@@ -2572,11 +2572,11 @@ class RoLoad implements FixtureInterface
             
             $ro = new Ro(); 
             $ro->setId($value[0]);
-            $ro->setCidade(utf8_decode($value[1]));
-            $ro->setLogradouro(utf8_decode($value[2]));
-            $ro->setBairro(utf8_decode($value[3]));
+            $ro->setCidade($value[1]);
+            $ro->setLogradouro($value[2]);
+            $ro->setBairro($value[3]);
             $ro->setCep($value[4]);
-            $ro->setTipoLogradouro(utf8_decode($value[5]));
+            $ro->setTipoLogradouro($value[5]);
             
             $manager->persist($ro);
             if (($i % $batchSize) === 0) {

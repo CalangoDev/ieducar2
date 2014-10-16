@@ -867,11 +867,17 @@ class AcLoad implements FixtureInterface
             
             $ac = new Ac(); 
             $ac->setId($value[0]);
-            $ac->setCidade(utf8_decode($value[1]));
-            $ac->setLogradouro(utf8_decode($value[2]));
-            $ac->setBairro(utf8_decode($value[3]));
+            $ac->setCidade($value[1]);
+            $ac->setLogradouro($value[2]);
+            $ac->setBairro($value[3]);
             $ac->setCep($value[4]);
-            $ac->setTipoLogradouro(utf8_decode($value[5]));
+            $ac->setTipoLogradouro($value[5]);
+
+            // $ac->setCidade($value[1]);
+            // $ac->setLogradouro($value[2]);
+            // $ac->setBairro($value[3]);
+            // $ac->setCep($value[4]);
+            // $ac->setTipoLogradouro($value[5]);
             
             $manager->persist($ac);
             if (($i % $batchSize) === 0) {

@@ -7950,11 +7950,11 @@ class AmLoad implements FixtureInterface
             
             $am = new Am(); 
             $am->setId($value[0]);
-            $am->setCidade(utf8_decode($value[1]));
-            $am->setLogradouro(utf8_decode($value[2]));
-            $am->setBairro(utf8_decode($value[3]));
+            $am->setCidade($value[1]);
+            $am->setLogradouro($value[2]);
+            $am->setBairro($value[3]);
             $am->setCep($value[4]);
-            $am->setTipoLogradouro(utf8_decode($value[5]));            
+            $am->setTipoLogradouro($value[5]);   
             $manager->persist($am);
             if (($i % $batchSize) === 0) {
                 $size = new Size();

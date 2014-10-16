@@ -1245,11 +1245,11 @@ class RrLoad implements FixtureInterface
             
             $rr = new Rr(); 
             $rr->setId($value[0]);
-            $rr->setCidade(utf8_decode($value[1]));
-            $rr->setLogradouro(utf8_decode($value[2]));
-            $rr->setBairro(utf8_decode($value[3]));
+            $rr->setCidade($value[1]);
+            $rr->setLogradouro($value[2]);
+            $rr->setBairro($value[3]);
             $rr->setCep($value[4]);
-            $rr->setTipoLogradouro(utf8_decode($value[5]));
+            $rr->setTipoLogradouro($value[5]);
             
             $manager->persist($rr);
             if (($i % $batchSize) === 0) {

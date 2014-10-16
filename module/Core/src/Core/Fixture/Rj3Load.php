@@ -12389,11 +12389,11 @@ class Rj3Load implements FixtureInterface
             
             $rj = new Rj(); 
             $rj->setId($value[0]);
-            $rj->setCidade(utf8_decode($value[1]));
-            $rj->setLogradouro(utf8_decode($value[2]));
-            $rj->setBairro(utf8_decode($value[3]));
+            $rj->setCidade($value[1]);
+            $rj->setLogradouro($value[2]);
+            $rj->setBairro($value[3]);
             $rj->setCep($value[4]);
-            $rj->setTipoLogradouro(utf8_decode($value[5]));
+            $rj->setTipoLogradouro($value[5]);
             
             $manager->persist($rj);
             if (($i % $batchSize) === 0) {

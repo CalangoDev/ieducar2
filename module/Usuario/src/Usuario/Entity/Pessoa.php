@@ -19,6 +19,7 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Id\SequenceGenerator as SeqGen;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping\Index;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
  * Entidade Pessoa 
@@ -33,6 +34,7 @@ use Doctrine\ORM\Mapping\Index;
  * 
  * @ORM\Entity
  * @ORM\Table(name="cadastro.pessoa")
+ //, uniqueConstraints={@UniqueConstraint(name="enderecoexterno_idx", columns={"enderecoExterno"})}
  * @ORM\HasLifecycleCallbacks
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorMap({"P" = "Pessoa", "F" = "Fisica", "J" = "Juridica"})
@@ -206,6 +208,19 @@ class Pessoa extends Entity implements EventSubscriber
 	 * //ORM\Column(type="integer", nullable=false)
 	 */
 	//protected $forum_opiniao;
+
+	/**
+	 * @var EnderecoExterno $enderecoExterno Entity Endereço Externo
+	 * 
+	 * ORM\OneToOne(targetEntity="EnderecoExterno", cascade={"persist"})
+	 * ORM\JoinColumn(name="enderecoExterno", referencedColumnName="id")	 
+	 */
+	//protected $enderecoExterno;
+	/**
+	 * @var int $pessoa Id da pessoa que tem esse endereco
+	 * @ORM\ManyToOne(targetEntity="Usuario\Entity\EnderecoExterno")	 	 
+	 */
+	protected $enderecoExterno;
 
 	/**
 	 * Função para gerar o timestamp para o atributo data_cad, é executada antes de salvar os dados no banco
@@ -755,6 +770,16 @@ class Pessoa extends Entity implements EventSubscriber
 		$this->fisica = $value;
 	}
 
+	public function setEnderecoExterno($value)
+    {
+    	$this->enderecoExterno = $value;        
+    }
+    
+    public function getEnderecoExterno()
+    {
+        return $this->enderecoExterno;
+    }
+
 	/**
 	 * Configura os filtros dos campos da entidade
 	 * 
@@ -773,6 +798,12 @@ class Pessoa extends Entity implements EventSubscriber
 					array('name' => 'Int'),
 				),
 			)));
+
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'enderecoExterno',
+				'required' => false				
+			)));							
 
 			$inputFilter->add($factory->createInput(array(
 				'name' => 'nome',

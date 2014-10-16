@@ -11747,7 +11747,7 @@ class CepLogIndexLoad implements FixtureInterface
             $cep = new CepLogIndex(); 
             $cep->setId($value[0]);            
             $cep->setCep($value[1]);
-            $cep->setUf(utf8_decode($value[2]));
+            $cep->setUf($value[2]);
             
             $manager->persist($cep);
             if (($i % $batchSize) === 0) {

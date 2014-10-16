@@ -10002,8 +10002,8 @@ class CepUnicoLoad implements FixtureInterface
             
             $cep = new CepUnico(); 
             $cep->setId($value[0]);
-            $cep->setNome(utf8_decode($value[1]));
-            $cep->setNomeSemAcento(utf8_decode($value[2]));            
+            $cep->setNome($value[1]);
+            $cep->setNomeSemAcento($value[2]);            
             $cep->setCep($value[3]);
             $cep->setUf(utf8_decode($value[4]));
             

@@ -2603,11 +2603,11 @@ class Sp7Load implements FixtureInterface
             
             $sp = new Sp(); 
             $sp->setId($value[0]);
-            $sp->setCidade(utf8_decode($value[1]));
-            $sp->setLogradouro(utf8_decode($value[2]));
-            $sp->setBairro(utf8_decode($value[3]));
+            $sp->setCidade($value[1]);
+            $sp->setLogradouro($value[2]);
+            $sp->setBairro($value[3]);
             $sp->setCep($value[4]);
-            $sp->setTipoLogradouro(utf8_decode($value[5]));
+            $sp->setTipoLogradouro($value[5]);
             
             $manager->persist($sp);
             if (($i % $batchSize) === 0) {

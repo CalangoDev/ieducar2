@@ -168,7 +168,7 @@ class Fisica extends Pessoa
 	 *  
 	 * @ORM\Column(name="justificativa_provisorio", type="string", length=150, nullable=true)
 	 */
-	protected $justificativaProvisorio;
+	protected $justificativaProvisorio;	
 
 	/**
 	 * @var  DateTime $data_rev Data de revisao
@@ -713,7 +713,7 @@ class Fisica extends Pessoa
 	public function setRaca($value)
 	{
 		$this->raca = $value;
-	}
+	}    
 
 	public function setData($data)
 	{
@@ -805,8 +805,12 @@ class Fisica extends Pessoa
 				'filters' => array(
 					array('name' => 'Int'),
 				),
-			)));			
+			)));				
 
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'enderecoExterno',
+				'required' => false				
+			)));											
 
 			$inputFilter->add($factory->createInput(array(
 				'name' => 'nome',

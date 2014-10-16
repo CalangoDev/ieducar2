@@ -16126,11 +16126,11 @@ class CeLoad implements FixtureInterface
             
             $ce = new Ce(); 
             $ce->setId($value[0]);
-            $ce->setCidade(utf8_decode($value[1]));
-            $ce->setLogradouro(utf8_decode($value[2]));
-            $ce->setBairro(utf8_decode($value[3]));
+            $ce->setCidade($value[1]);
+            $ce->setLogradouro($value[2]);
+            $ce->setBairro($value[3]);
             $ce->setCep($value[4]);
-            $ce->setTipoLogradouro(utf8_decode($value[5]));
+            $ce->setTipoLogradouro($value[5]);
             
             $manager->persist($ce);
             if (($i % $batchSize) === 0) {

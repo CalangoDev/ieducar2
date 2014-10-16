@@ -7378,11 +7378,11 @@ class RnLoad implements FixtureInterface
             
             $rn = new Rn(); 
             $rn->setId($value[0]);
-            $rn->setCidade(utf8_decode($value[1]));
-            $rn->setLogradouro(utf8_decode($value[2]));
-            $rn->setBairro(utf8_decode($value[3]));
+            $rn->setCidade($value[1]);
+            $rn->setLogradouro($value[2]);
+            $rn->setBairro($value[3]);
             $rn->setCep($value[4]);
-            $rn->setTipoLogradouro(utf8_decode($value[5]));
+            $rn->setTipoLogradouro($value[5]);
             
             $manager->persist($rn);
             if (($i % $batchSize) === 0) {

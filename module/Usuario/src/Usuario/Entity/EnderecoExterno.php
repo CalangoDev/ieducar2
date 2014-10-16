@@ -6,6 +6,8 @@ use Core\Entity\EntityException;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\SequenceGenerator;
 use Doctrine\ORM\Mapping\PrePersist;
+//use Doctrine\ORM\Mapping\UniqueConstraint;
+
 
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\Factory as InputFactory;
@@ -33,12 +35,11 @@ use Zend\InputFilter\InputFilterInterface;
 class EnderecoExterno extends Entity		
 {	
 	/**
-	 * @var int $pessoa Id da pessoa que tem esse endereco
-	 * @ORM\Id  	 
-	 * @ORM\OneToOne(targetEntity="Pessoa", cascade={"persist"})
-	 * @ORM\JoinColumn(name="idpes", referencedColumnName="idpes", onDelete="SET NULL")
+	 * @ORM\Id	 
+	 * @ORM\Column(type="integer")
+	 * @ORM\GeneratedValue(strategy="AUTO")	
 	 */
-	protected $pessoa;
+	protected $id;	
 
 	/**
 	 * @var int $tipo Tipo, o antigo sistema sempre salva como 1, 
@@ -51,10 +52,10 @@ class EnderecoExterno extends Entity
 
 	/**
 	 * @var string $tipoLogradouro Id do tipo de logradouro
-	 * @ORM\OneToOne(targetEntity="Core\Entity\TipoLogradouro", cascade={"persist"})
-	 * @ORM\JoinColumn(name="idtlog", referencedColumnName="idtlog", onDelete="SET NULL")
+	 * ORM\OneToOne(targetEntity="Core\Entity\TipoLogradouro", cascade={"persist"})
+	 * ORM\JoinColumn(name="idtlog", referencedColumnName="idtlog", onDelete="SET NULL")
 	 */
-	protected $tipoLogradouro;
+	//protected $tipoLogradouro;
 
 	/**
 	 * @var string $logradouro
@@ -243,15 +244,27 @@ class EnderecoExterno extends Entity
 		}		
 	}
 
+	public function getId()	
+	{
+		return $this->id;
+	}
+
+	public function setId($value)
+	{
+		$this->id = $value;
+	}
+
 	public function getPessoa()
 	{
 		return $this->pessoa;
 	}
-	
+
 	public function setPessoa($value)
 	{
 		$this->pessoa = $value;
 	}
+
+
 
 	public function getTipo()
 	{

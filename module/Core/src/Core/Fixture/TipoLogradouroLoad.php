@@ -163,7 +163,7 @@ class TipoLogradouroLoad implements FixtureInterface
         foreach ($dados as $key => $value):            
             
             $tp = new TipoLogradouro();             
-            $tp->setDescricao(utf8_decode($value[0]));
+            $tp->setDescricao($value[0]);
             
             $manager->persist($tp);
 

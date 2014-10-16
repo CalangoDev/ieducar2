@@ -14237,11 +14237,11 @@ class Pr2Load implements FixtureInterface
             
             $pr = new Pr(); 
             $pr->setId($value[0]);
-            $pr->setCidade(utf8_decode($value[1]));
-            $pr->setLogradouro(utf8_decode($value[2]));
-            $pr->setBairro(utf8_decode($value[3]));
+            $pr->setCidade($value[1]);
+            $pr->setLogradouro($value[2]);
+            $pr->setBairro($value[3]);
             $pr->setCep($value[4]);
-            $pr->setTipoLogradouro(utf8_decode($value[5]));
+            $pr->setTipoLogradouro($value[5]);
             
             $manager->persist($pr);
             if (($i % $batchSize) === 0) {

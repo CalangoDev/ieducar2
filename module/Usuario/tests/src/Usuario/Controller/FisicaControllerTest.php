@@ -167,17 +167,22 @@ class FisicaControllerTest extends ControllerTestCase
 
 		$refCodReligiao = $form->get('refCodReligiao');
 		$this->assertEquals('refCodReligiao', $refCodReligiao->getName());
-		$this->assertEquals('Zend\Form\Element\Select', $refCodReligiao->getAttribute('type'));
+		$this->assertEquals('Zend\Form\Element\Select', $refCodReligiao->getAttribute('type'));		
 
-		$apartamento = $form->get('apartamento');
+		$enderecoExterno = $form->get('enderecoExterno');
+
+		// $apartamento = $form->get('apartamento');
+		$apartamento = $enderecoExterno->get('apartamento');		
 		$this->assertEquals('apartamento', $apartamento->getName());
 		$this->assertEquals('text', $apartamento->getAttribute('type'));
 
-		$bloco = $form->get('bloco');
+		// $bloco = $form->get('bloco');
+		$bloco = $enderecoExterno->get('bloco');
 		$this->assertEquals('bloco', $bloco->getName());
 		$this->assertEquals('text', $bloco->getAttribute('type'));
 
-		$andar = $form->get('andar');
+		// $andar = $form->get('andar');
+		$andar = $enderecoExterno->get('andar');
 		$this->assertEquals('andar', $andar->getName());
 		$this->assertEquals('text', $andar->getAttribute('type'));
 
@@ -288,10 +293,12 @@ class FisicaControllerTest extends ControllerTestCase
 		$this->request->getPost()->set('raca', $raca->getId());
 		$this->request->getPost()->set('cpf', '');
 		$this->request->getPost()->set('tipoLogradouro', $tipoLogradouro->getId());
-		$this->request->getPost()->set('uf', $uf->getId());
+		$this->request->getPost()->set('siglaUf', $uf->getId());
 		$this->request->getPost()->set('apartamento', '001');
 		$this->request->getPost()->set('bloco', 'A');
 		$this->request->getPost()->set('andar', '1');
+		$this->request->getPost()->set('logradouro', 'Rua X');
+		$this->request->getPost()->set('cidade', 'Irecê');
 		$this->request->getPost()->set('zonaLocalizacao', '1');
 		$this->request->getPost()->set('dddTelefone1', '71');
 		$this->request->getPost()->set('telefone1', '1111-1111');
@@ -307,10 +314,12 @@ class FisicaControllerTest extends ControllerTestCase
 		);
 		//	Verifica a resposta
 		$response = $this->controller->getResponse();		
-		//	a pagina redireciona, estao o status = 302
+		//	a pagina redireciona, estao o status = 302		
+		// var_dump($this->request->getPost('tipoLogradouro'));
+		// var_dump($result->getVariables()['form']->getMessages());		
 		$this->assertEquals(302, $response->getStatusCode());
 		$headers = $response->getHeaders();
-		$this->assertEquals('Location: /usuario/fisica', $headers->get('Location'));
+		$this->assertEquals('Location: /usuario/fisica', $headers->get('Location'));				
 	}
 
 
@@ -347,7 +356,7 @@ class FisicaControllerTest extends ControllerTestCase
         $this->request->getPost()->set('raca', $raca->getId());
         $this->request->getPost()->set('cpf', '');
         $this->request->getPost()->set('tipoLogradouro', $tipoLogradouro->getId());
-        $this->request->getPost()->set('uf', '');
+        $this->request->getPost()->set('siglaUf', '');
         $this->request->getPost()->set('apartamento', '001');
 		$this->request->getPost()->set('bloco', 'A');
 		$this->request->getPost()->set('andar', '1');
@@ -414,7 +423,7 @@ class FisicaControllerTest extends ControllerTestCase
 		$this->request->getPost()->set('cpf', '222.222.222-22');
 		$this->request->getPost()->set('raca', $raca->getId());
 		$this->request->getPost()->set('tipoLogradouro', $tipoLogradouro->getId());
-		$this->request->getPost()->set('uf', $uf->getId());
+		$this->request->getPost()->set('siglaUf', $uf->getId());
         $this->request->getPost()->set('dataNasc', '03/05/1982');
         $this->request->getPost()->set('apartamento', '001');
 		$this->request->getPost()->set('bloco', 'A');

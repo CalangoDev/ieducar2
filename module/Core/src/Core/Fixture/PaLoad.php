@@ -13705,11 +13705,11 @@ class PaLoad implements FixtureInterface
             
             $pa = new Pa(); 
             $pa->setId($value[0]);
-            $pa->setCidade(utf8_decode($value[1]));
-            $pa->setLogradouro(utf8_decode($value[2]));
-            $pa->setBairro(utf8_decode($value[3]));
+            $pa->setCidade($value[1]);
+            $pa->setLogradouro($value[2]);
+            $pa->setBairro($value[3]);
             $pa->setCep($value[4]);
-            $pa->setTipoLogradouro(utf8_decode($value[5]));
+            $pa->setTipoLogradouro($value[5]);
             
             $manager->persist($pa);
             if (($i % $batchSize) === 0) {

@@ -32798,11 +32798,11 @@ class PeLoad implements FixtureInterface
             
             $pe = new Pe(); 
             $pe->setId($value[0]);
-            $pe->setCidade(utf8_decode($value[1]));
-            $pe->setLogradouro(utf8_decode($value[2]));
-            $pe->setBairro(utf8_decode($value[3]));
+            $pe->setCidade($value[1]);
+            $pe->setLogradouro($value[2]);
+            $pe->setBairro($value[3]);
             $pe->setCep($value[4]);
-            $pe->setTipoLogradouro(utf8_decode($value[5]));
+            $pe->setTipoLogradouro($value[5]);
             
             $manager->persist($pe);
             if (($i % $batchSize) === 0) {

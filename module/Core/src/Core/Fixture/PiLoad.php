@@ -3703,11 +3703,11 @@ class PiLoad implements FixtureInterface
             
             $pi = new Pi(); 
             $pi->setId($value[0]);
-            $pi->setCidade(utf8_decode($value[1]));
-            $pi->setLogradouro(utf8_decode($value[2]));
-            $pi->setBairro(utf8_decode($value[3]));
+            $pi->setCidade($value[1]);
+            $pi->setLogradouro($value[2]);
+            $pi->setBairro($value[3]);
             $pi->setCep($value[4]);
-            $pi->setTipoLogradouro(utf8_decode($value[5]));
+            $pi->setTipoLogradouro($value[5]);
             
             $manager->persist($pi);
             if (($i % $batchSize) === 0) {

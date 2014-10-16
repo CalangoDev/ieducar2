@@ -8047,11 +8047,11 @@ class MtLoad implements FixtureInterface
             
             $mt = new Mt(); 
             $mt->setId($value[0]);
-            $mt->setCidade(utf8_decode($value[1]));
-            $mt->setLogradouro(utf8_decode($value[2]));
-            $mt->setBairro(utf8_decode($value[3]));
+            $mt->setCidade($value[1]);
+            $mt->setLogradouro($value[2]);
+            $mt->setBairro($value[3]);
             $mt->setCep($value[4]);
-            $mt->setTipoLogradouro(utf8_decode($value[5]));
+            $mt->setTipoLogradouro($value[5]);
             
             $manager->persist($mt);
             if (($i % $batchSize) === 0) {

@@ -30148,11 +30148,11 @@ class GoLoad implements FixtureInterface
             
             $go = new Go(); 
             $go->setId($value[0]);
-            $go->setCidade(utf8_decode($value[1]));
-            $go->setLogradouro(utf8_decode($value[2]));
-            $go->setBairro(utf8_decode($value[3]));
+            $go->setCidade($value[1]);
+            $go->setLogradouro($value[2]);
+            $go->setBairro($value[3]);
             $go->setCep($value[4]);
-            $go->setTipoLogradouro(utf8_decode($value[5]));
+            $go->setTipoLogradouro($value[5]);
             
             $manager->persist($go);
             if (($i % $batchSize) === 0) {

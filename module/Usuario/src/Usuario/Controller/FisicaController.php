@@ -7,7 +7,7 @@ use Usuario\Entity\Fisica;
 use Usuario\Form\Fisica as FisicaForm;
 use Usuario\Entity\EnderecoExterno;
 use DoctrineORMModule\Stdlib\Hydrator\DoctrineEntity;
-use DoctrineModule\Stdlibe\Hydrator\DoctrineObject;
+use DoctrineModule\Stdlib\Hydrator\DoctrineObject;
 use Doctrine\ORM\EntityManager;
 
 
@@ -82,6 +82,8 @@ class FisicaController extends ActionController
 	public function saveAction()
 	{
 		$fisica = new Fisica;
+		$enderecoExterno = new EnderecoExterno();
+		// $fisica->setEnderecoExterno(new EnderecoExterno());
 		$form = new FisicaForm($this->getEntityManager());
 		$request = $this->getRequest();
 
@@ -97,7 +99,22 @@ class FisicaController extends ActionController
 			$form->get('submit')->setAttribute('value', 'Editar');
 		}
 		$form->setHydrator(new DoctrineEntity($this->getEntityManager(), 'Usuario\Entity\Fisica'));
-		$form->bind($fisica);
+
+		// $hydrator = new DoctrineObject($this->getEntityManager());
+		//$blogPost = new BlogPost();
+		// $data = array(
+		//     'title' => 'The best blog post in the world !',
+		//     'user'  => array(
+		//         'id' => 2 // Written by user 2
+		//     )
+		// );
+		// $data = array(
+		// 	'id' => 1,
+		// 	'nome' => 'Gold'
+		// );
+
+		// $fisica = $hydrator->hydrate($data, $fisica);
+		$form->bind($fisica);		
 
 		if ($request->isPost()){
 			
@@ -109,13 +126,28 @@ class FisicaController extends ActionController
 			/**
 			 * $id vindo do formulario se id > 0 é update/alteracao se nao é insercao
 			 */
-			$id  = (int) $this->params()->fromPost('id', 0);			
-			$fisica->setOperacao(($id > 0) ? "A" : "I");						
-			$fisica->setIdsisCad(1);		 	
-						
+			$id  = (int) $this->params()->fromPost('id', 0);		
+
+			// $enderecoExterno->setTipoLogradouro($this->params()->fromPost('tipoLogradouro'));
+			$enderecoExterno->setSiglaUf($this->params()->fromPost('siglaUf'));
+			$enderecoExterno->setOperacao(($id > 0) ? "A" : "I");
+			$enderecoExterno->setOrigemGravacao("U");
+			$enderecoExterno->setLogradouro($this->params()->fromPost('logradouro'));
+			$enderecoExterno->setCidade($this->params()->fromPost('cidade'));
+			$enderecoExterno->setIdsisCad(1);
+
+
+			// $fisica->setEnderecoExterno($enderecoExterno);			
+			
+			// var_dump($fisica->getEnderecoExterno()->getInputFilter());
+			// $fisica->getEnderecoExterno()->removeInputFilter('tipoLogradouro');
+			
+			$fisica->setOperacao(($id > 0) ? "A" : "I");
+			$fisica->setIdsisCad(1);						
 			$date = new \DateTime($this->params()->fromPost('dataNasc'), new \DateTimeZone('America/Sao_Paulo'));			
-			$fisica->setDataNasc($date->format('Y-m-d'));
-			$request->getPost()->set('dataNasc', $fisica->getDataNasc());
+
+			$fisica->setDataNasc($date->format('Y-m-d'));			
+			$request->getPost()->set('dataNasc', $fisica->getDataNasc());						
 			
 			$form->setInputFilter($fisica->getInputFilter());			
 
@@ -152,29 +184,31 @@ class FisicaController extends ActionController
 				$id = (int) $this->params()->fromPost('id', 0);
 				// var_dump($id);
 				if ($id == 0){
-					$enderecoExterno = new EnderecoExterno();
-					$enderecoExterno->setPessoa($fisica);
-					$enderecoExterno->setLogradouro($this->params()->fromPost('logradouro'));
-					$enderecoExterno->setCidade($this->params()->fromPost('cidade'));
-					$enderecoExterno->setSiglaUf($this->params()->fromPost('uf'));
-					$enderecoExterno->setSiglaUf($this->params()->fromPost('uf'));
-					$enderecoExterno->setOrigemGravacao("U");
-					$enderecoExterno->setOperacao(($id > 0) ? "A" : "I");
-					$enderecoExterno->setIdsisCad(1);
+					// $enderecoExterno = new EnderecoExterno();
+					// $enderecoExterno->setPessoa($fisica);
+					// $enderecoExterno->setLogradouro($this->params()->fromPost('logradouro'));
+					// $enderecoExterno->setCidade($this->params()->fromPost('cidade'));
+					// $enderecoExterno->setSiglaUf($this->params()->fromPost('uf'));
+					// $enderecoExterno->setSiglaUf($this->params()->fromPost('uf'));
+					// $enderecoExterno->setOrigemGravacao("U");
+					// $enderecoExterno->setOperacao(($id > 0) ? "A" : "I");
+					// $enderecoExterno->setIdsisCad(1);							
+					// $enderecoExterno->setPessoa($fisica);						
 					$this->getEntityManager()->persist($fisica);					
-
+					$this->getEntityManager()->persist($enderecoExterno);	
+					$fisica->setEnderecoExterno($enderecoExterno);
+					// $pessoa = $this->getEntityManager()->find('Usuario\Entity\Pessoa', $fisica->getId());									
 					$this->flashMessenger()->addSuccessMessage('Pessoa Salva');
 				} else {
 					$this->flashMessenger()->addSuccessMessage('Pessoa foi alterada!');
-				}
-				// var_dump($fisica->getId());
-				$this->getEntityManager()->flush();								
+				}				
+				$this->getEntityManager()->flush();					
 				/**
 				 * Redirecionando para lista de pessoas fisicas
 				 */
 				return $this->redirect()->toUrl('/usuario/fisica');
-			} else {
-				
+			} else {	
+				// var_dump("NAO VALIDO");
 				if ($this->params()->fromPost('dataNasc')){
 					$date = new \DateTime($this->params()->fromPost('dataNasc'), new \DateTimeZone('America/Sao_Paulo'));
 					$date = $date->format('d-m-Y');					

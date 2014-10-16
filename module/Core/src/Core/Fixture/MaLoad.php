@@ -5469,11 +5469,11 @@ class MaLoad implements FixtureInterface
             
             $ma = new Ma(); 
             $ma->setId($value[0]);
-            $ma->setCidade(utf8_decode($value[1]));
-            $ma->setLogradouro(utf8_decode($value[2]));
-            $ma->setBairro(utf8_decode($value[3]));
+            $ma->setCidade($value[1]);
+            $ma->setLogradouro($value[2]);
+            $ma->setBairro($value[3]);
             $ma->setCep($value[4]);
-            $ma->setTipoLogradouro(utf8_decode($value[5]));
+            $ma->setTipoLogradouro($value[5]);
             
             $manager->persist($ma);
             if (($i % $batchSize) === 0) {

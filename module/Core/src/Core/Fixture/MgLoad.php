@@ -34905,11 +34905,11 @@ class MgLoad implements FixtureInterface
             
             $mg = new Mg(); 
             $mg->setId($value[0]);
-            $mg->setCidade(utf8_decode($value[1]));
-            $mg->setLogradouro(utf8_decode($value[2]));
-            $mg->setBairro(utf8_decode($value[3]));
+            $mg->setCidade($value[1]);
+            $mg->setLogradouro($value[2]);
+            $mg->setBairro($value[3]);
             $mg->setCep($value[4]);
-            $mg->setTipoLogradouro(utf8_decode($value[5]));
+            $mg->setTipoLogradouro($value[5]);
             
             $manager->persist($mg);
             if (($i % $batchSize) === 0) {

@@ -9206,11 +9206,11 @@ class MsLoad implements FixtureInterface
             
             $ms = new Ms(); 
             $ms->setId($value[0]);
-            $ms->setCidade(utf8_decode($value[1]));
-            $ms->setLogradouro(utf8_decode($value[2]));
-            $ms->setBairro(utf8_decode($value[3]));
+            $ms->setCidade($value[1]);
+            $ms->setLogradouro($value[2]);
+            $ms->setBairro($value[3]);
             $ms->setCep($value[4]);
-            $ms->setTipoLogradouro(utf8_decode($value[5]));
+            $ms->setTipoLogradouro($value[5]);
             
             $manager->persist($ms);
             if (($i % $batchSize) === 0) {

@@ -4704,11 +4704,17 @@ class AlLoad implements FixtureInterface
             
             $al = new Al(); 
             $al->setId($value[0]);
-            $al->setCidade(utf8_decode($value[1]));
-            $al->setLogradouro(utf8_decode($value[2]));
-            $al->setBairro(utf8_decode($value[3]));
+            $al->setCidade($value[1]);
+            $al->setLogradouro($value[2]);
+            $al->setBairro($value[3]);
             $al->setCep($value[4]);
-            $al->setTipoLogradouro(utf8_decode($value[5]));
+            $al->setTipoLogradouro($value[5]);
+
+            // $al->setCidade($value[1]);
+            // $al->setLogradouro($value[2]);
+            // $al->setBairro($value[3]);
+            // $al->setCep($value[4]);
+            // $al->setTipoLogradouro($value[5]);
             
             $manager->persist($al); 
             if (($i % $batchSize) === 0) {

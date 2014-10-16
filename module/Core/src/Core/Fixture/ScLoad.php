@@ -21796,11 +21796,11 @@ class ScLoad implements FixtureInterface
             
             $sc = new Sc(); 
             $sc->setId($value[0]);
-            $sc->setCidade(utf8_decode($value[1]));
-            $sc->setLogradouro(utf8_decode($value[2]));
-            $sc->setBairro(utf8_decode($value[3]));
+            $sc->setCidade($value[1]);
+            $sc->setLogradouro($value[2]);
+            $sc->setBairro($value[3]);
             $sc->setCep($value[4]);
-            $sc->setTipoLogradouro(utf8_decode($value[5]));
+            $sc->setTipoLogradouro($value[5]);
             
             $manager->persist($sc);
             if (($i % $batchSize) === 0) {

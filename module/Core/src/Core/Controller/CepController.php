@@ -74,8 +74,8 @@ class CepController extends ActionController
 					$dados = array(
 						'id' => $dados[0][0]->getId(),
 						'cidade' => $dados[0][0]->getCidade(),
-						'logradouro' => utf8_encode($dados[0][0]->getLogradouro()),
-						'bairro' => utf8_encode($dados[0][0]->getBairro()),
+						'logradouro' => $dados[0][0]->getLogradouro(),
+						'bairro' => $dados[0][0]->getBairro(),
 						'cep' => $dados[0][0]->getCep(),
 						'tipoLogradouro' => $dados[0][0]->getTipoLogradouro(),
 						'uf' => $uf,
@@ -105,7 +105,7 @@ class CepController extends ActionController
 					if ($dados[0]){
 						$dados = array(
 							'id' => $dados[0]->getId(),
-							'nome' => utf8_encode($dados[0]->getNome()),
+							'nome' => $dados[0]->getNome(),
 							'nomeSemAcento' => $dados[0]->getNomeSemAcento(),
 							'cep' => $dados[0]->getCep(),
 							'uf' => $uf,
