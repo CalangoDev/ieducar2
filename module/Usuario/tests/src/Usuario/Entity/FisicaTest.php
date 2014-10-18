@@ -4,7 +4,9 @@ namespace Usuario\Entity;
 use Core\Test\EntityTestCase;
 use Usuario\Entity\Fisica;
 use Usuario\Entity\Pessoa;
+use Usuario\Entity\EnderecoExterno;
 use Zend\InputFilter\InputFilterInterface;
+
 
 /**
  * @group Entity
@@ -33,7 +35,7 @@ class FisicaTest extends EntityTestCase
 	public function testInputFilterValid($if)
 	{
 		//testa os filtros 
-		$this->assertEquals(33, $if->count());
+		$this->assertEquals(34, $if->count());
 
 		$this->assertTrue($if->has('id'));		
 		$this->assertTrue($if->has('dataNasc'));
@@ -104,7 +106,7 @@ class FisicaTest extends EntityTestCase
         
         $this->assertInstanceOf(get_class($fisica), $savedPessoaFisica);
         $this->assertEquals($fisica->getId(), $savedPessoaFisica->getId());
-	}	
+	}
 
 	/**
 	 * Teste que insere uma pessoa
@@ -227,6 +229,31 @@ class FisicaTest extends EntityTestCase
     	$pessoa->setIdsisCad(1);    	
     	
     	return $pessoa;
+	}
+
+	private function buildEnderecoExterno()
+	{
+		$enderecoExterno = new EnderecoExterno;
+		$enderecoExterno->setTipo(1);
+		$enderecoExterno->setLogradouro('Teste');
+		$enderecoExterno->setNumero('10');
+		$enderecoExterno->setLetra('A');
+		$enderecoExterno->setComplemento('Casa');
+		$enderecoExterno->setBairro('Centro');
+		$enderecoExterno->setCep('44900-000');
+		$enderecoExterno->setCidade('Irecê');
+		$enderecoExterno->setSiglaUf('BA');
+		$enderecoExterno->setResideDesde(new \DateTime());
+		// $enderecoExterno->setDataRev();
+		$enderecoExterno->setOperacao("I");
+		$enderecoExterno->setOrigemGravacao("U");
+		$enderecoExterno->setIdsisCad(1);
+		$enderecoExterno->setBloco('A');
+		$enderecoExterno->setAndar('1');
+		$enderecoExterno->setApartamento('102');
+		$enderecoExterno->setZonaLocalizacao(1);
+
+		return $enderecoExterno;
 	}
 
 	private function buildFisica()

@@ -42,6 +42,14 @@ class EnderecoExterno extends Entity
 	protected $id;	
 
 	/**
+	 * @var string $tipoLogradouro Id do tipo de logradouro
+	 * ORM\Id
+	 * @ORM\OneToOne(targetEntity="Usuario\Entity\Pessoa", cascade={"persist"})
+	 * @ORM\JoinColumn(name="idpes", referencedColumnName="idpes", onDelete="SET NULL")
+	 */
+	protected $pessoa;
+
+	/**
 	 * @var int $tipo Tipo, o antigo sistema sempre salva como 1, 
 	 * atributo deve ser depreciado
 	 *
@@ -52,10 +60,10 @@ class EnderecoExterno extends Entity
 
 	/**
 	 * @var string $tipoLogradouro Id do tipo de logradouro
-	 * ORM\OneToOne(targetEntity="Core\Entity\TipoLogradouro", cascade={"persist"})
-	 * ORM\JoinColumn(name="idtlog", referencedColumnName="idtlog", onDelete="SET NULL")
+	 * @ORM\OneToOne(targetEntity="Core\Entity\TipoLogradouro", cascade={"persist"})
+	 * @ORM\JoinColumn(name="idtlog", referencedColumnName="idtlog", onDelete="SET NULL")
 	 */
-	//protected $tipoLogradouro;
+	protected $tipoLogradouro;
 
 	/**
 	 * @var string $logradouro
@@ -500,11 +508,14 @@ class EnderecoExterno extends Entity
 	{
 		if (!$this->inputFilter) {
 			$inputFilter = new InputFilter();
-			$factory = new InputFactory();
+			$factory = new InputFactory();					
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'pessoa',
-				'required' => true
+				'name' => 'id',
+				'required' => true,
+				'filters' => array(
+					array('name' => 'Int')
+				),
 			)));
 
 			$inputFilter->add($factory->createInput(array(

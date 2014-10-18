@@ -292,7 +292,7 @@ class FisicaControllerTest extends ControllerTestCase
 		$this->request->getPost()->set('nacionalidade', "1");
 		$this->request->getPost()->set('raca', $raca->getId());
 		$this->request->getPost()->set('cpf', '');
-		$this->request->getPost()->set('tipoLogradouro', $tipoLogradouro->getId());
+		$this->request->getPost()->set('tipoLogradouro', $tipoLogradouro->getId());		
 		$this->request->getPost()->set('siglaUf', $uf->getId());
 		$this->request->getPost()->set('apartamento', '001');
 		$this->request->getPost()->set('bloco', 'A');
@@ -314,18 +314,18 @@ class FisicaControllerTest extends ControllerTestCase
 		);
 		//	Verifica a resposta
 		$response = $this->controller->getResponse();		
-		//	a pagina redireciona, estao o status = 302		
-		// var_dump($this->request->getPost('tipoLogradouro'));
+		//	a pagina redireciona, estao o status = 302				
 		// var_dump($result->getVariables()['form']->getMessages());		
 		$this->assertEquals(302, $response->getStatusCode());
 		$headers = $response->getHeaders();
-		$this->assertEquals('Location: /usuario/fisica', $headers->get('Location'));				
+		$this->assertEquals('Location: /usuario/fisica', $headers->get('Location'));
 	}
 
 
 
     /**
      * Testa a inclusao, formulario invalido e cpf vazio
+     * Nome vazio, formulario igual a invalido
      */
     public function testFisicaSaveActionInvalidFormPostRequest()
     {
@@ -348,7 +348,7 @@ class FisicaControllerTest extends ControllerTestCase
         $this->request->setMethod('post');
         $this->request->getPost()->set('id', '');
         $this->request->getPost()->set('sexo', 'M');
-        $this->request->getPost()->set('nome', 'Garrincha');
+        $this->request->getPost()->set('nome', '');
         $this->request->getPost()->set('url', 'www.eduardojunior.com');
         $this->request->getPost()->set('email', 'ej@eduardojunior.com');
         $this->request->getPost()->set('situacao', 'A');
@@ -356,7 +356,7 @@ class FisicaControllerTest extends ControllerTestCase
         $this->request->getPost()->set('raca', $raca->getId());
         $this->request->getPost()->set('cpf', '');
         $this->request->getPost()->set('tipoLogradouro', $tipoLogradouro->getId());
-        $this->request->getPost()->set('siglaUf', '');
+        $this->request->getPost()->set('siglaUf', 'BA');
         $this->request->getPost()->set('apartamento', '001');
 		$this->request->getPost()->set('bloco', 'A');
 		$this->request->getPost()->set('andar', '1');
@@ -369,12 +369,15 @@ class FisicaControllerTest extends ControllerTestCase
 		$this->request->getPost()->set('celular', '1111-1111');
 		$this->request->getPost()->set('dddFax', '71');
 		$this->request->getPost()->set('fax', '1111-1111');
+		$this->request->getPost()->set('logradouro', 'Rua X');
+		$this->request->getPost()->set('cidade', 'Irecê');
 
         $result = $this->controller->dispatch(
             $this->request, $this->response
         );
         //	Verifica a resposta
         $response = $this->controller->getResponse();
+
         //	a pagina nao redireciona por causa do erro, estao o status = 200
         $this->assertEquals(200, $response->getStatusCode());
         $headers = $response->getHeaders();
@@ -437,6 +440,8 @@ class FisicaControllerTest extends ControllerTestCase
 		$this->request->getPost()->set('celular', '1111-1111');
 		$this->request->getPost()->set('dddFax', '71');
 		$this->request->getPost()->set('fax', '1111-1111');
+		$this->request->getPost()->set('logradouro', 'Rua X');
+		$this->request->getPost()->set('cidade', 'Irecê');
 
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
@@ -453,8 +458,8 @@ class FisicaControllerTest extends ControllerTestCase
 
         //$savedPessoa = $this->em->find('Usuario\Entity\Pessoa', 1);
         $savedFisica = $em->find('Usuario\Entity\Fisica', $fisica->getId());
-        $date = new \DateTime('03/05/1982', new \DateTimeZone('America/Sao_Paulo'));
-        $this->assertEquals($date, $savedFisica->getDataNasc());
+        $date = new \DateTime('03/05/1982', new \DateTimeZone('America/Sao_Paulo'));        
+        $this->assertEquals($date->format('d-m-Y'), $savedFisica->getDataNasc()->format('d-m-Y'));
 	}
 
 	/**
@@ -467,6 +472,9 @@ class FisicaControllerTest extends ControllerTestCase
 
 		$this->request->setMethod('post');
 		$this->request->getPost()->set('cpf', '222.222.222-222');
+		$this->request->getPost()->set('siglaUf', 'BA');
+		$this->request->getPost()->set('cidade', 'Irecê');
+		$this->request->getPost()->set('logradouro', 'Rua X');
 		
 		$result = $this->controller->dispatch(
 			$this->request, $this->response

@@ -218,9 +218,9 @@ class Pessoa extends Entity implements EventSubscriber
 	//protected $enderecoExterno;
 	/**
 	 * @var int $pessoa Id da pessoa que tem esse endereco
-	 * @ORM\ManyToOne(targetEntity="Usuario\Entity\EnderecoExterno")	 	 
+	 * ORM\ManyToOne(targetEntity="Usuario\Entity\EnderecoExterno")	 	 
 	 */
-	protected $enderecoExterno;
+	// protected $enderecoExterno;
 
 	/**
 	 * Função para gerar o timestamp para o atributo data_cad, é executada antes de salvar os dados no banco
@@ -770,15 +770,15 @@ class Pessoa extends Entity implements EventSubscriber
 		$this->fisica = $value;
 	}
 
-	public function setEnderecoExterno($value)
-    {
-    	$this->enderecoExterno = $value;        
-    }
+	// public function setEnderecoExterno($value)
+ //    {
+ //    	$this->enderecoExterno = $value;        
+ //    }
     
-    public function getEnderecoExterno()
-    {
-        return $this->enderecoExterno;
-    }
+ //    public function getEnderecoExterno()
+ //    {
+ //        return $this->enderecoExterno;
+ //    }
 
 	/**
 	 * Configura os filtros dos campos da entidade
@@ -797,13 +797,7 @@ class Pessoa extends Entity implements EventSubscriber
 				'filters' => array(
 					array('name' => 'Int'),
 				),
-			)));
-
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'enderecoExterno',
-				'required' => false				
-			)));							
+			)));			
 
 			$inputFilter->add($factory->createInput(array(
 				'name' => 'nome',

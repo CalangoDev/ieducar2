@@ -129,6 +129,8 @@ class FisicaController extends ActionController
 			$id  = (int) $this->params()->fromPost('id', 0);		
 
 			// $enderecoExterno->setTipoLogradouro($this->params()->fromPost('tipoLogradouro'));
+			// var_dump($this->params()->fromPost('siglaUf'));
+
 			$enderecoExterno->setSiglaUf($this->params()->fromPost('siglaUf'));
 			$enderecoExterno->setOperacao(($id > 0) ? "A" : "I");
 			$enderecoExterno->setOrigemGravacao("U");
@@ -167,7 +169,7 @@ class FisicaController extends ActionController
 
 			$dataNasc  = $this->params()->fromPost('dataNasc', 0);
 			if ($dataNasc == '')
-				$fisica->removeInputFilter('dataNasc');
+				$fisica->removeInputFilter('dataNasc');			
 			
 			// $form->setData($data);	
 						
@@ -194,9 +196,9 @@ class FisicaController extends ActionController
 					// $enderecoExterno->setOperacao(($id > 0) ? "A" : "I");
 					// $enderecoExterno->setIdsisCad(1);							
 					// $enderecoExterno->setPessoa($fisica);						
-					$this->getEntityManager()->persist($fisica);					
+					$this->getEntityManager()->persist($fisica);										
+					$enderecoExterno->setPessoa($fisica);
 					$this->getEntityManager()->persist($enderecoExterno);	
-					$fisica->setEnderecoExterno($enderecoExterno);
 					// $pessoa = $this->getEntityManager()->find('Usuario\Entity\Pessoa', $fisica->getId());									
 					$this->flashMessenger()->addSuccessMessage('Pessoa Salva');
 				} else {
@@ -207,8 +209,7 @@ class FisicaController extends ActionController
 				 * Redirecionando para lista de pessoas fisicas
 				 */
 				return $this->redirect()->toUrl('/usuario/fisica');
-			} else {	
-				// var_dump("NAO VALIDO");
+			} else {					
 				if ($this->params()->fromPost('dataNasc')){
 					$date = new \DateTime($this->params()->fromPost('dataNasc'), new \DateTimeZone('America/Sao_Paulo'));
 					$date = $date->format('d-m-Y');					

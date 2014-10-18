@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="Usuario Test Suite" tests="1" assertions="2" failures="0" errors="0" time="19.024945">
-    <testsuite name="FisicaControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/FisicaControllerTest.php" tests="1" assertions="2" failures="0" errors="0" time="19.024945">
-      <testcase name="testFisicaSaveActionPostRequest" class="FisicaControllerTest" file="/Users/eduardojunior/projetos/ieducar2/www/module/Usuario/tests/src/Usuario/Controller/FisicaControllerTest.php" line="267" assertions="2" time="19.024945"/>
+  <testsuite name="Usuario Test Suite" tests="6" assertions="24" failures="0" errors="0" time="126.908943">
+    <testsuite name="Usuario\Entity\EnderecoExternoTest" file="/var/www/module/Usuario/tests/src/Usuario/Entity/EnderecoExternoTest.php" tests="6" assertions="24" failures="0" errors="0" time="126.908943">
+      <testcase name="testGetInputFilter" class="Usuario\Entity\EnderecoExternoTest" file="/var/www/module/Usuario/tests/src/Usuario/Entity/EnderecoExternoTest.php" line="22" assertions="1" time="22.921085"/>
+      <testcase name="testInputFilterValid" class="Usuario\Entity\EnderecoExternoTest" file="/var/www/module/Usuario/tests/src/Usuario/Entity/EnderecoExternoTest.php" line="34" assertions="15" time="22.325743"/>
+      <testcase name="testInsert" class="Usuario\Entity\EnderecoExternoTest" file="/var/www/module/Usuario/tests/src/Usuario/Entity/EnderecoExternoTest.php" line="57" assertions="4" time="22.119387"/>
+      <testcase name="testInputFilterInvalidLogradouro" class="Usuario\Entity\EnderecoExternoTest" file="/var/www/module/Usuario/tests/src/Usuario/Entity/EnderecoExternoTest.php" line="82" assertions="1" time="19.969425"/>
+      <testcase name="testUpdate" class="Usuario\Entity\EnderecoExternoTest" file="/var/www/module/Usuario/tests/src/Usuario/Entity/EnderecoExternoTest.php" line="95" assertions="2" time="19.533514"/>
+      <testcase name="testDelete" class="Usuario\Entity\EnderecoExternoTest" file="/var/www/module/Usuario/tests/src/Usuario/Entity/EnderecoExternoTest.php" line="116" assertions="1" time="20.039789"/>
     </testsuite>
   </testsuite>
 </testsuites>

@@ -8,7 +8,11 @@
 return array(
 	'doctrine' => array(
     	'connection' => array(
-            'orm_default' => array(                
+            'orm_default' => array(
+                // 'driverClass' => 'Doctrine\DBAL\Driver\PDOSqlite\Driver',
+                // 'params' => array(
+                //     'path'=> ':memory:',                    
+                // ),                
                 'params' => array(
                     'host' => '192.168.59.103',
                     'port' => '5432',
