@@ -3,8 +3,8 @@ namespace Usuario\Form;
 
 use Zend\Form\Form;
 use Doctrine\ORM\EntityManager;
-// use Usuario\Entity\EnderecoExterno;
-use DoctrineModule\StdlibHydrator\DoctrineObject as DoctrineHydrator;
+// use Usuario\Entity\EnderecoExterno as Ex;
+use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 use Zend\Stdlib\Hydrator\ClassMethods;
 
 class EnderecoExterno extends Form
@@ -15,6 +15,8 @@ class EnderecoExterno extends Form
 		// var_dump($this);
 
 		// $this->setHydrator(new ClassMethods(false));             
+		$this->setHydrator(new DoctrineHydrator($em))
+             ->setObject(new \Usuario\Entity\EnderecoExterno());
 
 		$this->add(array(
 			'name' => 'tipoLogradouro',
@@ -203,6 +205,36 @@ class EnderecoExterno extends Form
 				'object_manager' => $em,
 				'target_class' => 'Usuario\Entity\EnderecoExterno',
 				'property' => 'logradouro'
+			),
+		));
+
+		$this->add(array(
+			'name' => 'cep',
+			'attributes' => array(
+				'type' => 'text',
+				'class' => 'form-control cep',
+				'style' => 'width:100px',
+                'required' => 'required'
+			),
+			'options' => array(
+				'label' => 'CEP:'
+			),
+		));
+
+		$this->add(array(
+			'name' => 'zonaLocalizacao',
+			'attributes' => array(				
+				'value' => '1',
+				'class' => 'form-control chosen-select',
+				'required' => 'required'
+			),
+			'type' => 'Zend\Form\Element\Select',
+			'options' => array(
+				'label' => 'Zona Localização',
+				'value_options' => array(
+					'1'  => 'Urbana',
+     				'2'  => 'Rural',     				
+				),
 			),
 		));
 

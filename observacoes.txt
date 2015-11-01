@@ -16,3 +16,7 @@ fixtures como iso
 RUN         DEBIAN_FRONTEND=noninteractive apt-get install -y php5-xdebug
 RUN         echo "xdebug.remote_enable=on" >> /etc/php5/apache2/conf.d/xdebug.ini
 RUN         echo "xdebug.remote_connect_back=on" >> /etc/php5/apache2/conf.d/xdebug.ini
+
+
+-- mudança no nome das tabelas, para manter o conceito do ORM e compatibildade com demais bancos remoção dos schemas do postgresl
+e organalização da tabela por prefixo exemplo cadastro.tabela mudou para cadastro_tabela

@@ -9,15 +9,17 @@
     "homepage": "http://framework.zend.com/",
     "require": {
         "php": ">=5.3.3",
-        "zendframework/zendframework": "2.2.*",
+        "zendframework/zendframework": "^2.5",
         "doctrine/orm": "*",
-        "doctrine/doctrine-orm-module": "0.8.*",
+        "doctrine/doctrine-orm-module": "0.9.*",
         "zendframework/zend-developer-tools": "dev-master",
         "hounddog/doctrine-data-fixture-module": "dev-master",
-        "johnkary/phpunit-speedtrap": "dev-master"
+        "johnkary/phpunit-speedtrap": "dev-master",
+        "zendframework/zend-validator": "^2.5",
+        "zendframework/zend-diactoros": "^1.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.2.*"
+        "phpunit/phpunit": "4.8.*"
     },
     "minimum-stability": "stable"
 }

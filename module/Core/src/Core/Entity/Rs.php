@@ -23,7 +23,7 @@ use Zend\InputFilter\InputFilterInterface;
  * @copyright  Copyright (c) 2014 Eduardo Junior.com (http://www.eduardojunior.com)
  * 
  * @ORM\Entity
- * @ORM\Table(name="cep.rs")
+ * @ORM\Table(name="cep_rs")
  * 
  */
 class Rs extends Entity

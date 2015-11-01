@@ -29,7 +29,7 @@ use Zend\InputFilter\InputFilterInterface;
  * 
  * 
  * @ORM\Entity
- * @ORM\Table(name="cadastro.endereco_externo")
+ * @ORM\Table(name="cadastro_endereco_externo")
  * @ORM\HasLifecycleCallbacks
  */
 class EnderecoExterno extends Entity		
@@ -42,9 +42,8 @@ class EnderecoExterno extends Entity
 	protected $id;	
 
 	/**
-	 * @var string $tipoLogradouro Id do tipo de logradouro
-	 * ORM\Id
-	 * @ORM\OneToOne(targetEntity="Usuario\Entity\Pessoa", cascade={"persist"})
+	 * @var string $tipoLogradouro Id do tipo de logradouro	 
+	 * @ORM\OneToOne(targetEntity="Usuario\Entity\Pessoa", cascade={"persist"}, inversedBy="enderecoExterno")
 	 * @ORM\JoinColumn(name="idpes", referencedColumnName="idpes", onDelete="SET NULL")
 	 */
 	protected $pessoa;
@@ -68,7 +67,7 @@ class EnderecoExterno extends Entity
 	/**
 	 * @var string $logradouro
 	 * 
-	 * @ORM\Column(type="string", length=150, nullable=false)
+	 * @ORM\Column(type="string", length=150, nullable=true)
 	 */
 	protected $logradouro;
 
@@ -301,7 +300,8 @@ class EnderecoExterno extends Entity
 	
 	public function setLogradouro($value)
 	{
-		$this->logradouro = $this->valid("logradouro", $value);
+		// $this->logradouro = $this->valid("logradouro", $value);
+		$this->logradouro = $value;
 	}
 
 	public function getNumero()
@@ -371,7 +371,8 @@ class EnderecoExterno extends Entity
 	
 	public function setSiglaUf($value)
 	{
-		$this->siglaUf = $this->valid("siglaUf", $value);
+		// $this->siglaUf = $this->valid("siglaUf", $value);
+		$this->siglaUf = $value;
 	}
 
 	public function getResideDesde()
@@ -520,7 +521,7 @@ class EnderecoExterno extends Entity
 
 			$inputFilter->add($factory->createInput(array(
 				'name' => 'tipo',
-				'required' => true,
+				'required' => false,
 				'filters' => array(
 					array('name' => 'Int')
 				),
@@ -528,12 +529,12 @@ class EnderecoExterno extends Entity
 
 			$inputFilter->add($factory->createInput(array(
 				'name' => 'tipoLogradouro',
-				'required' => true
+				'required' => false
 			)));
 
 			$inputFilter->add($factory->createInput(array(
 				'name' => 'logradouro',
-				'required' => true,
+				'required' => false,
 				'filters'	=>	array(
 					array('name'	=>	'StripTags'),
 					array('name'	=>	'StringTrim'),
@@ -618,14 +619,21 @@ class EnderecoExterno extends Entity
 			$inputFilter->add($factory->createInput(array(
 				'name' => 'cep',
 				'required' => false,
-				'filters' => array(
-					array('name' => 'Int')
-				)
+				'validators' => array(
+					array(
+						'name' => 'StringLength',
+						'options' => array(
+							'encoding' => 'UTF-8',
+							'min' => 1,
+							'max' => 9,
+						),
+					),
+				),
 			)));
 
 			$inputFilter->add($factory->createInput(array(
 				'name' => 'cidade',
-				'required' => true,
+				'required' => false,
 				'filters'	=>	array(
 					array('name'	=>	'StripTags'),
 					array('name'	=>	'StringTrim'),
@@ -644,7 +652,7 @@ class EnderecoExterno extends Entity
 
 			$inputFilter->add($factory->createInput(array(
 				'name' => 'siglaUf',
-				'required' => true,
+				'required' => false,
 				'filters'	=>	array(
 					array('name'	=>	'StripTags'),
 					array('name'	=>	'StringTrim'),
@@ -676,6 +684,11 @@ class EnderecoExterno extends Entity
 					'name' => new \Zend\Validator\Date(),
 				)
 			)));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'zonaLocalizacao',
+                'required' => false
+            )));
 
 			$inputFilter->add($factory->createInput(array(
 				'name' => 'origemGravacao',

@@ -22,7 +22,7 @@ use Zend\InputFilter\InputFilterInterface;
  * @copyright  Copyright (c) 2014 Eduardo Junior.com (http://www.eduardojunior.com)
  * 
  * @ORM\Entity
- * @ORM\Table(name="urbano.tipo_logradouro")
+ * @ORM\Table(name="urbano_tipo_logradouro")
  */
 class TipoLogradouro extends Entity
 {

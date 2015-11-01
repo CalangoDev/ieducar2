@@ -151,3 +151,6 @@ msgstr "resolve como %s"
 msgid "Exception"
 msgstr "Exceção"
 
+msgid "Value is required and can't be empty"
+msgstr "Valor é requerido e não pode está vazio"
+

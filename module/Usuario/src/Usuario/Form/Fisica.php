@@ -15,8 +15,8 @@ class Fisica extends Form
 		$this->setAttribute('action', '/usuario/fisica/save');
 		// $this->setAttribute('class', 'form-inline');
 
-		// $this->setHydrator(new DoctrineHydrator($em, 'Usuario\Entity\EnderecoExterno'))
-  //            ->setObject(new EnderecoExterno());
+		// $this->setHydrator(new DoctrineHydrator($em, 'Usuario\Entity\Fisica'))
+             // ->setObject(new \Usuario\Entity\Fisica());
 
 
         // $this->setAttribute('method', 'post')
@@ -42,6 +42,7 @@ class Fisica extends Form
 				'label' => 'Nome:'
 			),
 		));
+		
 
 		$this->add(array(
 			'type' => 'Zend\Form\Element\Select',
@@ -97,8 +98,7 @@ class Fisica extends Form
 			'attributes' => array(
 				'type' => 'DoctrineModule\Form\Element\ObjectSelect',
 				'class' => 'form-control chosen-select',
-				'style' => 'height:100px;',
-                'required' => 'required'
+				'style' => 'height:100px;',                
 			),
 			'type' => 'DoctrineModule\Form\Element\ObjectSelect',
 			'options' => array(
@@ -117,18 +117,18 @@ class Fisica extends Form
 			),
 		));
 
-		$this->add(array(
-			'name' => 'cep',
-			'attributes' => array(
-				'type' => 'text',
-				'class' => 'form-control cep',
-				'style' => 'width:100px',
-                'required' => 'required'
-			),
-			'options' => array(
-				'label' => 'CEP:'
-			),
-		));
+		// $this->add(array(
+		// 	'name' => 'cep',
+		// 	'attributes' => array(
+		// 		'type' => 'text',
+		// 		'class' => 'form-control cep',
+		// 		'style' => 'width:100px',
+  //               'required' => 'required'
+		// 	),
+		// 	'options' => array(
+		// 		'label' => 'CEP:'
+		// 	),
+		// ));
 
 		// Endereco Externo		
 		// Instanciando o Fieldset programaticamente
@@ -508,22 +508,22 @@ class Fisica extends Form
         // 	)
         // ));
 
-        $this->add(array(
-			'name' => 'zonaLocalizacao',
-			'attributes' => array(				
-				'value' => '1',
-				'class' => 'form-control chosen-select',
-				'required' => 'required'
-			),
-			'type' => 'Zend\Form\Element\Select',
-			'options' => array(
-				'label' => 'Zona Localização',
-				'value_options' => array(
-					'1'  => 'Urbana',
-     				'2'  => 'Rural',     				
-				),
-			),
-		));
+  //       $this->add(array(
+		// 	'name' => 'zonaLocalizacao',
+		// 	'attributes' => array(				
+		// 		'value' => '1',
+		// 		'class' => 'form-control chosen-select',
+		// 		'required' => 'required'
+		// 	),
+		// 	'type' => 'Zend\Form\Element\Select',
+		// 	'options' => array(
+		// 		'label' => 'Zona Localização',
+		// 		'value_options' => array(
+		// 			'1'  => 'Urbana',
+  //    				'2'  => 'Rural',     				
+		// 		),
+		// 	),
+		// ));
 
 		$this->add(array(
 			'name' => 'dddTelefone1',
@@ -630,5 +630,5 @@ class Fisica extends Form
 				'class' => 'btn btn-lg btn-primary',
 			),
 		));
-	}
+	}	
 }

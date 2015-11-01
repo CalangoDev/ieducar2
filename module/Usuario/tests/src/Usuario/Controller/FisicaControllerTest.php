@@ -3,6 +3,7 @@ use Core\Test\ControllerTestCase;
 use Usuario\Controller\FisicaController;
 use Usuario\Entity\Fisica;
 use Usuario\Entity\Raca;
+use Usuario\Entity\EnderecoExterno;
 use Core\Entity\tipoLogradouro;
 use Core\Entity\Uf;
 use Zend\Http\Request;
@@ -186,7 +187,8 @@ class FisicaControllerTest extends ControllerTestCase
 		$this->assertEquals('andar', $andar->getName());
 		$this->assertEquals('text', $andar->getAttribute('type'));
 
-		$zonaLocalizacao = $form->get('zonaLocalizacao');
+//		$zonaLocalizacao = $form->get('zonaLocalizacao');
+		$zonaLocalizacao = $enderecoExterno->get('zonaLocalizacao');
 		$this->assertEquals('zonaLocalizacao', $zonaLocalizacao->getName());
 		$this->assertEquals('select', $zonaLocalizacao->getAttribute('type'));
 
@@ -284,38 +286,41 @@ class FisicaControllerTest extends ControllerTestCase
 
 		$this->request->setMethod('post');
 		$this->request->getPost()->set('id', '');
-		$this->request->getPost()->set('sexo', 'M');
-		$this->request->getPost()->set('nome', 'Garrincha');
-		$this->request->getPost()->set('url', 'www.eduardojunior.com');		
-		$this->request->getPost()->set('email', 'ej@eduardojunior.com');
 		$this->request->getPost()->set('situacao', 'A');
-		$this->request->getPost()->set('nacionalidade', "1");
-		$this->request->getPost()->set('raca', $raca->getId());
-		$this->request->getPost()->set('cpf', '');
-		$this->request->getPost()->set('tipoLogradouro', $tipoLogradouro->getId());		
-		$this->request->getPost()->set('siglaUf', $uf->getId());
-		$this->request->getPost()->set('apartamento', '001');
-		$this->request->getPost()->set('bloco', 'A');
-		$this->request->getPost()->set('andar', '1');
-		$this->request->getPost()->set('logradouro', 'Rua X');
-		$this->request->getPost()->set('cidade', 'Irecê');
-		$this->request->getPost()->set('zonaLocalizacao', '1');
-		$this->request->getPost()->set('dddTelefone1', '71');
-		$this->request->getPost()->set('telefone1', '1111-1111');
-		$this->request->getPost()->set('dddTelefone2', '71');
-		$this->request->getPost()->set('telefone2', '1111-1111');
-		$this->request->getPost()->set('dddCelular', '71');
-		$this->request->getPost()->set('celular', '1111-1111');
-		$this->request->getPost()->set('dddFax', '71');
-		$this->request->getPost()->set('fax', '1111-1111');
+		$this->request->getPost()->set('nome', 'Garrincha');
+		$this->request->getPost()->set('sexo', 'M');
+		$this->request->getPost()->set('cep', '44900-000');		
+		// $this->request->getPost()->set('url', 'www.eduardojunior.com');		
+		// $this->request->getPost()->set('email', 'ej@eduardojunior.com');
+		// $this->request->getPost()->set('situacao', 'A');
+		// $this->request->getPost()->set('nacionalidade', "1");
+		// $this->request->getPost()->set('raca', $raca->getId());
+		// $this->request->getPost()->set('cpf', '');
+		// $this->request->getPost()->set('tipoLogradouro', $tipoLogradouro->getId());		
+		// $this->request->getPost()->set('siglaUf', $uf->getId());
+		// $this->request->getPost()->set('apartamento', '001');
+		// $this->request->getPost()->set('bloco', 'A');
+		// $this->request->getPost()->set('andar', '1');
+		// $this->request->getPost()->set('logradouro', 'Rua X');
+		// $this->request->getPost()->set('cidade', 'Irecê');
+		// $this->request->getPost()->set('zonaLocalizacao', '1');
+		// $this->request->getPost()->set('dddTelefone1', '71');
+		// $this->request->getPost()->set('telefone1', '1111-1111');
+		// $this->request->getPost()->set('dddTelefone2', '71');
+		// $this->request->getPost()->set('telefone2', '1111-1111');
+		// $this->request->getPost()->set('dddCelular', '71');
+		// $this->request->getPost()->set('celular', '1111-1111');
+		// $this->request->getPost()->set('dddFax', '71');
+		// $this->request->getPost()->set('fax', '1111-1111');
+		// $this->request->getPost()->set('cep', '44900-000');
 
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
 		);
 		//	Verifica a resposta
 		$response = $this->controller->getResponse();		
-		//	a pagina redireciona, estao o status = 302				
-		// var_dump($result->getVariables()['form']->getMessages());		
+		//	a pagina redireciona, estao o status = 302		
+		// var_dump($result->getVariables()['form']);
 		$this->assertEquals(302, $response->getStatusCode());
 		$headers = $response->getHeaders();
 		$this->assertEquals('Location: /usuario/fisica', $headers->get('Location'));
@@ -347,20 +352,14 @@ class FisicaControllerTest extends ControllerTestCase
 
         $this->request->setMethod('post');
         $this->request->getPost()->set('id', '');
-        $this->request->getPost()->set('sexo', 'M');
-        $this->request->getPost()->set('nome', '');
         $this->request->getPost()->set('url', 'www.eduardojunior.com');
         $this->request->getPost()->set('email', 'ej@eduardojunior.com');
         $this->request->getPost()->set('situacao', 'A');
         $this->request->getPost()->set('nacionalidade', "1");
         $this->request->getPost()->set('raca', $raca->getId());
-        $this->request->getPost()->set('cpf', '');
-        $this->request->getPost()->set('tipoLogradouro', $tipoLogradouro->getId());
-        $this->request->getPost()->set('siglaUf', 'BA');
         $this->request->getPost()->set('apartamento', '001');
-		$this->request->getPost()->set('bloco', 'A');
+        $this->request->getPost()->set('bloco', 'A');
 		$this->request->getPost()->set('andar', '1');
-		$this->request->getPost()->set('zonaLocalizacao', '1');
 		$this->request->getPost()->set('dddTelefone1', '71');
 		$this->request->getPost()->set('telefone1', '1111-1111');
 		$this->request->getPost()->set('dddTelefone2', '71');
@@ -371,7 +370,14 @@ class FisicaControllerTest extends ControllerTestCase
 		$this->request->getPost()->set('fax', '1111-1111');
 		$this->request->getPost()->set('logradouro', 'Rua X');
 		$this->request->getPost()->set('cidade', 'Irecê');
-
+		$this->request->getPost()->set('cpf', '');
+        // Parametros requiridos que vao ser passados em branco
+        $this->request->getPost()->set('sexo', '');
+        $this->request->getPost()->set('nome', '');
+        $this->request->getPost()->set('tipoLogradouro', '');
+        $this->request->getPost()->set('siglaUf', '');       		
+		$this->request->getPost()->set('zonaLocalizacao', '');
+		$this->request->getPost()->set('cep', '');
         $result = $this->controller->dispatch(
             $this->request, $this->response
         );
@@ -382,7 +388,15 @@ class FisicaControllerTest extends ControllerTestCase
         $this->assertEquals(200, $response->getStatusCode());
         $headers = $response->getHeaders();
 
-        // @todo fazer outro assert pegando mensagem de erro por falta do uf
+        //	Verify Filters Validators
+        $msgs = $result->getVariables()['form']->getMessages();	
+        // var_dump($result->getVariables()['form']->getMessages());		
+        $this->assertEquals('Value is required and can\'t be empty', $msgs["nome"]['isEmpty']);
+        $this->assertEquals('Value is required and can\'t be empty', $msgs["sexo"]['isEmpty']);        
+        $this->assertEquals('Value is required and can\'t be empty', $msgs["enderecoExterno"]["zonaLocalizacao"]['isEmpty']);
+        $this->assertEquals('Value is required and can\'t be empty', $msgs["enderecoExterno"]["tipoLogradouro"]['isEmpty']);
+        $this->assertEquals('Value is required and can\'t be empty', $msgs["enderecoExterno"]["siglaUf"]['isEmpty']);
+        $this->assertEquals('Value is required and can\'t be empty', $msgs["enderecoExterno"]["cep"]['isEmpty']);
 
     }
 
@@ -460,6 +474,61 @@ class FisicaControllerTest extends ControllerTestCase
         $savedFisica = $em->find('Usuario\Entity\Fisica', $fisica->getId());
         $date = new \DateTime('03/05/1982', new \DateTimeZone('America/Sao_Paulo'));        
         $this->assertEquals($date->format('d-m-Y'), $savedFisica->getDataNasc()->format('d-m-Y'));
+	}
+
+	/**
+	 * Testa o hydrator utilizandos as entity fisica e enderecoExterno
+	 */
+	public function testFisicaHydratorUpdateFormRequestAction()
+	{				
+		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');		
+
+		$tipoLogradouro = $this->buildTipoLogradouro();
+		$em->persist($tipoLogradouro);
+
+		$fisica = $this->buildFisica();
+		$fisica->setNome('Bill Gates');
+		$date = new \DateTime('03/05/1982', new \DateTimeZone('America/Sao_Paulo'));
+        $fisica->setDataNasc($date);        		
+		
+
+		$enderecoExterno = $this->buildEnderecoExterno();
+		$enderecoExterno->setTipoLogradouro($tipoLogradouro);
+		$fisica->setEnderecoExterno($enderecoExterno);		
+		$em->persist($fisica);
+
+    	$em->flush();
+    	
+		//	Dispara a acao
+		$this->routeMatch->setParam('action', 'save');
+		$this->routeMatch->setParam('id', $fisica->getId());
+		$result = $this->controller->dispatch(
+			$this->request, $this->response
+		);
+
+		//	Verifica a resposta
+		$response = $this->controller->getResponse();
+		$this->assertEquals(200, $response->getStatusCode());
+
+		//	Testa se recebeu um ViewModel
+		$this->assertInstanceOf('Zend\View\Model\ViewModel', $result);		
+		$variables = $result->getVariables();
+
+		//	Verifica se existe um form
+		$this->assertInstanceOf('Zend\Form\Form', $variables['form']);
+		$form = $variables['form'];
+
+		//	Testa os itens do formulario		
+		$id = $form->get('id');
+		$cpf = $form->get('cpf');
+		$endExterno = $form->get('enderecoExterno');
+		$logradouro = $endExterno->get('logradouro');
+		$tipoLogradouro = $endExterno->get('tipoLogradouro');
+		$this->assertEquals('id', $id->getName());
+		$this->assertEquals($fisica->getId(), $id->getValue());
+		$this->assertEquals($fisica->getCpf(), $cpf->getValue());		
+		$this->assertEquals($enderecoExterno->getLogradouro(), $logradouro->getValue());		
+		$this->assertEquals($enderecoExterno->getTipoLogradouro()->getId(), $tipoLogradouro->getValue());
 	}
 
 	/**
@@ -613,6 +682,31 @@ class FisicaControllerTest extends ControllerTestCase
 		);	
 	}
 
+	private function buildEnderecoExterno()
+	{
+		$enderecoExterno = new EnderecoExterno;
+		$enderecoExterno->setTipo(1);
+		$enderecoExterno->setLogradouro('Teste');
+		$enderecoExterno->setNumero('10');
+		$enderecoExterno->setLetra('A');
+		$enderecoExterno->setComplemento('Casa');
+		$enderecoExterno->setBairro('Centro');
+		$enderecoExterno->setCep('44900-000');
+		$enderecoExterno->setCidade('Irecê');
+		$enderecoExterno->setSiglaUf('BA');
+		$enderecoExterno->setResideDesde(new \DateTime());
+		// $enderecoExterno->setDataRev();
+		$enderecoExterno->setOperacao("I");
+		$enderecoExterno->setOrigemGravacao("U");
+		$enderecoExterno->setIdsisCad(1);
+		$enderecoExterno->setBloco('A');
+		$enderecoExterno->setAndar('1');
+		$enderecoExterno->setApartamento('102');
+		$enderecoExterno->setZonaLocalizacao(1);
+
+		return $enderecoExterno;
+	}
+
 	private function buildFisica()
 	{	
     	/**
@@ -636,6 +730,8 @@ class FisicaControllerTest extends ControllerTestCase
 	private function buildTipoLogradouro()
 	{
 		$tipoLogradouro = new tipoLogradouro;
+		// RUA	Rua
+		$tipoLogradouro->setId('RUA');
 		$tipoLogradouro->setDescricao('Rua');
 
 		return $tipoLogradouro;

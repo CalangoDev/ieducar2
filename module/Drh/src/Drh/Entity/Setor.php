@@ -27,7 +27,7 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
  * @copyright  Copyright (c) 2014 Eduardo Junior.com (http://www.eduardojunior.com)
  * 
  * @ORM\Entity
- * @ORM\Table(name="pmidrh.setor")
+ * @ORM\Table(name="pmidrh_setor")
  * @ORM\HasLifecycleCallbacks
  * 
  */

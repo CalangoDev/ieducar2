@@ -27,9 +27,7 @@ class PessoaController extends ActionController
 	{
 		$dados = $this->getEntityManager()->getRepository('Usuario\Entity\Pessoa')->findAll();
 		
-		return new ViewModel(array(
-			'dados' => $dados
-		));
+		return new ViewModel(array('dados' => $dados));
 	}
 
 	public function saveAction()

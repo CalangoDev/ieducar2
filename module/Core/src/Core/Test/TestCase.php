@@ -71,6 +71,11 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 					->setResponse($this->application->getResponse())
 					->setRouter($this->serviceManager->get('Router'));							
 		$this->em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
+
+		// clear doctrine to be safe
+		$this->em->clear();
+
+		$this->dropDatabase();
 		$this->createDatabase();
         parent::setup();
 		
@@ -81,8 +86,8 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 		/**
 		 * @todo  apagar essa linha depois que verificar nos testes
 		 */		
-		parent::tearDown();		
-		//$this->dropDatabase();
+		parent::tearDown();
+		$this->dropDatabase();
 	}
 
 	/**
@@ -113,8 +118,8 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 		$classes = $this->em->getMetadataFactory()->getAllMetadata();
         $cmf = $this->em->getMetadataFactory();
         $classes = $cmf->getAllMetadata();
-        
-        $tool->dropSchema($classes);
+
+        //$tool->dropSchema($classes);
         $tool->dropDatabase();
         $tool->createSchema($classes);
 	}
@@ -127,5 +132,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 		$classes = $this->em->getMetadataFactory()->getAllMetadata();		
 		$tool->dropSchema($classes);
         $tool->dropDatabase();
+		//$tool->dropDatabase();
+		//$tool->createSchema($em->getMetadataFactory()->getAllMetadata());"
 	}
 }

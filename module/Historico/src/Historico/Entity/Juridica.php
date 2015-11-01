@@ -22,7 +22,7 @@ use Zend\InputFilter\InputFilterInterface;
  * @copyright  Copyright (c) 2014 Eduardo Junior.com (http://www.eduardojunior.com)
  * 
  * @ORM\Entity
- * @ORM\Table(name="historico.juridica")
+ * @ORM\Table(name="historico_juridica")
  * @ORM\HasLifecycleCallbacks
  * 
  */

@@ -69,6 +69,8 @@ class FisicaTest extends EntityTestCase
 		$this->assertTrue($if->has('idpesRev'));
 		$this->assertTrue($if->has('idpesCad'));
 		$this->assertTrue($if->has('refCodReligiao'));
+		$this->assertTrue($if->has('raca'));
+        $this->assertTrue($if->has('nome'));
 	}
 
 	/**

@@ -23,7 +23,7 @@ use Zend\InputFilter\InputFilterInterface;
  * @copyright  Copyright (c) 2014 Eduardo Junior.com (http://www.eduardojunior.com)
  * 
  * @ORM\Entity
- * @ORM\Table(name="portal.funcionario")
+ * @ORM\Table(name="portal_funcionario")
  * 
  * OBS: esta classe poderia utilizar heranca da classe Usuario\Entity\Fisica, porem 
  * teria que ver a questao de acoplamento, utilizando tornaria essa ligação forte

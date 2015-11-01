@@ -505,16 +505,18 @@
             </div>
         </nav>
 
-        <?php if(isset($flashMessages)):             
-            $class = key((array) $flashMessages[0]);            
+        <?php if(isset($flashMessages)):
+            $array = (array) $flashMessages[0];
+            $class = key($array);
         ?>
             <div class="container">                                
                 <div class="row">
                     <div class="alert alert-<?php if ($class == 'success') { echo "success"; } else if ($class == 'error'){ echo 'danger'; }?>">
                             <?php                             
                             foreach ($flashMessages as $key => $flashMessage) : ?>
-                                <?php                  
-                                $message = current((array) $flashMessage);               
+                                <?php
+                                $array = (array) $flashMessage;
+                                $message = current($array);
                                 echo $message;?>                            
                             <?php endforeach; ?>         
                     </div>
@@ -529,7 +531,9 @@
             <div class="row">
                 <hr>
                 <footer>
-                    <p>&copy; <?php echo date('Y') ?> by Eduardo Junior.com. <?php echo $this->translate('All rights reserved.') ?></p>
+                    <p>&copy; <?php echo date('Y') ?> por
+                        <a href="http://www.calangodev.com.br" target="_blank">CalangoDev</a>.
+                        <?php echo $this->translate('All rights reserved.') ?></p>
                 </footer>    
             </div>
         </div>

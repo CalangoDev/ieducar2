@@ -29,7 +29,7 @@
 							<?php
 							echo $this->form()->openTag($form);
 							$id = $this->form->get('id');
-							$nome = $this->form->get('nome');
+							$nome = $this->form->get('nome');							
 							$situacao = $this->form->get('situacao');
 							$dataNasc = $this->form->get('dataNasc');
 							$cpf = $this->form->get('cpf');
@@ -39,7 +39,8 @@
 							$raca = $this->form->get('raca');
 							$enderecoExterno = $this->form->get('enderecoExterno');
 							
-							$cep = $this->form->get('cep');
+							// $cep = $this->form->get('cep');
+							$cep = $enderecoExterno->get('cep');
 							// $tipoLogradouro = $this->form->get('tipoLogradouro');
 							$tipoLogradouro = $enderecoExterno->get('tipoLogradouro');
 							// $logradouro = $this->form->get('logradouro');
@@ -60,7 +61,8 @@
                             $bloco = $enderecoExterno->get('bloco');
                             // $andar = $this->form->get('andar');
                             $andar = $enderecoExterno->get('andar');
-                            $zonaLocalizacao = $this->form->get('zonaLocalizacao');
+                            // $zonaLocalizacao = $this->form->get('zonaLocalizacao');
+                            $zonaLocalizacao = $enderecoExterno->get('zonaLocalizacao');
 							// $complemento = $this->form->get('complemento');
 							$complemento = $enderecoExterno->get('complemento');
 							$dddTelefone1 = $this->form->get('dddTelefone1');
@@ -95,7 +97,7 @@
 											?>									
 										</div>
 									</div>
-								</div>
+								</div>								
 								<div class="form-group">
 									<label for="cpf">
 										<?php
@@ -126,7 +128,7 @@
 										</div>
 									</div>										
 								</div>
-								<div class="form-group">
+								<div class="form-group required">
 									<label for="sexo">
 										<?php
 										echo $sexo->getOption('label');
@@ -141,7 +143,7 @@
 										</div>
 									</div>										
 								</div>	
-								<div class="form-group required">
+								<div class="form-group">
 									<label for="raca">
 										<?php
 										echo $raca->getOption('label');

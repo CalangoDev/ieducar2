@@ -23,7 +23,7 @@ use Zend\InputFilter\InputFilterInterface;
  * @copyright  Copyright (c) 2014 Eduardo Junior.com (http://www.eduardojunior.com)
  * 
  * @ORM\Entity
- * @ORM\Table(name="cadastro.escolaridade")
+ * @ORM\Table(name="cadastro_escolaridade")
  * 
  */
 class Escolaridade extends Entity

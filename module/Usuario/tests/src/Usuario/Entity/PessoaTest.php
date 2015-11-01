@@ -79,13 +79,13 @@ class PessoaTest extends EntityTestCase
 		/**
 		 * Verificando se salvou o registro no banco para a pessoaA
 		 */
-		$this->assertEquals('Steve Jobs', $pessoaA->getNome());
-		$this->assertEquals(1, $pessoaA->getId());
+		$this->assertEquals('Steve Jobs', $savedPessoaA->getNome());
+		$this->assertEquals(1, $savedPessoaA->getId());
 
 		/**
 		 * Verificando se os id da pessoa que cadastrou o registro são iguais
 		 */
-		$this->assertEquals($pessoaA->getId(), $savedPessoaB->getPessoaCad()->getId());
+		$this->assertEquals($savedPessoaA->getId(), $savedPessoaB->getPessoaCad()->getId());
 	}
 
 	
@@ -191,7 +191,7 @@ class PessoaTest extends EntityTestCase
 		/**
 		 * Verificando se o nome da pessoaB é igual a Gold
 		 */
-		$this->assertEquals('Gold', $pessoaB->getNome());
+		$this->assertEquals('Gold', $savedPessoaB->getNome());
 
 		/**
 		 * Alterando o nome da pessoa B
@@ -209,16 +209,16 @@ class PessoaTest extends EntityTestCase
 		/**
 		 * get data of Pessoa, id = 2 atualizados
 		 */
-		$pessoaB = $this->em->find('Usuario\Entity\Pessoa', $id);
+		$savedPessoaB = $this->em->find('Usuario\Entity\Pessoa', $id);
 		/**
 		 * Verificando se o nome da pessoa B agora é Bill Gates
 		 */
-		$this->assertEquals('Bill Gates', $pessoaB->getNome());
+		$this->assertEquals('Bill Gates', $savedPessoaB->getNome());
 
 		/**
 		 * Verificando o idpes do usuario que fez a revisao é igual ao da pessoaA
 		 */		
-		$this->assertEquals($pessoaA->getId(), $pessoaB->getPessoaRev()->getId());		
+		$this->assertEquals($pessoaA->getId(), $savedPessoaB->getPessoaRev()->getId());
 	}
 
 	public function testDelete()

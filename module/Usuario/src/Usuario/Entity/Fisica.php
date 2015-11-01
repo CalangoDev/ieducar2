@@ -23,7 +23,7 @@ use Zend\InputFilter\InputFilterInterface;
  * @copyright  Copyright (c) 2013 Eduardo Junior.com (http://www.eduardojunior.com)
  * 
  * @ORM\Entity
- * @ORM\Table(name="cadastro.fisica")
+ * @ORM\Table(name="cadastro_fisica")
  * @ORM\HasLifecycleCallbacks
  * 
  */
@@ -132,6 +132,7 @@ class Fisica extends Pessoa
 	 * @ORM\Column(name="ultima_empresa", type="string", length=150, nullable=true)
 	 */
 	protected $ultimaEmpresa;
+	
 
 	/**
 	 * @var string $nome_mae	Nome da Mae
@@ -377,7 +378,7 @@ class Fisica extends Pessoa
 	 * @var int $raca Referencia a raça da pessoa fisica
 	 * 
 	 * @ORM\ManyToOne(targetEntity="Usuario\Entity\Raca")
-	 * @ORM\JoinColumn(name="idraca", referencedColumnName="cod_raca", onDelete="NO ACTION")
+	 * @ORM\JoinColumn(name="idraca", referencedColumnName="cod_raca", onDelete="SET NULL")
 	 */
 	protected $raca;
 
@@ -506,15 +507,15 @@ class Fisica extends Pessoa
 		$this->justificativaProvisorio = $this->valid("justificativaProvisorio", $value);
 	}
 
-	public function getDataRev()
-	{
-		return $this->dataRev;
-	}
+	// public function getDataRev()
+	// {
+	// 	return $this->dataRev;
+	// }
 	
-	public function setDataRev($value)
-	{
-		$this->dataRev = $this->valid("dataRev", $value);
-	}
+	// public function setDataRev($value)
+	// {
+	// 	$this->dataRev = $this->valid("dataRev", $value);
+	// }
 
 	// public function getOrigemGravacao()
 	// {
@@ -754,8 +755,8 @@ class Fisica extends Pessoa
 		if (!empty($data['justificativaProvisorio']))
 			$this->setJustificativaProvisorio(isset($data['justificativaProvisorio']) ? $data['justificativaProvisorio'] : null);
 		
-		if (!empty($data['dataRev']))
-			$this->setDataRev(isset($data['dataRev']) ? $data['dataRev'] : null);
+		// if (!empty($data['dataRev']))
+		// 	$this->setDataRev(isset($data['dataRev']) ? $data['dataRev'] : null);
 		
 		//$this->setOrigemGravacao(isset($data['origem_gravacao']) ? $data['origem_gravacao'] : null);
 		$this->setDataCad(isset($data['dataCad']) ? $data['dataCad'] : null);
@@ -807,8 +808,13 @@ class Fisica extends Pessoa
 				),
 			)));				
 
+			// $inputFilter->add($factory->createInput(array(
+			// 	'name' => 'enderecoExterno',
+			// 	'required' => false				
+			// )));						
+
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'enderecoExterno',
+				'name' => 'raca',
 				'required' => false				
 			)));											
 
@@ -829,7 +835,7 @@ class Fisica extends Pessoa
 						),
 					),
 				),				
-			)));
+			)));			
 
 			$inputFilter->add($factory->createInput(array(
 				'name' => 'dataNasc',
@@ -868,7 +874,7 @@ class Fisica extends Pessoa
 
 			$inputFilter->add($factory->createInput(array(
 				'name' => 'sexo',
-				'required' => false,
+				'required' => true,
 				'filters' => array(
 					array('name' => 'StripTags'),
 					array('name' => 'StringTrim'),
@@ -1046,17 +1052,17 @@ class Fisica extends Pessoa
 				),				
 			)));
 
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'dataRev',
-				'required' => false,
-				'filters' => array(
-					array('name' => 'StripTags'),
-					array('name' => 'StringTrim'),
-				),
-				'validators' => array(
-					'name' => new \Zend\Validator\Date(),
-				),
-			)));
+			 $inputFilter->add($factory->createInput(array(
+			 	'name' => 'dataRev',
+			 	'required' => false,
+			 	'filters' => array(
+			 		array('name' => 'StripTags'),
+			 		array('name' => 'StringTrim'),
+			 	),
+			 	'validators' => array(
+			 		'name' => new \Zend\Validator\Date(),
+			 	),
+			 )));
 
 			$inputFilter->add($factory->createInput(array(
 				'name' => 'origemGravacao',
@@ -1239,8 +1245,6 @@ class Fisica extends Pessoa
 					array('name' => 'Int'),
 				),
 			)));
-
-
 
 			$this->inputFilter = $inputFilter;
 		}

@@ -33,8 +33,7 @@ use Doctrine\ORM\Mapping\UniqueConstraint;
  * @copyright  Copyright (c) 2013 Eduardo Junior.com (http://www.eduardojunior.com)
  * 
  * @ORM\Entity
- * @ORM\Table(name="cadastro.pessoa")
- //, uniqueConstraints={@UniqueConstraint(name="enderecoexterno_idx", columns={"enderecoExterno"})}
+ * @ORM\Table(name="cadastro_pessoa")
  * @ORM\HasLifecycleCallbacks
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorMap({"P" = "Pessoa", "F" = "Fisica", "J" = "Juridica"})
@@ -212,10 +211,10 @@ class Pessoa extends Entity implements EventSubscriber
 	/**
 	 * @var EnderecoExterno $enderecoExterno Entity Endereço Externo
 	 * 
-	 * ORM\OneToOne(targetEntity="EnderecoExterno", cascade={"persist"})
-	 * ORM\JoinColumn(name="enderecoExterno", referencedColumnName="id")	 
+	 * @ORM\OneToOne(targetEntity="Usuario\Entity\EnderecoExterno", cascade={"persist"}, mappedBy="pessoa")
+	 * @ORM\JoinColumn(name="enderecoExterno")	 
 	 */
-	//protected $enderecoExterno;
+	protected $enderecoExterno;
 	/**
 	 * @var int $pessoa Id da pessoa que tem esse endereco
 	 * ORM\ManyToOne(targetEntity="Usuario\Entity\EnderecoExterno")	 	 
@@ -770,15 +769,15 @@ class Pessoa extends Entity implements EventSubscriber
 		$this->fisica = $value;
 	}
 
-	// public function setEnderecoExterno($value)
- //    {
- //    	$this->enderecoExterno = $value;        
- //    }
+	public function setEnderecoExterno($value)
+    {
+    	$this->enderecoExterno = $value;        
+    }
     
- //    public function getEnderecoExterno()
- //    {
- //        return $this->enderecoExterno;
- //    }
+    public function getEnderecoExterno()
+    {
+        return $this->enderecoExterno;
+    }
 
 	/**
 	 * Configura os filtros dos campos da entidade
