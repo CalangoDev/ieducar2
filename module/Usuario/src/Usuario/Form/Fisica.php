@@ -93,6 +93,31 @@ class Fisica extends Form
 			),			
 		));
 
+        $this->add(array(
+            'name' => 'estadoCivil',
+            'attributes' => array(
+                'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+                'class' => 'form-control chosen-select',
+                'style' => 'height:100px;',
+            ),
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'options' => array(
+                'label' => 'Estado Cívil:',
+                'object_manager' => $em,
+                'target_class' => 'Usuario\Entity\EstadoCivil',
+                'property' => 'descricao',
+                'find_method' => array(
+                    'name' => 'findBy',
+                    'params' => array(
+                        'criteria' => array(),
+                        'orderBy' => array('descricao' => 'ASC')
+                    ),
+                ),
+                'display_empty_item' => true,
+                'empty_item_label' => 'Selecione',
+            ),
+        ));
+
 		$this->add(array(
 			'name' => 'raca',
 			'attributes' => array(

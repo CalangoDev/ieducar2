@@ -224,6 +224,14 @@ class FisicaControllerTest extends ControllerTestCase
 		$this->assertEquals('fax', $fax->getName());
 		$this->assertEquals('text', $fax->getAttribute('type'));
 
+        $raca = $form->get('raca');
+        $this->assertEquals('raca', $raca->getName());
+        $this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $raca->getAttribute('type'));
+
+        $estadoCivil = $form->get('estadoCivil');
+        $this->assertEquals('estadoCivil', $estadoCivil->getName());
+        $this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $estadoCivil->getAttribute('type'));
+
 	}
 
 	/**
@@ -371,13 +379,14 @@ class FisicaControllerTest extends ControllerTestCase
 		$this->request->getPost()->set('logradouro', 'Rua X');
 		$this->request->getPost()->set('cidade', 'Irecê');
 		$this->request->getPost()->set('cpf', '');
-        // Parametros requiridos que vao ser passados em branco
         $this->request->getPost()->set('sexo', '');
-        $this->request->getPost()->set('nome', '');
         $this->request->getPost()->set('tipoLogradouro', '');
-        $this->request->getPost()->set('siglaUf', '');       		
-		$this->request->getPost()->set('zonaLocalizacao', '');
-		$this->request->getPost()->set('cep', '');
+        $this->request->getPost()->set('siglaUf', '');
+        $this->request->getPost()->set('zonaLocalizacao', '');
+        $this->request->getPost()->set('cep', '');
+        // Parametros requiridos que vao ser passados em branco
+        $this->request->getPost()->set('nome', '');
+
         $result = $this->controller->dispatch(
             $this->request, $this->response
         );

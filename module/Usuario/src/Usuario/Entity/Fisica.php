@@ -1246,6 +1246,11 @@ class Fisica extends Pessoa
 				'required' => false
 			)));
 
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'estadoCivil',
+                'required' => 'false'
+            )));
+
 			$this->inputFilter = $inputFilter;
 		}
 		return $this->inputFilter;

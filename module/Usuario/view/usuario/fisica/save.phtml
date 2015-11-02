@@ -34,6 +34,7 @@
 							$dataNasc = $this->form->get('dataNasc');
 							$cpf = $this->form->get('cpf');
 							$sexo = $this->form->get('sexo');
+							$estadoCivil = $this->form->get('estadoCivil');
 							$url = $this->form->get('url');
 							$email = $this->form->get('email');
 							$raca = $this->form->get('raca');
@@ -142,7 +143,22 @@
 											?>	
 										</div>
 									</div>										
-								</div>	
+								</div>
+								<div class="form-group">
+									<label for="estadoCivil">
+										<?php
+										echo $estadoCivil->getOption('label');
+										?>
+									</label>
+									<div class="row">
+										<div class="col-md-2">
+											<?php
+											echo $this->formSelect($estadoCivil);
+											echo $this->formElementErrors($estadoCivil);
+											?>
+										</div>
+									</div>
+								</div>
 								<div class="form-group">
 									<label for="raca">
 										<?php

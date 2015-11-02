@@ -171,6 +171,12 @@ class FisicaController extends ActionController
                 $form->remove('raca');
             }
 
+            $estadoCivil = $this->params()->fromPost('estadoCivil', 0);
+            if ($estadoCivil == '' || $estadoCivil == 0){
+                $fisica->removeInputFilter('estadoCivil');
+                $form->remove('estadoCivil');
+            }
+
 			$dataNasc  = $this->params()->fromPost('dataNasc', 0);
 
             if ($dataNasc == '')
@@ -248,6 +254,9 @@ class FisicaController extends ActionController
 
 			} else {
 
+//                var_dump('invalido');
+//                var_dump($form->getData());
+
 				if ($this->params()->fromPost('dataNasc')){
 					$date = new \DateTime($this->params()->fromPost('dataNasc'), new \DateTimeZone('America/Sao_Paulo'));
 					$date = $date->format('d-m-Y');					
@@ -303,6 +312,32 @@ class FisicaController extends ActionController
                             ),
                             'display_empty_item' => true,
                             'empty_item_label'   => 'Selecione',
+                        ),
+                    ));
+
+
+                    $form->add(array(
+                        'name' => 'estadoCivil',
+                        'attributes' => array(
+                            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+                            'class' => 'form-control chosen-select',
+                            'style' => 'height:100px;',
+                        ),
+                        'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+                        'options' => array(
+                            'label' => 'Estado Cívil:',
+                            'object_manager' => $this->getEntityManager(),
+                            'target_class' => 'Usuario\Entity\EstadoCivil',
+                            'property' => 'descricao',
+                            'find_method' => array(
+                                'name' => 'findBy',
+                                'params' => array(
+                                    'criteria' => array(),
+                                    'orderBy' => array('descricao' => 'ASC')
+                                ),
+                            ),
+                            'display_empty_item' => true,
+                            'empty_item_label' => 'Selecione',
                         ),
                     ));
 
