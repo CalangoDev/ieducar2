@@ -12,3 +12,6 @@ versionamento.txt
 vendor/
 composer.phar
 module/Usuario/tests/_reports/
+module/Usuario/tests/_reports/coverage/
+module/Usuario/tests/_reports/logs/
+module/Usuario/tests/_reports/testdox/
