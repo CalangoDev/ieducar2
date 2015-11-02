@@ -18,7 +18,7 @@ class IndexController extends AbstractActionController
 	
     public function indexAction()
     {
-        $pessoa = new \Usuario\Entity\Pessoa();
+        /*$pessoa = new \Usuario\Entity\Pessoa();
         $pessoa->nome = "JOAO";
         $pessoa->tipo = "F";
         $pessoa->situacao = "A";
@@ -28,7 +28,7 @@ class IndexController extends AbstractActionController
         $pessoa->idpes_cad = 1;
         $pessoa->idpes_rev = 1;
         $this->getEntityManager()->persist($pessoa);
-        $this->getEntityManager()->flush();
+        $this->getEntityManager()->flush();*/
         //self::deletePessoaHistorico($pessoa);
         //echo $this->getServiceLocator()->get('myService');
         return new ViewModel();
@@ -38,6 +38,7 @@ class IndexController extends AbstractActionController
     {                
         //var_dump($this->serviceManager());
         //$sm = $this->serviceManager()->get('Doctrine\ORM\EntityManager');
+        /*
 		$historico = new \Historico\Entity\Pessoa();
     	$historico->idpes = $pessoa->id;
     	$historico->nome = $pessoa->nome;
@@ -52,13 +53,13 @@ class IndexController extends AbstractActionController
     	$historico->idsis_rev = $pessoa->idsis_rev;
     	$historico->idsis_cad = $pessoa->idsis_cad;
     	$historico->idpes_rev = $pessoa->idpes_rev;
-    	$historico->idpes_cad = $pessoa->idpes_cad;           
+    	$historico->idpes_cad = $pessoa->idpes_cad;*/
     	// $this->getEntityManager()->persist($historico);
      //    $this->getEntityManager()->flush();
-        
+        /*
         $em = new EntityManager;
         $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-        var_dump($em);
+        var_dump($em);*/
         // $sm->persist($historico);
         // $sm->flush();
     }

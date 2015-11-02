@@ -368,6 +368,7 @@ class FisicaController extends ActionController
 
 	/**
 	 * Excluir uma pessoa
+     * @throws \Exception If registro não encontrado
 	 * @return void
 	 */
 	public function deleteAction()

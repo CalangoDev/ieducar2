@@ -35,7 +35,7 @@ class FisicaTest extends EntityTestCase
 	public function testInputFilterValid($if)
 	{
 		//testa os filtros 
-		$this->assertEquals(35, $if->count());
+		$this->assertEquals(36, $if->count());
 
 		$this->assertTrue($if->has('id'));		
 		$this->assertTrue($if->has('dataNasc'));
@@ -72,6 +72,7 @@ class FisicaTest extends EntityTestCase
 		$this->assertTrue($if->has('raca'));
         $this->assertTrue($if->has('nome'));
 		$this->assertTrue($if->has('enderecoExterno'));
+		$this->assertTrue($if->has('estadoCivil'));
 	}
 
 	/**
@@ -213,7 +214,7 @@ class FisicaTest extends EntityTestCase
 
 		$savedFisica = $this->em->find('Usuario\Entity\Fisica', $id);
 
-		$this->em->remove($fisica);
+		$this->em->remove($savedFisica);
 		$this->em->flush();
 
 		$savedFisica = $this->em->find('Usuario\Entity\Fisica', $id);		

@@ -650,6 +650,8 @@ class Fisica extends Form
 			)
 		));
 
+		// FOTO FORMULARIO
+
 		$this->add(array(
 			'name' => 'submit',
 			'attributes' => array(

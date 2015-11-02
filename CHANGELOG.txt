@@ -2,10 +2,14 @@
 
 i-Educar 2.0.0 
 -------------------------
-- Criado atributo idraca na tabela cadastro.fisica que aponta para o atributo cod_raca tabela de raças cadastro.raca
-  Na versão anterior tinha uma tabela chamada cadastro.fisica_raca onde se armazenavam o id da pessoa fisica e o codigo
+- Criado atributo idraca na tabela cadastro_fisica que aponta para o atributo cod_raca tabela de raças cadastro.raca
+  Na versão anterior tinha uma tabela chamada cadastro_fisica_raca onde se armazenavam o id da pessoa fisica e o codigo
   da raça. 
-- O endereço do usuario é salvo na tabela cadastro.endereco_externo
+- O endereço do usuario é salvo na tabela cadastro_endereco_externo
+- Remoção de schemas nos nomes das tabelas, substituido por _ "underscore" usando o nome do schema como prefixo
+- O campo foto que é salvo em uma tabela cadastro.fisica_foto na versão 1 foi migrado para tabela cadastro_fisica como
+um campo string, para um atributo chamado foto
+
 
 i-Educar 1.1.0 2010-02-15
 -------------------------

@@ -67,6 +67,7 @@ class Fisica extends Pessoa
 	 * @access  public
 	 * @return  Exception
 	 * @ORM\PrePersist
+	 * @throws EntityException If o atributo sexo recebeu um valor inválido
 	 */
 	public function checkSexo()
 	{	
@@ -110,6 +111,7 @@ class Fisica extends Pessoa
 	 * @access  public
 	 * @return  Exception 
 	 * @ORM\PrePersist
+	 * @throws EntityException If O atributo nacionalidade recebeu um valor inválido:
 	 */
 	public function checkNacionalidade()
 	{
@@ -381,6 +383,13 @@ class Fisica extends Pessoa
 	 * @ORM\JoinColumn(name="idraca", referencedColumnName="cod_raca", onDelete="SET NULL", nullable=true)
 	 */
 	protected $raca;
+
+	/**
+	 * @var string $foto Caminho da imagem de foto
+	 *
+	 * @ORM\Column(type="string", length=120, nullable=true)
+	 */
+	protected $foto;
 
 	/**
 	 * getters and setters
@@ -714,7 +723,17 @@ class Fisica extends Pessoa
 	public function setRaca($value)
 	{
 		$this->raca = $value;
-	}    
+	}
+
+    public function getFoto()
+    {
+        return $this->foto;
+    }
+
+    public function setFoto($value)
+    {
+        $this->foto = $this->valid("foto", $value);
+    }
 
 	public function setData($data)
 	{
@@ -780,6 +799,7 @@ class Fisica extends Pessoa
 		$this->setNome(isset($data['nome']) ? $data['nome'] : null);
 		$this->setSituacao(isset($data['situacao']) ? $data['situacao'] : null);
 		$this->setRaca(isset($data['raca']) ? $data['raca'] : null);
+
 	}
 
 
@@ -1249,6 +1269,25 @@ class Fisica extends Pessoa
             $inputFilter->add($factory->createInput(array(
                 'name' => 'estadoCivil',
                 'required' => 'false'
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'foto',
+                'required' => false,
+                'filters'	=>	array(
+                    array('name'	=>	'StripTags'),
+                    array('name'	=>	'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name' => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min' => 1,
+                            'max' => 120,
+                        ),
+                    ),
+                ),
             )));
 
 			$this->inputFilter = $inputFilter;
