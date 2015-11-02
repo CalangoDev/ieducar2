@@ -24,7 +24,7 @@ class EnderecoExterno extends Form
 				'type' => 'DoctrineModule\Form\Element\ObjectSelect',
 				'class' => 'form-control chosen-select tipoLogradouro',
 				'style' => 'height:100px;',
-                'required' => 'required'
+                //'required' => 'required'
 			),
 			'type' => 'DoctrineModule\Form\Element\ObjectSelect',
 			'options' => array(
@@ -109,7 +109,7 @@ class EnderecoExterno extends Form
 				'type' => 'DoctrineModule\Form\Element\ObjectSelect',
 				'class' => 'form-control chosen-select uf',
 				'style' => 'height:100px;',
-                'required' => 'required'
+                //'required' => 'required'
 			),
 			'type' => 'DoctrineModule\Form\Element\ObjectSelect',
 			'options' => array(
@@ -214,7 +214,6 @@ class EnderecoExterno extends Form
 				'type' => 'text',
 				'class' => 'form-control cep',
 				'style' => 'width:100px',
-                'required' => 'required'
 			),
 			'options' => array(
 				'label' => 'CEP:'
@@ -226,7 +225,7 @@ class EnderecoExterno extends Form
 			'attributes' => array(				
 				'value' => '1',
 				'class' => 'form-control chosen-select',
-				'required' => 'required'
+				//'required' => 'required'
 			),
 			'type' => 'Zend\Form\Element\Select',
 			'options' => array(

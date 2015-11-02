@@ -104,7 +104,8 @@ class FisicaController extends ActionController
 
 			$form->get('submit')->setAttribute('value', 'Atualizar');
 		}
-		$form->setHydrator(new DoctrineEntity($this->getEntityManager(), 'Usuario\Entity\Fisica'));		
+		$form->setHydrator(new DoctrineEntity($this->getEntityManager(), 'Usuario\Entity\Fisica'));
+
 
 //		$enderecoExterno->setTipoLogradouro($this->params()->fromPost('tipoLogradouro'));
 //		$enderecoExterno->setSiglaUf($this->params()->fromPost('siglaUf'));
@@ -162,7 +163,13 @@ class FisicaController extends ActionController
 				$form->remove('cpf');
 				// unset($data['cpf']);
 
-			}	
+			}
+
+            $raca = $this->params()->fromPost('raca', 0);
+            if ($raca == '' || $raca == 0){
+                $fisica->removeInputFilter('raca');
+                $form->remove('raca');
+            }
 
 			$dataNasc  = $this->params()->fromPost('dataNasc', 0);
 
@@ -268,18 +275,55 @@ class FisicaController extends ActionController
 
 				}
 
+                /**
+                 * mesmo problema do cpf ...
+                 */
+                if ($raca == ''){
+
+                    $form->add(array(
+                        'name' => 'raca',
+                        'attributes' => array(
+                            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+                            'class' => 'form-control chosen-select',
+                            'style' => 'height:100px;',
+                        ),
+                        'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+                        'options' => array(
+                            'label' => 'Raça:',
+//				'empty_option' => 'Selecione',
+                            'object_manager' => $this->getEntityManager(),
+                            'target_class' => 'Usuario\Entity\Raca',
+                            'property' => 'nome',
+                            'find_method' => array(
+                                'name' => 'findBy',
+                                'params' => array(
+                                    'criteria' => array('ativo' => true),
+                                    'orderBy' => array('nome' => 'ASC')
+                                ),
+                            ),
+                            'display_empty_item' => true,
+                            'empty_item_label'   => 'Selecione',
+                        ),
+                    ));
+
+                }
+
 			}
 
 		}
+
+        /*
+         * codigo desnecessario
 
 		$id = (int) $this->params()->fromRoute('id', 0);
 
 		if ($id >0){
 
 			$fisica = $this->getEntityManager()->find('Usuario\Entity\Fisica', $id);			
-			$form->get('submit')->setAttribute('value', 'Edit');
+			//$form->get('submit')->setAttribute('value', 'Edit');
 
 		}
+        */
 
 		return new ViewModel(array(
 			'form' => $form

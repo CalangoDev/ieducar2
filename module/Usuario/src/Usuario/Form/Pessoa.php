@@ -87,7 +87,7 @@ class Pessoa extends Form
 			'name' => 'submit',
 			'attributes' => array(
 				'type' => 'submit',
-				'value' => 'Enviar',
+				'value' => 'Salvar',
 				'id' => 'submitbutton',
 			),
 		));

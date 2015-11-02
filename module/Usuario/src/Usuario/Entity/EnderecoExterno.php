@@ -102,7 +102,7 @@ class EnderecoExterno extends Entity
 	/**
 	 * @var int $cep
 	 * 
-	 * @ORM\Column(type="integer", length=8, nullable=true)
+	 * @ORM\Column(type="string", length=9, nullable=true)
 	 */
 	protected $cep;
 

@@ -389,15 +389,9 @@ class FisicaControllerTest extends ControllerTestCase
         $headers = $response->getHeaders();
 
         //	Verify Filters Validators
-        $msgs = $result->getVariables()['form']->getMessages();	
-        // var_dump($result->getVariables()['form']->getMessages());		
+        $msgs = $result->getVariables()['form']->getMessages();
         $this->assertEquals('Value is required and can\'t be empty', $msgs["nome"]['isEmpty']);
-        $this->assertEquals('Value is required and can\'t be empty', $msgs["sexo"]['isEmpty']);        
-        $this->assertEquals('Value is required and can\'t be empty', $msgs["enderecoExterno"]["zonaLocalizacao"]['isEmpty']);
-        $this->assertEquals('Value is required and can\'t be empty', $msgs["enderecoExterno"]["tipoLogradouro"]['isEmpty']);
-        $this->assertEquals('Value is required and can\'t be empty', $msgs["enderecoExterno"]["siglaUf"]['isEmpty']);
-        $this->assertEquals('Value is required and can\'t be empty', $msgs["enderecoExterno"]["cep"]['isEmpty']);
-
+        $this->assertEquals('Value is required and can\'t be empty', $msgs["sexo"]['isEmpty']);
     }
 
 	/**

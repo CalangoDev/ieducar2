@@ -378,7 +378,7 @@ class Fisica extends Pessoa
 	 * @var int $raca Referencia a raça da pessoa fisica
 	 * 
 	 * @ORM\ManyToOne(targetEntity="Usuario\Entity\Raca")
-	 * @ORM\JoinColumn(name="idraca", referencedColumnName="cod_raca", onDelete="SET NULL")
+	 * @ORM\JoinColumn(name="idraca", referencedColumnName="cod_raca", onDelete="SET NULL", nullable=true)
 	 */
 	protected $raca;
 
@@ -807,11 +807,6 @@ class Fisica extends Pessoa
 					array('name' => 'Int'),
 				),
 			)));				
-
-			// $inputFilter->add($factory->createInput(array(
-			// 	'name' => 'enderecoExterno',
-			// 	'required' => false				
-			// )));						
 
 			$inputFilter->add($factory->createInput(array(
 				'name' => 'raca',
@@ -1244,6 +1239,11 @@ class Fisica extends Pessoa
 				'filters' => array(
 					array('name' => 'Int'),
 				),
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'enderecoExterno',
+				'required' => false
 			)));
 
 			$this->inputFilter = $inputFilter;

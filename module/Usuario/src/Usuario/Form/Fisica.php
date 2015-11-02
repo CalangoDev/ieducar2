@@ -4,7 +4,7 @@ namespace Usuario\Form;
 use Zend\Form\Form;
 use Doctrine\ORM\EntityManager;
 // use Usuario\Entity\EnderecoExterno;
-// use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
+use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 
 class Fisica extends Form
 {
@@ -103,7 +103,7 @@ class Fisica extends Form
 			'type' => 'DoctrineModule\Form\Element\ObjectSelect',
 			'options' => array(
 				'label' => 'Raça:',
-				'empty_option' => 'Selecione',
+//				'empty_option' => 'Selecione',
 				'object_manager' => $em,
 				'target_class' => 'Usuario\Entity\Raca',
 				'property' => 'nome',
@@ -114,6 +114,8 @@ class Fisica extends Form
 						'orderBy' => array('nome' => 'ASC')
 					),
 				),
+                'display_empty_item' => true,
+                'empty_item_label'   => 'Selecione',
 			),
 		));
 
@@ -132,9 +134,11 @@ class Fisica extends Form
 
 		// Endereco Externo		
 		// Instanciando o Fieldset programaticamente
+
         $endExterno = new \Usuario\Form\EnderecoExterno($em);
         $endExterno->setUseAsBaseFieldset(false);
         $this->add($endExterno);
+
 
 		// $this->add(array(
 		// 	'name' => 'tipoLogradouro',
@@ -625,7 +629,7 @@ class Fisica extends Form
 			'name' => 'submit',
 			'attributes' => array(
 				'type' => 'submit',
-				'value' => 'Enviar',
+				'value' => 'Salvar',
 				'id' => 'submitbutton',
 				'class' => 'btn btn-lg btn-primary',
 			),

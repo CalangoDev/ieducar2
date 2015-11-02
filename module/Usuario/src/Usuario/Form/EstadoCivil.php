@@ -2,10 +2,12 @@
 namespace Usuario\Form;
 
 use Zend\Form\Form;
+use Doctrine\ORM\EntityManager;
+use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 
 class EstadoCivil extends Form
 {
-	public function __construct()
+	public function __construct(EntityManager $em = null)
 	{
 		parent::__construct('estadocivil');
 		$this->setAttribute('method', 'post');
@@ -32,7 +34,7 @@ class EstadoCivil extends Form
 			'name' => 'submit',
 			'attributes' => array(
 				'type' => 'submit',
-				'value' => 'Enviar',
+				'value' => 'Atualizar',
 				'id' => 'submitbutton',
 			),			
 		));
