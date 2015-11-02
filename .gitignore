@@ -11,4 +11,4 @@ vendor/bin
 versionamento.txt
 vendor/
 composer.phar
-_reports/
+module/Usuario/tests/_reports/
