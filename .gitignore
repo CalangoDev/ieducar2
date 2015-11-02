@@ -10,3 +10,4 @@ composer.lock
 vendor/bin
 versionamento.txt
 vendor/
+composer.phar
