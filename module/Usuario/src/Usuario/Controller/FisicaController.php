@@ -386,5 +386,4 @@ class FisicaController extends ActionController
 		
 		return $this->redirect()->toUrl('/usuario/fisica');
 	}
-	
 }
