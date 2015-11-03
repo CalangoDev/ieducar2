@@ -138,6 +138,7 @@ class Fisica extends Pessoa
 
 	/**
 	 * @var string $nome_mae	Nome da Mae
+	 * @deprecated deprecated since version 2.0
 	 * 
 	 * @ORM\Column(name="nome_mae", type="string", length=150, nullable=true)
 	 */
@@ -145,6 +146,7 @@ class Fisica extends Pessoa
 
 	/**
 	 * @var string $nome_pai	Nome do pai
+	 * @deprecated deprecated since version 2.0
 	 * 
 	 * @ORM\Column(name="nome_pai", type="string", length=150, nullable=true)
 	 */
@@ -1268,7 +1270,7 @@ class Fisica extends Pessoa
 
             $inputFilter->add($factory->createInput(array(
                 'name' => 'estadoCivil',
-                'required' => 'false'
+                'required' => false
             )));
 
             $inputFilter->add($factory->createInput(array(
@@ -1288,6 +1290,16 @@ class Fisica extends Pessoa
                         ),
                     ),
                 ),
+            )));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'pessoaMae',
+				'required' => false
+			)));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'pessoaPai',
+                'required' => false
             )));
 
 			$this->inputFilter = $inputFilter;

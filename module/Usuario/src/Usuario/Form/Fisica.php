@@ -94,6 +94,8 @@ class Fisica extends Form
 			),			
 		));
 
+
+
         $this->add(array(
             'name' => 'estadoCivil',
             'attributes' => array(
@@ -144,6 +146,88 @@ class Fisica extends Form
                 'empty_item_label'   => 'Selecione',
 			),
 		));
+
+		$this->add(array(
+            'name' => 'pessoaMae',
+            'attributes' => array(
+                'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+                'class' => 'form-control chosen-select',
+                'style' => 'height:100px;',
+            ),
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'options' => array(
+                'label' => 'Mãe:',
+                'object_manager' => $em,
+                'target_class' => 'Usuario\Entity\Fisica',
+                'property' => 'nome',
+                'find_method' => array(
+                    'name' => 'findBy',
+                    'params' => array(
+                        'criteria' => array('sexo' => 'F'),
+                        'orderBy' => array('nome' => 'ASC')
+                    ),
+                ),
+                'display_empty_item' => true,
+                'empty_item_label' => 'Informe o nome da mãe, CPF, ou RG da pessoa',
+                'label_generator' => function($em) {
+                    $label = '';
+                    if ($em->getNome()){
+                        $label .=  $em->getNome();
+                    }
+                    if ($em->getCpf()){
+                        $label .= ' - CPF (' . $em->getCpf() . ')';
+                    }
+                    /*
+                    if ($em->getRg()){
+                        $label .= ' - ' . $em->getRg();
+                    }*/
+
+                    return $label;
+
+                },
+            ),
+		));
+
+        $this->add(array(
+            'name' => 'pessoaPai',
+            'attributes' => array(
+                'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+                'class' => 'form-control chosen-select',
+                'style' => 'height:100px;',
+            ),
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'options' => array(
+                'label' => 'Pai:',
+                'object_manager' => $em,
+                'target_class' => 'Usuario\Entity\Fisica',
+                'property' => 'nome',
+                'find_method' => array(
+                    'name' => 'findBy',
+                    'params' => array(
+                        'criteria' => array('sexo' => 'M'),
+                        'orderBy' => array('nome' => 'ASC')
+                    ),
+                ),
+                'display_empty_item' => true,
+                'empty_item_label' => 'Informe o nome da mãe, CPF, ou RG da pessoa',
+                'label_generator' => function($em) {
+                    $label = '';
+                    if ($em->getNome()){
+                        $label .=  $em->getNome();
+                    }
+                    if ($em->getCpf()){
+                        $label .= ' - CPF (' . $em->getCpf() . ')';
+                    }
+                    /*
+                    if ($em->getRg()){
+                        $label .= ' - ' . $em->getRg();
+                    }*/
+
+                    return $label;
+
+                },
+            ),
+        ));
 
 		// $this->add(array(
 		// 	'name' => 'cep',

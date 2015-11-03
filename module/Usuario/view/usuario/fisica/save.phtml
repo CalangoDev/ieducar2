@@ -39,6 +39,8 @@
 							$email = $this->form->get('email');
 							$raca = $this->form->get('raca');
 							$enderecoExterno = $this->form->get('enderecoExterno');
+                            $pessoaMae = $this->form->get('pessoaMae');
+                            $pessoaPai = $this->form->get('pessoaPai');
 							
 							// $cep = $this->form->get('cep');
 							$cep = $enderecoExterno->get('cep');
@@ -95,8 +97,12 @@
 										<div class="col-md-6">
 											<?php
 											echo $this->formInput($nome);
-											echo $this->formElementErrors($nome);
-											?>									
+                                            ?>
+                                            <span class="help-block">
+                                                <?php
+                                                echo $this->formElementErrors($nome);
+                                                ?>
+                                            </span>
 										</div>
 									</div>
 								</div>								
@@ -160,6 +166,39 @@
 										</div>
 									</div>
 								</div>
+
+                                <div class="form-group">
+                                    <label for="pessoaMae">
+                                        <?php
+                                        echo $pessoaMae->getOption('label');
+                                        ?>
+                                    </label>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <?php
+                                            echo $this->formSelect($pessoaMae);
+                                            echo $this->formElementErrors($pessoaMae);
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="pessoaPai">
+                                        <?php
+                                        echo $pessoaPai->getOption('label');
+                                        ?>
+                                    </label>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <?php
+                                            echo $this->formSelect($pessoaPai);
+                                            echo $this->formElementErrors($pessoaPai);
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+
 								<div class="form-group">
 									<label for="raca">
 										<?php
@@ -517,7 +556,11 @@
                                             echo $this->formElement($foto);
                                             echo $this->formElementErrors($foto);
                                             ?>
+											<span class="help-block">
+												* Recomenda-se imagens nos formatos jpeg, jpg, png e gif. Tamanho máximo: 150KB
+											</span>
                                         </div>
+
                                     </div>
                                 </div>
 
