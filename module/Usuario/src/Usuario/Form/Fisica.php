@@ -13,6 +13,7 @@ class Fisica extends Form
 		parent::__construct('fisica');
 		$this->setAttribute('method', 'post');
 		$this->setAttribute('action', '/usuario/fisica/save');
+        $this->setAttribute('enctype', 'multipart/form-data');
 		// $this->setAttribute('class', 'form-inline');
 
 		// $this->setHydrator(new DoctrineHydrator($em, 'Usuario\Entity\Fisica'))
@@ -650,7 +651,16 @@ class Fisica extends Form
 			)
 		));
 
-		// FOTO FORMULARIO
+        $this->add(array(
+            'name' => 'foto',
+            'attributes' => array(
+                'type' => 'file',
+                'class' => 'form-control'
+            ),
+            'options' => array(
+                'label' => 'Foto',
+            ),
+        ));
 
 		$this->add(array(
 			'name' => 'submit',

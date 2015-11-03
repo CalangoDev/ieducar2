@@ -74,6 +74,7 @@
 							$celular = $this->form->get('celular');
 							$dddFax = $this->form->get('dddFax');
 							$fax = $this->form->get('fax');
+							$foto = $this->form->get('foto');
 							/**
 							 * @todo
 							 * - Endereço 
@@ -503,6 +504,23 @@
 										</div>
 									</div>									
 								</div>
+
+                                <div class="form-group">
+                                    <label for="foto" class="foto">
+                                        <?php
+                                        echo $foto->getOption('label');
+                                        ?>
+                                    </label>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <?php
+                                            echo $this->formElement($foto);
+                                            echo $this->formElementErrors($foto);
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+
 								<div class="form-group">
 									<label for="situacao">
 										<?php 
@@ -518,6 +536,7 @@
 										</div>
 									</div>										
 								</div>
+
 								<br>
 								
 									<div class="form-group">

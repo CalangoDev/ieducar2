@@ -11,7 +11,8 @@ return array(
         'Drh',
         'Auth',
         'DoctrineDataFixtureModule',
-        'Core'      
+        'Core',
+        'WebinoImageThumb'
     ),    
     'module_listener_options' => array(
         'module_paths' => array(

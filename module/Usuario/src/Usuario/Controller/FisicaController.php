@@ -14,6 +14,7 @@ use Doctrine\ORM\EntityManager;
 use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 use Zend\Paginator\Paginator;
+use Zend\Validator\File\Size;
 
 
 /**
@@ -83,7 +84,7 @@ class FisicaController extends ActionController
 	{
 
 		$fisica = new Fisica;		
-		$enderecoExterno = new EnderecoExterno();			
+//		$enderecoExterno = new EnderecoExterno();
 		$form = new FisicaForm($this->getEntityManager());
 		$request = $this->getRequest();
 		$id = (int) $this->getEvent()->getRouteMatch()->getParam('id');
@@ -210,47 +211,95 @@ class FisicaController extends ActionController
 			//     ),
 			// ));
 
-			$form->setData($request->getPost());
+            $semArquivoFoto = $request->getPost()->toArray();
+            $arquivoFoto = $this->params()->fromFiles('foto');
+            $data = array_merge(
+                $semArquivoFoto,
+                array('foto' => $arquivoFoto['name'])
+            );
 
+			$form->setData($data);
 			// $form->setData($data);
 			// var_dump($request->getPost());
+
+            $tamanho = new Size(array('max' => 20000000));
+            $extensao = new \Zend\Validator\File\Extension(array('extension' => array('gif', 'jpg', 'png')));
+            $adapter = new \Zend\File\Transfer\Adapter\Http();
+            $adapter->setValidators(array($tamanho, $extensao), $arquivoFoto['name']);
+            $fotoValidaOuVazia = false;
+
+            if ($adapter->isValid())
+                $fotoValidaOuVazia = true;
+
+            if ($this->params()->fromFiles('foto')['size'] == 0)
+                $fotoValidaOuVazia = true;
 						
-			if ($form->isValid()){				
+			if ($form->isValid() && $fotoValidaOuVazia){
 				// $data = $form->getData();				
 				// unset($data['submit']);
-				// $fisica->setData($data);								
-				/**
-				 * Persistindo os dados
-				 */				
-				$id = (int) $this->params()->fromPost('id', 0);
-				// var_dump($id);				
-				if ($id == 0){
+				// $fisica->setData($data);
 
-					// $enderecoExterno = new EnderecoExterno();
-					// $enderecoExterno->setPessoa($fisica);
-					// $enderecoExterno->setLogradouro($this->params()->fromPost('logradouro'));
-					// $enderecoExterno->setCidade($this->params()->fromPost('cidade'));
-					// $enderecoExterno->setSiglaUf($this->params()->fromPost('uf'));
-					// $enderecoExterno->setSiglaUf($this->params()->fromPost('uf'));
-					// $enderecoExterno->setOrigemGravacao("U");
-					// $enderecoExterno->setOperacao(($id > 0) ? "A" : "I");
-					// $enderecoExterno->setIdsisCad(1);							
-					// $enderecoExterno->setPessoa($fisica);								
-					$this->getEntityManager()->persist($fisica);										
-					//$enderecoExterno->setPessoa($fisica);
-					// $this->getEntityManager()->persist($enderecoExterno);	
-					// $pessoa = $this->getEntityManager()->find('Usuario\Entity\Pessoa', $fisica->getId());									
-					$this->flashMessenger()->addSuccessMessage('Pessoa Salva');
-				} else {
-					$this->flashMessenger()->addSuccessMessage('Pessoa foi alterada!');
-				}				
+                // Validando upload da foto
+				if ($adapter->isValid()){
+					$adapter->setDestination(getcwd() . '/data/pessoa');
+                    $extensao = substr($arquivoFoto['name'], strrpos($arquivoFoto['name'], '.') + 1);
+                    $horaGeracaoArquivo = date('Ymdhs');
+                    $nomeArquivoFoto = 'pessoafisica_' . $horaGeracaoArquivo . '.' . $extensao;
+                    $adapter->addFilter('Rename', array('target' => getcwd() . '/data/pessoa/' . $nomeArquivoFoto . '', 'overwrite' => true));
+                    $data['foto'] = $nomeArquivoFoto;
+                    if ($adapter->receive($arquivoFoto['name'])){
+                        if (is_file(getcwd() . '/data/pessoa/' . $data['foto'])){
+                            /*
+                             * Tudo ok, salvar no banco de dados
+                             */
+                            $fisica->setFoto($data['foto']);
+                            $thumbnailer = $this->getServiceLocator()->get('WebinoImageThumb');
+                            $thumb = $thumbnailer->create( getcwd() . '/data/pessoa/' . $nomeArquivoFoto, $options = array(
+                                'jpegQuality' => 66
+                            ));
+                            $dimensoes = $thumb->getCurrentDimensions();
+
+                            if ($dimensoes['width'] > 1000){
+                                $thumb->resize(1000);
+                                $thumb->save( getcwd() . '/data/pessoa/' . $nomeArquivoFoto);
+                            }
+                        }
+                    }
+				}
+
+
+                /**
+                 * Persistindo os dados
+                 */
+                $id = (int) $this->params()->fromPost('id', 0);
+
+                if ($id == 0){
+
+                        // $enderecoExterno = new EnderecoExterno();
+                        // $enderecoExterno->setPessoa($fisica);
+                        // $enderecoExterno->setLogradouro($this->params()->fromPost('logradouro'));
+                        // $enderecoExterno->setCidade($this->params()->fromPost('cidade'));
+                        // $enderecoExterno->setSiglaUf($this->params()->fromPost('uf'));
+                        // $enderecoExterno->setSiglaUf($this->params()->fromPost('uf'));
+                        // $enderecoExterno->setOrigemGravacao("U");
+                        // $enderecoExterno->setOperacao(($id > 0) ? "A" : "I");
+                        // $enderecoExterno->setIdsisCad(1);
+                        // $enderecoExterno->setPessoa($fisica);
+                    $this->getEntityManager()->persist($fisica);
+                    //$enderecoExterno->setPessoa($fisica);
+                    // $this->getEntityManager()->persist($enderecoExterno);
+                    // $pessoa = $this->getEntityManager()->find('Usuario\Entity\Pessoa', $fisica->getId());
+                    $this->flashMessenger()->addSuccessMessage('Pessoa Salva');
+                } else {
+                    $this->flashMessenger()->addSuccessMessage('Pessoa foi alterada!');
+                }
 
                 $this->getEntityManager()->flush();
 
                 /**
-				 * Redirecionando para lista de pessoas fisicas
-				 */
-				return $this->redirect()->toUrl('/usuario/fisica');
+                 * Redirecionando para lista de pessoas fisicas
+                 */
+                return $this->redirect()->toUrl('/usuario/fisica');
 
 			} else {
 
@@ -341,6 +390,17 @@ class FisicaController extends ActionController
                         ),
                     ));
 
+                    //foto
+					if (!$adapter->isValid()){
+						$dataError = $adapter->getMessages();
+						$error = array();
+						foreach($dataError as $key=>$row)
+						{
+							$error[] = $row;
+						}
+						$form->setMessages(array('foto' => $error));
+					}
+
                 }
 
 			}
@@ -356,7 +416,7 @@ class FisicaController extends ActionController
 
 			$fisica = $this->getEntityManager()->find('Usuario\Entity\Fisica', $id);			
 			//$form->get('submit')->setAttribute('value', 'Edit');
-
+         *
 		}
         */
 
