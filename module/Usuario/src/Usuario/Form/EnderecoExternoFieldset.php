@@ -22,6 +22,13 @@ class EnderecoExternoFieldset extends Fieldset
              ->setObject(new EnderecoExterno());
 
         $this->add(array(
+            'name' => 'id',
+            'attributes' => array(
+                'type' => 'hidden',
+            ),
+        ));
+
+        $this->add(array(
             'name' => 'tipoLogradouro',
             'attributes' => array(
                 'type' => 'DoctrineModule\Form\Element\ObjectSelect',

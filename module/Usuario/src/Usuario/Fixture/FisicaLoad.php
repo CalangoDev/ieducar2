@@ -22,9 +22,6 @@ class FisicaLoad implements FixtureInterface, OrderedFixtureInterface, SharedFix
 		$fisica = new Fisica;
 		$fisica->setNome("Admin");
 		$fisica->setSexo("M");
-		$fisica->setOrigemGravacao("M");
-		$fisica->setOperacao("I");
-		$fisica->setIdSisCad(1);
 		$fisica->setSituacao("A");
 
 		$manager->persist($fisica);

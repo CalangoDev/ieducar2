@@ -391,7 +391,18 @@ class FisicaControllerTest extends ControllerTestCase
         $this->request->getPost()->set('raca', $raca->getId());
 
         $enderecoExterno = array(
-            'cep' => '44900-000'
+            'cep' => '44900-000',
+            'tipoLogradouro' => $tipoLogradouro->getId(),
+            'logradouro' => 'Endereço do Fulano',
+            'numero' => '1',
+            'cidade' => 'Irecê',
+            'bairro' => 'Centro',
+            'siglaUf' => '5',
+            'letra' => 'A',
+            'apartamento' =>'101',
+            'bloco' => '1',
+            'andar' => '1',
+            'zonaLocalizacao' => '1'
         );
 
         $this->request->getPost()->set('enderecoExterno', $enderecoExterno);
@@ -424,8 +435,18 @@ class FisicaControllerTest extends ControllerTestCase
         $this->assertEquals($pessoaPai, $savedFisica->getPessoaPai());
         $this->assertEquals($pessoaMae, $savedFisica->getPessoaMae());
         $this->assertEquals($raca, $savedFisica->getRaca());
-        //$this->assertEquals('44900-000', $savedFisica->getEnderecoExterno()->getCep());
-		// @todo falta verificar o enderecoExterno
+        $this->assertEquals('44900-000', $savedFisica->getEnderecoExterno()->getCep());
+		$this->assertEquals($tipoLogradouro, $savedFisica->getEnderecoExterno()->getTipoLogradouro());
+        $this->assertEquals('Endereço do Fulano', $savedFisica->getEnderecoExterno()->getLogradouro());
+        $this->assertEquals('1', $savedFisica->getEnderecoExterno()->getNumero());
+        $this->assertEquals('Irecê', $savedFisica->getEnderecoExterno()->getCidade());
+        $this->assertEquals('Centro', $savedFisica->getEnderecoExterno()->getBairro());
+        $this->assertEquals('5', $savedFisica->getEnderecoExterno()->getSiglaUf());
+        $this->assertEquals('A', $savedFisica->getEnderecoExterno()->getLetra());
+        $this->assertEquals('101', $savedFisica->getEnderecoExterno()->getApartamento());
+        $this->assertEquals('1', $savedFisica->getEnderecoExterno()->getBloco());
+        $this->assertEquals('1', $savedFisica->getEnderecoExterno()->getAndar());
+        $this->assertEquals('1', $savedFisica->getEnderecoExterno()->getZonaLocalizacao());
     }
 
 

@@ -182,7 +182,6 @@ class FisicaController extends ActionController
             }
 
 			$enderecoExterno = $this->params()->fromPost('enderecoExterno');
-            var_dump($enderecoExterno);
 
 			if ($enderecoExterno == '' || $enderecoExterno == 0){
 				$fisica->removeInputFilter('enderecoExterno');

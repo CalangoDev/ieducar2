@@ -44,6 +44,7 @@
 							$enderecoExterno = $this->form->get('enderecoExterno');
                             //var_dump($enderecoExterno);
 							// $cep = $this->form->get('cep');
+							$idEnderecoExterno = $enderecoExterno->get('id');
 							$cep = $enderecoExterno->get('cep');
 							// $tipoLogradouro = $this->form->get('tipoLogradouro');
 							$tipoLogradouro = $enderecoExterno->get('tipoLogradouro');
@@ -85,6 +86,7 @@
 							 * acordo com o cep, caso nao tenha, aparecer a opção para inserção de novo cep
 							 */
 							echo $this->formInput($id);
+							echo $this->formInput($idEnderecoExterno);
 							?>
 							<br>
 							
