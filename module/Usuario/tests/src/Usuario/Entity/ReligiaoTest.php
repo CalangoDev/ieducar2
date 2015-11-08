@@ -68,11 +68,7 @@ class ReligiaoTest extends EntityTestCase
 	{
 		$pessoa = new \Usuario\Entity\Pessoa;
 		$pessoa->setNome("Steve Jobs");
-    	$pessoa->setTipo("F");
     	$pessoa->setSituacao("A");
-    	$pessoa->setOrigemGravacao("M");
-    	$pessoa->setOperacao("I");
-    	$pessoa->setIdsisCad(1);
     	$this->em->persist($pessoa);
     	$this->em->flush();
 

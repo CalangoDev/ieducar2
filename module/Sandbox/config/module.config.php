@@ -1,39 +1,38 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: eduardojunior
- * Date: 31/10/15
- * Time: 13:35
+ * Zend Framework (http://framework.zend.com/)
+ *
+ * @link      http://github.com/zendframework/ZendSkeletonApplication for the canonical source repository
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
 namespace Sandbox;
 
-
 return array(
     'router' => array(
-        'routes' => array(
-            'sandbox' => array(
-                'type' => 'Literal',
+        'routes' => array(            
+            'usuario' => array(
+                'type'    => 'Literal',
                 'options' => array(
-                    'route' => '/sandbox',
+                    'route'    => '/sandbox',
                     'defaults' => array(
                         '__NAMESPACE__' => 'Sandbox\Controller',
-                        'controller' => 'Index',
-                        'action' => 'index',
+                        'controller'    => 'Index',
+                        'action'        => 'index',
                     ),
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
                     'default' => array(
-                        'type' => 'Segment',
+                        'type'    => 'Segment',
                         'options' => array(
-                            'route' => '/[:controller[/:action]]',
+                            'route'    => '/[:controller[/:action]]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
                             ),
                             'defaults' => array(
-
                             ),
                         ),
                         'child_routes' => array(
@@ -53,21 +52,21 @@ return array(
         ),
         'aliases' => array(
             'translator' => 'MvcTranslator',
-        ),
+        ),        
     ),
     'translator' => array(
         'locale' => 'pt_BR',
         'translation_file_patterns' => array(
             array(
-                'type' => 'gettext',
+                'type'     => 'gettext',
                 'base_dir' => __DIR__ . '/../language',
-                'pattern' => '%s.mo',
+                'pattern'  => '%s.mo',
             ),
         ),
     ),
     'controllers' => array(
         'invokables' => array(
-            'Sandbox\Controller\Index' => 'Sandbox\Controller\IndexController'
+            'Sandbox\Controller\Index' => 'Sandbox\Controller\IndexController',
         ),
     ),
     'view_manager' => array(
@@ -86,18 +85,26 @@ return array(
             __DIR__ . '/../view',
         ),
     ),
+    // Placeholder for console routes
+    'console' => array(
+        'router' => array(
+            'routes' => array(
+            ),
+        ),
+    ),
+
     'doctrine' => array(
-        'driver' => array(
+        'driver' => array(            
             __NAMESPACE__ . '_driver' => array(
                 'class' => '\Doctrine\ORM\Mapping\Driver\AnnotationDriver',
-                'cache' => 'array',
-                'paths' => array(__DIR__ . '/../src/' . __NAMESPACE__ . '/Entity')
+                'cache' => 'array',                
+                'paths' => array(__DIR__ . '/../src/' . __NAMESPACE__ . '/Entity')                
             ),
-            'orm_default' => array(
+            'orm_default' => array(                
                 'drivers' => array(
                     __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver',
-                ),
-            ),
+                ),                                
+            ),          
         ),
         'fixture' => array(
             __NAMESPACE__ . "_fixture" => __DIR__ . '/../src/' . __NAMESPACE__ . '/Fixture',
@@ -105,9 +112,12 @@ return array(
         'eventmanager' => array(
             'orm_default' => array(
                 'subscribers' => array(
-//                    __NAMESPACE__ . '\Entity\Pessoa'
+
                 ),
             ),
-        ),
+        ),        
+        // 'data-fixture' => array(
+        //     'location' => __DIR__ . '/../src/' . __NAMESPACE__ . '/Fixture',
+        // ),
     ),
 );

@@ -41,7 +41,8 @@ use Doctrine\ORM\Mapping\UniqueConstraint;
  */
 class Pessoa extends Entity implements EventSubscriber 
 {	
-	
+
+	// FILTER
 	protected $inputFilter;    
 
 	public function __construct() {
@@ -88,16 +89,21 @@ class Pessoa extends Entity implements EventSubscriber
 
 	/**
 	 * @var  String $tipo F(Fisica) ou J(Juridica)
+	 * @deprecated deprecated since version 2.0 - Pela get_class da entidade tem como saber o tipo
+	 *
+	 *
 	 * ORM\Column(name="tipo", type="string", length=1)
 	 */
-	protected $tipo;
+	//protected $tipo;
 
 	/**
 	 * @var  DateTime $data_rev Data de revisao do cadastro
 	 * @todo  Verificar no antigo sistema a logica de quando esse dado é informado
-	 * @ORM\Column(name="data_rev", type="datetime", nullable=true)
+	 * @deprecated deprecated since version 2.0
+	 *
+	 * ORM\Column(name="data_rev", type="datetime", nullable=true)
 	 */
-	protected $dataRev;
+	//protected $dataRev;
 
 	/**
 	 * @var  String $email Email da pessoa
@@ -115,38 +121,43 @@ class Pessoa extends Entity implements EventSubscriber
 	protected $situacao;
 
 	/**
-	 * @var  String $origem_gravacao M(Migração) ou U(Usuário) ou C(Rotina de Confrontação) ou O(Usuário do Oscar?) Origem dos dados 
+	 * @var  String $origem_gravacao M(Migração) ou U(Usuário) ou C(Rotina de Confrontação) ou O(Usuário do Oscar?) Origem dos dados
+	 * @deprecated deprecated since version 2.0
 	 * 
-	 * @ORM\Column(name="origem_gravacao", type="string", length=1, nullable=false)
+	 * ORM\Column(name="origem_gravacao", type="string", length=1, nullable=false)
 	 */
-	protected $origemGravacao;
+	//protected $origemGravacao;
 
 	/**
 	 * @var  String $operacao I(?) ou A(?) ou E(?) - Não consegui identificar os significados, porem todos os registros são salvos 
 	 * como I inserir?
 	 * como A alterar?
 	 * como E excluir?
-	 * 
-	 * @ORM\Column(type="string", length=1, nullable=false)
+	 * @deprecated deprecated since version 2.0
+	 *
+	 * ORM\Column(type="string", length=1, nullable=false)
 	 */
-	protected $operacao;
+	//protected $operacao;
 
 	/**
 	 * @var  Integer $idsis_rev - Id do Sistema porem o rev não consegui encontrar sentido
+	 * @deprecated deprecated since version 2.0
 	 * 
-	 * @ORM\Column(name="idsis_rev", type="integer", nullable=true)
+	 * ORM\Column(name="idsis_rev", type="integer", nullable=true)
 	 */
-	protected $idsisRev;
+	//protected $idsisRev;
 
 	/**
-	 * @var  Integer $idsis_cad - Id do sistema que cadastrou o usuario ver tabela acesso.sistema 
+	 * @var  Integer $idsis_cad - Id do sistema que cadastrou o usuario ver tabela acesso.sistema
+	 *
+	 * @deprecated deprecated since version 2.0
 	 * 
 	 * Na versão 1.0 não tem uma chave estrangeira nessa coluna. Algo que pode ser colocado
 	 * @todo  coluna tem relacionamento com a tabela acesso.sistema falta ajustar isso e ajustar no teste
 	 * 
-	 * @ORM\Column(name="idsis_cad", type="integer", nullable=false)
+	 * ORM\Column(name="idsis_cad", type="integer", nullable=false)
 	 */
-	protected $idsisCad;
+	//protected $idsisCad;
 
 	/**
 	 * @var  Integer $idpes_cad Id da pessoa que efetuou o cadastro
@@ -158,18 +169,6 @@ class Pessoa extends Entity implements EventSubscriber
 	 * ORM\JoinColumn(name="idpes_cad", referencedColumnName="idpes")
 	 */
 	//protected $idpes_cad;
-	//
-	/**
-	 * @ORM\ManyToOne(targetEntity="Pessoa", cascade={"persist"})
-	 * @ORM\JoinColumn(name="idpes_cad", referencedColumnName="idpes", onDelete="SET NULL")
-	 */
-	protected $pessoaCad;
-
-	/**
-	 * ORM\OneToMany(targetEntity="pessoa", mappedBy="idpes_cad", cascade={"persist"})	 
-	 * cascade={"remove"} ao deletar registro filho ele identifica o pai e remove o pai tbm. 
-	 */
-	//protected $pessoa_cad;
 
 	/**
 	 * @var Integer $idpes_rev Id da pessoa 
@@ -178,28 +177,6 @@ class Pessoa extends Entity implements EventSubscriber
 	 * ORM\JoinColumn(name="idpes_rev", referencedColumnName="idpes", onDelete="SET NULL")	 
 	 */
 	//protected $idpes_rev;//protected $idpes_rev;
-
-	/**
-	 * ORM\OneToMany(targetEntity="pessoa", mappedBy="idpes_rev", cascade={"persist"})
-	 */
-	//protected $pessoa_rev;
-	
-
-	/**
-	 * @ORM\ManyToOne(targetEntity="Pessoa", cascade={"persist"})
-	 * @ORM\JoinColumn(name="idpes_rev", referencedColumnName="idpes", onDelete="SET NULL")
-	 */
-	protected $pessoaRev;
-
-	/**
-	 * ORM\OneToOne(targetEntity="Fisica", mappedBy="pessoa", cascade={"persist"})	 
-	 */
-	//protected $fisica;
-
-	/**
-	 * ////ORM\OneToMany(targetEntity="pessoa", cascade={"persist", "remove"}, mappedBy="forum_opniao")
-	 */
-	//protected $filhos;
 
 	/**
 	 * //ORM\ManyToOne(targetEntity="pessoa", inversedBy="filhos")
@@ -211,7 +188,8 @@ class Pessoa extends Entity implements EventSubscriber
 	/**
 	 * @var EnderecoExterno $enderecoExterno Entity Endereço Externo
 	 * 
-	 * @ORM\OneToOne(targetEntity="Usuario\Entity\EnderecoExterno", cascade={"persist"}, mappedBy="pessoa")
+	 * ORM\OneToOne(targetEntity="Usuario\Entity\EnderecoExterno", cascade={"persist"}, mappedBy="pessoa")
+     * @ORM\OneToOne(targetEntity="EnderecoExterno", cascade={"persist"})
 	 * @ORM\JoinColumn(name="enderecoExterno")	 
 	 */
 	protected $enderecoExterno;
@@ -232,55 +210,6 @@ class Pessoa extends Entity implements EventSubscriber
 		if (is_null($this->getDataCad())) {			
 			$this->setDataCad(new \DateTime());
 		}		
-	}
-
-	/**
-	 * Funcao para checar se a string de operacao é diferente de I, A ou E se sim remove a variavel $this->operacao
-	 * @access  public
-	 * @return  Exception 
-	 * @ORM\PrePersist
-	 */
-	public function checkOperacao()
-	{			
-		if (($this->getOperacao() != "I") && ($this->getOperacao() != "A") && ($this->getOperacao() != "E"))
-			//throw new \Exception("O atributo operacao recebeu um valor inválido: \"" . $this->operacao. "\"", 1);
-			throw new EntityException("O atributo operacao recebeu um valor inválido: \"" . $this->getOperacao(). "\"", 1);
-	}
-	
-	/**
-	 * Funcao para checar se origem de gravacao é diferente de M, U, C ou O
-	 * @access  public
-	 * @return  Exception
-	 * @ORM\PrePersist
-	 */
-	public function checkOrigemGravacao()
-	{	
-		if(($this->getOrigemGravacao() != "M") && ($this->getOrigemGravacao() != "U") && ($this->getOrigemGravacao() != "C") && ($this->getOrigemGravacao() != "O"))
-			throw new EntityException("O atributo origem_gravacao recebeu um valor inválido: \"" . $this->getOrigemGravacao(). "\"", 1);
-	}
-
-	/**
-	 * Funcao para checar se o tipo é diferente de F ou J
-	 * @access  public
-	 * @return  Exception
-	 * @ORM\PrePersist
-	 */
-	public function checkTipo()
-	{		
-		if(($this->getTipo() != "F") && ($this->getTipo() != "J") && ($this->getTipo() != "" ) && ($this->getTipo() != "P" ))
-			throw new EntityException("O atributo tipo recebeu um valor inválido: \"" . $this->getTipo(). "\"", 1);
-	}
-
-	/**
-	 * Funcao para checar se a situacao é diferente de A, P ou I
-	 * @access  public
-	 * @return  Exception
-	 * @ORM\PrePersist
-	 */
-	public function checkSituacao()
-	{
-		if(($this->getSituacao() != "A") && ($this->getSituacao() != "P") && ($this->getSituacao() != "I") && ($this->getSituacao() != "") )
-			throw new EntityException("O atributo situacao recebeu um valor inválido: \"" . $this->getSituacao() . "\"", 1);
 	}
 
 	/**	 
@@ -454,22 +383,16 @@ class Pessoa extends Entity implements EventSubscriber
 			$historicoPessoa->setDataCad($this->usuario->dataCad);
 			$historicoPessoa->setUrl($this->usuario->url);			
 			//$historicoPessoa->setTipo($em->getClassMetadata(get_class($this->usuario))->discriminatorValue);
-			$historicoPessoa->setTipo($this->usuario->tipo);
-			if (is_null($this->usuario->dataRev)){
-				$historicoPessoa->setDataRev(new \DateTime());
-			} 
+
+			//$historicoPessoa->setTipo($this->usuario->tipo);
+			//if (is_null($this->usuario->dataRev)){
+			//	$historicoPessoa->setDataRev(new \DateTime());
+			//}
 			// // else {
 			// // 	$historicoPessoa->data_rev = $this->usuario->data_rev;	
 			// // }			
 			$historicoPessoa->setEmail($this->usuario->email);
 			$historicoPessoa->setSituacao($this->usuario->situacao);
-	    	$historicoPessoa->setOrigemGravacao($this->usuario->origemGravacao);
-	    	$historicoPessoa->setOperacao($this->usuario->operacao);
-	    	$historicoPessoa->setIdsisCad($this->usuario->idsisCad);
-	    	$historicoPessoa->setIdsisRev($this->usuario->idsisRev);	    	
-	    	$historicoPessoa->setPessoaCad($this->usuario->pessoaCad);	    	
-	    	$historicoPessoa->setPessoaRev($this->usuario->pessoaRev);	 
-
 
 	    	$logMetadata = $em->getClassMetadata('Historico\Entity\Pessoa');
 	    	$className = $logMetadata->name;
@@ -495,12 +418,7 @@ class Pessoa extends Entity implements EventSubscriber
 				$historicoFisica->setNacionalidade($this->usuario->nacionalidade);
 				$historicoFisica->setDataChegadaBrasil($this->usuario->dataChegadaBrasil);
 				$historicoFisica->setUltimaEmpresa($this->usuario->ultimaEmpresa);
-				$historicoFisica->setNomeMae($this->usuario->nomeMae);
-				$historicoFisica->setNomePai($this->usuario->nomePai);
-				$historicoFisica->setNomeConjuge($this->usuario->nomeConjuge);
-				$historicoFisica->setNomeResponsavel($this->usuario->nomeResponsavel);
 				$historicoFisica->setJustificativaProvisorio($this->usuario->justificativaProvisorio);
-				$historicoFisica->setRefCodSistema($this->usuario->refCodSistema);
 				$historicoFisica->setCpf($this->usuario->cpf);				
 				$historicoFisica->setPessoaMae($this->usuario->pessoaMae);
 				$historicoFisica->setPessoaPai($this->usuario->pessoaPai);
@@ -624,11 +542,6 @@ class Pessoa extends Entity implements EventSubscriber
 		return $this->id;
 	}
 
-	public function setId($value)
-	{
-		$this->id = $this->valid("id", $value);
-	}
-
 	public function getNome()
 	{
 		return $this->nome;
@@ -659,26 +572,6 @@ class Pessoa extends Entity implements EventSubscriber
 		$this->url = $this->valid("url", $url);		
 	}
 
-	public function getTipo() 
-	{		
-	    return $this->tipo;
-	}
-	
-	public function setTipo($value) 
-	{
-	    $this->tipo = $this->valid("tipo", $value);
-	}
-
-	public function getDataRev()
-	{
-		return $this->dataRev;
-	}
-
-	public function setDataRev($value)
-	{
-		$this->dataRev = $this->valid("dataRev", $value);
-	}
-
 	public function getEmail()
 	{
 		return $this->email;
@@ -699,85 +592,15 @@ class Pessoa extends Entity implements EventSubscriber
 		$this->situacao = $this->valid("situacao", $value);
 	}
 
-	public function getOrigemGravacao()
+	public function getEnderecoExterno()
 	{
-		return $this->origemGravacao;
-	}
-					
-	public function setOrigemGravacao($value)
-	{
-		$this->origemGravacao = $this->valid("origemGravacao", $value);
+		return $this->enderecoExterno;
 	}
 
-	public function getOperacao()
+	public function setEnderecoExterno(EnderecoExterno $enderecoExterno = null)
 	{
-		return $this->operacao;
+		$this->enderecoExterno = $enderecoExterno;
 	}
-
-	public function setOperacao($value)
-	{
-		$this->operacao = $this->valid("operacao", $value);
-	}
-
-	public function getIdsisRev()
-	{
-		return $this->idsisRev;
-	}
-
-	public function setIdsisRev($value)
-	{
-		$this->idsisRev = $this->valid("idsisRev", $value);
-	}
-
-	public function getIdsisCad()
-	{
-		return $this->idsisCad;
-	}
-
-	public function setIdsisCad($value)
-	{
-		$this->idsisCad = $this->valid("idsisCad", $value);
-	}
-
-	public function getPessoaCad()
-	{
-		return $this->pessoaCad;
-	}
-
-	public function setPessoaCad($value)
-	{
-		$this->pessoaCad = $value;
-	}
-
-	public function getPessoaRev()
-	{
-		return $this->pessoaRev;
-	}
-
-	public function setPessoaRev($value)
-	{
-		$this->pessoaRev = $value;
-	}
-
-	public function getFisica()
-	{
-		return $this->fisica;
-	}
-
-	public function setFisica($value)
-	{
-		$this->fisica = $value;
-	}
-
-	public function setEnderecoExterno($value)
-    {
-    	$this->enderecoExterno = $value;        
-    }
-    
-    public function getEnderecoExterno()
-    {
-        return $this->enderecoExterno;
-    }
 
 	/**
 	 * Configura os filtros dos campos da entidade
@@ -786,6 +609,7 @@ class Pessoa extends Entity implements EventSubscriber
 	 */
 	public function getInputFilter()
 	{
+
 		if (!$this->inputFilter) {
 			$inputFilter = new InputFilter();
 			$factory = new InputFactory();
@@ -837,39 +661,6 @@ class Pessoa extends Entity implements EventSubscriber
 				),
 			)));
 
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'tipo',
-				'required' => true,
-				'filters' => array(
-					array('name' => 'StripTags'),
-					array('name' => 'StringTrim'),
-					array('name' => 'Alpha'),
-					array('name' => 'StringToUpper'),
-				),
-				'validators' => array(
-					array(
-						'name' => 'StringLength',
-						false,
-						'options' => array(
-							'encoding' => 'UTF-8',
-							'min' => 1,
-							'max' => 1,
-						),
-					),
-				),
-			)));
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'dataRev',
-				'required' => false,
-				'filters' => array(
-					array('name' => 'StripTags'),
-					array('name' => 'StringTrim'),
-				),
-				'validators' => array(
-					'name' => new \Zend\Validator\Date(),
-				),
-			)));
 
 			$inputFilter->add($factory->createInput(array(
 				'name' => 'email',
@@ -906,79 +697,10 @@ class Pessoa extends Entity implements EventSubscriber
 				),
 			)));
 
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'origemGravacao',
-				'required' => true,
-				'filters' => array(
-					array('name' => 'StripTags'),
-					array('name' => 'StringTrim'),
-					array('name' => 'Alpha'),
-					array('name' => 'StringToUpper'),
-				),
-				'validators' => array(
-					array(
-						'name' => 'StringLength',
-						'options' => array(
-							'encoding' => 'UTF-8',
-							'min' => 1,
-							'max' => 1,
-						),
-					),
-				),
+            $inputFilter->add($factory->createInput(array(
+				'name' => 'enderecoExterno',
+				'required' => false
 			)));
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'operacao',
-				'required' => true,
-				'filters' => array(
-					array('name' => 'StripTags'),
-					array('name' => 'StringTrim'),
-					array('name' => 'Alpha'),
-					array('name' => 'StringToUpper'),
-				),
-				'validators' => array(
-					array(
-						'name' => 'StringLength',
-						'options' => array(
-							'encoding' => 'UTF-8',
-							'min' => 1,
-							'max' => 1,
-						),
-					),
-				),
-			)));
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'idsisRev',
-				'required' => false,
-				'filters' => array(
-					array('name' => 'Int'),
-				),
-			)));
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'idsisCad',
-				'required' => false,
-				'filters' => array(
-					array('name' => 'Int'),
-				),
-			)));
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'idpesRev',
-				'required' => true,
-				'filters' => array(
-					array('name' => 'Int'),
-				),
-			)));
-
-			// $inputFilter->add($factory->createInput(array(
-			// 	'name' => 'idpes_cad',
-			// 	'required' => true,
-			// 	'filters' => array(
-			// 		array('name' => 'Int'),
-			// 	),
-			// )));
 
 			$this->inputFilter = $inputFilter;
 		}

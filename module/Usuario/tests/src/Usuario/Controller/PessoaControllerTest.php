@@ -317,11 +317,7 @@ class PessoaControllerTest extends ControllerTestCase
 		
 		$pessoa = new Pessoa;
 		$pessoa->setNome("Steve Jobs");
-    	$pessoa->setTipo("F");
     	$pessoa->setSituacao("A");
-    	$pessoa->setOrigemGravacao("M");
-    	$pessoa->setOperacao("I");
-    	$pessoa->setIdsisCad(1);
     	
     	return $pessoa;
 	}

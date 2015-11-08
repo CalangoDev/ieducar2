@@ -27,6 +27,7 @@
 					<div class="row">			
 						<div class="col-md-12">
 							<?php
+                            $this->form->prepare();
 							echo $this->form()->openTag($form);
 							$id = $this->form->get('id');
 							$nome = $this->form->get('nome');							
@@ -38,10 +39,10 @@
 							$url = $this->form->get('url');
 							$email = $this->form->get('email');
 							$raca = $this->form->get('raca');
-							$enderecoExterno = $this->form->get('enderecoExterno');
                             $pessoaMae = $this->form->get('pessoaMae');
                             $pessoaPai = $this->form->get('pessoaPai');
-							
+							$enderecoExterno = $this->form->get('enderecoExterno');
+                            //var_dump($enderecoExterno);
 							// $cep = $this->form->get('cep');
 							$cep = $enderecoExterno->get('cep');
 							// $tipoLogradouro = $this->form->get('tipoLogradouro');

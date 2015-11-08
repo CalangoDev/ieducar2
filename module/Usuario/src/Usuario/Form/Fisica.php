@@ -3,21 +3,25 @@ namespace Usuario\Form;
 
 use Zend\Form\Form;
 use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Persistence\ObjectManager;
 // use Usuario\Entity\EnderecoExterno;
 use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 
 class Fisica extends Form
 {
-	public function __construct(EntityManager $em)
+	//public function __construct(EntityManager $em)
+    public function __construct(ObjectManager $objectManager)
 	{
+        $em = $objectManager;
 		parent::__construct('fisica');
 		$this->setAttribute('method', 'post');
 		$this->setAttribute('action', '/usuario/fisica/save');
         $this->setAttribute('enctype', 'multipart/form-data');
 		// $this->setAttribute('class', 'form-inline');
 
-		// $this->setHydrator(new DoctrineHydrator($em, 'Usuario\Entity\Fisica'))
-             // ->setObject(new \Usuario\Entity\Fisica());
+		//$this->setHydrator(new DoctrineHydrator($em, 'Usuario\Entity\Fisica'))
+//              ->setObject(new \Usuario\Entity\Fisica());
+        $this->setHydrator(new DoctrineHydrator($objectManager));
 
 
         // $this->setAttribute('method', 'post')
@@ -147,6 +151,8 @@ class Fisica extends Form
 			),
 		));
 
+        // @todo mudar o metodo de criterio... filtrar resultados com situacao A e provisorio alem de excluir a
+        // propria pessoa da busca caso seja um edit
 		$this->add(array(
             'name' => 'pessoaMae',
             'attributes' => array(
@@ -163,7 +169,7 @@ class Fisica extends Form
                 'find_method' => array(
                     'name' => 'findBy',
                     'params' => array(
-                        'criteria' => array('sexo' => 'F'),
+                        'criteria' => array('sexo' => 'F', 'situacao' => 'A'),
                         'orderBy' => array('nome' => 'ASC')
                     ),
                 ),
@@ -204,28 +210,28 @@ class Fisica extends Form
                 'find_method' => array(
                     'name' => 'findBy',
                     'params' => array(
-                        'criteria' => array('sexo' => 'M'),
+                        'criteria' => array('sexo' => 'M', 'situacao' => 'A'),
                         'orderBy' => array('nome' => 'ASC')
                     ),
                 ),
                 'display_empty_item' => true,
-                'empty_item_label' => 'Informe o nome da mãe, CPF, ou RG da pessoa',
-                'label_generator' => function($em) {
-                    $label = '';
-                    if ($em->getNome()){
-                        $label .=  $em->getNome();
-                    }
-                    if ($em->getCpf()){
-                        $label .= ' - CPF (' . $em->getCpf() . ')';
-                    }
-                    /*
-                    if ($em->getRg()){
-                        $label .= ' - ' . $em->getRg();
-                    }*/
+                'empty_item_label' => 'Informe o nome do pai, CPF, ou RG da pessoa',
+					'label_generator' => function($em) {
+						$label = '';
+						if ($em->getNome()){
+							$label .=  $em->getNome();
+						}
+						if ($em->getCpf()){
+							$label .= ' - CPF (' . $em->getCpf() . ')';
+						}
+						/*
+                        if ($em->getRg()){
+                            $label .= ' - ' . $em->getRg();
+                        }*/
 
-                    return $label;
+						return $label;
 
-                },
+					},
             ),
         ));
 
@@ -245,10 +251,13 @@ class Fisica extends Form
 		// Endereco Externo		
 		// Instanciando o Fieldset programaticamente
 
-        $endExterno = new \Usuario\Form\EnderecoExterno($em);
-        $endExterno->setUseAsBaseFieldset(false);
-        $this->add($endExterno);
-
+        //$endExterno = new \Usuario\Form\EnderecoExterno($em);
+        //$endExterno->setUseAsBaseFieldset(false);
+        //$this->add($endExterno);
+        //$enderecoExternoFieldset = new EnderecoExternoFieldset($objectManager);
+        $enderecoExternoFieldset = new EnderecoExternoFieldset($em);
+        $enderecoExternoFieldset->setUseAsBaseFieldset(false);
+        $this->add($enderecoExternoFieldset);
 
 		// $this->add(array(
 		// 	'name' => 'tipoLogradouro',

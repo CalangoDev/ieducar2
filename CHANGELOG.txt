@@ -9,6 +9,19 @@ i-Educar 2.0.0
 - Remoção de schemas nos nomes das tabelas, substituido por _ "underscore" usando o nome do schema como prefixo
 - O campo foto que é salvo em uma tabela cadastro.fisica_foto na versão 1 foi migrado para tabela cadastro_fisica como
 um campo string, para um atributo chamado foto
+- Atributos nome_mae, nome_pai, nome_conjugue, nome_responsavel da entidade Usuario\Entity\Fisica, depreciados na nova versão
+relacionametos para a pessoaMae, pessoaPai, pessoaConjugue, pessoaResponsavel criados
+- Atributo dataRev da entidade Usuario\Entity\Pessoa, depreciado - questões de rastreabilidade e logs serão tratadas posteriormentes
+- Atributo origemGravacao da entidade Usuario\Entity\Pessoa, depreciado.
+- Atributo operacao da entidade Usuario\Entity\Pessoa, depreciado, entra na questão de rastreabilidade a ser implementada de uma
+forma melhor
+- Atributo idsisRev da entidade Usuario\Entity\Pessoa, depreciado
+- Atributo idsisCad da entidade Usuario\Entity\Pessoa, depreciado
+- Atributo idpes_cad da entidade Usuario\Entity\Pessoa, depreciado
+- Atributo idpes_rev da entidade Usuario\Entity\Pessoa, depreciado
+- Atributo dataRev da entidade Usuario\Entity\EnderecoExterno, depreciado
+- Atributo origemGravacao da entidade Usuario\Entity\EnderecoExterno, depreciado
+- Atributo operacao da entidade Usuario\Entity\EnderecoExterno, depreciado
 
 
 i-Educar 1.1.0 2010-02-15

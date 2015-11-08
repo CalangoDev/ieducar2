@@ -51,36 +51,22 @@ class PessoaController extends ActionController
 
 		if ($request->isPost()) {
 			/**
-			 * [$pessoa->origem_gravacao origem da gravacao U = usuario]
-			 * @var string
-			 */
-			$pessoa->setOrigemGravacao("U");
-			/**
 			 * $id vindo do formulario se id > 0 é update/alteracao se nao é insercao
 			 */
-			$id  = (int) $this->params()->fromPost('id', 0);			
-			$pessoa->setOperacao(($id > 0) ? "A" : "I");						
+			$id  = (int) $this->params()->fromPost('id', 0);
 			/**
 			 * @todo PEGAR O ID DA PESSOA LOGADO NA SESSION 
 			 */
-			// $pessoa->idpes_rev = 1;
-			// $pessoa->idpes_cad = 1;			
-			$pessoa->setIdsisCad(1);
 			$form->setInputFilter($pessoa->getInputFilter());
 			/**
 			 * Removento filters de inputs nao recebidos pelo o formulario
 			 */
-			$pessoa->removeInputFilter('idpesCad');			
-			$pessoa->removeInputFilter('idpesRev');
-			$pessoa->removeInputFilter('operacao');
-			$pessoa->removeInputFilter('origemGravacao');
-			$pessoa->removeInputFilter('idsisRev');
-			$pessoa->removeInputFilter('idsisCad');			
-			$pessoa->removeInputFilter('dataRev');
+			//$pessoa->removeInputFilter('dataRev');
 			
 			if ($this->params()->fromPost('email') == null)				
 				$pessoa->removeInputFilter('email');			
-			$form->setData($request->getPost());			
+
+			$form->setData($request->getPost());
 			if ($form->isValid()){						
 				//$data = $form->getData();				
 				//unset($data['submit']);

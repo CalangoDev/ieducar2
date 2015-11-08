@@ -232,6 +232,14 @@ class FisicaControllerTest extends ControllerTestCase
         $this->assertEquals('estadoCivil', $estadoCivil->getName());
         $this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $estadoCivil->getAttribute('type'));
 
+		$pessoaPai = $form->get('pessoaPai');
+		$this->assertEquals('pessoaPai', $pessoaPai->getName());
+		$this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $pessoaPai->getAttribute('type'));
+
+        $pessoaMae = $form->get('pessoaMae');
+        $this->assertEquals('pessoaMae', $pessoaMae->getName());
+        $this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $pessoaMae->getAttribute('type'));
+
 	}
 
 	/**
@@ -298,10 +306,10 @@ class FisicaControllerTest extends ControllerTestCase
 		$this->request->getPost()->set('nome', 'Garrincha');
 		$this->request->getPost()->set('sexo', 'M');
 		$this->request->getPost()->set('cep', '44900-000');		
-		// $this->request->getPost()->set('url', 'www.eduardojunior.com');		
-		// $this->request->getPost()->set('email', 'ej@eduardojunior.com');
-		// $this->request->getPost()->set('situacao', 'A');
-		// $this->request->getPost()->set('nacionalidade', "1");
+		$this->request->getPost()->set('url', 'www.calangodev.com.br');
+		$this->request->getPost()->set('email', 'ej@calangodev.com.br');
+		$this->request->getPost()->set('situacao', 'A');
+		//$this->request->getPost()->set('nacionalidade', "1");
 		// $this->request->getPost()->set('raca', $raca->getId());
 		// $this->request->getPost()->set('cpf', '');
 		// $this->request->getPost()->set('tipoLogradouro', $tipoLogradouro->getId());		
@@ -333,6 +341,92 @@ class FisicaControllerTest extends ControllerTestCase
 		$headers = $response->getHeaders();
 		$this->assertEquals('Location: /usuario/fisica', $headers->get('Location'));
 	}
+
+    /**
+     * Testa a inclusao de uma pessoa fisica, e depois verifica se os dados foram cadastrados com sucesso
+     */
+    public function testFisicaSaveActionPostRequestAndCheckData()
+    {
+        $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
+        //	Cadastra uma raça
+        $raca = $this->buildRaca();
+        $em->persist($raca);
+        // Cadastra um tipo de logradouro
+        $tipoLogradouro = $this->buildTipoLogradouro();
+        $em->persist($tipoLogradouro);
+        // Cadastra um Uf
+        $uf = $this->buildUf();
+        $em->persist($uf);
+
+        // Cadastrar estado Civil
+        $estadoCivil = $this->buildEstadoCivil();
+        $em->persist($estadoCivil);
+
+        // Cadastrar Mae
+        $pessoaMae = $this->buildFisica();
+        $pessoaMae->setSexo('F');
+        $pessoaMae->setNome('Mae do Menino');
+        $em->persist($pessoaMae);
+
+        // Cadastrar Pai
+        $pessoaPai = $this->buildFisica();
+        $pessoaPai->setSexo('M');
+        $pessoaPai->setNome('Pai do Menino');
+        $em->persist($pessoaPai);
+
+        $em->flush();
+
+        //	Dispara a acao
+        $this->routeMatch->setParam('action', 'save');
+        $this->request->setMethod('post');
+        $this->request->getPost()->set('id', '');
+        $this->request->getPost()->set('nome', 'CalangoDev');
+        $this->request->getPost()->set('cpf', '001-555-345-05');
+        $this->request->getPost()->set('situacao', 'A');
+        $this->request->getPost()->set('dataNasc', '03-05-1982');
+        $this->request->getPost()->set('sexo', 'M');
+        $this->request->getPost()->set('estadoCivil', $estadoCivil->getId());
+        $this->request->getPost()->set('pessoaMae', $pessoaMae->getId());
+        $this->request->getPost()->set('pessoaPai', $pessoaPai->getId());
+        $this->request->getPost()->set('raca', $raca->getId());
+
+        $enderecoExterno = array(
+            'cep' => '44900-000'
+        );
+
+        $this->request->getPost()->set('enderecoExterno', $enderecoExterno);
+        $this->request->getPost()->set('url', 'www.calangodev.com.br');
+        $this->request->getPost()->set('email', 'ej@calangodev.com.br');
+
+
+
+        $result = $this->controller->dispatch(
+            $this->request, $this->response
+        );
+        //	Verifica a resposta
+        $response = $this->controller->getResponse();
+        //	a pagina redireciona, estao o status = 302
+        $this->assertEquals(302, $response->getStatusCode());
+        $headers = $response->getHeaders();
+        $this->assertEquals('Location: /usuario/fisica', $headers->get('Location'));
+
+        $savedFisica = $em->find('Usuario\Entity\Fisica', 3);
+        $this->assertEquals('CalangoDev', $savedFisica->getNome());
+        $this->assertEquals('00155534505', $savedFisica->getCpf());
+        $this->assertEquals('A', $savedFisica->getSituacao());
+        $date = new \DateTime("03-05-1982", new \DateTimeZone('America/Sao_Paulo'));
+        $this->assertEquals($date->format('d-m-Y'), $savedFisica->getDataNasc()->format('d-m-Y'));
+        $this->assertEquals('M', $savedFisica->getSexo());
+        $this->assertEquals($estadoCivil, $savedFisica->getEstadoCivil());
+        $this->assertEquals('www.calangodev.com.br', $savedFisica->getUrl());
+        $this->assertEquals('ej@calangodev.com.br', $savedFisica->getEmail());
+        $this->assertEquals($raca, $savedFisica->getRaca());
+        $this->assertEquals($pessoaPai, $savedFisica->getPessoaPai());
+        $this->assertEquals($pessoaMae, $savedFisica->getPessoaMae());
+        $this->assertEquals($raca, $savedFisica->getRaca());
+        //$this->assertEquals('44900-000', $savedFisica->getEnderecoExterno()->getCep());
+		// @todo falta verificar o enderecoExterno
+    }
 
 
 
@@ -698,10 +792,6 @@ class FisicaControllerTest extends ControllerTestCase
 		$enderecoExterno->setCidade('Irecê');
 		$enderecoExterno->setSiglaUf('BA');
 		$enderecoExterno->setResideDesde(new \DateTime());
-		// $enderecoExterno->setDataRev();
-		$enderecoExterno->setOperacao("I");
-		$enderecoExterno->setOrigemGravacao("U");
-		$enderecoExterno->setIdsisCad(1);
 		$enderecoExterno->setBloco('A');
 		$enderecoExterno->setAndar('1');
 		$enderecoExterno->setApartamento('102');
@@ -717,15 +807,9 @@ class FisicaControllerTest extends ControllerTestCase
     	 */    	
 		$fisica = new Fisica;		
 		$fisica->setSexo("M");
-		$fisica->setOrigemGravacao("M");
-		$fisica->setOperacao("I");
-		$fisica->setIdsisCad(1);
 		$fisica->setNome('Steve Jobs');
 		$fisica->setSituacao('A');
-		$fisica->setOrigemGravacao('U');
-		$fisica->setOperacao('I');
-		$fisica->setIdsisCad(1);
-		$fisica->setCpf('111.111.111-11');
+		$fisica->setCpf('11111111111');
 
     	return $fisica;
 	}
@@ -754,9 +838,18 @@ class FisicaControllerTest extends ControllerTestCase
 	public function buildRaca()
 	{
 		$raca = new Raca;
-		$raca->setNome('Branca');
+		$raca->setNome('Raca Teste');
 
 		return $raca;
 	}
+
+
+    private function buildEstadoCivil()
+    {
+        $estadoCivil = new \Usuario\Entity\EstadoCivil();
+        $estadoCivil->setDescricao('Solteiro(a)');
+
+        return $estadoCivil;
+    }
 
 }

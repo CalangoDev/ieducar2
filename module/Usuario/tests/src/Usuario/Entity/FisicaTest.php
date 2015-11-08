@@ -35,9 +35,8 @@ class FisicaTest extends EntityTestCase
 	public function testInputFilterValid($if)
 	{
 		//testa os filtros 
-		$this->assertEquals(37, $if->count());
-
-		$this->assertTrue($if->has('id'));		
+		$this->assertEquals(27, $if->count());
+		$this->assertTrue($if->has('raca'));
 		$this->assertTrue($if->has('dataNasc'));
 		$this->assertTrue($if->has('sexo'));
 		$this->assertTrue($if->has('dataUniao'));
@@ -45,35 +44,12 @@ class FisicaTest extends EntityTestCase
 		$this->assertTrue($if->has('nacionalidade'));
 		$this->assertTrue($if->has('dataChegadaBrasil'));
 		$this->assertTrue($if->has('ultimaEmpresa'));
-		$this->assertTrue($if->has('nomeMae'));
-		$this->assertTrue($if->has('nomePai'));
-		$this->assertTrue($if->has('nomeConjuge'));
-		$this->assertTrue($if->has('nomeResponsavel'));
 		$this->assertTrue($if->has('justificativaProvisorio'));
-		$this->assertTrue($if->has('dataRev'));
-		$this->assertTrue($if->has('origemGravacao'));
-		$this->assertTrue($if->has('operacao'));
-		$this->assertTrue($if->has('idsisRev'));
-		$this->assertTrue($if->has('idsisCad'));
-		$this->assertTrue($if->has('refCodSistema'));
 		$this->assertTrue($if->has('cpf'));
-		$this->assertTrue($if->has('idpesMae'));
-		$this->assertTrue($if->has('idpesPai'));
-		$this->assertTrue($if->has('idpesResponsavel'));
-		$this->assertTrue($if->has('idmunNascimento'));
-		$this->assertTrue($if->has('idpaisEstrangeiro'));
-		$this->assertTrue($if->has('idesco'));
-		$this->assertTrue($if->has('ideciv'));
-		$this->assertTrue($if->has('idpesCon'));
-		$this->assertTrue($if->has('idocup'));
-		$this->assertTrue($if->has('idpesRev'));
-		$this->assertTrue($if->has('idpesCad'));
-		$this->assertTrue($if->has('refCodReligiao'));
-		$this->assertTrue($if->has('raca'));
-        $this->assertTrue($if->has('nome'));
-		$this->assertTrue($if->has('enderecoExterno'));
 		$this->assertTrue($if->has('estadoCivil'));
 		$this->assertTrue($if->has('foto'));
+		$this->assertTrue($if->has('pessoaMae'));
+		$this->assertTrue($if->has('pessoaPai'));
 	}
 
 	/**
@@ -82,8 +58,7 @@ class FisicaTest extends EntityTestCase
 	 * Existe um relacionamento das Entidades Pessoa->Fisica One-To-One
 	 * Onde para se ter um registro da entidade Fisica é necessario ter um registro na Entidade Pessoa
 	 * Com o efeito cascade ao persistir uma instancia Pessoa, faz a persistencia na instacia Fisica
-	 * 
-	 * @todo  nao deixar cadastrar uma Entity fisica sem ter uma Entity pessoa
+	 *
 	 */
 	public function testInsert()
 	{		
@@ -223,6 +198,86 @@ class FisicaTest extends EntityTestCase
 
 	}
 
+	/**
+	 * Teste inserindo e checando todos os dados possíveis para uma pessoa física
+	 */
+	public function testInsertFullData()
+	{
+        $estadoCivil = $this->builEstadoCivil();
+        $this->em->persist($estadoCivil);
+
+        $raca = $this->buildRaca();
+        $this->em->persist($raca);
+
+        $enderecoExterno = $this->buildEnderecoExterno();
+        $this->em->persist($enderecoExterno);
+
+        // Cadastrando Pai
+        $pessoaPai = $this->buildFisica();
+        $pessoaPai->setNome('Pai do Menino');
+        $pessoaPai->setSituacao("A");
+        $pessoaPai->setOrigemGravacao("M");
+        $pessoaPai->setOperacao("I");
+        $pessoaPai->setIdsisCad(1);
+        $this->em->persist($pessoaPai);
+
+        // Cadastrando Mae
+        $pessoaMae = $this->buildFisica();
+        $pessoaMae->setNome('Mae do Menino');
+        $pessoaMae->setSexo('F');
+        $pessoaMae->setSituacao("A");
+        $pessoaMae->setOrigemGravacao("M");
+        $pessoaMae->setOperacao("I");
+        $pessoaMae->setIdsisCad(1);
+        $this->em->persist($pessoaMae);
+
+        $this->em->flush();
+
+		$fisica = $this->buildFisica();
+        $fisica->setNome("Steve Jobs");
+        $fisica->setSituacao("A");
+        $fisica->setOrigemGravacao("M");
+        $fisica->setOperacao("I");
+        $fisica->setIdsisCad(1);
+        $date = new \DateTime("03-05-1982", new \DateTimeZone('America/Sao_Paulo'));
+        $fisica->setDataNasc($date);
+        $fisica->setCpf("111.111.111-11");
+        $fisica->setSexo("M");
+        $fisica->setEstadoCivil($estadoCivil);
+        $fisica->setUrl('www.calangodev.com.br');
+        $fisica->setEmail('ej@calangodev.com.br');
+        $fisica->setRaca($raca);
+        $fisica->setEnderecoExterno($enderecoExterno);
+        $fisica->setPessoaPai($pessoaPai);
+        $fisica->setPessoaMae($pessoaMae);
+        // @todo: falta inserir os telefones.. criar entidade
+
+        $this->em->persist($fisica);
+        $this->em->flush();
+
+        $id = $fisica->getId();
+        $savedFisica = $this->em->find('Usuario\Entity\Fisica', $id);
+
+        $this->assertEquals(3, $savedFisica->getId());
+        $this->assertEquals("Steve Jobs", $savedFisica->getNome());
+        $this->assertEquals("A", $savedFisica->getSituacao());
+        $this->assertEquals("M", $savedFisica->getOrigemGravacao());
+        $this->assertEquals("I", $savedFisica->getOperacao());
+        $this->assertEquals(1, $savedFisica->getIdSisCad());
+        $date = new \DateTime("03-05-1982", new \DateTimeZone('America/Sao_Paulo'));
+        $this->assertEquals($date, $savedFisica->getDataNasc());
+        $this->assertEquals("11111111111", $savedFisica->getCpf());
+        $this->assertEquals("M", $savedFisica->getSexo());
+        $this->assertEquals("Solteiro(a)", $savedFisica->getEstadoCivil()->getDescricao());
+        $this->assertEquals("www.calangodev.com.br", $savedFisica->getUrl());
+        $this->assertEquals('ej@calangodev.com.br', $savedFisica->getEmail());
+        $this->assertEquals($raca, $savedFisica->getRaca());
+        $this->assertEquals($enderecoExterno, $savedFisica->getEnderecoExterno());
+        $this->assertEquals($pessoaPai, $savedFisica->getPessoaPai());
+        $this->assertEquals($pessoaMae, $savedFisica->getPessoaMae());
+
+	}
+
 	private function buildPessoa()
 	{
 		$pessoa = new Pessoa;
@@ -274,5 +329,21 @@ class FisicaTest extends EntityTestCase
 
     	return $fisica;
 	}
+
+    private function buildRaca()
+    {
+        $raca = new \Usuario\Entity\Raca();
+        $raca->setNome('Nome Raca');
+
+        return $raca;
+    }
+
+    private function builEstadoCivil()
+    {
+        $estadoCivil = new \Usuario\Entity\EstadoCivil();
+        $estadoCivil->setDescricao('Solteiro(a)');
+
+        return $estadoCivil;
+    }
 
 }

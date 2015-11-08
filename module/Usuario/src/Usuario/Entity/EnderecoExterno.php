@@ -42,11 +42,11 @@ class EnderecoExterno extends Entity
 	protected $id;	
 
 	/**
-	 * @var string $tipoLogradouro Id do tipo de logradouro	 
-	 * @ORM\OneToOne(targetEntity="Usuario\Entity\Pessoa", cascade={"persist"}, inversedBy="enderecoExterno")
-	 * @ORM\JoinColumn(name="idpes", referencedColumnName="idpes", onDelete="SET NULL")
+	 * @var string $pessoa
+	 * ORM\OneToOne(targetEntity="Usuario\Entity\Pessoa", cascade={"persist"}, inversedBy="enderecoExterno")
+	 * ORM\JoinColumn(name="idpes", referencedColumnName="idpes", onDelete="SET NULL")
 	 */
-	protected $pessoa;
+	//protected $pessoa;
 
 	/**
 	 * @var int $tipo Tipo, o antigo sistema sempre salva como 1, 
@@ -74,7 +74,7 @@ class EnderecoExterno extends Entity
 	/**
 	 * @var integer $numero
 	 * 
-	 * @ORM\Column(type="integer", length=6, nullable=true)
+	 * @ORM\Column(type="string", length=6, nullable=true)
 	 */
 	protected $numero;
 
@@ -109,14 +109,14 @@ class EnderecoExterno extends Entity
 	/**
 	 * @var string $cidade
 	 * 
-	 * @ORM\Column(type="string", length=60, nullable=false)
+	 * @ORM\Column(type="string", length=60, nullable=true)
 	 */
 	protected $cidade;
 
 	/**
 	 * @var string $siglaUf
 	 * 
-	 * @ORM\Column(name="sigla_uf", type="string", length=2, nullable=false)
+	 * @ORM\Column(name="sigla_uf", type="string", length=2, nullable=true)
 	 */
 	protected $siglaUf;
 
@@ -129,25 +129,19 @@ class EnderecoExterno extends Entity
 
 	/**
 	 * @var datetime $dataRev
+	 * @deprecated deprecated since version 2.0
 	 * 
-	 * @ORM\Column(name="data_rev", type="datetime", nullable=true)
+	 * ORM\Column(name="data_rev", type="datetime", nullable=true)
 	 */
-	protected $dataRev;
+	//protected $dataRev;
 
 	/**
-	 * @var  String $origem_gravacao M(Migração) ou U(Usuário) ou C(Rotina de Confrontação) ou O(Usuário do Oscar?) Origem dos dados 
+	 * @var  String $origem_gravacao M(Migração) ou U(Usuário) ou C(Rotina de Confrontação) ou O(Usuário do Oscar?) Origem dos dados
+	 * @deprecated deprecated since version 2.0
 	 * 
-	 * @ORM\Column(name="origem_gravacao", type="string", length=1, nullable=false)
+	 * ORM\Column(name="origem_gravacao", type="string", length=1, nullable=false)
 	 */
-	protected $origemGravacao;
-
-	/**
-	 * @var integer $pessoaCad Pessoa que efetuou o cadastrado
-	 * 
-	 * @ORM\ManyToOne(targetEntity="Pessoa", cascade={"persist"})
-	 * @ORM\JoinColumn(name="idpes_cad", referencedColumnName="idpes", onDelete="SET NULL")
-	 */
-	protected $pessoaCad;
+	//protected $origemGravacao;
 
 	/**
 	 * @var datetime $dataCad
@@ -161,10 +155,12 @@ class EnderecoExterno extends Entity
 	 * como I inserir?
 	 * como A alterar?
 	 * como E excluir?
+	 *
+	 * @deprecated deprecated since version 2.0
 	 * 
-	 * @ORM\Column(type="string", length=1, nullable=false)
+	 * ORM\Column(type="string", length=1, nullable=false)
 	 */
-	protected $operacao;
+	//protected $operacao;
 
 	/**
 	 * @var string $bloco
@@ -176,24 +172,25 @@ class EnderecoExterno extends Entity
 	/**
 	 * @var int $andar
 	 * 
-	 * @ORM\Column(type="integer", length=2, nullable=true)
+	 * @ORM\Column(type="string", length=2, nullable=true)
 	 */
 	protected $andar;
 
 	/**
 	 * @var int $apartamento
 	 * 
-	 * @ORM\Column(type="integer", length=6, nullable=true)
+	 * @ORM\Column(type="string", length=6, nullable=true)
 	 */
 	protected $apartamento;
 
 
 	/**
 	 * @var  Integer $idsis_rev - Id do Sistema porem o rev não consegui encontrar sentido
+	 * @deprecated deprecated since version 2.0
 	 * 
-	 * @ORM\Column(name="idsis_rev", type="integer", nullable=true)
+	 * ORM\Column(name="idsis_rev", type="integer", nullable=true)
 	 */
-	protected $idsisRev;	
+	//protected $idsisRev;
 
 
 	/**
@@ -201,42 +198,19 @@ class EnderecoExterno extends Entity
 	 * 
 	 * Na versão 1.0 não tem uma chave estrangeira nessa coluna. Algo que pode ser colocado
 	 * @todo  coluna tem relacionamento com a tabela acesso.sistema falta ajustar isso e ajustar no teste
+	 *
+	 * @deprecated deprecated since version 2.0
 	 * 
-	 * @ORM\Column(name="idsis_cad", type="integer", nullable=false)
+	 * ORM\Column(name="idsis_cad", type="integer", nullable=false)
 	 */
-	protected $idsisCad;
+	//protected $idsisCad;
 
 	/**
-	 * @var int $zonaLocalizacao
+	 * @var string $zonaLocalizacao
 	 * 
-	 * @ORM\Column(name="zona_localizacao", type="integer", nullable=true)
+	 * @ORM\Column(name="zona_localizacao", type="string", nullable=true, length=1)
 	 */
-	protected $zonaLocalizacao = 1;
-
-	/**
-	 * Funcao para checar se a string de operacao é diferente de I, A ou E se sim remove a variavel $this->operacao
-	 * @access  public
-	 * @return  Exception 
-	 * @ORM\PrePersist
-	 */
-	public function checkOperacao()
-	{			
-		if (($this->getOperacao() != "I") && ($this->getOperacao() != "A") && ($this->getOperacao() != "E"))
-			//throw new \Exception("O atributo operacao recebeu um valor inválido: \"" . $this->operacao. "\"", 1);
-			throw new EntityException("O atributo operacao recebeu um valor inválido: \"" . $this->getOperacao(). "\"", 1);
-	}
-	
-	/**
-	 * Funcao para checar se origem de gravacao é diferente de M, U, C ou O
-	 * @access  public
-	 * @return  Exception
-	 * @ORM\PrePersist
-	 */
-	public function checkOrigemGravacao()
-	{	
-		if(($this->getOrigemGravacao() != "M") && ($this->getOrigemGravacao() != "U") && ($this->getOrigemGravacao() != "C") && ($this->getOrigemGravacao() != "O"))
-			throw new EntityException("O atributo origem_gravacao recebeu um valor inválido: \"" . $this->getOrigemGravacao(). "\"", 1);
-	}
+	protected $zonaLocalizacao = "1";
 
 	/**
 	 * Função para gerar o timestamp para o atributo data_cad, é executada antes de salvar os dados no banco
@@ -260,18 +234,6 @@ class EnderecoExterno extends Entity
 	{
 		$this->id = $value;
 	}
-
-	public function getPessoa()
-	{
-		return $this->pessoa;
-	}
-
-	public function setPessoa($value)
-	{
-		$this->pessoa = $value;
-	}
-
-
 
 	public function getTipo()
 	{
@@ -385,36 +347,6 @@ class EnderecoExterno extends Entity
 		$this->resideDesde = $this->valid("resideDesde", $value);
 	}
 
-	public function getDataRev()
-	{
-		return $this->dataRev;
-	}
-	
-	public function setDataRev($value)
-	{
-		$this->dataRev = $this->valid("dataRev", $value);
-	}
-
-	public function getOrigemGravacao()
-	{
-		return $this->origemGravacao;
-	}
-	
-	public function setOrigemGravacao($value)
-	{
-		$this->origemGravacao = $this->valid("origemGravacao", $value);
-	}
-
-	public function getPessoaCad()
-	{
-		return $this->pessoaCad;
-	}
-	
-	public function setPessoaCad($value)
-	{
-		$this->pessoaCad = $value;
-	}
-
 	public function getDataCad()
 	{
 		return $this->dataCad;
@@ -423,16 +355,6 @@ class EnderecoExterno extends Entity
 	public function setDataCad($value)
 	{
 		$this->dataCad = $this->valid("dataCad", $value);
-	}
-
-	public function getOperacao()
-	{
-		return $this->operacao;
-	}
-	
-	public function setOperacao($value)
-	{
-		$this->operacao = $this->valid("operacao", $value);
 	}
 
 	public function getBloco()
@@ -463,26 +385,6 @@ class EnderecoExterno extends Entity
 	public function setApartamento($value)
 	{
 		$this->apartamento = $this->valid("apartamento", $value);
-	}
-
-	public function getIdsisRev()
-	{
-		return $this->idsisRev;
-	}
-	
-	public function setIdsisRev($value)
-	{
-		$this->idsisRev = $this->valid("idsisRev", $value);
-	}
-
-	public function getIdsisCad()
-	{
-		return $this->idsisCad;
-	}
-	
-	public function setIdsisCad($value)
-	{
-		$this->idsisCad = $this->valid("idsisCad", $value);
 	}
 
 	public function getZonaLocalizacao()
@@ -554,9 +456,6 @@ class EnderecoExterno extends Entity
 			$inputFilter->add($factory->createInput(array(
 				'name' => 'numero',
 				'required' => false,
-				'filters' => array(
-					array('name' => 'Int')
-				)
 			)));
 
 			$inputFilter->add($factory->createInput(array(
@@ -677,37 +576,18 @@ class EnderecoExterno extends Entity
 				),
 			)));
 
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'dataRev',
-				'required' => false,
-				'validators' => array(
-					'name' => new \Zend\Validator\Date(),
-				)
-			)));
+//			$inputFilter->add($factory->createInput(array(
+//				'name' => 'dataRev',
+//				'required' => false,
+//				'validators' => array(
+//					'name' => new \Zend\Validator\Date(),
+//				)
+//			)));
 
             $inputFilter->add($factory->createInput(array(
                 'name' => 'zonaLocalizacao',
                 'required' => false
             )));
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'origemGravacao',
-				'required' => true,
-				'filters'	=>	array(
-					array('name'	=>	'StripTags'),
-					array('name'	=>	'StringTrim'),
-				),
-				'validators' => array(
-					array(
-						'name' => 'StringLength',
-						'options' => array(
-							'encoding' => 'UTF-8',
-							'min' => 1,
-							'max' => 150,
-						),
-					),
-				),				
-			)));
 
 			$this->inputFilter = $inputFilter;
 		}

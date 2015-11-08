@@ -83,7 +83,7 @@ class FisicaController extends ActionController
 	public function saveAction()
 	{
 
-		$fisica = new Fisica;		
+		$fisica = new Fisica();
 //		$enderecoExterno = new EnderecoExterno();
 		$form = new FisicaForm($this->getEntityManager());
 		$request = $this->getRequest();
@@ -92,6 +92,7 @@ class FisicaController extends ActionController
 		if ($id > 0){
 			
 			$fisica = $this->getEntityManager()->find('Usuario\Entity\Fisica', $id);
+
 			if ($fisica->getDataNasc() == null){
 
 				$date = new \DateTime($fisica->getDataNasc(), new \DateTimeZone('America/Sao_Paulo'));	
@@ -105,7 +106,7 @@ class FisicaController extends ActionController
 
 			$form->get('submit')->setAttribute('value', 'Atualizar');
 		}
-		$form->setHydrator(new DoctrineEntity($this->getEntityManager(), 'Usuario\Entity\Fisica'));
+		//$form->setHydrator(new DoctrineEntity($this->getEntityManager(), 'Usuario\Entity\Fisica'));
 
 
 //		$enderecoExterno->setTipoLogradouro($this->params()->fromPost('tipoLogradouro'));
@@ -126,35 +127,18 @@ class FisicaController extends ActionController
 //        $enderecoExterno->setIdsisCad(1);
 //		$fisica->setEnderecoExterno($enderecoExterno);
 
-		$form->bind($fisica);	
+		$form->bind($fisica);
 
 		if ($request->isPost()){
 
-			
-			/**
-			 * [$pessoa->origem_gravacao origem da gravacao U = usuario]
-			 * @var string
-			 */
-			$fisica->setOrigemGravacao("U");
 			/**
 			 * $id vindo do formulario se id > 0 é update/alteracao se nao é insercao
 			 */
-			$id  = (int) $this->params()->fromPost('id', 0);					
-									
-			$fisica->setOperacao(($id > 0) ? "A" : "I");			
-			$fisica->setIdsisCad(1);						
+			$id  = (int) $this->params()->fromPost('id', 0);
 			$date = new \DateTime($this->params()->fromPost('dataNasc'), new \DateTimeZone('America/Sao_Paulo'));
 			$fisica->setDataNasc($date->format('Y-m-d'));			
-			$request->getPost()->set('dataNasc', $fisica->getDataNasc());						
+			$request->getPost()->set('dataNasc', $fisica->getDataNasc());
 			$form->setInputFilter($fisica->getInputFilter());						
-
-            /**
-			 * Removendo filters de inputs nao recebidos pelo o formulario
-			 */			
-			$fisica->removeInputFilter('origemGravacao');
-			$fisica->removeInputFilter('operacao');
-			$fisica->removeInputFilter('idsisCad');			
-			// $fisica->removeInputFilter('dataRev');
 
 			$cpf  = $this->params()->fromPost('cpf', 0);	
 
@@ -172,7 +156,7 @@ class FisicaController extends ActionController
                 $form->remove('raca');
             }
 
-            $estadoCivil = $this->params()->fromPost('estadoCivil', 0);
+            $estadoCivil = $this->params()->fromPost('estadoCivil');
             if ($estadoCivil == '' || $estadoCivil == 0){
                 $fisica->removeInputFilter('estadoCivil');
                 $form->remove('estadoCivil');
@@ -181,8 +165,29 @@ class FisicaController extends ActionController
 			$dataNasc  = $this->params()->fromPost('dataNasc', 0);
 
             if ($dataNasc == '')
-				$fisica->removeInputFilter('dataNasc');			
-			
+				$fisica->removeInputFilter('dataNasc');
+
+            $pessoaMae = $this->params()->fromPost('pessoaMae', 0);
+
+            if ($pessoaMae == '' || $pessoaMae == 0){
+                $fisica->removeInputFilter('pessoaMae');
+                $form->remove('pessoaMae');
+            }
+
+            $pessoaPai = $this->params()->fromPost('pessoaPai');
+
+            if ($pessoaPai == '' || $pessoaPai == 0){
+                $fisica->removeInputFilter('pessoaPai');
+                $form->remove('pessoaPai');
+            }
+
+			$enderecoExterno = $this->params()->fromPost('enderecoExterno');
+            var_dump($enderecoExterno);
+
+			if ($enderecoExterno == '' || $enderecoExterno == 0){
+				$fisica->removeInputFilter('enderecoExterno');
+				$form->remove('enderecoExterno');
+			}
 
 			// $data = $request->getPost();			
 			// $arrayEndExterno = array(
@@ -217,6 +222,8 @@ class FisicaController extends ActionController
                 $semArquivoFoto,
                 array('foto' => $arquivoFoto['name'])
             );
+
+//            var_dump($data);
 
 			$form->setData($data);
 			// $form->setData($data);
@@ -272,7 +279,6 @@ class FisicaController extends ActionController
                  * Persistindo os dados
                  */
                 $id = (int) $this->params()->fromPost('id', 0);
-
                 if ($id == 0){
 
                         // $enderecoExterno = new EnderecoExterno();
@@ -285,6 +291,7 @@ class FisicaController extends ActionController
                         // $enderecoExterno->setOperacao(($id > 0) ? "A" : "I");
                         // $enderecoExterno->setIdsisCad(1);
                         // $enderecoExterno->setPessoa($fisica);
+                    //var_dump($fisica->getEnderecoExterno());
                     $this->getEntityManager()->persist($fisica);
                     //$enderecoExterno->setPessoa($fisica);
                     // $this->getEntityManager()->persist($enderecoExterno);
@@ -303,8 +310,8 @@ class FisicaController extends ActionController
 
 			} else {
 
-//                var_dump('invalido');
-//                var_dump($form->getData());
+                //var_dump('invalido');
+                //var_dump($form->getData());
 
 				if ($this->params()->fromPost('dataNasc')){
 					$date = new \DateTime($this->params()->fromPost('dataNasc'), new \DateTimeZone('America/Sao_Paulo'));
@@ -387,6 +394,89 @@ class FisicaController extends ActionController
                             ),
                             'display_empty_item' => true,
                             'empty_item_label' => 'Selecione',
+                        ),
+                    ));
+
+
+                    $form->add(array(
+                        'name' => 'pessoaMae',
+                        'attributes' => array(
+                            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+                            'class' => 'form-control chosen-select',
+                            'style' => 'height:100px;',
+                        ),
+                        'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+                        'options' => array(
+                            'label' => 'Mãe:',
+                            'object_manager' => $this->getEntityManager(),
+                            'target_class' => 'Usuario\Entity\Fisica',
+                            'property' => 'nome',
+                            'find_method' => array(
+                                'name' => 'findBy',
+                                'params' => array(
+                                    'criteria' => array('sexo' => 'F', 'situacao' => 'A'),
+                                    'orderBy' => array('nome' => 'ASC')
+                                ),
+                            ),
+                            'display_empty_item' => true,
+                            'empty_item_label' => 'Informe o nome da mãe, CPF, ou RG da pessoa',
+                            'label_generator' => function($em) {
+                                $label = '';
+                                if ($em->getNome()){
+                                    $label .=  $em->getNome();
+                                }
+                                if ($em->getCpf()){
+                                    $label .= ' - CPF (' . $em->getCpf() . ')';
+                                }
+                                /*
+                                if ($em->getRg()){
+                                    $label .= ' - ' . $em->getRg();
+                                }*/
+
+                                return $label;
+
+                            },
+                        ),
+                    ));
+
+                    $form->add(array(
+                        'name' => 'pessoaPai',
+                        'attributes' => array(
+                            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+                            'class' => 'form-control chosen-select',
+                            'style' => 'height:100px;',
+                        ),
+                        'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+                        'options' => array(
+                            'label' => 'Pai:',
+                            'object_manager' => $this->getEntityManager(),
+                            'target_class' => 'Usuario\Entity\Fisica',
+                            'property' => 'nome',
+                            'find_method' => array(
+                                'name' => 'findBy',
+                                'params' => array(
+                                    'criteria' => array('sexo' => 'M', 'situacao' => 'A'),
+                                    'orderBy' => array('nome' => 'ASC')
+                                ),
+                            ),
+                            'display_empty_item' => true,
+                            'empty_item_label' => 'Informe o nome do pai, CPF, ou RG da pessoa',
+                            'label_generator' => function($em) {
+                                $label = '';
+                                if ($em->getNome()){
+                                    $label .=  $em->getNome();
+                                }
+                                if ($em->getCpf()){
+                                    $label .= ' - CPF (' . $em->getCpf() . ')';
+                                }
+                                /*
+                                if ($em->getRg()){
+                                    $label .= ' - ' . $em->getRg();
+                                }*/
+
+                                return $label;
+
+                            },
                         ),
                     ));
 

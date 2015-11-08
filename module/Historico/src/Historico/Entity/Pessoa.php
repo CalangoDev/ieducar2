@@ -64,19 +64,6 @@ class Pessoa extends Entity implements InputFilterAwareInterface
 	 */
 	protected $url;
 
-	/**
-	 * @var  String $tipo F(Fisica) ou J(Juridica)
-	 * //era false o nullable
-	 * @ORM\Column(type="string", length=1, nullable=true)
-	 */
-	protected $tipo;
-
-	/**
-	 * @var  DateTime $data_rev Data de revisao do cadastro
-	 * @todo  Verificar no antigo sistema a logica de quando esse dado é informado
-	 * @ORM\Column(type="datetime", nullable=true)
-	 */
-	protected $data_rev;
 
 	/**
 	 * @var  String $email Email da pessoa
@@ -92,91 +79,6 @@ class Pessoa extends Entity implements InputFilterAwareInterface
 	 * @ORM\Column(type="string", length=1, nullable=false)
 	 */
 	protected $situacao;
-
-	/**
-	 * @var  String $origem_gravacao M(Migração) ou U(Usuário) ou C(Rotina de Confrontação) ou O(Usuário do Oscar?) Origem dos dados 
-	 * 
-	 * @ORM\Column(type="string", length=1, nullable=false)
-	 */
-	protected $origem_gravacao;
-
-	/**
-	 * @var  String $operacao I(?) ou A(?) ou E(?) - Não consegui identificar os significados, porem todos os registros são salvos 
-	 * como I
-	 * 
-	 * @ORM\Column(type="string", length=1, nullable=false)
-	 */
-	protected $operacao;
-
-	/**
-	 * @var  Integer $idsis_rev - Id do Sistema porem o rev não consegui encontrar sentido
-	 * 
-	 * @ORM\Column(type="integer", nullable=true)
-	 */
-	protected $idsis_rev;
-
-	/**
-	 * @var  Integer $idsis_cad - Id do sistema que cadastrou o usuario ver tabela acesso.sistema 
-	 * 
-	 * @ORM\Column(type="integer", nullable=false)
-	 */
-	protected $idsis_cad;
-
-	/**
-	 * @var Integer $idpes_rev Id da pessoa ??
-	 * 
-	 * @ORM\Column(type="integer", nullable=true)
-	 */
-	protected $idpes_rev;
-
-	/**
-	 * @ORM\ManyToOne(targetEntity="Usuario\Entity\Pessoa", cascade={"persist"})
-	 * @ORM\JoinColumn(name="idpes_cad", referencedColumnName="idpes", onDelete="SET NULL")
-	 */
-	protected $pessoa_cad;
-
-	/**
-	 * @ORM\ManyToOne(targetEntity="Usuario\Entity\Pessoa", cascade={"persist"})
-	 * @ORM\JoinColumn(name="idpes_rev", referencedColumnName="idpes", onDelete="SET NULL")
-	 */
-	protected $pessoa_rev;
- 	
-
-	/**
-	 * Funcao para checar se a string de operacao é diferente de I, A ou E se sim remove a variavel $this->operacao
-	 * @access  public
-	 * @return  Exception 
-	 * @ORM\PrePersist
-	 */
-	public function checkOperacao()
-	{
-		if (($this->operacao != "I") && ($this->operacao != "A") && ($this->operacao != "E"))
-			throw new \Exception("O atributo operacao recebeu um valor inválido: \"" . $this->operacao. "\"", 1);
-	}
-	
-	/**
-	 * Funcao para checar se origem de gravacao é diferente de M, U, C ou O
-	 * @access  public
-	 * @return  Exception
-	 * @ORM\PrePersist
-	 */
-	public function checkOrigemGravacao()
-	{
-		if(($this->origem_gravacao != "M") && ($this->origem_gravacao != "U") && ($this->origem_gravacao != "C") && ($this->origem_gravacao != "O"))
-			throw new \Exception("O atributo origem_gravacao recebeu um valor inválido: \"" . $this->origem_gravacao. "\"", 1);
-	}
-
-	/**
-	 * Funcao para checar se o tipo é diferente de F ou J
-	 * @access  public
-	 * @return  Exception
-	 * @ORM\PrePersist
-	 */
-	public function checkTipo()
-	{
-		if(($this->tipo != "F") && ($this->tipo != "J"))
-			throw new \Exception("O atributo tipo recebeu um valor inválido: \"" . $this->tipo. "\"", 1);
-	}
 
 	/**
 	 * Funcao para checar se a situacao é diferente de A, P ou I
@@ -251,26 +153,6 @@ class Pessoa extends Entity implements InputFilterAwareInterface
 		$this->url = $this->valid("url", $value);
 	}
 
-	public function getTipo()
-	{
-		return $this->tipo;
-	}
-	
-	public function setTipo($value)
-	{
-		$this->tipo = $this->valid("tipo", $value);
-	}
-
-	public function getDataRev()
-	{
-		return $this->data_rev;
-	}
-	
-	public function setDataRev($value)
-	{
-		$this->data_rev = $this->valid("data_rev", $value);
-	}
-
 	public function getEmail()
 	{
 		return $this->email;
@@ -289,66 +171,6 @@ class Pessoa extends Entity implements InputFilterAwareInterface
 	public function setSituacao($value)
 	{
 		$this->situacao = $this->valid("situacao", $value);
-	}
-
-	public function getOrigemGravacao()
-	{
-		return $this->origem_gravacao;
-	}
-	
-	public function setOrigemGravacao($value)
-	{
-		$this->origem_gravacao = $this->valid("origem_gravacao", $value);
-	}
-
-	public function getOperacao()
-	{
-		return $this->operacao;
-	}
-	
-	public function setOperacao($value)
-	{
-		$this->operacao = $this->valid("operacao", $value);
-	}
-
-	public function getIdsisRev()
-	{
-		return $this->idsis_rev;
-	}
-	
-	public function setIdsisRev($value)
-	{
-		$this->idsis_rev = $this->valid("idsis_rev", $value);
-	}
-
-	public function getIdsisCad()
-	{
-		return $this->idsis_cad;
-	}
-	
-	public function setIdsisCad($value)
-	{
-		$this->idsis_cad = $this->valid("idsis_cad", $value);
-	}
-
-	public function getPessoaCad()
-	{
-		return $this->pessoa_cad;
-	}
-	
-	public function setPessoaCad($value)
-	{
-		$this->pessoa_cad = $this->valid("pessoa_cad", $value);
-	}
-
-	public function getPessoaRev()
-	{
-		return $this->pessoa_rev;
-	}
-	
-	public function setPessoaRev($value)
-	{
-		$this->pessoa_rev = $this->valid("pessoa_rev", $value);
 	}
 
 	/**
@@ -373,15 +195,8 @@ class Pessoa extends Entity implements InputFilterAwareInterface
 		$this->nome = $data['nome'];
 		$this->data_cad = $data['data_cad'];
 		$this->url = $data['url'];
-		$this->tipo = $data['tipo'];
-		$this->data_rev = $data['data_rev'];
 		$this->email = $data['email'];
 		$this->situacao = $data['situacao'];
-		$this->origem_gravacao = $data['origem_gravacao'];
-		$this->operacao = $data['operacao'];
-		$this->idsis_rev = $data['idsis_rev'];
-		$this->idsis_cad = $data['idsis_cad'];
-		$this->idpes_rev = $data['idpes_rev'];
 	}
 
 	public function setInputFilter(InputFilterInterface $inputFilter)

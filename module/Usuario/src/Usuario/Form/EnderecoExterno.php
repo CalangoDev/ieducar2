@@ -232,7 +232,7 @@ class EnderecoExterno extends Form
 				'label' => 'Zona Localização',
 				'value_options' => array(
 					'1'  => 'Urbana',
-     				'2'  => 'Rural',     				
+     				'2'  => 'Rural',
 				),
 			),
 		));

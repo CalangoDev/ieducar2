@@ -140,31 +140,36 @@ class Fisica extends Pessoa
 	 * @var string $nome_mae	Nome da Mae
 	 * @deprecated deprecated since version 2.0
 	 * 
-	 * @ORM\Column(name="nome_mae", type="string", length=150, nullable=true)
+	 * ORM\Column(name="nome_mae", type="string", length=150, nullable=true)
 	 */
-	protected $nomeMae;
+	//protected $nomeMae;
 
 	/**
 	 * @var string $nome_pai	Nome do pai
 	 * @deprecated deprecated since version 2.0
 	 * 
-	 * @ORM\Column(name="nome_pai", type="string", length=150, nullable=true)
+	 * ORM\Column(name="nome_pai", type="string", length=150, nullable=true)
 	 */
-	protected $nomePai;
+	//protected $nomePai;
 
 	/**
 	 * @var string $nome_conjuge	Nome do conjuge
+     * @deprecated deprecated since version 2.0
+     * @todo criar relacionamento com pessoa responsavel
 	 * 
-	 * @ORM\Column(name="nome_conjuge", type="string", length=150, nullable=true)
+	 * ORM\Column(name="nome_conjuge", type="string", length=150, nullable=true)
 	 */
-	protected $nomeConjuge;
+	//protected $nomeConjuge;
 
 	/**
 	 * @var string $nome_responsavel	Nome do responsavel
+     * @deprecated deprecated since version 2.0
+     *
+     * @todo criar relacionamento com pessoa responsavel
 	 * 
-	 * @ORM\Column(name="nome_responsavel", type="string", length=150, nullable=true)
+	 * ORM\Column(name="nome_responsavel", type="string", length=150, nullable=true)
 	 */
-	protected $nomeResponsavel;
+	//protected $nomeResponsavel;
 
 	/**
 	 * @var string $justificativa_provisorio	????
@@ -283,8 +288,8 @@ class Fisica extends Pessoa
 	 * 
 	 * @todo  verificar esse relacionamento
 	 * 
-	 * @ORM\ManyToOne(targetEntity="Pessoa", cascade={"persist"})
-	 * @ORM\JoinColumn(name="idpes_mae", referencedColumnName="idpes", onDelete="SET NULL")
+	 * @ORM\ManyToOne(targetEntity="Fisica", cascade={"persist"})
+	 * @ORM\JoinColumn(name="idpes_mae", referencedColumnName="idpes", onDelete="SET NULL", nullable=true)
 	 */
 	protected $pessoaMae;
 
@@ -293,8 +298,8 @@ class Fisica extends Pessoa
 	 * 
 	 * @todo  verificar esse relacionamento
 	 * 	 
-	 * @ORM\ManyToOne(targetEntity="Pessoa", cascade={"persist"})
-	 * @ORM\JoinColumn(name="idpes_pai", referencedColumnName="idpes", onDelete="SET NULL")
+	 * @ORM\ManyToOne(targetEntity="Fisica", cascade={"persist"})
+	 * @ORM\JoinColumn(name="idpes_pai", referencedColumnName="idpes", onDelete="SET NULL", nullable=true)
 	 */
 	protected $pessoaPai;
 
@@ -467,47 +472,6 @@ class Fisica extends Pessoa
 		$this->ultimaEmpresa = $this->valid("ultimaEmpresa", $value);
 	}
 
-	public function getNomeMae()
-	{
-		return $this->nomeMae;
-	}
-
-	public function setNomeMae($value)
-	{
-		$this->nomeMae = $this->valid("nomeMae", $value);
-	}
-
-	public function getNomePai()
-	{
-		return $this->nomePai;
-	}
-
-	public function setNomePai($value)
-	{
-		$this->nomePai = $this->valid("nomePai", $value);
-	}
-
-	public function getNomeConjuge()
-	{
-		return $this->nomeConjuge;
-	}
-
-	public function setNomeConjuge($value)
-	{
-		$this->nomeConjuge = $this->valid("nomeConjuge", $value);
-	}
-
-
-	public function getNomeResponsavel()
-	{
-		return $this->nomeResponsavel;
-	}
-	
-	public function setNomeResponsavel($value)
-	{
-		$this->nomeResponsavel = $this->valid("nomeResponsavel", $value);
-	}
-
 	public function getJustificativaProvisorio()
 	{
 		return $this->justificativaProvisorio;
@@ -547,36 +511,6 @@ class Fisica extends Pessoa
 		$this->dataCad = $this->valid("dataCad", $value);
 	}
 
-	public function getOperacao()
-	{
-		return $this->operacao;
-	}
-	
-	public function setOperacao($value)
-	{
-		$this->operacao = $this->valid("operacao", $value);
-	}
-
-	public function getIdsisRev()
-	{
-		return $this->idsisRev;
-	}
-	
-	public function setIdsisRev($value)
-	{
-		$this->idsisRev = $this->valid("idsisRev", $value);
-	}
-
-	public function getIdsisCad()
-	{
-		return $this->idsisCad;
-	}
-	
-	public function setIdsisCad($value)
-	{
-		$this->idsisCad = $this->valid("idsisCad", $value);
-	}
-
 	public function getRefCodSistema()
 	{
 		return $this->refCodSistema;
@@ -595,36 +529,6 @@ class Fisica extends Pessoa
 	public function setCpf($value)
 	{
 		$this->cpf = $this->valid("cpf", $value);
-	}
-
-	public function getIdpesMae()
-	{
-		return $this->idpesMae;
-	}
-	
-	public function setIdpesMae($value)
-	{
-		$this->idpesMae = $this->valid("idpesMae", $value);
-	}
-
-	public function getIdpesPai()
-	{
-		return $this->idpesPai;
-	}
-	
-	public function setIdpesPai($value)
-	{
-		$this->idpesPai = $this->valid("idpesPai", $value);
-	}
-
-	public function getIdpesResponsavel()
-	{
-		return $this->idpesResponsavel;
-	}
-	
-	public function setIdpesResponsavel($value)
-	{
-		$this->idpesResponsavel = $this->valid("idpesResponsavel", $value);
 	}
 
 	public function getIdmunNascimento()
@@ -647,76 +551,6 @@ class Fisica extends Pessoa
 		$this->idpaisEstrangeiro = $this->valid("idpaisEstrangeiro", $value);
 	}
 
-	public function getIdesco()
-	{
-		return $this->idesco;
-	}
-	
-	public function setIdesco($value)
-	{
-		$this->idesco = $this->valid("idesco", $value);
-	}
-
-	public function getIdeciv()
-	{
-		return $this->ideciv;
-	}
-	
-	public function setIdeciv($value)
-	{
-		$this->ideciv = $this->valid("ideciv", $value);
-	}
-
-	public function getIdpesCon()
-	{
-		return $this->idpesCon;
-	}
-	
-	public function setIdpesCon($value)
-	{
-		$this->idpesCon = $this->valid("idpesCon", $value);
-	}
-
-	public function getIdocup()
-	{
-		return $this->idocup;
-	}
-	
-	public function setIdocup($value)
-	{
-		$this->idocup = $this->valid("idocup", $value);
-	}
-
-	public function getIdpesRev()
-	{
-		return $this->idpesRev;
-	}
-	
-	public function setIdpesRev($value)
-	{
-		$this->idpesRev = $this->valid("idpesRev", $value);
-	}
-
-	public function getIdpesCad()
-	{
-		return $this->idpesCad;
-	}
-	
-	public function setIdpesCad($value)
-	{
-		$this->idpesCad = $this->valid("idpesCad", $value);
-	}
-
-	public function getRefCodReligiao()
-	{
-		return $this->refCodReligiao;
-	}
-	
-	public function setRefCodReligiao($value)
-	{
-		$this->refCodReligiao = $this->valid("refCodReligiao", $value);
-	}
-
 	public function getRaca()
 	{
 		return $this->raca;
@@ -737,7 +571,39 @@ class Fisica extends Pessoa
         $this->foto = $this->valid("foto", $value);
     }
 
-	public function setData($data)
+	public function getEstadoCivil()
+	{
+		return $this->estadoCivil;
+	}
+
+	public function setEstadoCivil($value)
+	{
+        // @todo checkar isso
+//		$this->estadoCivil = $this->valid("estadoCivil", $value);
+        $this->estadoCivil = $value;
+	}
+
+    public function getPessoaPai()
+    {
+        return $this->pessoaPai;
+    }
+
+    public function setPessoaPai($value)
+    {
+        $this->pessoaPai = $value;
+    }
+
+    public function getPessoaMae()
+    {
+        return $this->pessoaMae;
+    }
+
+    public function setPessoaMae($value)
+    {
+        $this->pessoaMae = $value;
+    }
+
+    public function setData($data)
 	{
 		$this->setId(isset($data['id']) ? $data['id'] : null);
 		
@@ -801,6 +667,8 @@ class Fisica extends Pessoa
 		$this->setNome(isset($data['nome']) ? $data['nome'] : null);
 		$this->setSituacao(isset($data['situacao']) ? $data['situacao'] : null);
 		$this->setRaca(isset($data['raca']) ? $data['raca'] : null);
+        $this->setEstadoCivil( isset($data['estadoCivil']) ? $data['estadoCivil'] : null );
+        $this->setPessoaMae( isset($data['pessoaMae']) ? $data['pessoaMae'] : null);
 
 	}
 
@@ -809,7 +677,7 @@ class Fisica extends Pessoa
 	 * [$inputFilter recebe os filtros]
 	 * @var Zend\InputFilter\InputFilter
 	 */
-	protected $inputFilter;
+	//protected $inputFilter;
 
 	/**
 	 * Configura os filtros dos campos da entidade
@@ -818,49 +686,22 @@ class Fisica extends Pessoa
 	 */
 	public function getInputFilter()
 	{
-		if (!$this->inputFilter){
-			$inputFilter = new InputFilter();
-			$factory = new InputFactory();
+        //herdando o inputfilter de pessoa
+        parent::getInputFilter();
 
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'id',
-				'required' => true,
-				'filters' => array(
-					array('name' => 'Int'),
-				),
-			)));				
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'raca',
+        $factory = new InputFactory();
+        $this->inputFilter->add($factory->createInput(array(
+            'name' => 'raca',
 				'required' => false				
-			)));											
+        )));
 
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'nome',
-				'required' => true,
-				'filters'	=>	array(
-					array('name'	=>	'StripTags'),
-					array('name'	=>	'StringTrim'),
-				),
-				'validators' => array(
-					array(
-						'name' => 'StringLength',
-						'options' => array(
-							'encoding' => 'UTF-8',
-							'min' => 1,
-							'max' => 150,
-						),
-					),
-				),				
-			)));			
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'dataNasc',
-				'required' => false,
-				'filters' => array(
-					array('name' => 'StripTags'),
-					array('name' => 'StringTrim'),
-				),				
+        $this->inputFilter->add($factory->createInput(array(
+            'name' => 'dataNasc',
+            'required' => false,
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
 				// 'validators' => array(
     //                array(  
     //                 'name'=>'Date',
@@ -884,397 +725,142 @@ class Fisica extends Pessoa
     //                     ),      
     //                 ),      
     //             ),
-                'validators' => array(
-					'name' => new \Zend\Validator\Date(),
-				),
-			)));
+            'validators' => array(
+                'name' => new \Zend\Validator\Date(),
+            ),
+        )));
 
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'sexo',
-				'required' => true,
-				'filters' => array(
-					array('name' => 'StripTags'),
-					array('name' => 'StringTrim'),
-					array('name' => 'Alpha'),
-					array('name' => 'StringToUpper'),
-				),
-				'validators' => array(
-					array(
-						'name' => 'StringLength',
-						false,
-						'options' => array(
-							'encoding' => 'UTF-8',
-							'min' => 1,
-							'max' => 1,
-						),
+        $this->inputFilter->add($factory->createInput(array(
+            'name' => 'sexo',
+            'required' => true,
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+                array('name' => 'Alpha'),
+                array('name' => 'StringToUpper'),
+            ),
+            'validators' => array(
+                array(
+                    'name' => 'StringLength',
+                    false,
+					'options' => array(
+						'encoding' => 'UTF-8',
+						'min' => 1,
+						'max' => 1,
+					),
+                ),
+            ),
+        )));
+
+        $this->inputFilter->add($factory->createInput(array(
+            'name' => 'dataUniao',
+            'required' => false,
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
+            'validators' => array(
+                'name' => new \Zend\Validator\Date(),
+            ),
+        )));
+
+        $this->inputFilter->add($factory->createInput(array(
+            'name' => 'dataObito',
+			'required' => false,
+			'filters' => array(
+				array('name' => 'StripTags'),
+				array('name' => 'StringTrim'),
+			),
+			'validators' => array(
+				'name' => new \Zend\Validator\Date(),
+			),
+        )));
+
+        $this->inputFilter->add($factory->createInput(array(
+            'name' => 'nacionalidade',
+			'required' => false,
+			'filters' => array(
+				array('name' => 'Int'),
+			),
+        )));
+
+        $this->inputFilter->add($factory->createInput(array(
+            'name' => 'dataChegadaBrasil',
+            'required' => false,
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
+            'validators' => array(
+                'name' => new \Zend\Validator\Date(),
+            ),
+        )));
+
+        $this->inputFilter->add($factory->createInput(array(
+            'name' => 'ultimaEmpresa',
+			'required' => false,
+			'filters'	=>	array(
+				array('name'	=>	'StripTags'),
+                array('name'	=>	'StringTrim'),
+            ),
+			'validators' => array(
+				array(
+					'name' => 'StringLength',
+					'options' => array(
+						'encoding' => 'UTF-8',
+						'min' => 1,
+						'max' => 150,
 					),
 				),
-			)));
+			),
+        )));
 
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'dataUniao',
-				'required' => false,
-				'filters' => array(
-					array('name' => 'StripTags'),
-					array('name' => 'StringTrim'),
-				),
-				'validators' => array(
-					'name' => new \Zend\Validator\Date(),
-				),
-			)));
+        $this->inputFilter->add($factory->createInput(array(
+            'name' => 'justificativaProvisorio',
+            'required' => false,
+            'filters'	=>	array(
+                array('name'	=>	'StripTags'),
+                array('name'	=>	'StringTrim'),
+            ),
+            'validators' => array(
+                array(
+                    'name' => 'StringLength',
+                    'options' => array(
+                        'encoding' => 'UTF-8',
+                        'min' => 1,
+                        'max' => 150,
+                    ),
+                ),
+            ),
+        )));
 
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'dataObito',
-				'required' => false,
-				'filters' => array(
-					array('name' => 'StripTags'),
-					array('name' => 'StringTrim'),
-				),
-				'validators' => array(
-					'name' => new \Zend\Validator\Date(),
-				),
-			)));
+        $this->inputFilter->add($factory->createInput(array(
+            'name' => 'cpf',
+            'required' => false,
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+                array('name' => 'Alnum'),
+            ),
+            'validators' => array(
+                array(
+                    'name' => 'StringLength',
+                    'options' => array(
+                        'encoding' => 'UTF-8',
+                        'min' => 1,
+                        'max' => 11,
+                    ),
+                ),
+            ),
+        )));
 
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'nacionalidade',
-				'required' => false,
-				'filters' => array(
-					array('name' => 'Int'),
-				),
-			)));
+        $this->inputFilter->add($factory->createInput(array(
+            'name' => 'estadoCivil',
+            'required' => false
+        )));
 
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'dataChegadaBrasil',
-				'required' => false,
-				'filters' => array(
-					array('name' => 'StripTags'),
-					array('name' => 'StringTrim'),
-				),
-				'validators' => array(
-					'name' => new \Zend\Validator\Date(),
-				),
-			)));
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'ultimaEmpresa',
-				'required' => false,
-				'filters'	=>	array(
-					array('name'	=>	'StripTags'),
-					array('name'	=>	'StringTrim'),
-				),
-				'validators' => array(
-					array(
-						'name' => 'StringLength',
-						'options' => array(
-							'encoding' => 'UTF-8',
-							'min' => 1,
-							'max' => 150,
-						),
-					),
-				),				
-			)));
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'nomeMae',
-				'required' => false,
-				'filters'	=>	array(
-					array('name'	=>	'StripTags'),
-					array('name'	=>	'StringTrim'),
-				),
-				'validators' => array(
-					array(
-						'name' => 'StringLength',
-						'options' => array(
-							'encoding' => 'UTF-8',
-							'min' => 1,
-							'max' => 150,
-						),
-					),
-				),				
-			)));
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'nomePai',
-				'required' => false,
-				'filters'	=>	array(
-					array('name'	=>	'StripTags'),
-					array('name'	=>	'StringTrim'),
-				),
-				'validators' => array(
-					array(
-						'name' => 'StringLength',
-						'options' => array(
-							'encoding' => 'UTF-8',
-							'min' => 1,
-							'max' => 150,
-						),
-					),
-				),				
-			)));
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'nomeConjuge',
-				'required' => false,
-				'filters'	=>	array(
-					array('name'	=>	'StripTags'),
-					array('name'	=>	'StringTrim'),
-				),
-				'validators' => array(
-					array(
-						'name' => 'StringLength',
-						'options' => array(
-							'encoding' => 'UTF-8',
-							'min' => 1,
-							'max' => 150,
-						),
-					),
-				),				
-			)));
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'nomeResponsavel',
-				'required' => false,
-				'filters'	=>	array(
-					array('name'	=>	'StripTags'),
-					array('name'	=>	'StringTrim'),
-				),
-				'validators' => array(
-					array(
-						'name' => 'StringLength',
-						'options' => array(
-							'encoding' => 'UTF-8',
-							'min' => 1,
-							'max' => 150,
-						),
-					),
-				),				
-			)));
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'justificativaProvisorio',
-				'required' => false,
-				'filters'	=>	array(
-					array('name'	=>	'StripTags'),
-					array('name'	=>	'StringTrim'),
-				),
-				'validators' => array(
-					array(
-						'name' => 'StringLength',
-						'options' => array(
-							'encoding' => 'UTF-8',
-							'min' => 1,
-							'max' => 150,
-						),
-					),
-				),				
-			)));
-
-			 $inputFilter->add($factory->createInput(array(
-			 	'name' => 'dataRev',
-			 	'required' => false,
-			 	'filters' => array(
-			 		array('name' => 'StripTags'),
-			 		array('name' => 'StringTrim'),
-			 	),
-			 	'validators' => array(
-			 		'name' => new \Zend\Validator\Date(),
-			 	),
-			 )));
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'origemGravacao',
-				'required' => true,
-				'filters' => array(
-					array('name' => 'StripTags'),
-					array('name' => 'StringTrim'),
-					array('name' => 'Alpha'),
-					array('name' => 'StringToUpper'),
-				),
-				'validators' => array(
-					array(
-						'name' => 'StringLength',
-						'options' => array(
-							'encoding' => 'UTF-8',
-							'min' => 1,
-							'max' => 1,
-						),
-					),
-				),
-			)));
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'operacao',
-				'required' => true,
-				'filters' => array(
-					array('name' => 'StripTags'),
-					array('name' => 'StringTrim'),
-					array('name' => 'Alpha'),
-					array('name' => 'StringToUpper'),
-				),
-				'validators' => array(
-					array(
-						'name' => 'StringLength',
-						'options' => array(
-							'encoding' => 'UTF-8',
-							'min' => 1,
-							'max' => 1,
-						),
-					),
-				),
-			)));
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'idsisRev',
-				'required' => false,
-				'filters' => array(
-					array('name' => 'Int'),
-				),
-			)));
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'idsisCad',
-				'required' => true,
-				'filters' => array(
-					array('name' => 'Int'),
-				),
-			)));
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'refCodSistema',
-				'required' => false,
-				'filters' => array(
-					array('name' => 'Int'),
-				),
-			)));
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'cpf',
-				'required' => true,
-				'filters' => array(
-					array('name' => 'StripTags'),
-					array('name' => 'StringTrim'),
-					array('name' => 'Alnum'),					
-				),
-				'validators' => array(
-					array(
-						'name' => 'StringLength',
-						'options' => array(
-							'encoding' => 'UTF-8',
-							'min' => 1,
-							'max' => 11,
-						),
-					),
-				),
-			)));
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'idpesMae',
-				'required' => false,
-				'filters' => array(
-					array('name' => 'Int'),
-				),
-			)));
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'idpesPai',
-				'required' => false,
-				'filters' => array(
-					array('name' => 'Int'),
-				),
-			)));
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'idpesResponsavel',
-				'required' => false,
-				'filters' => array(
-					array('name' => 'Int'),
-				),
-			)));
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'idmunNascimento',
-				'required' => false,
-				'filters' => array(
-					array('name' => 'Int'),
-				),
-			)));
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'idpaisEstrangeiro',
-				'required' => false,
-				'filters' => array(
-					array('name' => 'Int'),
-				),
-			)));
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'idesco',
-				'required' => false,
-				'filters' => array(
-					array('name' => 'Int'),
-				),
-			)));
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'ideciv',
-				'required' => false,
-				'filters' => array(
-					array('name' => 'Int'),
-				),
-			)));
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'idpesCon',
-				'required' => false,
-				'filters' => array(
-					array('name' => 'Int'),
-				),
-			)));
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'idocup',
-				'required' => false,
-				'filters' => array(
-					array('name' => 'Int'),
-				),
-			)));
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'idpesRev',
-				'required' => false,
-				'filters' => array(
-					array('name' => 'Int'),
-				),
-			)));
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'idpesCad',
-				'required' => false,
-				'filters' => array(
-					array('name' => 'Int'),
-				),
-			)));
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'refCodReligiao',
-				'required' => false,
-				'filters' => array(
-					array('name' => 'Int'),
-				),
-			)));
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'enderecoExterno',
-				'required' => false
-			)));
-
-            $inputFilter->add($factory->createInput(array(
-                'name' => 'estadoCivil',
-                'required' => false
-            )));
-
-            $inputFilter->add($factory->createInput(array(
-                'name' => 'foto',
+        $this->inputFilter->add($factory->createInput(array(
+            'name' => 'foto',
                 'required' => false,
                 'filters'	=>	array(
                     array('name'	=>	'StripTags'),
@@ -1292,19 +878,17 @@ class Fisica extends Pessoa
                 ),
             )));
 
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'pessoaMae',
-				'required' => false
-			)));
+        $this->inputFilter->add($factory->createInput(array(
+            'name' => 'pessoaMae',
+            'required' => false
+        )));
 
-            $inputFilter->add($factory->createInput(array(
-                'name' => 'pessoaPai',
-                'required' => false
-            )));
+        $this->inputFilter->add($factory->createInput(array(
+            'name' => 'pessoaPai',
+            'required' => false
+        )));
 
-			$this->inputFilter = $inputFilter;
-		}
-		return $this->inputFilter;
-	}
+        return $this->inputFilter;
+    }
 
 }
