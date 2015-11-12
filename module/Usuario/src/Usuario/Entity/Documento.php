@@ -17,7 +17,7 @@ use Zend\InputFilter\Factory as InputFactory;
  *
  * Recebe o documento da pessoa fisica
  *
- * @uthor EduardoJunior <ej@calangodev.com.br>
+ * @author EduardoJunior <ej@calangodev.com.br>
  * @category Entidade
  * @package Usuario
  * @subpackage Documento
@@ -132,8 +132,6 @@ class Documento extends Entity
     protected $secaoTituloEleitor;
 
     /**
-     * @todo criar entidade OrgaoEmissorRg
-     *
      * @ORM\OneToOne(targetEntity="Usuario\Entity\OrgaoEmissorRg")
      * @ORM\JoinColumn(name="idorg_exp_rg", onDelete="NO ACTION")
      */
@@ -149,5 +147,421 @@ class Documento extends Entity
      * @ORM\Column(type="string", length=50, name="certidao_nascimento")
      */
     protected $certidaoNascimento;
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getRg()
+    {
+        return $this->getRg;
+    }
+
+    public function setRg($rg)
+    {
+        $this->rg = $this->valid("rg", $rg);
+    }
+
+    public function getDataExpedicaoRg()
+    {
+        return $this->dataExpedicaoRg;
+    }
+
+    public function setDataExpedicaoRg($dataExpedicaoRg)
+    {
+        $this->dataExpedicaoRg = $this->valid("dataExpedicaoRg", $dataExpedicaoRg);
+    }
+
+    public function getSiglaUfExpedicaoRg()
+    {
+        return $this->siglaUfExpedicaoRg;
+    }
+
+    public function setSiglaUfExpedicaoRg($siglaUfExpedicaoRg)
+    {
+        $this->siglaUfExpedicaoRg = $this->valid("siglaUfExpedicaoRg", $siglaUfExpedicaoRg);
+    }
+
+    public function getTipoCertidaoCivil()
+    {
+        return $this->tipoCertidaoCivil;
+    }
+
+    public function setTipoCertidaoCivil($tipoCertidaoCivil)
+    {
+        $this->tipoCertidaoCivil = $this->valid("tipoCertidaoCivil", $tipoCertidaoCivil);
+    }
+
+    public function getTermo()
+    {
+        return $this->termo;
+    }
+
+    public function setTermo($termo)
+    {
+        $this->termo = $this->valid("termo", $termo);
+    }
+
+    public function getLivro()
+    {
+        return $this->livro;
+    }
+
+    public function setLivro($livro)
+    {
+        $this->livro = $this->valid("livro", $livro);
+    }
+
+    public function getFolha()
+    {
+        return $this->folha;
+    }
+
+    public function setFolha($folha)
+    {
+        $this->folha = $this->valid("folha", $folha);
+    }
+
+    public function getDataEmissaoCertidaoCivil()
+    {
+        return $this->dataEmissaoCertidaoCivil;
+    }
+
+    public function setDataEmissaoCertidaoCivil($dataEmissaoCertidaoCivil)
+    {
+        $this->dataEmissaoCertidaoCivil = $this->valid("dataEmissaoCertidaoCivil", $dataEmissaoCertidaoCivil);
+    }
+
+    public function getSiglaUfCertidaoCivil()
+    {
+        return $this->siglaUfCertidaoCivil;
+    }
+
+    public function setSiglaUfCertidaoCivil($siglaUfCertidaoCivil)
+    {
+        $this->siglaUfCertidaoCivil = $this->valid("siglaUfCertidaoCivil", $siglaUfCertidaoCivil);
+    }
+
+    public function getCartorioCertidaoCivil()
+    {
+        return $this->cartorioCertidaoCivil;
+    }
+
+    public function setCartorioCertidaoCivil($cartorioCertidaoCivil)
+    {
+        $this->cartorioCertidaoCivil = $this->valid("cartorioCertidaoCivil", $cartorioCertidaoCivil);
+    }
+
+    public function getNumeroCarteiraTrabalho()
+    {
+        return $this->numeroCarteiraTrabalho;
+    }
+
+    public function setNumeroCarteiraTrabalho($numeroCarteiraTrabalho)
+    {
+        $this->numeroCarteiraTrabalho = $this->valid("numeroCarteiraTrabalho", $numeroCarteiraTrabalho);
+    }
+
+    public function getSerieCarteiraTrabalho()
+    {
+        return $this->serieCarteiraTrabalho;
+    }
+
+    public function setSerieCarteiraTrabalho($serieCarteiraTrabalho)
+    {
+        $this->serieCarteiraTrabalho = $this->valid("serieCarteiraTrabalho", $serieCarteiraTrabalho);
+    }
+
+    public function getDataEmissaoCarteiraTrabalho()
+    {
+        return $this->dataEmissaoCarteiraTrabalho;
+    }
+
+    public function setDataEmissaoCarteiraTrabalho($dataEmissaoCarteiraTrabalho)
+    {
+        $this->dataEmissaoCarteiraTrabalho = $this->valid("dataEmissaoCarteiraTrabalho", $dataEmissaoCarteiraTrabalho);
+    }
+
+    public function getSiglaUfCarteiraTrabalho()
+    {
+        return $this->siglaUfCarteiraTrabalho;
+    }
+
+    public function setSiglaUfCarteiraTrabalho($siglaUfCarteiraTrabalho)
+    {
+        $this->siglaUfCarteiraTrabalho = $this->valid("siglaUfCarteiraTrabalho", $siglaUfCarteiraTrabalho);
+    }
+
+    public function getNumeroTituloEleitor()
+    {
+        return $this->numeroTituloEleitor;
+    }
+
+    public function setNumeroTituloEleitor($numeroTituloEleitor)
+    {
+        $this->numeroTituloEleitor = $this->valid("numeroTituloEleitor", $numeroTituloEleitor);
+    }
+
+    public function getZonaTituloEleitor()
+    {
+        return $this->zonaTituloEleitor;
+    }
+
+    public function setZonaTituloEleitor($zonaTituloEleitor)
+    {
+        $this->zonaTituloEleitor = $this->valid("zonaTituloEleitor", $zonaTituloEleitor);
+    }
+
+    public function getSecaoTituloEleitor()
+    {
+        return $this->secaoTituloEleitor;
+    }
+
+    public function setSecaoTituloEleitor($secaoTituloEleitor)
+    {
+        $this->secaoTituloEleitor = $this->valid("secaoTituloEleitor", $secaoTituloEleitor);
+    }
+
+    public function getOrgaoEmissorRg()
+    {
+        return $this->orgaoEmissorRg;
+    }
+
+    public function setOrgaoEmissorRg($orgaoEmissorRg)
+    {
+        $this->orgaoEmissorRg = $this->valid("orgaoEmissorRg", $orgaoEmissorRg);
+    }
+
+    public function getDataCad()
+    {
+        return $this->dataCad;
+    }
+
+    public function setDataCad($dataCad)
+    {
+        $this->dataCad = $this->valid("dataCad", $dataCad);
+    }
+
+    public function getCertidaoNascimento()
+    {
+        return $this->certidaoNascimento;
+    }
+
+    public function setCertidaoNascimento($certidaoNascimento)
+    {
+        $this->certidaoNascimento = $this->valid("certidaoNascimento", $certidaoNascimento);
+    }
+
+    protected $inputFilter;
+
+    /**
+     * Configura os filtros dos campos da entidade
+     *
+     * @return Zend\InputFilter\InputFilter
+     */
+    public function getInputFilter()
+    {
+        if (!$this->inputFilter){
+            $inputFilter = new InputFilter();
+            $factory = new InputFactory();
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'id',
+                'required' => true,
+                'filters' => array(
+                    array('name' => 'Int'),
+                )
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'dataExpedicaoRg',
+                'required' => false,
+                'filters' => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    'name' => new \Zend\Validator\Date(),
+                ),
+            )));
+
+            // @todo ver como fica inputfilter de relacionamentos
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'tipoCertidaoCivil',
+                'required' => false,
+                'validators' => array(
+                    'name' => new \Zend\Filter\Digits(),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'termo',
+                'required' => false,
+                'validators' => array(
+                    array(
+                        'name' => 'Digits',
+                        'options' => array(
+                            'max' => 8,
+                        ),
+                    ),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'livro',
+                'required' => false,
+                'filters' => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name' => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'max' => 8,
+                        ),
+                    ),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'folha',
+                'required' => false,
+                'validators' => array(
+                    array(
+                        'name' => 'Digits',
+                        'options' => array(
+                            'max' => 4,
+                        ),
+                    ),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'dataEmissaoCertidaoCivil',
+                'required' => false,
+                'filters' => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    'name' => new \Zend\Validator\Date(),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'cartorioCertidaoCivil',
+                'required' => false,
+                'filters' => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name' => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'max' => 150,
+                        ),
+                    ),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'numeroCarteiraTrabalho',
+                'required' => false,
+                'validators' => array(
+                    array(
+                        'name' => 'Digits',
+                        'options' => array(
+                            'max' => 9,
+                        ),
+                    ),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'serieCarteiraTrabalho',
+                'required' => false,
+                'validators' => array(
+                    array(
+                        'name' => 'Digits',
+                        'options' => array(
+                            'max' => 5,
+                        ),
+                    ),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'dataEmissaoCarteiraTrabalho',
+                'required' => false,
+                'filters' => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    'name' => new \Zend\Validator\Date(),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'numeroTituloEleitor',
+                'required' => false,
+                'validators' => array(
+                    array(
+                        'name' => 'Digits',
+                        'options' => array(
+                            'max' => 13,
+                        ),
+                    ),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'zonaTituloEleitor',
+                'required' => false,
+                'validators' => array(
+                    array(
+                        'name' => 'Digits',
+                        'options' => array(
+                            'max' => 4,
+                        ),
+                    ),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'secaoTituloEleitor',
+                'required' => false,
+                'validators' => array(
+                    array(
+                        'name' => 'Digits',
+                        'options' => array(
+                            'max' => 4,
+                        ),
+                    ),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'dataCad',
+                'required' => false,
+                'filters' => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    'name' => new \Zend\Validator\Date(),
+                ),
+            )));
+
+            $this->inputFilter = $inputFilter;
+        }
+        return $this->inputFilter;
+    }
 
 }

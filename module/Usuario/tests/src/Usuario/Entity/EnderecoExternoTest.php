@@ -125,7 +125,7 @@ class EnderecoExternoTest extends EntityTestCase
 		$id = $enderecoExterno->getPessoa()->getId();
 		$savedEnderecoExterno = $this->em->find('Usuario\Entity\EnderecoExterno', $id);
 
-		$this->em->remove($enderecoExterno);
+		$this->em->remove($savedEnderecoExterno);
 		$this->em->flush();
 
 		$savedEnderecoExterno = $this->em->find('Usuario\Entity\EnderecoExterno', $id);
