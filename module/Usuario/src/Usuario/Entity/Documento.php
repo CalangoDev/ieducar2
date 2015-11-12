@@ -27,6 +27,7 @@ use Zend\InputFilter\Factory as InputFactory;
  *
  * @ORM\Entity
  * @ORM\Table(name="cadastro_documento")
+ * @ORM\HasLifecycleCallbacks
  *
  */
 class Documento extends Entity
@@ -39,7 +40,7 @@ class Documento extends Entity
     protected $id;
 
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=20, nullable=true)
      */
     protected $rg;
 
@@ -49,6 +50,7 @@ class Documento extends Entity
     protected $dataExpedicaoRg;
 
     /**
+     * //, cascade={"persist"}
      * @ORM\OneToOne(targetEntity="Core\Entity\Uf")
      * @ORM\JoinColumn(name="sigla_uf_exp_rg", onDelete="NO ACTION")
      */
@@ -60,27 +62,27 @@ class Documento extends Entity
      * - nascimento(antigo formato), apresenta os inputs termo, livro, folha
      * - casamento - apresenta os inputs termo, livro, folha
      *
-     * @ORM\Column(type="decimal", length=2, name="tipo_cert_civil")
+     * @ORM\Column(type="integer", length=2, name="tipo_cert_civil")
      */
     protected $tipoCertidaoCivil;
 
     /**
-     * @ORM\Column(type="decimal", length=8, name="num_termo")
+     * @ORM\Column(type="string", length=8, name="num_termo", nullable=true)
      */
     protected $termo;
 
     /**
-     * @ORM\Column(type="string", length=8, name="num_livro")
+     * @ORM\Column(type="string", length=8, name="num_livro", nullable=true)
      */
     protected $livro;
 
     /**
-     * @ORM\Column(type="decimal", length=4, name="num_folha")
+     * @ORM\Column(type="integer", length=4, name="num_folha", nullable=true)
      */
     protected $folha;
 
     /**
-     * @ORM\Column(type="date", name="data_emissao_cert_civil")
+     * @ORM\Column(type="date", name="data_emissao_cert_civil", nullable=true)
      */
     protected $dataEmissaoCertidaoCivil;
 
@@ -91,22 +93,22 @@ class Documento extends Entity
     protected $siglaUfCertidaoCivil;
 
     /**
-     * @ORM\Column(type="string", length=150, name="cartorio_cert_civil")
+     * @ORM\Column(type="string", length=150, name="cartorio_cert_civil", nullable=true)
      */
     protected $cartorioCertidaoCivil;
 
     /**
-     * @ORM\Column(type="decimal", length=9, name="num_cart_trabalho")
+     * @ORM\Column(type="string", length=9, name="num_cart_trabalho", nullable=true)
      */
     protected $numeroCarteiraTrabalho;
 
     /**
-     * @ORM\Column(type="decimal", length=5, name="serie_cart_trabalho")
+     * @ORM\Column(type="integer", length=5, name="serie_cart_trabalho", nullable=true)
      */
     protected $serieCarteiraTrabalho;
 
     /**
-     * @ORM\Column(type="date", name="data_emissao_cart_trabalho")
+     * @ORM\Column(type="date", name="data_emissao_cart_trabalho", nullable=true)
      */
     protected $dataEmissaoCarteiraTrabalho;
 
@@ -117,17 +119,17 @@ class Documento extends Entity
     protected $siglaUfCarteiraTrabalho;
 
     /**
-     * @ORM\Column(type="decimal", length=13, name="num_tit_eleitor")
+     * @ORM\Column(type="string", length=13, name="num_tit_eleitor", nullable=true)
      */
     protected $numeroTituloEleitor;
 
     /**
-     * @ORM\Column(type="decimal", length=4, name="zona_tit_eleitor")
+     * @ORM\Column(type="integer", length=4, name="zona_tit_eleitor", nullable=true)
      */
     protected $zonaTituloEleitor;
 
     /**
-     * @ORM\Column(type="decimal", length=4, name="secao_tit_eleitor")
+     * @ORM\Column(type="integer", length=4, name="secao_tit_eleitor", nullable=true)
      */
     protected $secaoTituloEleitor;
 
@@ -144,9 +146,22 @@ class Documento extends Entity
     protected $dataCad;
 
     /**
-     * @ORM\Column(type="string", length=50, name="certidao_nascimento")
+     * @ORM\Column(type="string", length=50, name="certidao_nascimento", nullable=true)
      */
     protected $certidaoNascimento;
+
+    /**
+     * Função para gerar o timestamp para o atributo data_cad, é executada antes de salvar os dados no banco
+     * @access  public
+     * @return  void
+     * @ORM\PrePersist
+     */
+    public function timestamp()
+    {
+        if (is_null($this->getDataCad())) {
+            $this->setDataCad(new \DateTime());
+        }
+    }
 
     public function getId()
     {
@@ -155,7 +170,7 @@ class Documento extends Entity
 
     public function getRg()
     {
-        return $this->getRg;
+        return $this->rg;
     }
 
     public function setRg($rg)
@@ -391,18 +406,32 @@ class Documento extends Entity
             $inputFilter->add($factory->createInput(array(
                 'name' => 'tipoCertidaoCivil',
                 'required' => false,
+                'filters' => array(
+                    array('name' => 'Int')
+                ),
                 'validators' => array(
-                    'name' => new \Zend\Filter\Digits(),
+                    array(
+                        'name' => 'Between',
+                        'options' => array(
+                            'min' => 1,
+                            'max' => 99,
+                        ),
+                    ),
                 ),
             )));
 
             $inputFilter->add($factory->createInput(array(
                 'name' => 'termo',
                 'required' => false,
+                'filters' => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
                 'validators' => array(
                     array(
-                        'name' => 'Digits',
+                        'name' => 'StringLength',
                         'options' => array(
+                            'encoding' => 'UTF-8',
                             'max' => 8,
                         ),
                     ),
@@ -430,11 +459,15 @@ class Documento extends Entity
             $inputFilter->add($factory->createInput(array(
                 'name' => 'folha',
                 'required' => false,
+                'filters' => array(
+                    array('name' => 'Int')
+                ),
                 'validators' => array(
                     array(
-                        'name' => 'Digits',
+                        'name' => 'Between',
                         'options' => array(
-                            'max' => 4,
+                            'min' => 1,
+                            'max' => 9999,
                         ),
                     ),
                 ),
@@ -473,10 +506,15 @@ class Documento extends Entity
             $inputFilter->add($factory->createInput(array(
                 'name' => 'numeroCarteiraTrabalho',
                 'required' => false,
+                'filters' => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
                 'validators' => array(
                     array(
-                        'name' => 'Digits',
+                        'name' => 'StringLength',
                         'options' => array(
+                            'encoding' => 'UTF-8',
                             'max' => 9,
                         ),
                     ),
@@ -486,11 +524,15 @@ class Documento extends Entity
             $inputFilter->add($factory->createInput(array(
                 'name' => 'serieCarteiraTrabalho',
                 'required' => false,
+                'filters' => array(
+                    array('name' => 'Int')
+                ),
                 'validators' => array(
                     array(
-                        'name' => 'Digits',
+                        'name' => 'Between',
                         'options' => array(
-                            'max' => 5,
+                            'min' => 1,
+                            'max' => 99999,
                         ),
                     ),
                 ),
@@ -511,10 +553,15 @@ class Documento extends Entity
             $inputFilter->add($factory->createInput(array(
                 'name' => 'numeroTituloEleitor',
                 'required' => false,
+                'filters' => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
                 'validators' => array(
                     array(
-                        'name' => 'Digits',
+                        'name' => 'StringLength',
                         'options' => array(
+                            'encoding' => 'UTF-8',
                             'max' => 13,
                         ),
                     ),
@@ -524,11 +571,15 @@ class Documento extends Entity
             $inputFilter->add($factory->createInput(array(
                 'name' => 'zonaTituloEleitor',
                 'required' => false,
+                'filters' => array(
+                    array('name' => 'Int')
+                ),
                 'validators' => array(
                     array(
-                        'name' => 'Digits',
+                        'name' => 'Between',
                         'options' => array(
-                            'max' => 4,
+                            'min' => 1,
+                            'max' => 9999,
                         ),
                     ),
                 ),
