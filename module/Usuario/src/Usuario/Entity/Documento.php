@@ -45,16 +45,16 @@ class Documento extends Entity
     protected $rg;
 
     /**
-     * @ORM\Column(type="date", name="data_exp_rg", nullable=true)
+     * @ORM\Column(type="date", name="data_emissao_rg", nullable=true)
      */
-    protected $dataExpedicaoRg;
+    protected $dataEmissaoRg;
 
     /**
      * //, cascade={"persist"}
      * @ORM\OneToOne(targetEntity="Core\Entity\Uf")
-     * @ORM\JoinColumn(name="sigla_uf_exp_rg", onDelete="NO ACTION")
+     * @ORM\JoinColumn(name="sigla_uf_emissao_rg", onDelete="NO ACTION")
      */
-    protected $siglaUfExpedicaoRg;
+    protected $siglaUfEmissaoRg;
 
     /**
      * Atributo que armazena o tipo de certidao civil, existem 3 tipos
@@ -178,24 +178,24 @@ class Documento extends Entity
         $this->rg = $this->valid("rg", $rg);
     }
 
-    public function getDataExpedicaoRg()
+    public function getDataEmissaoRg()
     {
-        return $this->dataExpedicaoRg;
+        return $this->dataEmissaoRg;
     }
 
-    public function setDataExpedicaoRg($dataExpedicaoRg)
+    public function setDataEmissaoRg($dataEmissaoRg)
     {
-        $this->dataExpedicaoRg = $this->valid("dataExpedicaoRg", $dataExpedicaoRg);
+        $this->dataEmissaoRg = $this->valid("dataEmissaoRg", $dataEmissaoRg);
     }
 
-    public function getSiglaUfExpedicaoRg()
+    public function getSiglaUfEmissaoRg()
     {
-        return $this->siglaUfExpedicaoRg;
+        return $this->siglaUfEmissaoRg;
     }
 
-    public function setSiglaUfExpedicaoRg($siglaUfExpedicaoRg)
+    public function setSiglaUfEmissaoRg($siglaUfEmissaoRg)
     {
-        $this->siglaUfExpedicaoRg = $this->valid("siglaUfExpedicaoRg", $siglaUfExpedicaoRg);
+        $this->siglaUfEmissaoRg = $this->valid("siglaUfEmissaoRg", $siglaUfEmissaoRg);
     }
 
     public function getTipoCertidaoCivil()
@@ -390,7 +390,7 @@ class Documento extends Entity
             )));
 
             $inputFilter->add($factory->createInput(array(
-                'name' => 'dataExpedicaoRg',
+                'name' => 'dataEmissaoRg',
                 'required' => false,
                 'filters' => array(
                     array('name' => 'StripTags'),
@@ -588,11 +588,15 @@ class Documento extends Entity
             $inputFilter->add($factory->createInput(array(
                 'name' => 'secaoTituloEleitor',
                 'required' => false,
+                'filters' => array(
+                    array('name' => 'Int')
+                ),
                 'validators' => array(
                     array(
-                        'name' => 'Digits',
+                        'name' => 'Between',
                         'options' => array(
-                            'max' => 4,
+                            'min' => 1,
+                            'max' => 9999,
                         ),
                     ),
                 ),

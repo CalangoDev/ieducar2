@@ -37,7 +37,7 @@ class DocumentoTest extends EntityTestCase
     {
         $this->assertEquals(15, $if->count());
         $this->assertTrue($if->has('id'));
-        $this->assertTrue($if->has('dataExpedicaoRg'));
+        $this->assertTrue($if->has('dataEmissaoRg'));
         $this->assertTrue($if->has('tipoCertidaoCivil'));
         $this->assertTrue($if->has('termo'));
         $this->assertTrue($if->has('livro'));
@@ -101,10 +101,10 @@ class DocumentoTest extends EntityTestCase
     /**
      * @expectedException Core\Entity\EntityException
      */
-    public function testInputFilterInvalidDataExpedicaoRg()
+    public function testInputFilterInvalidDataEmissaoRg()
     {
         $documento = $this->buildDocumento();
-        $documento->setDataExpedicaoRg('10-10-2015');
+        $documento->setDataEmissaoRg('10-10-2015');
         $this->em->persist($documento);
         $this->em->flush();
     }
@@ -185,7 +185,7 @@ class DocumentoTest extends EntityTestCase
     public function testInputFilterInvalidNumeroCarteiraTrabalho()
     {
         $documento = $this->buildDocumento();
-        $documento->setNumeroCarteiraTrabalho('123456789');
+        $documento->setNumeroCarteiraTrabalho('1234567891');
         $this->em->persist($documento);
         $this->em->flush();
     }
@@ -234,6 +234,17 @@ class DocumentoTest extends EntityTestCase
         $this->em->flush();
     }
 
+    /**
+     * @expectedException Core\Entity\EntityException
+     */
+    public function testInputFilterInvalidSecaoTituloEleitor()
+    {
+        $documento = $this->buildDocumento();
+        $documento->setSecaoTituloEleitor('12345');
+        $this->em->persist($documento);
+        $this->em->flush();
+    }
+
     private function buildDocumento()
     {
         //dependencias - orgao emissor e estado
@@ -247,8 +258,8 @@ class DocumentoTest extends EntityTestCase
 
         $documento = new Documento();
         $documento->setRg('1111111111');
-        $documento->setDataExpedicaoRg(new \DateTime("10-10-2015", new \DateTimeZone('America/Sao_Paulo')));
-        $documento->setSiglaUfExpedicaoRg($uf);
+        $documento->setDataEmissaoRg(new \DateTime("10-10-2015", new \DateTimeZone('America/Sao_Paulo')));
+        $documento->setSiglaUfEmissaoRg($uf);
         $documento->setTipoCertidaoCivil('1');
         $documento->setTermo('12345678');
         $documento->setLivro('LIVRO');

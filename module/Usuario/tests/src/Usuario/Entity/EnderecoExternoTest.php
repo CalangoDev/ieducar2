@@ -33,7 +33,7 @@ class EnderecoExternoTest extends EntityTestCase
 	 */
 	public function testInputFilterValid($if)
 	{
-		$this->assertEquals(14, $if->count());
+		$this->assertEquals(13, $if->count());
 
 		$this->assertTrue($if->has('id'));
 		$this->assertTrue($if->has('tipo'));
@@ -47,37 +47,27 @@ class EnderecoExternoTest extends EntityTestCase
 		$this->assertTrue($if->has('cidade'));
 		$this->assertTrue($if->has('siglaUf'));
 		$this->assertTrue($if->has('resideDesde'));
-		$this->assertTrue($if->has('dataRev'));
-		$this->assertTrue($if->has('origemGravacao'));		
+        $this->assertTrue($if->has('zonaLocalizacao'));
 	}
 
 	/**
 	 * Teste de inserção de um endereço externo
 	 */
 	public function testInsert()
-	{		
-		$fisica = $this->buildFisica();		
-		$this->em->persist($fisica);
-
+	{
 		$enderecoExterno = $this->buildEnderecoExterno();
-		$enderecoExterno->setPessoa($fisica);
-		$this->em->persist($enderecoExterno);		
+		$this->em->persist($enderecoExterno);
 		$this->em->flush();
-
-		$this->assertNotNull($enderecoExterno->getPessoa());
-		$this->assertEquals(1, $enderecoExterno->getPessoa()->getId());
 
 		/**
 		 * Buscando no banco de dados o endereço externo que foi cadastrado
 		 */		
-		$savedEnderecoExterno = $this->em->find(get_class($enderecoExterno), $enderecoExterno->getPessoa()->getId());		
-		//	Comparando a intancia das classes
-		$this->assertInstanceOf(get_class($enderecoExterno), $savedEnderecoExterno);		
-		$this->assertEquals($enderecoExterno->getPessoa(), $savedEnderecoExterno->getPessoa());
+		$savedEnderecoExterno = $this->em->find('Usuario\Entity\EnderecoExterno', $enderecoExterno->getId());
+		$this->assertEquals(1, $savedEnderecoExterno->getId());
 	}
 
 	/**
-	 * @expectedException Core\Entity\EntityException
+     * @expectedException Core\Entity\EntityException
 	 */
 	public function testInputFilterInvalidLogradouro()
 	{
@@ -94,35 +84,29 @@ class EnderecoExternoTest extends EntityTestCase
 
 	public function testUpdate()
 	{
-		$fisica = $this->buildFisica();		
-		$this->em->persist($fisica);		
 		$enderecoExterno = $this->buildEnderecoExterno();
-		$enderecoExterno->setPessoa($fisica);		
 		$this->em->persist($enderecoExterno);
 		$this->em->flush();
 
-		$savedEnderecoExterno = $this->em->find('Usuario\Entity\EnderecoExterno', $enderecoExterno->getPessoa()->getId());
+		$savedEnderecoExterno = $this->em->find('Usuario\Entity\EnderecoExterno', $enderecoExterno->getId());
 
-		$this->assertEquals('Teste', $enderecoExterno->getLogradouro());
+		$this->assertEquals('Teste', $savedEnderecoExterno->getLogradouro());
 
 		$savedEnderecoExterno->setLogradouro('João José');		
 		$this->em->flush();
 
-		$savedEnderecoExterno = $this->em->find('Usuario\Entity\EnderecoExterno', $savedEnderecoExterno->getPessoa()->getId());
+		$savedEnderecoExterno = $this->em->find('Usuario\Entity\EnderecoExterno', $savedEnderecoExterno->getId());
 
 		$this->assertEquals('João José', $savedEnderecoExterno->getLogradouro());
 	}
 
 	public function testDelete()
 	{
-		$fisica = $this->buildFisica();		
-		$this->em->persist($fisica);		
 		$enderecoExterno = $this->buildEnderecoExterno();
-		$enderecoExterno->setPessoa($fisica);
 		$this->em->persist($enderecoExterno);
 		$this->em->flush();
 
-		$id = $enderecoExterno->getPessoa()->getId();
+		$id = $enderecoExterno->getId();
 		$savedEnderecoExterno = $this->em->find('Usuario\Entity\EnderecoExterno', $id);
 
 		$this->em->remove($savedEnderecoExterno);
@@ -130,23 +114,6 @@ class EnderecoExternoTest extends EntityTestCase
 
 		$savedEnderecoExterno = $this->em->find('Usuario\Entity\EnderecoExterno', $id);
 		$this->assertNull($savedEnderecoExterno);
-	}
-
-	private function buildFisica()
-	{	
-    	/**
-    	 * Dados fisica
-    	 */    	
-		$fisica = new Fisica;	
-		$fisica->setNome("Steve Jobs");
-		$fisica->setTipo("F");
-		$fisica->setSituacao("A");			
-		$fisica->setSexo("M");
-		$fisica->setOrigemGravacao("M");
-		$fisica->setOperacao("I");
-		$fisica->setIdsisCad(1);
-
-    	return $fisica;
 	}
 
 	private function buildEnderecoExterno()
@@ -163,9 +130,6 @@ class EnderecoExternoTest extends EntityTestCase
 		$enderecoExterno->setSiglaUf('BA');
 		$enderecoExterno->setResideDesde(new \DateTime());
 		// $enderecoExterno->setDataRev();
-		$enderecoExterno->setOperacao("I");
-		$enderecoExterno->setOrigemGravacao("U");
-		$enderecoExterno->setIdsisCad(1);
 		$enderecoExterno->setBloco('A');
 		$enderecoExterno->setAndar('1');
 		$enderecoExterno->setApartamento('102');

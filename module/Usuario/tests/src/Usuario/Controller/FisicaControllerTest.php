@@ -310,7 +310,7 @@ class FisicaControllerTest extends ControllerTestCase
 		$this->request->getPost()->set('email', 'ej@calangodev.com.br');
 		$this->request->getPost()->set('situacao', 'A');
 		//$this->request->getPost()->set('nacionalidade', "1");
-		// $this->request->getPost()->set('raca', $raca->getId());
+		$this->request->getPost()->set('raca', "0");
 		// $this->request->getPost()->set('cpf', '');
 		// $this->request->getPost()->set('tipoLogradouro', $tipoLogradouro->getId());		
 		// $this->request->getPost()->set('siglaUf', $uf->getId());
@@ -329,6 +329,22 @@ class FisicaControllerTest extends ControllerTestCase
 		// $this->request->getPost()->set('dddFax', '71');
 		// $this->request->getPost()->set('fax', '1111-1111');
 		// $this->request->getPost()->set('cep', '44900-000');
+		$enderecoExterno = array(
+                'id' => '',
+				'cep' => '',
+				'tipoLogradouro' => '',
+				'logradouro' => '',
+				'numero' => '',
+				'cidade' => '',
+				'bairro' => '',
+				'siglaUf' => '',
+				'letra' => '',
+				'apartamento' =>'',
+				'bloco' => '',
+				'andar' => '',
+				'zonaLocalizacao' => ''
+		);
+		$this->request->getPost()->set('enderecoExterno', $enderecoExterno);
 
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
@@ -341,6 +357,31 @@ class FisicaControllerTest extends ControllerTestCase
 		$headers = $response->getHeaders();
 		$this->assertEquals('Location: /usuario/fisica', $headers->get('Location'));
 	}
+
+    public function testFisicaSaveActionPostRequestEmptyEnderecoExterno()
+    {
+        $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
+
+        $this->routeMatch->setParam('action', 'save');
+        $this->request->setMethod('post');
+        $this->request->getPost()->set('id', '');
+        $this->request->getPost()->set('nome', 'CalangoDev');
+        $this->request->getPost()->set('enderecoExterno', array());
+        $this->request->getPost()->set('situacao', 'A');
+        $this->request->getPost()->set('sexo', 'M');
+        $result = $this->controller->dispatch(
+            $this->request, $this->response
+        );
+        //	Verifica a resposta
+        $response = $this->controller->getResponse();
+        //	a pagina redireciona, estao o status = 302
+        $this->assertEquals(302, $response->getStatusCode());
+        $headers = $response->getHeaders();
+        $this->assertEquals('Location: /usuario/fisica', $headers->get('Location'));
+
+        $savedFisica = $em->find('Usuario\Entity\Fisica', 1);
+        $this->assertEquals('CalangoDev', $savedFisica->getNome());
+    }
 
     /**
      * Testa a inclusao de uma pessoa fisica, e depois verifica se os dados foram cadastrados com sucesso
@@ -499,6 +540,7 @@ class FisicaControllerTest extends ControllerTestCase
         $this->request->getPost()->set('siglaUf', '');
         $this->request->getPost()->set('zonaLocalizacao', '');
         $this->request->getPost()->set('cep', '');
+        $this->request->getPost()->set('enderecoExterno', array());
         // Parametros requiridos que vao ser passados em branco
         $this->request->getPost()->set('nome', '');
 
@@ -574,6 +616,7 @@ class FisicaControllerTest extends ControllerTestCase
 		$this->request->getPost()->set('fax', '1111-1111');
 		$this->request->getPost()->set('logradouro', 'Rua X');
 		$this->request->getPost()->set('cidade', 'Irecê');
+        $this->request->getPost()->set('enderecoExterno', array());
 
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
@@ -662,6 +705,7 @@ class FisicaControllerTest extends ControllerTestCase
 		$this->request->getPost()->set('siglaUf', 'BA');
 		$this->request->getPost()->set('cidade', 'Irecê');
 		$this->request->getPost()->set('logradouro', 'Rua X');
+        $this->request->getPost()->set('enderecoExterno', array());
 		
 		$result = $this->controller->dispatch(
 			$this->request, $this->response

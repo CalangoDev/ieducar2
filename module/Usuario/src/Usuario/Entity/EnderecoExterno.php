@@ -59,7 +59,7 @@ class EnderecoExterno extends Entity
 
 	/**
 	 * @var string $tipoLogradouro Id do tipo de logradouro
-	 * @ORM\OneToOne(targetEntity="Core\Entity\TipoLogradouro", cascade={"persist"})
+	 * @ORM\ManyToOne(targetEntity="Core\Entity\TipoLogradouro", cascade={"persist"})
 	 * @ORM\JoinColumn(name="idtlog", referencedColumnName="idtlog", onDelete="SET NULL")
 	 */
 	protected $tipoLogradouro;
@@ -240,9 +240,9 @@ class EnderecoExterno extends Entity
 		return $this->tipo;
 	}
 	
-	public function setTipo($value)
+	public function setTipo($tipo)
 	{
-		$this->tipo = $this->valid("tipo", $value);
+		$this->tipo = $this->valid("tipo", $tipo);
 	}
 
 	public function getTipoLogradouro()
@@ -250,9 +250,9 @@ class EnderecoExterno extends Entity
 		return $this->tipoLogradouro;
 	}
 	
-	public function setTipoLogradouro($value)
+	public function setTipoLogradouro($tipoLogradouro)
 	{
-		$this->tipoLogradouro = $value;
+		$this->tipoLogradouro = $this->valid("tipoLogradouro", $tipoLogradouro);
 	}
 
 	public function getLogradouro()
@@ -260,10 +260,9 @@ class EnderecoExterno extends Entity
 		return $this->logradouro;
 	}
 	
-	public function setLogradouro($value)
+	public function setLogradouro($logradouro)
 	{
-		// $this->logradouro = $this->valid("logradouro", $value);
-		$this->logradouro = $value;
+		$this->logradouro = $this->valid("logradouro", $logradouro);
 	}
 
 	public function getNumero()
@@ -271,9 +270,9 @@ class EnderecoExterno extends Entity
 		return $this->numero;
 	}
 	
-	public function setNumero($value)
+	public function setNumero($numero)
 	{
-		$this->numero = $this->valid("numero", $value);
+		$this->numero = $this->valid("numero", $numero);
 	}
 
 	public function getLetra()
@@ -281,9 +280,9 @@ class EnderecoExterno extends Entity
 		return $this->letra;
 	}
 	
-	public function setLetra($value)
+	public function setLetra($letra)
 	{
-		$this->letra = $this->valid("letra", $value);
+		$this->letra = $this->valid("letra", $letra);
 	}
 
 	public function getComplemento()
@@ -291,9 +290,9 @@ class EnderecoExterno extends Entity
 		return $this->complemento;
 	}
 	
-	public function setComplemento($value)
+	public function setComplemento($complemento)
 	{
-		$this->complemento = $this->valid("complemento", $value);
+		$this->complemento = $this->valid("complemento", $complemento);
 	}
 
 	public function getBairro()
@@ -301,9 +300,9 @@ class EnderecoExterno extends Entity
 		return $this->bairro;
 	}
 	
-	public function setBairro($value)
+	public function setBairro($bairro)
 	{
-		$this->bairro = $this->valid("bairro", $value);
+		$this->bairro = $this->valid("bairro", $bairro);
 	}
 
 	public function getCep()
@@ -311,9 +310,9 @@ class EnderecoExterno extends Entity
 		return $this->cep;
 	}
 	
-	public function setCep($value)
+	public function setCep($cep)
 	{
-		$this->cep = $this->valid("cep", $value);
+		$this->cep = $this->valid("cep", $cep);
 	}
 
 	public function getCidade()
@@ -321,9 +320,9 @@ class EnderecoExterno extends Entity
 		return $this->cidade;
 	}
 	
-	public function setCidade($value)
+	public function setCidade($cidade)
 	{
-		$this->cidade = $this->valid("cidade", $value);
+		$this->cidade = $this->valid("cidade", $cidade);
 	}
 
 	public function getSiglaUf()
@@ -331,10 +330,9 @@ class EnderecoExterno extends Entity
 		return $this->siglaUf;
 	}
 	
-	public function setSiglaUf($value)
+	public function setSiglaUf($siglaUf)
 	{
-		// $this->siglaUf = $this->valid("siglaUf", $value);
-		$this->siglaUf = $value;
+		$this->siglaUf = $this->valid("siglaUf", $siglaUf);
 	}
 
 	public function getResideDesde()
@@ -342,9 +340,9 @@ class EnderecoExterno extends Entity
 		return $this->resideDesde;
 	}
 	
-	public function setResideDesde($value)
+	public function setResideDesde($resideDesde)
 	{
-		$this->resideDesde = $this->valid("resideDesde", $value);
+		$this->resideDesde = $this->valid("resideDesde", $resideDesde);
 	}
 
 	public function getDataCad()
@@ -352,9 +350,9 @@ class EnderecoExterno extends Entity
 		return $this->dataCad;
 	}
 	
-	public function setDataCad($value)
+	public function setDataCad($dataCad)
 	{
-		$this->dataCad = $this->valid("dataCad", $value);
+		$this->dataCad = $this->valid("dataCad", $dataCad);
 	}
 
 	public function getBloco()
@@ -362,9 +360,9 @@ class EnderecoExterno extends Entity
 		return $this->bloco;
 	}
 	
-	public function setBloco($value)
+	public function setBloco($bloco)
 	{
-		$this->bloco = $this->valid("bloco", $value);
+		$this->bloco = $this->valid("bloco", $bloco);
 	}
 
 	public function getAndar()
@@ -372,9 +370,9 @@ class EnderecoExterno extends Entity
 		return $this->andar;
 	}
 	
-	public function setAndar($value)
+	public function setAndar($andar)
 	{
-		$this->andar = $this->valid("andar", $value);
+		$this->andar = $this->valid("andar", $andar);
 	}
 
 	public function getApartamento()
@@ -382,9 +380,9 @@ class EnderecoExterno extends Entity
 		return $this->apartamento;
 	}
 	
-	public function setApartamento($value)
+	public function setApartamento($apartamento)
 	{
-		$this->apartamento = $this->valid("apartamento", $value);
+		$this->apartamento = $this->valid("apartamento", $apartamento);
 	}
 
 	public function getZonaLocalizacao()
@@ -392,9 +390,9 @@ class EnderecoExterno extends Entity
 		return $this->zonaLocalizacao;
 	}
 	
-	public function setZonaLocalizacao($value)
+	public function setZonaLocalizacao($zonaLocalizacao)
 	{
-		$this->zonaLocalizacao = $this->valid("zonaLocalizacao", $value);
+		$this->zonaLocalizacao = $this->valid("zonaLocalizacao", $zonaLocalizacao);
 	}
 
 	/**
@@ -575,14 +573,6 @@ class EnderecoExterno extends Entity
 					'name' => new \Zend\Validator\Date(),
 				),
 			)));
-
-//			$inputFilter->add($factory->createInput(array(
-//				'name' => 'dataRev',
-//				'required' => false,
-//				'validators' => array(
-//					'name' => new \Zend\Validator\Date(),
-//				)
-//			)));
 
             $inputFilter->add($factory->createInput(array(
                 'name' => 'zonaLocalizacao',

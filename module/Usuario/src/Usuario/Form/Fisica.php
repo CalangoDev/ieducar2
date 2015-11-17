@@ -21,7 +21,11 @@ class Fisica extends Form
 
 		//$this->setHydrator(new DoctrineHydrator($em, 'Usuario\Entity\Fisica'))
 //              ->setObject(new \Usuario\Entity\Fisica());
-        $this->setHydrator(new DoctrineHydrator($objectManager));
+        $this->setHydrator(new DoctrineHydrator($objectManager))->setObject(new \Usuario\Entity\Fisica());
+
+        //set all validators by yourself
+		$this->setUseInputFilterDefaults(false);
+        //$this->setUseAsBaseFieldset(true);
 
 
         // $this->setAttribute('method', 'post')
@@ -86,10 +90,11 @@ class Fisica extends Form
 			'type' => 'Zend\Form\Element\Select',
 			'attributes' => array(
 				'type' => 'Zend\Form\Element\Select',
-				'value' => 'M',
+				//'value' => 'M',
 				'class' => 'form-control'
 			),
 			'options' => array(
+                'empty_option' => 'Selecione',
 				'label' => 'Sexo:',
 				'value_options' => array(
 					'M' => 'Masculino',
@@ -135,7 +140,9 @@ class Fisica extends Form
 			'type' => 'DoctrineModule\Form\Element\ObjectSelect',
 			'options' => array(
 				'label' => 'Raça:',
-//				'empty_option' => 'Selecione',
+				//'empty_option' => 'Selecione',
+                'allow_empty' => true,
+                'continue_if_empty' => false,
 				'object_manager' => $em,
 				'target_class' => 'Usuario\Entity\Raca',
 				'property' => 'nome',
@@ -258,6 +265,10 @@ class Fisica extends Form
         $enderecoExternoFieldset = new EnderecoExternoFieldset($em);
         $enderecoExternoFieldset->setUseAsBaseFieldset(false);
         $this->add($enderecoExternoFieldset);
+
+		$documentoFieldset = new DocumentoFieldset($em);
+        $documentoFieldset->setUseAsBaseFieldset(false);
+        $this->add($documentoFieldset);
 
 		// $this->add(array(
 		// 	'name' => 'tipoLogradouro',

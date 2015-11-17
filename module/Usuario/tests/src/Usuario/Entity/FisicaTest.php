@@ -35,7 +35,7 @@ class FisicaTest extends EntityTestCase
 	public function testInputFilterValid($if)
 	{
 		//testa os filtros 
-		$this->assertEquals(27, $if->count());
+		$this->assertEquals(20, $if->count());
 		$this->assertTrue($if->has('raca'));
 		$this->assertTrue($if->has('dataNasc'));
 		$this->assertTrue($if->has('sexo'));
@@ -67,11 +67,7 @@ class FisicaTest extends EntityTestCase
 		 */
 		$fisica = $this->buildFisica();
 		$fisica->setNome("Steve Jobs");
-		$fisica->setTipo("F");
 		$fisica->setSituacao("A");
-		$fisica->setOrigemGravacao("M");
-		$fisica->setOperacao("I");
-		$fisica->setIdsisCad(1);		
 		$this->em->persist($fisica);
 		$this->em->flush();
 
@@ -88,54 +84,6 @@ class FisicaTest extends EntityTestCase
         $this->assertEquals($fisica->getId(), $savedPessoaFisica->getId());
 	}
 
-	/**
-	 * Teste que insere uma pessoa
-	 * depois faz um clone dessa pessoa e copia seus dados para uma pessoaFisica gerando novos registros 
-	 * 
-	 * isso representa um cenario onde digamos que tenha inserido uma Entity Pessoa no banco, e depois queira
-	 * que essa pessoa seja uma Entidade Fisica
-	 */
-	public function testInsertAfter()
-	{
-		/**
-		 * Cadastrando uma pessoa
-		 */
-		$pessoa = $this->buildPessoa();
-		$this->em->persist($pessoa);
-		$this->em->flush();
-
-		/**
-		 * Buscando pessoa cadastrada no banco
-		 */
-		$savedPessoa = $this->em->find('Usuario\Entity\Pessoa', 1);
-
-		/**
-		 * Verificando se o id do banco é igual a 1
-		 */
-		$this->assertEquals(1, $savedPessoa->getId());
-
-		/**
-		 * Cadastrando uma pessoa fisica
-		 */		
-		$teste = clone $savedPessoa;
-		$this->em->remove($savedPessoa);
-		$this->em->flush();		
-		$fisica = $this->buildFisica();
-		$fisica->setId($teste->getId());
-		$fisica->setNome($teste->getNome());
-		$fisica->setDataCad($teste->getDataCad());
-		$fisica->setSituacao($teste->getSituacao());		
-		
-		$this->em->persist($fisica);
-		$this->em->flush();
-
-		$this->assertNotNull($fisica->getId());
-		
-
-		$savedFisica = $this->em->find('Usuario\Entity\Fisica', $fisica->getId());
-		
-		$this->assertEquals($fisica->getId(), $savedFisica->getId());
-	}
 
 	/**
 	 * @expectedException Core\Entity\EntityException	 
@@ -145,9 +93,6 @@ class FisicaTest extends EntityTestCase
 		$fisica = $this->buildFisica();
 		$fisica->setNome('Steve Jobs');
 		$fisica->setSituacao('A');
-		$fisica->setOrigemGravacao('M');
-		$fisica->setOperacao('I');
-		$fisica->setIdsisCad(1);
 		$fisica->setCpf('111.111.111-111');//cpf invalido 
 		$this->em->persist($fisica);
 		$this->em->flush();
@@ -158,18 +103,14 @@ class FisicaTest extends EntityTestCase
 		$fisica = $this->buildFisica();
 		$fisica->setNome('Steve Jobs');
 		$fisica->setSituacao('A');
-		$fisica->setOrigemGravacao('M');
-		$fisica->setOperacao('I');
-		$fisica->setIdsisCad(1);
 		$fisica->setCpf('111.111.111-11');
 		$this->em->persist($fisica);
 		$this->em->flush();
 
 		$savedFisica = $this->em->find('Usuario\Entity\Fisica', $fisica->getId());
 		$this->assertEquals('Steve Jobs', $savedFisica->getNome());
-		$savedFisica->setNome("Gold");				
+		$savedFisica->setNome("Gold");
 		$this->em->flush();
-		// $this->em->flush();
 
 		$savedFisica2 = $this->em->find('Usuario\Entity\Fisica', $savedFisica->getId());
 		$this->assertEquals('Gold', $savedFisica2->getNome());
@@ -180,9 +121,6 @@ class FisicaTest extends EntityTestCase
 		$fisica = $this->buildFisica();
 		$fisica->setNome('Steve Jobs');
 		$fisica->setSituacao('A');
-		$fisica->setOrigemGravacao('M');
-		$fisica->setOperacao('I');
-		$fisica->setIdsisCad(1);
 		$this->em->persist($fisica);
 		$this->em->flush();
 
@@ -216,9 +154,6 @@ class FisicaTest extends EntityTestCase
         $pessoaPai = $this->buildFisica();
         $pessoaPai->setNome('Pai do Menino');
         $pessoaPai->setSituacao("A");
-        $pessoaPai->setOrigemGravacao("M");
-        $pessoaPai->setOperacao("I");
-        $pessoaPai->setIdsisCad(1);
         $this->em->persist($pessoaPai);
 
         // Cadastrando Mae
@@ -226,9 +161,6 @@ class FisicaTest extends EntityTestCase
         $pessoaMae->setNome('Mae do Menino');
         $pessoaMae->setSexo('F');
         $pessoaMae->setSituacao("A");
-        $pessoaMae->setOrigemGravacao("M");
-        $pessoaMae->setOperacao("I");
-        $pessoaMae->setIdsisCad(1);
         $this->em->persist($pessoaMae);
 
         $this->em->flush();
@@ -236,9 +168,6 @@ class FisicaTest extends EntityTestCase
 		$fisica = $this->buildFisica();
         $fisica->setNome("Steve Jobs");
         $fisica->setSituacao("A");
-        $fisica->setOrigemGravacao("M");
-        $fisica->setOperacao("I");
-        $fisica->setIdsisCad(1);
         $date = new \DateTime("03-05-1982", new \DateTimeZone('America/Sao_Paulo'));
         $fisica->setDataNasc($date);
         $fisica->setCpf("111.111.111-11");
@@ -261,9 +190,6 @@ class FisicaTest extends EntityTestCase
         $this->assertEquals(3, $savedFisica->getId());
         $this->assertEquals("Steve Jobs", $savedFisica->getNome());
         $this->assertEquals("A", $savedFisica->getSituacao());
-        $this->assertEquals("M", $savedFisica->getOrigemGravacao());
-        $this->assertEquals("I", $savedFisica->getOperacao());
-        $this->assertEquals(1, $savedFisica->getIdSisCad());
         $date = new \DateTime("03-05-1982", new \DateTimeZone('America/Sao_Paulo'));
         $this->assertEquals($date, $savedFisica->getDataNasc());
         $this->assertEquals("11111111111", $savedFisica->getCpf());
@@ -282,11 +208,7 @@ class FisicaTest extends EntityTestCase
 	{
 		$pessoa = new Pessoa;
 		$pessoa->setNome("Steve Jobs");
-    	$pessoa->setTipo("F");
     	$pessoa->setSituacao("A");
-    	$pessoa->setOrigemGravacao("M");
-    	$pessoa->setOperacao("I");
-    	$pessoa->setIdsisCad(1);    	
     	
     	return $pessoa;
 	}
@@ -305,9 +227,6 @@ class FisicaTest extends EntityTestCase
 		$enderecoExterno->setSiglaUf('BA');
 		$enderecoExterno->setResideDesde(new \DateTime());
 		// $enderecoExterno->setDataRev();
-		$enderecoExterno->setOperacao("I");
-		$enderecoExterno->setOrigemGravacao("U");
-		$enderecoExterno->setIdsisCad(1);
 		$enderecoExterno->setBloco('A');
 		$enderecoExterno->setAndar('1');
 		$enderecoExterno->setApartamento('102');
@@ -323,9 +242,6 @@ class FisicaTest extends EntityTestCase
     	 */    	
 		$fisica = new Fisica;		
 		$fisica->setSexo("M");
-		$fisica->setOrigemGravacao("M");
-		$fisica->setOperacao("I");
-		$fisica->setIdsisCad(1);
 
     	return $fisica;
 	}

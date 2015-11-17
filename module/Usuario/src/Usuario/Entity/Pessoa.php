@@ -189,7 +189,7 @@ class Pessoa extends Entity implements EventSubscriber
 	 * @var EnderecoExterno $enderecoExterno Entity Endereço Externo
 	 * 
 	 * ORM\OneToOne(targetEntity="Usuario\Entity\EnderecoExterno", cascade={"persist"}, mappedBy="pessoa")
-     * @ORM\OneToOne(targetEntity="EnderecoExterno", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="EnderecoExterno", cascade={"persist"})
 	 * @ORM\JoinColumn(name="enderecoExterno")	 
 	 */
 	protected $enderecoExterno;
@@ -699,7 +699,8 @@ class Pessoa extends Entity implements EventSubscriber
 
             $inputFilter->add($factory->createInput(array(
 				'name' => 'enderecoExterno',
-				'required' => false
+				'required' => false,
+				'continue_if_empty' => true,
 			)));
 
 			$this->inputFilter = $inputFilter;

@@ -24,7 +24,7 @@ class EnderecoExternoFieldset extends Fieldset
         $this->add(array(
             'name' => 'id',
             'attributes' => array(
-                'type' => 'hidden',
+                'type' => 'hidden'
             ),
         ));
 
@@ -233,12 +233,13 @@ class EnderecoExternoFieldset extends Fieldset
         $this->add(array(
             'name' => 'zonaLocalizacao',
             'attributes' => array(
-                'value' => '1',
+                //'value' => '1',
                 'class' => 'form-control chosen-select',
                 //'required' => 'required'
             ),
             'type' => 'Zend\Form\Element\Select',
             'options' => array(
+                'empty_option' => 'Selecione',
                 'label' => 'Zona Localização',
                 'value_options' => array(
                     '1'  => 'Urbana',

@@ -288,8 +288,8 @@ class Fisica extends Pessoa
 	 * 
 	 * @todo  verificar esse relacionamento
 	 * 
-	 * @ORM\ManyToOne(targetEntity="Fisica", cascade={"persist"})
-	 * @ORM\JoinColumn(name="idpes_mae", referencedColumnName="idpes", onDelete="SET NULL", nullable=true)
+	 * @ORM\ManyToOne(targetEntity="Usuario\Entity\Fisica", cascade={"persist"})
+	 * @ORM\JoinColumn(name="idpes_mae", referencedColumnName="idpes", onDelete="SET NULL")
 	 */
 	protected $pessoaMae;
 
@@ -298,8 +298,8 @@ class Fisica extends Pessoa
 	 * 
 	 * @todo  verificar esse relacionamento
 	 * 	 
-	 * @ORM\ManyToOne(targetEntity="Fisica", cascade={"persist"})
-	 * @ORM\JoinColumn(name="idpes_pai", referencedColumnName="idpes", onDelete="SET NULL", nullable=true)
+	 * @ORM\ManyToOne(targetEntity="Usuario\Entity\Fisica", cascade={"persist"})
+	 * @ORM\JoinColumn(name="idpes_pai", referencedColumnName="idpes", onDelete="SET NULL")
 	 */
 	protected $pessoaPai;
 
@@ -556,9 +556,9 @@ class Fisica extends Pessoa
 		return $this->raca;
 	}
 	
-	public function setRaca($value)
+	public function setRaca(Raca $raca = null)
 	{
-		$this->raca = $value;
+		$this->raca = $this->valid('raca', $raca);
 	}
 
     public function getFoto()
@@ -566,9 +566,9 @@ class Fisica extends Pessoa
         return $this->foto;
     }
 
-    public function setFoto($value)
+    public function setFoto($foto)
     {
-        $this->foto = $this->valid("foto", $value);
+        $this->foto = $this->valid("foto", $foto);
     }
 
 	public function getEstadoCivil()
@@ -576,11 +576,9 @@ class Fisica extends Pessoa
 		return $this->estadoCivil;
 	}
 
-	public function setEstadoCivil($value)
+	public function setEstadoCivil(EstadoCivil $estadoCivil = null)
 	{
-        // @todo checkar isso
-//		$this->estadoCivil = $this->valid("estadoCivil", $value);
-        $this->estadoCivil = $value;
+		$this->estadoCivil = $this->valid("estadoCivil", $estadoCivil);
 	}
 
     public function getPessoaPai()
@@ -588,9 +586,9 @@ class Fisica extends Pessoa
         return $this->pessoaPai;
     }
 
-    public function setPessoaPai($value)
+    public function setPessoaPai(Fisica $pessoaPai = null)
     {
-        $this->pessoaPai = $value;
+        $this->pessoaPai = $this->valid("pessoaPai", $pessoaPai);
     }
 
     public function getPessoaMae()
@@ -598,9 +596,9 @@ class Fisica extends Pessoa
         return $this->pessoaMae;
     }
 
-    public function setPessoaMae($value)
+    public function setPessoaMae(Fisica $pessoaMae = null)
     {
-        $this->pessoaMae = $value;
+        $this->pessoaMae = $this->valid("pessoaMae", $pessoaMae);
     }
 
     public function setData($data)
@@ -692,7 +690,11 @@ class Fisica extends Pessoa
         $factory = new InputFactory();
         $this->inputFilter->add($factory->createInput(array(
             'name' => 'raca',
-				'required' => false				
+			'required' => false,
+//            'allow_empty' => true,
+//            'filters'     => array(
+//                array('name' => 'Null'),
+//            ),
         )));
 
         $this->inputFilter->add($factory->createInput(array(
@@ -856,7 +858,7 @@ class Fisica extends Pessoa
 
         $this->inputFilter->add($factory->createInput(array(
             'name' => 'estadoCivil',
-            'required' => false
+            'required' => false,
         )));
 
         $this->inputFilter->add($factory->createInput(array(
@@ -876,15 +878,15 @@ class Fisica extends Pessoa
                         ),
                     ),
                 ),
-            )));
+		)));
 
         $this->inputFilter->add($factory->createInput(array(
-            'name' => 'pessoaMae',
+            'name' => 'pessoaPai',
             'required' => false
         )));
 
         $this->inputFilter->add($factory->createInput(array(
-            'name' => 'pessoaPai',
+            'name' => 'pessoaMae',
             'required' => false
         )));
 

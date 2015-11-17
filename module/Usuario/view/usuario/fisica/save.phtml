@@ -41,35 +41,52 @@
 							$raca = $this->form->get('raca');
                             $pessoaMae = $this->form->get('pessoaMae');
                             $pessoaPai = $this->form->get('pessoaPai');
+
+                            /*
+                             * begin enderecoExterno form fieldset
+                             */
 							$enderecoExterno = $this->form->get('enderecoExterno');
-                            //var_dump($enderecoExterno);
-							// $cep = $this->form->get('cep');
 							$idEnderecoExterno = $enderecoExterno->get('id');
 							$cep = $enderecoExterno->get('cep');
-							// $tipoLogradouro = $this->form->get('tipoLogradouro');
 							$tipoLogradouro = $enderecoExterno->get('tipoLogradouro');
-							// $logradouro = $this->form->get('logradouro');
 							$logradouro = $enderecoExterno->get('logradouro');
-							// $numero = $this->form->get('numero');
 							$numero = $enderecoExterno->get('numero');
-							// $cidade = $this->form->get('cidade');
 							$cidade = $enderecoExterno->get('cidade');
-							// $bairro = $this->form->get('bairro');
 							$bairro = $enderecoExterno->get('bairro');
-							// $uf = $this->form->get('uf');
 							$uf = $enderecoExterno->get('siglaUf');
-							// $letra = $this->form->get('letra');
 							$letra = $enderecoExterno->get('letra');
-                            // $apartamento = $this->form->get('apartamento');
                             $apartamento = $enderecoExterno->get('apartamento');
-                            // $bloco = $this->form->get('bloco');
                             $bloco = $enderecoExterno->get('bloco');
-                            // $andar = $this->form->get('andar');
                             $andar = $enderecoExterno->get('andar');
-                            // $zonaLocalizacao = $this->form->get('zonaLocalizacao');
                             $zonaLocalizacao = $enderecoExterno->get('zonaLocalizacao');
-							// $complemento = $this->form->get('complemento');
 							$complemento = $enderecoExterno->get('complemento');
+
+                            /**
+                             * begin documento form fieldset
+                             */
+							$documento = $this->form->get('documento');
+                            $idDocumento = $documento->get('id');
+                            $rg = $documento->get('rg');
+                            $dataEmissaoRg = $documento->get('dataEmissaoRg');
+                            $siglaUfEmissaoRg = $documento->get('siglaUfEmissaoRg');
+                            $tipoCertidaoCivil = $documento->get('tipoCertidaoCivil');
+                            $termo = $documento->get('termo');
+                            $livro = $documento->get('livro');
+                            $folha = $documento->get('folha');
+                            $dataEmissaoCertidaoCivil = $documento->get('dataEmissaoCertidaoCivil');
+                            $siglaUfCertidaoCivil = $documento->get('siglaUfCertidaoCivil');
+                            $cartorioCertidaoCivil = $documento->get('cartorioCertidaoCivil');
+                            $numeroCarteiraTrabalho = $documento->get('numeroCarteiraTrabalho');
+                            $serieCarteiraTrabalho = $documento->get('serieCarteiraTrabalho');
+                            $dataEmissaoCarteiraTrabalho = $documento->get('dataEmissaoCarteiraTrabalho');
+                            $siglaUfCarteiraTrabalho = $documento->get('siglaUfCarteiraTrabalho');
+                            $numeroTituloEleitor = $documento->get('numeroTituloEleitor');
+                            $zonaTituloEleitor = $documento->get('zonaTituloEleitor');
+                            $secaoTituloEleitor = $documento->get('secaoTituloEleitor');
+                            $orgaoEmissorRg = $documento->get('orgaoEmissorRg');
+                            $certidaoNascimento = $documento->get('certidaoNascimento');
+
+
 							$dddTelefone1 = $this->form->get('dddTelefone1');
 							$telefone1 = $this->form->get('telefone1');
 							$dddTelefone2 = $this->form->get('dddTelefone2');
@@ -87,9 +104,10 @@
 							 */
 							echo $this->formInput($id);
 							echo $this->formInput($idEnderecoExterno);
+                            echo $this->formInput($idDocumento);
 							?>
 							<br>
-							
+
 								<div class="form-group required">
 									<label for="nome">
 										<?php
@@ -108,7 +126,9 @@
                                             </span>
 										</div>
 									</div>
-								</div>								
+								</div>
+
+
 								<div class="form-group">
 									<label for="cpf">
 										<?php
@@ -199,6 +219,357 @@
                                             echo $this->formElementErrors($pessoaPai);
                                             ?>
                                         </div>
+                                    </div>
+                                </div>
+                            
+                                <div class="form-group">
+                                    <div class="row">
+
+                                        <div class="col-md-3">
+
+                                            <label for="rg">
+                                                <?php echo $rg->getOption('label'); ?>
+                                            </label>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <?php
+                                                    echo $this->formInput($rg);
+                                                    echo $this->formElementErrors($rg);
+                                                    ?>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-2">
+
+                                            <label for="rg">
+                                                <?php echo $dataEmissaoRg->getOption('label'); ?>
+                                            </label>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <?php
+                                                    echo $this->formInput($dataEmissaoRg);
+                                                    echo $this->formElementErrors($dataEmissaoRg);
+                                                    ?>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-2">
+
+                                            <label for="orgaoEmissorRg">
+                                                <?php echo $orgaoEmissorRg->getOption('label');?>
+                                            </label>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <?php
+                                                    echo $this->formSelect($orgaoEmissorRg);
+                                                    echo $this->formElementErrors($orgaoEmissorRg);
+                                                    ?>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-2">
+
+                                            <label for="siglaUfEmissaoRg">
+                                                <?php echo $siglaUfEmissaoRg->getOption('label');?>
+                                            </label>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <?php
+                                                    echo $this->formSelect($siglaUfEmissaoRg);
+                                                    echo $this->formElementErrors($siglaUfEmissaoRg);
+                                                    ?>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <!-- end rg -->
+
+                                </div>
+
+                                <div class="form-group ">
+                                    <div class="row form-group">
+
+                                        <div class="col-md-3">
+
+                                            <label for="tipoCertidaoCivil">
+                                                <?php echo $tipoCertidaoCivil->getOption('label');?>
+                                            </label>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <?php
+                                                    echo $this->formSelect($tipoCertidaoCivil);
+                                                    echo $this->formElementErrors($tipoCertidaoCivil);
+                                                    ?>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-2 certidaoNascimento">
+
+                                            <label for="certidaoNascimento">
+                                                <?php echo $certidaoNascimento->getOption('label');?>
+                                            </label>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <?php
+                                                    echo $this->formInput($certidaoNascimento);
+                                                    echo $this->formElementErrors($certidaoNascimento);
+                                                    ?>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-2 termo">
+
+                                            <label for="termo">
+                                                <?php echo $termo->getOption('label');?>
+                                            </label>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <?php
+                                                    echo $this->formInput($termo);
+                                                    echo $this->formElementErrors($termo);
+                                                    ?>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-2 livro">
+
+                                            <label for="livro">
+                                                <?php echo $livro->getOption('label');?>
+                                            </label>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <?php
+                                                    echo $this->formInput($livro);
+                                                    echo $this->formElementErrors($livro);
+                                                    ?>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-2 folha">
+
+                                            <label for="folha">
+                                                <?php echo $folha->getOption('label');?>
+                                            </label>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <?php
+                                                    echo $this->formInput($folha);
+                                                    echo $this->formElementErrors($folha);
+                                                    ?>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row siglaUfCertidaoCivil form-group">
+
+                                        <div class="col-md-2">
+
+                                            <label for="siglaUfCertidaoCivil">
+                                                <?php echo $siglaUfCertidaoCivil->getOption('label');?>
+                                            </label>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <?php
+                                                    echo $this->formSelect($siglaUfCertidaoCivil);
+                                                    echo $this->formElementErrors($siglaUfCertidaoCivil);
+                                                    ?>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-3">
+
+                                            <label for="dataEmissaoCertidaoCivil">
+                                                <?php echo $dataEmissaoCertidaoCivil->getOption('label');?>
+                                            </label>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <?php
+                                                    echo $this->formInput($dataEmissaoCertidaoCivil);
+                                                    echo $this->formElementErrors($dataEmissaoCertidaoCivil);
+                                                    ?>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row siglaUfCertidaoCivil form-group">
+
+                                        <div class="col-md-6">
+
+                                            <label for="cartorioCertidaoCivil">
+                                                <?php echo $cartorioCertidaoCivil->getOption('label');?>
+                                            </label>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <?php
+                                                    echo $this->formElement($cartorioCertidaoCivil);
+                                                    echo $this->formElementErrors($cartorioCertidaoCivil);
+                                                    ?>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    
+                                    <div class="row form-group">
+                                        
+                                        <div class="col-md-3">
+
+                                            <label for="numeroCarteiraTrabalho">
+                                                <?php echo $numeroCarteiraTrabalho->getOption('label');?>
+                                            </label>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <?php
+                                                    echo $this->formInput($numeroCarteiraTrabalho);
+                                                    echo $this->formElementErrors($numeroCarteiraTrabalho);
+                                                    ?>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+
+                                        <div class="col-md-3">
+
+                                            <label for="serieCarteiraTrabalho">
+                                                <?php echo $serieCarteiraTrabalho->getOption('label');?>
+                                            </label>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <?php
+                                                    echo $this->formInput($serieCarteiraTrabalho);
+                                                    echo $this->formElementErrors($serieCarteiraTrabalho);
+                                                    ?>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                    <div class="row form-group">
+                                        
+                                        <div class="col-md-3">
+                                            <label for="siglaUfCarteiraTrabalho">
+                                                <?php echo $siglaUfCarteiraTrabalho->getOption('label');?>
+                                            </label>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <?php
+                                                    echo $this->formSelect($siglaUfCarteiraTrabalho);
+                                                    echo $this->formElementErrors($siglaUfCarteiraTrabalho);
+                                                    ?>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <label for="dataEmissaoCarteiraTrabalho">
+                                                <?php echo $dataEmissaoCarteiraTrabalho->getOption('label');?>
+                                            </label>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <?php
+                                                    echo $this->formInput($dataEmissaoCarteiraTrabalho);
+                                                    echo $this->formElementErrors($dataEmissaoCarteiraTrabalho);
+                                                    ?>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row form-group">
+                                        <div class="col-md-3">
+                                            <label for="numeroTituloEleitor">
+                                                <?php echo $numeroTituloEleitor->getOption('label');?>
+                                            </label>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <?php
+                                                    echo $this->formInput($numeroTituloEleitor);
+                                                    echo $this->formElementErrors($numeroTituloEleitor);
+                                                    ?>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <label for="zonaTituloEleitor">
+                                                <?php echo $zonaTituloEleitor->getOption('label');?>
+                                            </label>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <?php
+                                                    echo $this->formInput($zonaTituloEleitor);
+                                                    echo $this->formElementErrors($zonaTituloEleitor);
+                                                    ?>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3">
+
+                                            <label for="secaoTituloEleitor">
+                                                <?php echo $secaoTituloEleitor->getOption('label');?>
+                                            </label>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <?php
+                                                    echo $this->formInput($secaoTituloEleitor);
+                                                    echo $this->formElementErrors($secaoTituloEleitor);
+                                                    ?>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
                                     </div>
                                 </div>
 
@@ -630,6 +1001,51 @@ echo $this->headScript()->prependFile($this->basePath()
 		//$(".vendedor").before("<div style='display: none;' class='carregandovend'>Carregando...</div>");
 		//$(".vendedor").after("<a href='#modal' class='btn2 submit cadnovo'>Cadastrar Novo</a><br/>");
 
+        $('.certidaoNascimento').hide();
+        $('.termo').hide();
+        $('.livro').hide();
+        $('.folha').hide();
+        $('.siglaUfCertidaoCivil').hide();
+
+        $('.tipoCertidaoCivil').on('change', function(){
+
+            var id = $(this).val();
+
+            if (id == 1){
+
+                $('.termo').hide();
+                $('.livro').hide();
+                $('.folha').hide();
+                $('#termo').val('');
+                $('#livro').val('');
+                $('#folha').val('');
+                $('.certidaoNascimento').show();
+                $('.siglaUfCertidaoCivil').show();
+
+            } else if (id == 2 || id == 3){
+
+                $('.certidaoNascimento').hide();
+                $('#certidaoNascimento').val('');
+                $('.termo').show();
+                $('.livro').show();
+                $('.folha').show();
+                $('.siglaUfCertidaoCivil').show();
+
+            } else {
+                $('#certidaoNascimento').val('');
+                $('#termo').val('');
+                $('#livro').val('');
+                $('#folha').val('');
+                $('#siglaUfCertidaoCivil').val('').trigger('chosen:updated');
+                $('#dataEmissaoCertidaoCivil').val('');
+                $('#cartorioCertidaoCivil').val('');
+                $('.termo').hide();
+                $('.livro').hide();
+                $('.folha').hide();
+                $('.certidaoNascimento').hide();
+                $('.siglaUfCertidaoCivil').hide();
+            }
+        });
 
 		jQuery(function($){       		
        		$(".cpf").mask("999.999.999-99");

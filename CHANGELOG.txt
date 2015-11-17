@@ -22,6 +22,8 @@ forma melhor
 - Atributo dataRev da entidade Usuario\Entity\EnderecoExterno, depreciado
 - Atributo origemGravacao da entidade Usuario\Entity\EnderecoExterno, depreciado
 - Atributo operacao da entidade Usuario\Entity\EnderecoExterno, depreciado
+- Atributo data_exp_rg da tabela cadastro.documento mudado para data_emissao_rg
+- Atributo sigla_uf_exp_rg da tabela cadastro.documento mudado para sigla_uf_emissao_rg
 
 
 i-Educar 1.1.0 2010-02-15
