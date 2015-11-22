@@ -1040,6 +1040,7 @@ echo $this->headScript()->prependFile($this->basePath()
     for (var selector in config) {    	
     	$(selector).chosen(config[selector]);
     }
+
     $(document).ready(function() {
 
 		//$(".vendedor").before("<div style='display: none;' class='carregandovend'>Carregando...</div>");
@@ -1219,5 +1220,12 @@ echo $this->headScript()->prependFile($this->basePath()
 	  			}
 			});
 		});
-	});	
+
+
+        $( ".municipioNascimento" ).autocomplete({
+            source: [ "c++", "java", "php", "coldfusion", "javascript", "asp", "ruby" ]
+        });
+
+	});
+    //end document ready function
 </script>
