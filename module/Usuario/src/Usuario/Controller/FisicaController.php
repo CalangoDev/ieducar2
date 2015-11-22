@@ -84,10 +84,10 @@ class FisicaController extends ActionController
 	{
 
 		$fisica = new Fisica();
-//		$enderecoExterno = new EnderecoExterno();
 		$form = new FisicaForm($this->getEntityManager());
 		$request = $this->getRequest();
-		$id = (int) $this->getEvent()->getRouteMatch()->getParam('id');
+
+        $id = (int) $this->getEvent()->getRouteMatch()->getParam('id');
 
 		if ($id > 0){
 			
@@ -103,30 +103,13 @@ class FisicaController extends ActionController
 				$fisica->setDataNasc($fisica->getDataNasc()->format('d-m-Y'));
 
 			}
-
+//            $documento = $form->get('documento');
+//            $documento->get('dataEmissaoRg')->setValue($fisica->getDocumento()->getDataEmissaoRg()->format('d-m-Y'));
+//            $form->get('documento')->setValue($documento);
+            //$form->get('documento')['dataEmissaoRg']->setValue($fisica->getDocumento()->getDataEmissaoRg()->format('d-m-Y'));
 			$form->get('submit')->setAttribute('value', 'Atualizar');
 		}
 		//$form->setHydrator(new DoctrineEntity($this->getEntityManager(), 'Usuario\Entity\Fisica'));
-
-
-//		$enderecoExterno->setTipoLogradouro($this->params()->fromPost('tipoLogradouro'));
-//		$enderecoExterno->setSiglaUf($this->params()->fromPost('siglaUf'));
-//		$enderecoExterno->setOperacao(($id > 0) ? "A" : "I");
-//		$enderecoExterno->setOrigemGravacao("U");
-//		$enderecoExterno->setLogradouro($this->params()->fromPost('logradouro'));
-//
-//        if ($this->params()->fromPost('cidade'))
-//			$enderecoExterno->setCidade($this->params()->fromPost('cidade'));
-//
-//        if ($this->params()->fromPost('cep')){
-//            $enderecoExterno->setCep($this->params()->fromPost('cep'));
-//            var_dump('TEM CEP TENTANDO PREENCHER ELE');
-//        }
-
-
-//        $enderecoExterno->setIdsisCad(1);
-//		$fisica->setEnderecoExterno($enderecoExterno);
-
 		$form->bind($fisica);
 
 		if ($request->isPost()){
@@ -136,47 +119,86 @@ class FisicaController extends ActionController
 			 */
 			$id  = (int) $this->params()->fromPost('id', 0);
 			$date = new \DateTime($this->params()->fromPost('dataNasc'), new \DateTimeZone('America/Sao_Paulo'));
-			$fisica->setDataNasc($date->format('Y-m-d'));			
+
+            $fisica->setDataNasc($date->format('Y-m-d'));
 			$request->getPost()->set('dataNasc', $fisica->getDataNasc());
+
 			$form->setInputFilter($fisica->getInputFilter());
+
             $semArquivoFoto = $request->getPost()->toArray();
             $arquivoFoto = $this->params()->fromFiles('foto');
+
             $enderecoExterno = $semArquivoFoto['enderecoExterno'];
+            $documento = $semArquivoFoto['documento'];
+
+            if (isset($enderecoExterno['tipoLogradouro']))
+
+                if ($enderecoExterno['tipoLogradouro'] == '')
+                $enderecoExterno['tipoLogradouro'] = 0;
+
+            if (isset($documento['orgaoEmissorRg']))
+
+                if ($documento['orgaoEmissorRg'] == '')
+                    $documento['orgaoEmissorRg'] = 0;
+
             // setando id do endereco externo como 0 caso seja a primeira inserção
-            if ($id == 0 && isset($enderecoExterno['id']))
-                $enderecoExterno['id'] = 0;
-
-            if (isset($semArquivoFoto['raca']))
-
-                if ($semArquivoFoto['raca'] === '')
-                    $semArquivoFoto['raca'] = null;
-
-
-
+//            if ($id == 0 && isset($enderecoExterno['id']))
+//                $enderecoExterno['id'] = 0;
+//
+//            if (isset($semArquivoFoto['raca']))
+//
+//                if ($semArquivoFoto['raca'] == '')
+//                    $semArquivoFoto['raca'] = null;
+//
+//
+//
             if (isset($semArquivoFoto['estadoCivil']))
 
-                if ($semArquivoFoto['estadoCivil'] === '')
+                if ($semArquivoFoto['estadoCivil'] == '')
                     $semArquivoFoto['estadoCivil'] = null;
-
-
 
             if (isset($semArquivoFoto['pessoaPai']))
 
-                if ($semArquivoFoto['pessoaPai'] === '')
+                if ($semArquivoFoto['pessoaPai'] == '')
                     $semArquivoFoto['pessoaPai'] = null;
 
             if (isset($semArquivoFoto['pessoaMae']))
 
-                if ($semArquivoFoto['pessoaMae'] === '')
+                if ($semArquivoFoto['pessoaMae'] == '')
                     $semArquivoFoto['pessoaMae'] = null;
+//
+//
+//            if (isset($documento['id']))
+//                $documento['id'] = 0;
+//
+            if (isset($documento['siglaUfEmissaoRg']))
 
+                if ($documento['siglaUfEmissaoRg'] == '')
+                    $documento['siglaUfEmissaoRg'] = 0;
+
+            if (isset($documento['orgaoEmissorRg']))
+
+                if ($documento['orgaoEmissorRg'] == '')
+                    $documento['orgaoEmissorRg'] = 0;
+
+            if (isset($documento['siglaUfCertidaoCivil']))
+
+                if ($documento['siglaUfCertidaoCivil'] == '')
+                    $documento['siglaUfCertidaoCivil'] = 0;
+
+            if (isset($documento['siglaUfCarteiraTrabalho']))
+
+                if ($documento['siglaUfCarteiraTrabalho'] == '')
+                    $documento['siglaUfCarteiraTrabalho'] = 0;
 
 
             $data = array_merge(
                 $semArquivoFoto,
                 array('foto' => $arquivoFoto['name']),
-                array('enderecoExterno' => $enderecoExterno)
+                array('enderecoExterno' => $enderecoExterno),
+                array('documento' => $documento)
             );
+
 
 			$form->setData($data);
 
@@ -193,7 +215,10 @@ class FisicaController extends ActionController
                 $fotoValidaOuVazia = true;
 
 			if ($form->isValid() && $fotoValidaOuVazia){
-				// $data = $form->getData();				
+
+                //var_dump($form->getInputFilter()->getValues());
+				// $data = $form->getData();
+                //var_dump($form->getData());
 				// unset($data['submit']);
 				// $fisica->setData($data);
                 // Validando upload da foto
@@ -230,7 +255,6 @@ class FisicaController extends ActionController
                  */
                 $id = (int) $this->params()->fromPost('id', 0);
                 if ($id == 0){
-
                     $this->getEntityManager()->persist($fisica);
                     $this->flashMessenger()->addSuccessMessage('Pessoa Salva');
 
@@ -239,6 +263,7 @@ class FisicaController extends ActionController
                     $this->flashMessenger()->addSuccessMessage('Pessoa foi alterada!');
 
                 }
+
 
                 $this->getEntityManager()->flush();
 

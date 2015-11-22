@@ -305,7 +305,7 @@ class Funcionario extends Entity
 	
 	public function setRefCodPessoaFj($value)
 	{		
-		// $this->ref_cod_pessoa_fj = $this->valid("ref_cod_pessoa_fj", $value);
+		//$this->ref_cod_pessoa_fj = $this->valid("ref_cod_pessoa_fj", $value);
 		$this->refCodPessoaFj = $value;
 	}
 

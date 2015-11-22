@@ -10,17 +10,87 @@
 namespace Sandbox\Controller;
 
 use Sandbox\Entity\User;
+use Sandbox\Entity\Usersandbox;
 use Sandbox\Form\EditNameForm;
-use Zend\Mvc\Controller\AbstractActionController;
+use Sandbox\Form\UserSandboxForm;
 use Zend\View\Model\ViewModel;
 use Doctrine\ORM\EntityManager;
+use Core\Controller\ActionController;
+use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
+use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+use Zend\Paginator\Paginator;
+use DoctrineORMModule\Stdlib\Hydrator\DoctrineEntity;
 
-class IndexController extends AbstractActionController
+class IndexController extends ActionController
 {
 	
     public function indexAction()
     {
-        return new ViewModel();
+        $query = $this->getEntityManager()->createQuery('SELECT u FROM Sandbox\Entity\Usersandbox u');
+        $dados = new Paginator(
+            new DoctrinePaginator(new ORMPaginator($query))
+        );
+        $dados->setCurrentPageNumber($this->params()->fromRoute('page'))->setItemCountPerPage(10);
+        return new ViewModel(
+            array(
+                'dados' => $dados
+            )
+        );
+    }
+
+    public function saveAction()
+    {
+
+        $user = new Usersandbox();
+        $form = new UserSandboxForm($this->getEntityManager());
+        $request = $this->getRequest();
+
+        $id = (int) $this->getEvent()->getRouteMatch()->getParam('id');
+
+        if ($id > 0){
+            $user = $this->getEntityManager()->find('Sandbox\Entity\Usersandbox', $id);
+            $form->get('submit')->setAttribute('value', 'Atualizar');
+        }
+        //$form->setHydrator(new DoctrineEntity($this->getEntityManager(), 'Sandbox\Entity\Usersandbox'));
+
+        $form->bind($user);
+
+        if ($request->isPost()){
+
+            $data = $request->getPost()->toArray();
+
+//            if ($data['usersandbox']['documento']['id'] == "")
+//                $data['usersandbox']['documento']['id'] = 0;
+
+//            if ($data['usersandbox']['id'] == "")
+//                $data['usersandbox']['id'] = 0;
+
+            $form->setData($data);
+
+            if ($form->isValid()){
+
+
+                $id = (int) $this->params()->fromPost('id', 0);
+                if ($id == 0){
+                    $this->getEntityManager()->persist($user);
+                    $this->flashMessenger()->addSuccessMessage('User Salvo');
+                } else {
+                    $this->flashMessenger()->addSuccessMessage('User Alterado');
+                }
+
+                $this->getEntityManager()->flush();
+
+
+
+                return $this->redirect()->toUrl('/sandbox/index');
+            }
+        }
+
+
+        return new ViewModel(array(
+            'form' => $form
+        ));
+
     }
 
     public function createAction()

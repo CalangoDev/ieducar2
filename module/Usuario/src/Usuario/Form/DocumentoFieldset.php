@@ -11,22 +11,31 @@ use Usuario\Entity\Documento;
 use Doctrine\Common\Persistence\ObjectManager;
 use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 use Zend\Form\Fieldset;
+use Zend\InputFilter\InputFilterProviderInterface;
 
-class DocumentoFieldset extends Fieldset
+class DocumentoFieldset extends Fieldset implements InputFilterProviderInterface
 {
     public function __construct(ObjectManager $objectManager)
     {
         parent::__construct('documento');
-
         $this->setHydrator(new DoctrineHydrator($objectManager))
              ->setObject(new Documento());
+
 
         $this->add(array(
             'name' => 'id',
             'attributes' => array(
-                'type' => 'hidden'
+                'type' => 'hidden',
+                'value' => 0,
             )
         ));
+
+//        $this->add(array(
+//            'name' => 'fisica',
+//            'attributes' => array(
+//                'type' => 'hidden'
+//            )
+//        ));
 
         $this->add(array(
             'name' => 'rg',
@@ -74,7 +83,7 @@ class DocumentoFieldset extends Fieldset
             'type' => 'Zend\Form\Element\Select',
             'attributes' => array(
                 'type' => 'Zend\Form\Element\Select',
-                //'value' => 'M',
+                'value' => '0',
                 'class' => 'form-control tipoCertidaoCivil'
             ),
             'options' => array(
@@ -265,6 +274,7 @@ class DocumentoFieldset extends Fieldset
                 'type' => 'DoctrineModule\Form\Element\ObjectSelect',
                 'class' => 'form-control chosen-select',
                 'style' => 'height:100px;',
+                'value' => 0,
             ),
             'type' => 'DoctrineModule\Form\Element\ObjectSelect',
             'options' => array(
@@ -272,7 +282,7 @@ class DocumentoFieldset extends Fieldset
                 'empty_option' => 'Selecione',
                 'object_manager' => $objectManager,
                 'target_class' => 'Usuario\Entity\OrgaoEmissorRg',
-                'property' => 'nome'
+                'property' => 'sigla'
             ),
         ));
 
@@ -290,4 +300,91 @@ class DocumentoFieldset extends Fieldset
         ));
 
     }
+
+    public function getInputFilterSpecification()
+    {
+        return array(
+            'id' => array(
+                'required' => false
+            ),
+
+            'rg' => array(
+                'required' => false
+            ),
+
+            'dataEmissaoRg' => array(
+                'required' => false
+            ),
+
+            'siglaUfEmissaoRg' => array(
+                'required' => false
+            ),
+
+            'tipoCertidaoCivil' => array(
+                'required' => false
+            ),
+
+            'termo' => array(
+                'required' => false
+            ),
+
+            'livro' => array(
+                'required' => false
+            ),
+
+            'folha' => array(
+                'required' => false
+            ),
+
+            'dataEmissaoCertidaoCivil' => array(
+                'required' => false
+            ),
+
+            'siglaUfCertidaoCivil' => array(
+                'required' => false
+            ),
+
+            'cartorioCertidaoCivil' => array(
+                'required' => false
+            ),
+
+            'numeroCarteiraTrabalho' => array(
+                'required' => false
+            ),
+
+            'serieCarteiraTrabalho' => array(
+                'required' => false
+            ),
+
+            'dataEmissaoCarteiraTrabalho' => array(
+                'required' => false
+            ),
+
+            'siglaUfCarteiraTrabalho' => array(
+                'required' => false
+            ),
+
+            'numeroTituloEleitor' => array(
+                'required' => false
+            ),
+
+            'zonaTituloEleitor' => array(
+                'required' => false
+            ),
+
+            'orgaoEmissorRg' => array(
+                'required' => true,
+                'continue_if_empty' => true,
+                'filters' => array(
+                    array('name' => 'Null')
+                ),
+            ),
+
+            'certidaoNascimento' => array(
+                'required' => false
+            ),
+
+        );
+    }
+
 }

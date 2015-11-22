@@ -8,6 +8,7 @@
 namespace Usuario\Entity;
 
 use Core\Entity\Entity;
+use Core\Entity\Uf;
 use Doctrine\ORM\Mapping as ORM;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\Factory as InputFactory;
@@ -51,8 +52,8 @@ class Documento extends Entity
 
     /**
      * //, cascade={"persist"}
-     * @ORM\OneToOne(targetEntity="Core\Entity\Uf")
-     * @ORM\JoinColumn(name="sigla_uf_emissao_rg", onDelete="NO ACTION")
+     * @ORM\ManyToOne(targetEntity="Core\Entity\Uf")
+     * @ORM\JoinColumn(name="sigla_uf_emissao_rg", onDelete="NO ACTION", nullable=true)
      */
     protected $siglaUfEmissaoRg;
 
@@ -62,7 +63,7 @@ class Documento extends Entity
      * - nascimento(antigo formato), apresenta os inputs termo, livro, folha
      * - casamento - apresenta os inputs termo, livro, folha
      *
-     * @ORM\Column(type="integer", length=2, name="tipo_cert_civil")
+     * @ORM\Column(type="integer", length=2, name="tipo_cert_civil", nullable=true)
      */
     protected $tipoCertidaoCivil;
 
@@ -87,8 +88,8 @@ class Documento extends Entity
     protected $dataEmissaoCertidaoCivil;
 
     /**
-     * @ORM\OneToOne(targetEntity="Core\Entity\Uf")
-     * @ORM\JoinColumn(name="sigla_uf_cert_civil", onDelete="NO ACTION")
+     * @ORM\ManyToOne(targetEntity="Core\Entity\Uf")
+     * @ORM\JoinColumn(name="sigla_uf_cert_civil", onDelete="NO ACTION", nullable=true)
      */
     protected $siglaUfCertidaoCivil;
 
@@ -113,8 +114,8 @@ class Documento extends Entity
     protected $dataEmissaoCarteiraTrabalho;
 
     /**
-     * @ORM\OneToOne(targetEntity="Core\Entity\Uf")
-     * @ORM\JoinColumn(name="sigla_uf_cart_trabalho", onDelete="NO ACTION")
+     * @ORM\ManyToOne(targetEntity="Core\Entity\Uf")
+     * @ORM\JoinColumn(name="sigla_uf_cart_trabalho", onDelete="NO ACTION", nullable=true)
      */
     protected $siglaUfCarteiraTrabalho;
 
@@ -134,8 +135,8 @@ class Documento extends Entity
     protected $secaoTituloEleitor;
 
     /**
-     * @ORM\OneToOne(targetEntity="Usuario\Entity\OrgaoEmissorRg")
-     * @ORM\JoinColumn(name="idorg_exp_rg", onDelete="NO ACTION")
+     * @ORM\ManyToOne(targetEntity="Usuario\Entity\OrgaoEmissorRg", cascade={"persist"})
+     * ORM\JoinColumn(name="idorg_exp_rg", onDelete="NO ACTION")
      */
     protected $orgaoEmissorRg;
 
@@ -149,6 +150,11 @@ class Documento extends Entity
      * @ORM\Column(type="string", length=50, name="certidao_nascimento", nullable=true)
      */
     protected $certidaoNascimento;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Usuario\Entity\Fisica", mappedBy="documento")
+     */
+    protected $fisica;
 
     /**
      * Função para gerar o timestamp para o atributo data_cad, é executada antes de salvar os dados no banco
@@ -180,7 +186,16 @@ class Documento extends Entity
 
     public function getDataEmissaoRg()
     {
+
+        if (!empty($this->dataEmissaoRg)){
+
+            $dataEmissaoRg = $this->dataEmissaoRg->format('d-m-Y');
+            return $dataEmissaoRg;
+
+        }
+
         return $this->dataEmissaoRg;
+
     }
 
     public function setDataEmissaoRg($dataEmissaoRg)
@@ -193,7 +208,7 @@ class Documento extends Entity
         return $this->siglaUfEmissaoRg;
     }
 
-    public function setSiglaUfEmissaoRg($siglaUfEmissaoRg)
+    public function setSiglaUfEmissaoRg(Uf $siglaUfEmissaoRg = null)
     {
         $this->siglaUfEmissaoRg = $this->valid("siglaUfEmissaoRg", $siglaUfEmissaoRg);
     }
@@ -240,7 +255,16 @@ class Documento extends Entity
 
     public function getDataEmissaoCertidaoCivil()
     {
+
+        if (!empty($this->dataEmissaoCertidaoCivil)) {
+
+            $dataEmissaoCertidaoCivil = $this->dataEmissaoCertidaoCivil->format('d-m-Y');
+            return $dataEmissaoCertidaoCivil;
+
+        }
+
         return $this->dataEmissaoCertidaoCivil;
+
     }
 
     public function setDataEmissaoCertidaoCivil($dataEmissaoCertidaoCivil)
@@ -253,7 +277,7 @@ class Documento extends Entity
         return $this->siglaUfCertidaoCivil;
     }
 
-    public function setSiglaUfCertidaoCivil($siglaUfCertidaoCivil)
+    public function setSiglaUfCertidaoCivil(Uf $siglaUfCertidaoCivil = null)
     {
         $this->siglaUfCertidaoCivil = $this->valid("siglaUfCertidaoCivil", $siglaUfCertidaoCivil);
     }
@@ -290,7 +314,12 @@ class Documento extends Entity
 
     public function getDataEmissaoCarteiraTrabalho()
     {
+
+        if (!empty($this->dataEmissaoCarteiraTrabalho))
+            return $this->dataEmissaoCarteiraTrabalho->format('d-m-Y');
+
         return $this->dataEmissaoCarteiraTrabalho;
+
     }
 
     public function setDataEmissaoCarteiraTrabalho($dataEmissaoCarteiraTrabalho)
@@ -303,7 +332,7 @@ class Documento extends Entity
         return $this->siglaUfCarteiraTrabalho;
     }
 
-    public function setSiglaUfCarteiraTrabalho($siglaUfCarteiraTrabalho)
+    public function setSiglaUfCarteiraTrabalho(Uf $siglaUfCarteiraTrabalho = null)
     {
         $this->siglaUfCarteiraTrabalho = $this->valid("siglaUfCarteiraTrabalho", $siglaUfCarteiraTrabalho);
     }
@@ -343,7 +372,7 @@ class Documento extends Entity
         return $this->orgaoEmissorRg;
     }
 
-    public function setOrgaoEmissorRg($orgaoEmissorRg)
+    public function setOrgaoEmissorRg(OrgaoEmissorRg $orgaoEmissorRg = null)
     {
         $this->orgaoEmissorRg = $this->valid("orgaoEmissorRg", $orgaoEmissorRg);
     }
@@ -366,6 +395,16 @@ class Documento extends Entity
     public function setCertidaoNascimento($certidaoNascimento)
     {
         $this->certidaoNascimento = $this->valid("certidaoNascimento", $certidaoNascimento);
+    }
+
+    public function getFisica()
+    {
+        return $this->fisica;
+    }
+
+    public function setFisica(Fisica $fisica)
+    {
+        $this->fisica = $this->valid('fisica', $fisica);
     }
 
     protected $inputFilter;
@@ -407,7 +446,13 @@ class Documento extends Entity
                 'name' => 'tipoCertidaoCivil',
                 'required' => false,
                 'filters' => array(
-                    array('name' => 'Int')
+                    array('name' => 'Int'),
+                    array(
+                        'name' => 'Null',
+                        'options' => array(
+                            'type' => 'all'
+                        ),
+                    )
                 ),
                 'validators' => array(
                     array(
@@ -460,7 +505,13 @@ class Documento extends Entity
                 'name' => 'folha',
                 'required' => false,
                 'filters' => array(
-                    array('name' => 'Int')
+                    array('name' => 'Int'),
+                    array(
+                        'name' => 'Null',
+                        'options' => array(
+                            'type' => 'all'
+                        ),
+                    )
                 ),
                 'validators' => array(
                     array(
@@ -525,7 +576,13 @@ class Documento extends Entity
                 'name' => 'serieCarteiraTrabalho',
                 'required' => false,
                 'filters' => array(
-                    array('name' => 'Int')
+                    array('name' => 'Int'),
+                    array(
+                        'name' => 'Null',
+                        'options' => array(
+                            'type' => 'all'
+                        ),
+                    )
                 ),
                 'validators' => array(
                     array(
@@ -572,7 +629,13 @@ class Documento extends Entity
                 'name' => 'zonaTituloEleitor',
                 'required' => false,
                 'filters' => array(
-                    array('name' => 'Int')
+                    array('name' => 'Int'),
+                    array(
+                        'name' => 'Null',
+                        'options' => array(
+                            'type' => 'all'
+                        ),
+                    )
                 ),
                 'validators' => array(
                     array(
@@ -589,7 +652,13 @@ class Documento extends Entity
                 'name' => 'secaoTituloEleitor',
                 'required' => false,
                 'filters' => array(
-                    array('name' => 'Int')
+                    array('name' => 'Int'),
+                    array(
+                        'name' => 'Null',
+                        'options' => array(
+                            'type' => 'all'
+                        ),
+                    )
                 ),
                 'validators' => array(
                     array(
@@ -612,6 +681,51 @@ class Documento extends Entity
                 'validators' => array(
                     'name' => new \Zend\Validator\Date(),
                 ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'siglaUfEmissaoRg',
+                'required' => true,
+                'continue_if_empty' => true,
+                'filters'     => array(
+                    array('name' => 'Null'),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'siglaUfCertidaoCivil',
+                'required' => true,
+                'continue_if_empty' => true,
+                'filters'     => array(
+                    array('name' => 'Null'),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'siglaUfCarteiraTrabalho',
+                'required' => true,
+                'continue_if_empty' => true,
+                'filters'     => array(
+                    array('name' => 'Null'),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'orgaoEmissorRg',
+                'required' => true,
+                'continue_if_empty' => true,
+                'filters'     => array(
+                    array('name' => 'Int'),
+                    array('name' => 'Null'),
+                ),
+//                'filters' => array(
+//                    array(
+//                        'name' => 'Null',
+//                        'options' => array(
+//                            'type' => 'all'
+//                        ),
+//                    ),
+//                ),
             )));
 
             $this->inputFilter = $inputFilter;

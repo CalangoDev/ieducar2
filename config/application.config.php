@@ -12,8 +12,8 @@ return array(
         'Auth',
         'DoctrineDataFixtureModule',
         'Core',
-        'WebinoImageThumb'
-        //'Sandbox'
+        'WebinoImageThumb',
+        'Sandbox'
     ),    
     'module_listener_options' => array(
         'module_paths' => array(

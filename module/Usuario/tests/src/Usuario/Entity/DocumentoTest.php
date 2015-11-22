@@ -35,7 +35,7 @@ class DocumentoTest extends EntityTestCase
      */
     public function testInputFilterValid($if)
     {
-        $this->assertEquals(15, $if->count());
+        $this->assertEquals(19, $if->count());
         $this->assertTrue($if->has('id'));
         $this->assertTrue($if->has('dataEmissaoRg'));
         $this->assertTrue($if->has('tipoCertidaoCivil'));
@@ -51,6 +51,10 @@ class DocumentoTest extends EntityTestCase
         $this->assertTrue($if->has('zonaTituloEleitor'));
         $this->assertTrue($if->has('secaoTituloEleitor'));
         $this->assertTrue($if->has('dataCad'));
+        $this->assertTrue($if->has('siglaUfEmissaoRg'));
+        $this->assertTrue($if->has('siglaUfCertidaoCivil'));
+        $this->assertTrue($if->has('siglaUfCarteiraTrabalho'));
+        $this->assertTrue($if->has('orgaoEmissorRg'));
     }
 
     /**

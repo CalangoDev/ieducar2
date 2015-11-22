@@ -30,7 +30,7 @@ class TipoLogradouro extends Entity
 	 * @var string $id
 	 * 
 	 * @ORM\Id
-	 * @ORM\Column(name="idtlog", type="string", nullable=false, length=5)
+	 * @ORM\Column(type="integer")
 	 * @ORM\GeneratedValue(strategy="AUTO")	 
 	 */
 	protected $id;
@@ -60,5 +60,46 @@ class TipoLogradouro extends Entity
 	public function setDescricao($value)
 	{
 		$this->descricao = $this->valid("descricao", $value);
+	}
+
+	protected $inputFilter;
+
+	public function getInputFilter()
+	{
+		if (!$this->inputFilter){
+			$inputFilter = new InputFilter();
+			$factory = new InputFactory();
+
+			$inputFilter->add($factory->createInput(array(
+					'name' => 'id',
+					'required' => true,
+					'filters' => array(
+							array('name' => 'Int')
+					),
+			)));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'descricao',
+                'required' => true,
+                'filters'	=>	array(
+                    array('name'	=>	'StripTags'),
+                    array('name'	=>	'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name' => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min' => 1,
+                            'max' => 40,
+                        ),
+                    ),
+                ),
+            )));
+
+            $this->inputFilter = $inputFilter;
+		}
+
+        return $this->inputFilter;
 	}
 }

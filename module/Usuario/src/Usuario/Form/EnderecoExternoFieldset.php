@@ -24,7 +24,8 @@ class EnderecoExternoFieldset extends Fieldset
         $this->add(array(
             'name' => 'id',
             'attributes' => array(
-                'type' => 'hidden'
+                'type' => 'hidden',
+                'value' => 0
             ),
         ));
 
@@ -34,7 +35,8 @@ class EnderecoExternoFieldset extends Fieldset
                 'type' => 'DoctrineModule\Form\Element\ObjectSelect',
                 'class' => 'form-control chosen-select tipoLogradouro',
                 'style' => 'height:100px;',
-                //'required' => 'required'
+                //'required' => 'required',
+                'value' => 0
             ),
             'type' => 'DoctrineModule\Form\Element\ObjectSelect',
             'options' => array(
@@ -249,4 +251,5 @@ class EnderecoExternoFieldset extends Fieldset
         ));
 
     }
+
 }

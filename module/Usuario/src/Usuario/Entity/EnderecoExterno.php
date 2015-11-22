@@ -60,7 +60,7 @@ class EnderecoExterno extends Entity
 	/**
 	 * @var string $tipoLogradouro Id do tipo de logradouro
 	 * @ORM\ManyToOne(targetEntity="Core\Entity\TipoLogradouro", cascade={"persist"})
-	 * @ORM\JoinColumn(name="idtlog", referencedColumnName="idtlog", onDelete="SET NULL")
+	 * ORM\JoinColumn(name="idtlog", referencedColumnName="idtlog", onDelete="SET NULL")
 	 */
 	protected $tipoLogradouro;
 
@@ -429,7 +429,15 @@ class EnderecoExterno extends Entity
 
 			$inputFilter->add($factory->createInput(array(
 				'name' => 'tipoLogradouro',
-				'required' => false
+                'required' => true,
+                'allow_empty' => true,
+                'continue_if_empty' => true,
+//                'required' => true,
+//                'continue_if_empty' => true,
+                'filters'     => array(
+                    array('name' => 'Int'),
+                    array('name' => 'Null'),
+                ),
 			)));
 
 			$inputFilter->add($factory->createInput(array(

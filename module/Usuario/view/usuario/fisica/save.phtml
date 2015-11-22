@@ -23,6 +23,7 @@
 	  			<div class="panel-heading">
 	  				<b>Salvar</b>
 	  			</div>
+
 	  			<div class="container">
 					<div class="row">			
 						<div class="col-md-12">
@@ -39,8 +40,10 @@
 							$url = $this->form->get('url');
 							$email = $this->form->get('email');
 							$raca = $this->form->get('raca');
+                            $nacionalidade = $this->form->get('nacionalidade');
                             $pessoaMae = $this->form->get('pessoaMae');
                             $pessoaPai = $this->form->get('pessoaPai');
+                            $municipioNascimento = $this->form->get('municipioNascimento');
 
                             /*
                              * begin enderecoExterno form fieldset
@@ -60,6 +63,7 @@
                             $andar = $enderecoExterno->get('andar');
                             $zonaLocalizacao = $enderecoExterno->get('zonaLocalizacao');
 							$complemento = $enderecoExterno->get('complemento');
+
 
                             /**
                              * begin documento form fieldset
@@ -221,6 +225,9 @@
                                         </div>
                                     </div>
                                 </div>
+
+
+
                             
                                 <div class="form-group">
                                     <div class="row">
@@ -293,6 +300,7 @@
                                     <!-- end rg -->
 
                                 </div>
+
 
                                 <div class="form-group ">
                                     <div class="row form-group">
@@ -588,6 +596,41 @@
 										</div>
 									</div>										
 								</div>
+
+                                <div class="form-group">
+
+                                    <label for="nacionalidade">
+                                        <?php echo $nacionalidade->getOption('label');?>
+                                    </label>
+
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <?php
+                                            echo $this->formSelect($nacionalidade);
+                                            echo $this->formElementErrors($nacionalidade);
+                                            ?>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+
+                                    <label for="municipioNascimento">
+                                        <?php echo $municipioNascimento->getOption('label');?>
+                                    </label>
+
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <?php
+                                            echo $this->formInput($municipioNascimento);
+                                            echo $this->formElementErrors($municipioNascimento);
+                                            ?>
+                                        </div>
+                                    </div>
+
+                                </div>
+
 								<div class="form-group">
 									<label for="cep">
 										<?php echo $cep->getOption('label');?>
@@ -997,7 +1040,8 @@ echo $this->headScript()->prependFile($this->basePath()
     for (var selector in config) {    	
     	$(selector).chosen(config[selector]);
     }
-    $(document).ready(function() {	
+    $(document).ready(function() {
+
 		//$(".vendedor").before("<div style='display: none;' class='carregandovend'>Carregando...</div>");
 		//$(".vendedor").after("<a href='#modal' class='btn2 submit cadnovo'>Cadastrar Novo</a><br/>");
 
@@ -1006,6 +1050,19 @@ echo $this->headScript()->prependFile($this->basePath()
         $('.livro').hide();
         $('.folha').hide();
         $('.siglaUfCertidaoCivil').hide();
+
+        var tipoCertidaoCivil = $('.tipoCertidaoCivil').val();
+        if (tipoCertidaoCivil > 0){
+            if (tipoCertidaoCivil == 1){
+                $('.certidaoNascimento').show();
+                $('.siglaUfCertidaoCivil').show();
+            } else if (tipoCertidaoCivil == 2 || tipoCertidaoCivil == 3){
+                $('.termo').show();
+                $('.livro').show();
+                $('.folha').show();
+                $('.siglaUfCertidaoCivil').show();
+            }
+        }
 
         $('.tipoCertidaoCivil').on('change', function(){
 
@@ -1051,6 +1108,10 @@ echo $this->headScript()->prependFile($this->basePath()
        		$(".cpf").mask("999.999.999-99");
        		$(".dataNasc").mask("99-99-9999");
        		$(".cep").mask("99999-999");
+            //mask data documento
+            $(".dataEmissaoRg").mask("99-99-9999");
+            $(".dataEmissaoCarteiraTrabalho").mask("99-99-9999");
+            $(".dataEmissaoCertidaoCivil").mask("99-99-9999");
 
 		});
 		

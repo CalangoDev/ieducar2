@@ -1,44 +1,166 @@
-<div class="jumbotron">
-    <h1><?php echo sprintf($this->translate('Welcome to %sZend Framework 2%s'), '<span class="zf-green">', '</span>') ?></h1>
-    <p><?php echo sprintf($this->translate('Congratulations! You have successfully installed the %sZF2 Skeleton Application%s. You are currently running Zend Framework version %s. This skeleton can serve as a simple starting point for you to begin building your application on ZF2.'), '<a href="https://github.com/zendframework/ZendSkeletonApplication" target="_blank">', '</a>', \Zend\Version\Version::VERSION) ?></p>
-    <p><a class="btn btn-success btn-lg" href="https://github.com/zendframework/zf2" target="_blank"><?php echo $this->translate('Fork Zend Framework 2 on GitHub') ?> &raquo;</a></p>
-</div>
-
 <div class="row">
-
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title"><?php echo $this->translate('Follow Development') ?></h3>
-            </div>
-            <div class="panel-body">
-                <p><?php echo sprintf($this->translate('Zend Framework 2 is under active development. If you are interested in following the development of ZF2, there is a special ZF2 portal on the official Zend Framework website which provides links to the ZF2 %swiki%s, %sdev blog%s, %sissue tracker%s, and much more. This is a great resource for staying up to date with the latest developments!'), '<a href="http://framework.zend.com/wiki/display/ZFDEV2/Home">', '</a>', '<a href="http://framework.zend.com/zf2/blog">', '</a>', '<a href="https://github.com/zendframework/zf2/issues">', '</a>') ?></p>
-                <p><a class="btn btn-success pull-right" href="http://framework.zend.com/zf2" target="_blank"><?php echo $this->translate('ZF2 Development Portal') ?> &raquo;</a></p>
-            </div>
+    <ol class="breadcrumb">
+        <li><a href="/">Ínicio</a></li>
+        <li><a href="#">Pessoa Física</a></li>
+        <li class="active">Cadastro de Pessoa Física</li>
+    </ol>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-header">
+            <h1><i class="icon icon-group"></i> Cadastro <small>de pessoa física</small></h1>
         </div>
     </div>
-
-    <div class="col-md-4">
+</div>
+<div class="row">
+    <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title"><?php echo $this->translate('Discover Modules') ?></h3>
+                <b>Lista de Pessoas Físicas</b>
             </div>
-            <div class="panel-body">
-                <p><?php echo sprintf($this->translate('The community is working on developing a community site to serve as a repository and gallery for ZF2 modules. The project is available %son GitHub%s. The site is currently live and currently contains a list of some of the modules already available for ZF2.'), '<a href="https://github.com/zendframework/modules.zendframework.com">', '</a>') ?></p>
-                <p><a class="btn btn-success pull-right" href="http://modules.zendframework.com/" target="_blank"><?php echo $this->translate('Explore ZF2 Modules') ?> &raquo;</a></p>
+            <div class="row">
+                <div class="col-md-4 p-20">
+                    <a href="/sandbox/index/save" class="btn btn-primary">
+                        <i class="icon icon-plus"></i> Nova Pessoa Física
+                    </a>
+                </div>
+                <div class="col-md-4 col-md-offset-4 p-20">
+                    <form id="busca" method="post" action="/usuario/fisica/busca">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="icon icon-search"></i></span>
+                            <input type="text" class="form-control" name="q" placeholder="Pesquisar">
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
-    </div>
+            <div class="row">
+                <div class="col-md-12 p-20">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th width="5%">#</th>
+                            <th>NOME</th>
+                            <th width="5%">DOCUMENTO</th>
+                            <th width="30%">AÇÕES</th>
+                        </tr>
+                        </thead>
+                        <tbody class="dados">
+                        <?php
+                        if (count($this->dados) > 0):
+                            foreach ($this->dados as $fisica):
+                                ?>
+                                <tr>
+                                    <td>
+                                        <?php
 
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title"><?php echo $this->translate('Help &amp; Support') ?></h3>
+                                        echo $fisica->getId();
+                                        ?>
+                                    </td>
+                                    <td>
+                                        <?php
+                                        echo $fisica->getNome();
+                                        ?>
+                                    </td>
+                                    <td>
+                                        <?php
+                                        if ($fisica->getDocumentosandbox()){
+                                            echo $fisica->getDocumentosandbox()->getNome();
+                                        }
+                                        ?>
+                                    </td>
+                                    <td>
+                                        <a href="/sandbox/index/ver/id/<?php echo $fisica->getId()?>" class="btn btn-info"><i class="icon icon-list"></i> Ver detalhes</a>
+                                        <a href="/sandbox/index/save/id/<?php echo $fisica->getId()?>" class="btn btn-primary"><i class="icon icon-pencil"></i> Editar</a>
+                                        <a href="/sandbox/indexa/delete/id/<?php echo $fisica->getId()?>" class="btn btn-danger delete"><i class="icon icon-trash"></i> Apagar</a>
+                                    </td>
+                                </tr>
+                                <?php
+                            endforeach;
+                        else:
+                            ?>
+                            <tr class="warning">
+                                <td colspan="5" class="text-center">
+                                    <b>Nenhum registro encontrado</b>
+                                </td>
+                            </tr>
+                            <?php
+                        endif;
+                        ?>
+                        </tbody>
+                        <tr class="loading">
+                            <td class="info text-center" colspan="5">
+                                <i class='glyphicon icon-spinner icon-spin icon-large'></i> Carregando...
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
-            <div class="panel-body">
-                <p><?php echo sprintf($this->translate('If you need any help or support while developing with ZF2, you may reach us via IRC: %s#zftalk on Freenode%s. We\'d love to hear any questions or feedback you may have regarding the beta releases. Alternatively, you may subscribe and post questions to the %smailing lists%s.'), '<a href="irc://irc.freenode.net/zftalk">', '</a>', '<a href="http://framework.zend.com/wiki/display/ZFDEV/Mailing+Lists">', '</a>') ?></p>
-                <p><a class="btn btn-success pull-right" href="http://webchat.freenode.net?channels=zftalk" target="_blank"><?php echo $this->translate('Ping us on IRC') ?> &raquo;</a></p>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <?php
+                    echo $this->paginationControl($dados, 'Sliding', 'partials/paginator/control.phtml');
+                    ?>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Apagar?</h4>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger">
+                    <p>Tem certeza que deseja remover esse registro?</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Não</button>
+                <button type="button" class="btn btn-primary confirmation">Sim</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        url = null;
+        $('.dados').on("click", ".delete", function(event){
+            event.preventDefault();
+            url = $(this).attr('href');
+            $("#deleteModal").modal();
+        });
+        $(".confirmation").click(function(event){
+            $("#deleteModal").modal('hide');
+            window.location.href = url;
+        });
+        $( "#busca" ).submit(function( event ) {
+            event.preventDefault();
+            // var query = $(this).serialize();
+            var query = $("input[name=q]").val();
+            $.ajax({
+                type : "POST",
+                data : { q:query },
+                url : $(this).attr('action'),
+                success : function(result){
+                    $(".dados").html(result);
+                },
+                beforeSend : function(){
+                    $(".dados").html('');
+                    $(".dados").hide();
+                    $(".loading").show();
+                },
+                complete : function(msg){
+                    $(".loading").hide();
+                    $(".dados").show();
+                }
+            })
+        });
+
+        $("#go").click(function(event) {
+            $("#busca").submit();
+        });
+    });
+</script>

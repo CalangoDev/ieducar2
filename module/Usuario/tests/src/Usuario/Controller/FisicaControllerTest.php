@@ -240,6 +240,91 @@ class FisicaControllerTest extends ControllerTestCase
         $this->assertEquals('pessoaMae', $pessoaMae->getName());
         $this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $pessoaMae->getAttribute('type'));
 
+        /**
+         * documento form fieldset
+         */
+        $documento = $form->get('documento');
+
+        $idDocumento = $documento->get('id');
+        $this->assertEquals('id', $idDocumento->getName());
+        $this->assertEquals('hidden', $idDocumento->getAttribute('type'));
+
+        $rg = $documento->get('rg');
+        $this->assertEquals('rg', $rg->getName());
+        $this->assertEquals('text', $rg->getAttribute('type'));
+
+        $dataEmissaoRg = $documento->get('dataEmissaoRg');
+        $this->assertEquals('dataEmissaoRg', $dataEmissaoRg->getName());
+        $this->assertEquals('text', $dataEmissaoRg->getAttribute('type'));
+
+        $siglaUfEmissaoRg = $documento->get('siglaUfEmissaoRg');
+        $this->assertEquals('siglaUfEmissaoRg', $siglaUfEmissaoRg->getName());
+        $this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $siglaUfEmissaoRg->getAttribute('type'));
+
+        $tipoCertidaoCivil = $documento->get('tipoCertidaoCivil');
+        $this->assertEquals('tipoCertidaoCivil', $tipoCertidaoCivil->getName());
+        $this->assertEquals('Zend\Form\Element\Select', $tipoCertidaoCivil->getAttribute('type'));
+
+        $termo = $documento->get('termo');
+        $this->assertEquals('termo', $termo->getName());
+        $this->assertEquals('text', $termo->getAttribute('type'));
+
+        $livro = $documento->get('livro');
+        $this->assertEquals('livro', $livro->getName());
+        $this->assertEquals('text', $termo->getAttribute('type'));
+
+        $folha = $documento->get('folha');
+        $this->assertEquals('folha', $folha->getName());
+        $this->assertEquals('text', $folha->getAttribute('type'));
+
+        $dataEmissaoCertidaoCivil = $documento->get('dataEmissaoCertidaoCivil');
+        $this->assertEquals('dataEmissaoCertidaoCivil', $dataEmissaoCertidaoCivil->getName());
+        $this->assertEquals('text', $dataEmissaoCertidaoCivil->getAttribute('type'));
+
+        $siglaUfCertidaoCivil = $documento->get('siglaUfCertidaoCivil');
+        $this->assertEquals('siglaUfCertidaoCivil', $siglaUfCertidaoCivil->getName());
+        $this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $siglaUfCertidaoCivil->getAttribute('type'));
+
+        $cartorioCertidaoCivil = $documento->get('cartorioCertidaoCivil');
+        $this->assertEquals('cartorioCertidaoCivil', $cartorioCertidaoCivil->getName());
+        $this->assertEquals('textarea', $cartorioCertidaoCivil->getAttribute('type'));
+
+        $numeroCarteiraTrabalho = $documento->get('numeroCarteiraTrabalho');
+        $this->assertEquals('numeroCarteiraTrabalho', $numeroCarteiraTrabalho->getName());
+        $this->assertEquals('text', $numeroCarteiraTrabalho->getAttribute('type'));
+
+        $serieCarteiraTrabalho = $documento->get('serieCarteiraTrabalho');
+        $this->assertEquals('serieCarteiraTrabalho', $serieCarteiraTrabalho->getName());
+        $this->assertEquals('text', $serieCarteiraTrabalho->getAttribute('type'));
+
+        $dataEmissaoCertidaoCivil = $documento->get('dataEmissaoCertidaoCivil');
+        $this->assertEquals('dataEmissaoCertidaoCivil', $dataEmissaoCertidaoCivil->getName());
+        $this->assertEquals('text', $dataEmissaoCertidaoCivil->getAttribute('type'));
+
+        $siglaUfCarteiraTrabalho = $documento->get('siglaUfCarteiraTrabalho');
+        $this->assertEquals('siglaUfCarteiraTrabalho', $siglaUfCarteiraTrabalho->getName());
+        $this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $siglaUfCarteiraTrabalho->getAttribute('type'));
+
+        $numeroTituloEleitor = $documento->get('numeroTituloEleitor');
+        $this->assertEquals('numeroTituloEleitor', $numeroTituloEleitor->getName());
+        $this->assertEquals('text', $numeroTituloEleitor->getAttribute('type'));
+
+        $zonaTituloEleitor = $documento->get('zonaTituloEleitor');
+        $this->assertEquals('zonaTituloEleitor', $zonaTituloEleitor->getName());
+        $this->assertEquals('text', $zonaTituloEleitor->getAttribute('type'));
+
+        $secaoTituloEleitor = $documento->get('secaoTituloEleitor');
+        $this->assertEquals('secaoTituloEleitor', $secaoTituloEleitor->getName());
+        $this->assertEquals('text', $secaoTituloEleitor->getAttribute('type'));
+
+        $orgaoEmissorRg = $documento->get('orgaoEmissorRg');
+        $this->assertEquals('orgaoEmissorRg', $orgaoEmissorRg->getName());
+        $this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $orgaoEmissorRg->getAttribute('type'));
+
+        $certidaoNascimento = $documento->get('certidaoNascimento');
+        $this->assertEquals('certidaoNascimento', $certidaoNascimento->getName());
+        $this->assertEquals('text', $certidaoNascimento->getAttribute('type'));
+
 	}
 
 	/**
@@ -309,30 +394,11 @@ class FisicaControllerTest extends ControllerTestCase
 		$this->request->getPost()->set('url', 'www.calangodev.com.br');
 		$this->request->getPost()->set('email', 'ej@calangodev.com.br');
 		$this->request->getPost()->set('situacao', 'A');
-		//$this->request->getPost()->set('nacionalidade', "1");
 		$this->request->getPost()->set('raca', "0");
-		// $this->request->getPost()->set('cpf', '');
-		// $this->request->getPost()->set('tipoLogradouro', $tipoLogradouro->getId());		
-		// $this->request->getPost()->set('siglaUf', $uf->getId());
-		// $this->request->getPost()->set('apartamento', '001');
-		// $this->request->getPost()->set('bloco', 'A');
-		// $this->request->getPost()->set('andar', '1');
-		// $this->request->getPost()->set('logradouro', 'Rua X');
-		// $this->request->getPost()->set('cidade', 'Irecê');
-		// $this->request->getPost()->set('zonaLocalizacao', '1');
-		// $this->request->getPost()->set('dddTelefone1', '71');
-		// $this->request->getPost()->set('telefone1', '1111-1111');
-		// $this->request->getPost()->set('dddTelefone2', '71');
-		// $this->request->getPost()->set('telefone2', '1111-1111');
-		// $this->request->getPost()->set('dddCelular', '71');
-		// $this->request->getPost()->set('celular', '1111-1111');
-		// $this->request->getPost()->set('dddFax', '71');
-		// $this->request->getPost()->set('fax', '1111-1111');
-		// $this->request->getPost()->set('cep', '44900-000');
 		$enderecoExterno = array(
-                'id' => '',
+                'id' => '0',
 				'cep' => '',
-				'tipoLogradouro' => '',
+				'tipoLogradouro' => '0',
 				'logradouro' => '',
 				'numero' => '',
 				'cidade' => '',
@@ -344,7 +410,32 @@ class FisicaControllerTest extends ControllerTestCase
 				'andar' => '',
 				'zonaLocalizacao' => ''
 		);
-		$this->request->getPost()->set('enderecoExterno', $enderecoExterno);
+
+        $this->request->getPost()->set('enderecoExterno', $enderecoExterno);
+
+        $documento = array(
+            'id' => '0',
+            'rg' => '',
+            'dataEmissaoRg' => '',
+            'siglaUfEmissaoRg' => '0',
+            'tipoCertidaoCivil' => '',
+            'termo' => '',
+            'livro' => '',
+            'folha' => '',
+            'dataEmissaoCertidaoCivil' => '',
+            'siglaUfCertidaoCivil' => '0',
+            'cartorioCertidaoCivil' => '',
+            'numeroCarteiraTrabalho' => '',
+            'serieCarteiraTrabalho' => '',
+            'dataEmissaoCarteiraTrabalho' => '',
+            'siglaUfCarteiraTrabalho' => '0',
+            'numeroTituloEleitor' => '',
+            'zonaTituloEleitor' => '',
+            'secaoTituloEleitor' => '',
+            'orgaoEmissorRg' => '0',
+            'certidaoNascimento' => '',
+        );
+        $this->request->getPost()->set('documento', $documento);
 
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
@@ -358,7 +449,7 @@ class FisicaControllerTest extends ControllerTestCase
 		$this->assertEquals('Location: /usuario/fisica', $headers->get('Location'));
 	}
 
-    public function testFisicaSaveActionPostRequestEmptyEnderecoExterno()
+    public function testFisicaSaveActionPostRequestEmptyEntity()
     {
         $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
 
@@ -366,9 +457,49 @@ class FisicaControllerTest extends ControllerTestCase
         $this->request->setMethod('post');
         $this->request->getPost()->set('id', '');
         $this->request->getPost()->set('nome', 'CalangoDev');
-        $this->request->getPost()->set('enderecoExterno', array());
+        $this->request->getPost()->set('raca', "0");
         $this->request->getPost()->set('situacao', 'A');
         $this->request->getPost()->set('sexo', 'M');
+        $enderecoExterno = array(
+            'id' => '0',
+            'cep' => '',
+            'tipoLogradouro' => '0',
+            'logradouro' => '',
+            'numero' => '',
+            'cidade' => '',
+            'bairro' => '',
+            'siglaUf' => '',
+            'letra' => '',
+            'apartamento' =>'',
+            'bloco' => '',
+            'andar' => '',
+            'zonaLocalizacao' => ''
+        );
+        $this->request->getPost()->set('enderecoExterno', $enderecoExterno);
+        $documento = array(
+            'id' => '0',
+            'rg' => '',
+            'dataEmissaoRg' => '',
+            'siglaUfEmissaoRg' => '0',
+            'tipoCertidaoCivil' => '',
+            'termo' => '',
+            'livro' => '',
+            'folha' => '',
+            'dataEmissaoCertidaoCivil' => '',
+            'siglaUfCertidaoCivil' => '0',
+            'cartorioCertidaoCivil' => '',
+            'numeroCarteiraTrabalho' => '',
+            'serieCarteiraTrabalho' => '',
+            'dataEmissaoCarteiraTrabalho' => '',
+            'siglaUfCarteiraTrabalho' => '0',
+            'numeroTituloEleitor' => '',
+            'zonaTituloEleitor' => '',
+            'secaoTituloEleitor' => '',
+            'orgaoEmissorRg' => '0',
+            'certidaoNascimento' => '',
+        );
+        $this->request->getPost()->set('documento', $documento);
+
         $result = $this->controller->dispatch(
             $this->request, $this->response
         );
@@ -415,6 +546,10 @@ class FisicaControllerTest extends ControllerTestCase
         $pessoaPai->setNome('Pai do Menino');
         $em->persist($pessoaPai);
 
+        // Cadastrar OrgaoEmissorRg
+        $orgaoEmissorRg = $this->buildOrgaoEmissorRg();
+        $em->persist($orgaoEmissorRg);
+
         $em->flush();
 
         //	Dispara a acao
@@ -443,10 +578,39 @@ class FisicaControllerTest extends ControllerTestCase
             'apartamento' =>'101',
             'bloco' => '1',
             'andar' => '1',
-            'zonaLocalizacao' => '1'
+            'zonaLocalizacao' => '1',
+            'id' => '0'
         );
 
         $this->request->getPost()->set('enderecoExterno', $enderecoExterno);
+
+        //new \DateTime("10-10-2015", new \DateTimeZone('America/Sao_Paulo'))
+
+        $documento = array(
+            'id' => '0',
+            'rg' => '1234567890',
+            'dataEmissaoRg' => '10-10-2015',
+            'siglaUfEmissaoRg' => $uf->getId(),
+            'tipoCertidaoCivil' => '1',
+            'termo' => 'termo',
+            'livro' => 'livro',
+            'folha' => '1234',
+            'dataEmissaoCertidaoCivil' => '10-10-2015',
+            'siglaUfCertidaoCivil' => $uf->getId(),
+            'cartorioCertidaoCivil' => 'cartorio',
+            'numeroCarteiraTrabalho' => 'numero',
+            'serieCarteiraTrabalho' => '12345',
+            'dataEmissaoCarteiraTrabalho' => '10-10-2015',
+            'siglaUfCarteiraTrabalho' => $uf->getId(),
+            'numeroTituloEleitor' => 'numerotitulo',
+            'zonaTituloEleitor' => '1234',
+            'secaoTituloEleitor' => '1234',
+            'orgaoEmissorRg' => $orgaoEmissorRg->getId(),
+            'certidaoNascimento' => 'certidaonascimento'
+        );
+        $this->request->getPost()->set('documento', $documento);
+
+
         $this->request->getPost()->set('url', 'www.calangodev.com.br');
         $this->request->getPost()->set('email', 'ej@calangodev.com.br');
 
@@ -488,6 +652,29 @@ class FisicaControllerTest extends ControllerTestCase
         $this->assertEquals('1', $savedFisica->getEnderecoExterno()->getBloco());
         $this->assertEquals('1', $savedFisica->getEnderecoExterno()->getAndar());
         $this->assertEquals('1', $savedFisica->getEnderecoExterno()->getZonaLocalizacao());
+        //var_dump($savedFisica->getDocumento());
+        //var_dump($savedFisica->getDocumento()->getFisica());
+        $this->assertEquals('1', $savedFisica->getDocumento()->getId());
+        $this->assertEquals('1234567890', $savedFisica->getDocumento()->getRg());
+        $this->assertEquals("10-10-2015", $savedFisica->getDocumento()->getDataEmissaoRg());
+        $this->assertEquals($uf, $savedFisica->getDocumento()->getSiglaUfEmissaoRg());
+        $this->assertEquals('1', $savedFisica->getDocumento()->getTipoCertidaoCivil());
+        $this->assertEquals('termo', $savedFisica->getDocumento()->getTermo());
+        $this->assertEquals('livro', $savedFisica->getDocumento()->getLivro());
+        $this->assertEquals('1234', $savedFisica->getDocumento()->getFolha());
+        $this->assertEquals("10-10-2015", $savedFisica->getDocumento()->getDataEmissaoCertidaoCivil());
+        $this->assertEquals($uf, $savedFisica->getDocumento()->getSiglaUfCertidaoCivil());
+        $this->assertEquals('cartorio', $savedFisica->getDocumento()->getCartorioCertidaoCivil());
+        $this->assertEquals('numero', $savedFisica->getDocumento()->getNumeroCarteiraTrabalho());
+        $this->assertEquals('12345', $savedFisica->getDocumento()->getSerieCarteiraTrabalho());
+        $this->assertEquals("10-10-2015", $savedFisica->getDocumento()->getDataEmissaoCarteiraTrabalho());
+        $this->assertEquals($uf, $savedFisica->getDocumento()->getSiglaUfCarteiraTrabalho());
+        $this->assertEquals('numerotitulo', $savedFisica->getDocumento()->getNumeroTituloEleitor());
+        $this->assertEquals('1234', $savedFisica->getDocumento()->getZonaTituloEleitor());
+        $this->assertEquals('1234', $savedFisica->getDocumento()->getSecaoTituloEleitor());
+        $this->assertEquals($orgaoEmissorRg, $savedFisica->getDocumento()->getOrgaoEmissorRg());
+        $this->assertEquals('certidaonascimento', $savedFisica->getDocumento()->getCertidaoNascimento());
+
     }
 
 
@@ -540,9 +727,47 @@ class FisicaControllerTest extends ControllerTestCase
         $this->request->getPost()->set('siglaUf', '');
         $this->request->getPost()->set('zonaLocalizacao', '');
         $this->request->getPost()->set('cep', '');
-        $this->request->getPost()->set('enderecoExterno', array());
         // Parametros requiridos que vao ser passados em branco
         $this->request->getPost()->set('nome', '');
+        $enderecoExterno = array(
+            'id' => '0',
+            'cep' => '',
+            'tipoLogradouro' => '0',
+            'logradouro' => '',
+            'numero' => '',
+            'cidade' => '',
+            'bairro' => '',
+            'siglaUf' => '',
+            'letra' => '',
+            'apartamento' =>'',
+            'bloco' => '',
+            'andar' => '',
+            'zonaLocalizacao' => ''
+        );
+        $this->request->getPost()->set('enderecoExterno', $enderecoExterno);
+        $documento = array(
+            'id' => '0',
+            'rg' => '',
+            'dataEmissaoRg' => '',
+            'siglaUfEmissaoRg' => '0',
+            'tipoCertidaoCivil' => '',
+            'termo' => '',
+            'livro' => '',
+            'folha' => '',
+            'dataEmissaoCertidaoCivil' => '',
+            'siglaUfCertidaoCivil' => '0',
+            'cartorioCertidaoCivil' => '',
+            'numeroCarteiraTrabalho' => '',
+            'serieCarteiraTrabalho' => '',
+            'dataEmissaoCarteiraTrabalho' => '',
+            'siglaUfCarteiraTrabalho' => '0',
+            'numeroTituloEleitor' => '',
+            'zonaTituloEleitor' => '',
+            'secaoTituloEleitor' => '',
+            'orgaoEmissorRg' => '0',
+            'certidaoNascimento' => '',
+        );
+        $this->request->getPost()->set('documento', $documento);
 
         $result = $this->controller->dispatch(
             $this->request, $this->response
@@ -616,7 +841,47 @@ class FisicaControllerTest extends ControllerTestCase
 		$this->request->getPost()->set('fax', '1111-1111');
 		$this->request->getPost()->set('logradouro', 'Rua X');
 		$this->request->getPost()->set('cidade', 'Irecê');
-        $this->request->getPost()->set('enderecoExterno', array());
+        $enderecoExterno = array(
+            'id' => '0',
+            'cep' => '',
+            'tipoLogradouro' => '0',
+            'logradouro' => '',
+            'numero' => '',
+            'cidade' => '',
+            'bairro' => '',
+            'siglaUf' => '',
+            'letra' => '',
+            'apartamento' =>'',
+            'bloco' => '',
+            'andar' => '',
+            'zonaLocalizacao' => ''
+        );
+
+        $this->request->getPost()->set('enderecoExterno', $enderecoExterno);
+
+        $documento = array(
+            'id' => '0',
+            'rg' => '',
+            'dataEmissaoRg' => '',
+            'siglaUfEmissaoRg' => '0',
+            'tipoCertidaoCivil' => '',
+            'termo' => '',
+            'livro' => '',
+            'folha' => '',
+            'dataEmissaoCertidaoCivil' => '',
+            'siglaUfCertidaoCivil' => '0',
+            'cartorioCertidaoCivil' => '',
+            'numeroCarteiraTrabalho' => '',
+            'serieCarteiraTrabalho' => '',
+            'dataEmissaoCarteiraTrabalho' => '',
+            'siglaUfCarteiraTrabalho' => '0',
+            'numeroTituloEleitor' => '',
+            'zonaTituloEleitor' => '',
+            'secaoTituloEleitor' => '',
+            'orgaoEmissorRg' => '0',
+            'certidaoNascimento' => '',
+        );
+        $this->request->getPost()->set('documento', $documento);
 
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
@@ -663,6 +928,7 @@ class FisicaControllerTest extends ControllerTestCase
 		//	Dispara a acao
 		$this->routeMatch->setParam('action', 'save');
 		$this->routeMatch->setParam('id', $fisica->getId());
+        $this->routeMatch->setParam('documento', array());
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
 		);
@@ -705,7 +971,47 @@ class FisicaControllerTest extends ControllerTestCase
 		$this->request->getPost()->set('siglaUf', 'BA');
 		$this->request->getPost()->set('cidade', 'Irecê');
 		$this->request->getPost()->set('logradouro', 'Rua X');
-        $this->request->getPost()->set('enderecoExterno', array());
+        $enderecoExterno = array(
+            'id' => '0',
+            'cep' => '',
+            'tipoLogradouro' => '0',
+            'logradouro' => '',
+            'numero' => '',
+            'cidade' => '',
+            'bairro' => '',
+            'siglaUf' => '',
+            'letra' => '',
+            'apartamento' =>'',
+            'bloco' => '',
+            'andar' => '',
+            'zonaLocalizacao' => ''
+        );
+
+        $this->request->getPost()->set('enderecoExterno', $enderecoExterno);
+
+        $documento = array(
+            'id' => '0',
+            'rg' => '',
+            'dataEmissaoRg' => '',
+            'siglaUfEmissaoRg' => '0',
+            'tipoCertidaoCivil' => '',
+            'termo' => '',
+            'livro' => '',
+            'folha' => '',
+            'dataEmissaoCertidaoCivil' => '',
+            'siglaUfCertidaoCivil' => '0',
+            'cartorioCertidaoCivil' => '',
+            'numeroCarteiraTrabalho' => '',
+            'serieCarteiraTrabalho' => '',
+            'dataEmissaoCarteiraTrabalho' => '',
+            'siglaUfCarteiraTrabalho' => '0',
+            'numeroTituloEleitor' => '',
+            'zonaTituloEleitor' => '',
+            'secaoTituloEleitor' => '',
+            'orgaoEmissorRg' => '0',
+            'certidaoNascimento' => '',
+        );
+        $this->request->getPost()->set('documento', $documento);
 		
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
@@ -915,6 +1221,15 @@ class FisicaControllerTest extends ControllerTestCase
         $estadoCivil->setDescricao('Solteiro(a)');
 
         return $estadoCivil;
+    }
+
+    private function buildOrgaoEmissorRg()
+    {
+        $orgaoEmissorRg = new \Usuario\Entity\OrgaoEmissorRg();
+        $orgaoEmissorRg->setSigla('SSP');
+        $orgaoEmissorRg->setDescricao('SSP');
+
+        return $orgaoEmissorRg;
     }
 
 }

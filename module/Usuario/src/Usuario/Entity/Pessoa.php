@@ -547,9 +547,9 @@ class Pessoa extends Entity implements EventSubscriber
 		return $this->nome;
 	}
 
-	public function setNome($value)
+	public function setNome($nome)
 	{		
-		$this->nome = $this->valid("nome", $value);
+		$this->nome = $this->valid("nome", $nome);
 	}
 
 	public function getDataCad()
@@ -599,7 +599,7 @@ class Pessoa extends Entity implements EventSubscriber
 
 	public function setEnderecoExterno(EnderecoExterno $enderecoExterno = null)
 	{
-		$this->enderecoExterno = $enderecoExterno;
+		$this->enderecoExterno = $this->valid("enderecoExterno", $enderecoExterno);
 	}
 
 	/**
@@ -699,7 +699,7 @@ class Pessoa extends Entity implements EventSubscriber
 
             $inputFilter->add($factory->createInput(array(
 				'name' => 'enderecoExterno',
-				'required' => false,
+				'required' => true,
 				'continue_if_empty' => true,
 			)));
 

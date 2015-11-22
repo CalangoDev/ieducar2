@@ -35,7 +35,7 @@ class FisicaTest extends EntityTestCase
 	public function testInputFilterValid($if)
 	{
 		//testa os filtros 
-		$this->assertEquals(20, $if->count());
+		$this->assertEquals(21, $if->count());
 		$this->assertTrue($if->has('raca'));
 		$this->assertTrue($if->has('dataNasc'));
 		$this->assertTrue($if->has('sexo'));
@@ -50,6 +50,7 @@ class FisicaTest extends EntityTestCase
 		$this->assertTrue($if->has('foto'));
 		$this->assertTrue($if->has('pessoaMae'));
 		$this->assertTrue($if->has('pessoaPai'));
+		$this->assertTrue($if->has('documento'));
 	}
 
 	/**
@@ -61,13 +62,15 @@ class FisicaTest extends EntityTestCase
 	 *
 	 */
 	public function testInsert()
-	{		
+	{
+        $documento = $this->buildDocumento();
 		/**
 		 * Cadastrando uma nova pessoa Fisica
 		 */
 		$fisica = $this->buildFisica();
 		$fisica->setNome("Steve Jobs");
 		$fisica->setSituacao("A");
+        $fisica->setDocumento($documento);
 		$this->em->persist($fisica);
 		$this->em->flush();
 
@@ -82,6 +85,7 @@ class FisicaTest extends EntityTestCase
         
         $this->assertInstanceOf(get_class($fisica), $savedPessoaFisica);
         $this->assertEquals($fisica->getId(), $savedPessoaFisica->getId());
+        $this->assertEquals("1111111111", $savedPessoaFisica->getDocumento()->getRg());
 	}
 
 
@@ -260,6 +264,58 @@ class FisicaTest extends EntityTestCase
         $estadoCivil->setDescricao('Solteiro(a)');
 
         return $estadoCivil;
+    }
+
+	private function buildDocumento()
+	{
+        $orgaoEmissor = $this->buildOrgaoEmissorRg();
+        $this->em->persist($orgaoEmissor);
+
+        $uf = $this->buildUf();
+        $this->em->persist($uf);
+
+        $this->em->flush();
+
+        $documento = new \Usuario\Entity\Documento();
+        $documento->setRg('1111111111');
+        $documento->setDataEmissaoRg(new \DateTime("10-10-2015", new \DateTimeZone('America/Sao_Paulo')));
+        $documento->setSiglaUfEmissaoRg($uf);
+        $documento->setTipoCertidaoCivil('1');
+        $documento->setTermo('12345678');
+        $documento->setLivro('LIVRO');
+        $documento->setFolha('1234');
+        $documento->setDataEmissaoCertidaoCivil(new \DateTime("10-10-2015", new \DateTimeZone('America/Sao_Paulo')));
+        $documento->setSiglaUfCertidaoCivil($uf);
+        $documento->setCartorioCertidaoCivil('CARTORIO CIVIL');
+        $documento->setNumeroCarteiraTrabalho('123456789');
+        $documento->setDataEmissaoCarteiraTrabalho(new \DateTime("10-10-2015", new \DateTimeZone('America/Sao_Paulo')));
+        $documento->setSiglaUfCarteiraTrabalho($uf);
+        $documento->setNumeroTituloEleitor('1234567890123');
+        $documento->setZonaTituloEleitor('1234');
+        $documento->setSecaoTituloEleitor('1234');
+        $documento->setOrgaoEmissorRg($orgaoEmissor);
+
+        return $documento;
+	}
+
+    private function buildOrgaoEmissorRg()
+    {
+        $orgaoEmissor = new \Usuario\Entity\OrgaoEmissorRg();
+        $orgaoEmissor->setSigla('SSP');
+        $orgaoEmissor->setDescricao('SSP');
+
+        return $orgaoEmissor;
+    }
+
+    private function buildUf()
+    {
+        $uf = new \Core\Entity\Uf();
+        $uf->setNome('Bahia');
+        $uf->setUf('BA');
+        $uf->setCep1('44000');
+        $uf->setCep2('48900');
+
+        return $uf;
     }
 
 }

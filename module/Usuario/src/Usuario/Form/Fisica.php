@@ -263,12 +263,30 @@ class Fisica extends Form
         //$this->add($endExterno);
         //$enderecoExternoFieldset = new EnderecoExternoFieldset($objectManager);
         $enderecoExternoFieldset = new EnderecoExternoFieldset($em);
+        $enderecoExternoFieldset->setLabel('Endereço');
+        $enderecoExternoFieldset->setName('enderecoExterno');
         $enderecoExternoFieldset->setUseAsBaseFieldset(false);
         $this->add($enderecoExternoFieldset);
 
 		$documentoFieldset = new DocumentoFieldset($em);
+		$documentoFieldset->setLabel('Documento');
+        $documentoFieldset->setName('documento');
         $documentoFieldset->setUseAsBaseFieldset(false);
         $this->add($documentoFieldset);
+
+
+        // Set the validation group so that we don't care about city
+//        $this->setValidationGroup(array(
+//            'csrf', // assume we added a CSRF element
+//            'user' => array(
+//                'name'
+//            )
+//        ));
+
+
+//        $this->setValidationGroup(array(
+//            'documento',
+//        ));
 
 		// $this->add(array(
 		// 	'name' => 'tipoLogradouro',
@@ -411,20 +429,21 @@ class Fisica extends Form
 		));
 
 		$this->add(array(
-			'name' => 'nacionalidade',
-			'attributes' => array(
-				'type' => 'Zend\Form\Element\Select',
-				'value' => '1',
-				'class' => 'form-control'
-			),
-			'options' => array(
-				'label' => 'Nacionalidade',
-				'value_options' => array(
-					'1'  => 'Brasileiro',
-     				'2'  => 'Naturalizado brasileiro',
-     				'3'  => 'Estrangeiro'
-				),
-			),
+            'name' => 'nacionalidade',
+            'type' => 'Zend\Form\Element\Select',
+            'attributes' => array(
+                'type' => 'Zend\Form\Element\Select',
+                'class' => 'form-control'
+            ),
+            'options' => array(
+                'empty_option' => 'Selecione',
+                'label' => 'Nacionalidade:',
+                'value_options' => array(
+                    '1' => 'Brasileiro',
+                    '2' => 'Naturalizado brasileiro',
+                    '3' => 'Estrangeiro'
+                ),
+            ),
 		));
 
 		$this->add(array(
@@ -457,28 +476,6 @@ class Fisica extends Form
 			),
 			'options' => array(
 				'label' => 'Nome da Mãe'
-			),
-		));
-
-		$this->add(array(
-			'name' => 'nomePai',
-			'attributes' => array(
-				'type' => 'text',
-				'class' => 'form-control'
-			),
-			'options' => array(
-				'label' => 'Nome do Pai'
-			),
-		));
-
-		$this->add(array(
-			'name' => 'nomeConjuge',
-			'attributes' => array(
-				'type' => 'text',
-				'class' => 'form-control'
-			),
-			'options' => array(
-				'label' => 'Nome Conjuge'
 			),
 		));
 
@@ -519,14 +516,15 @@ class Fisica extends Form
 
 
 		$this->add(array(
-			'name' => 'idmunNascimento',
-			'attributes' => array(
-				'type' => 'Zend\Form\Element\Select',
-				'class' => 'form-control'
-			),
-			'options' => array(
-				'label' => 'Municipio de Nascimento'
-			),
+			'name' => 'municipioNascimento',
+            'attributes' => array(
+                'type' => 'text',
+                'class' => 'form-control municipioNascimento',
+                'title' => 'Digite o nome do munícipio'
+            ),
+            'options' => array(
+                'label' => 'Municipio de Nascimento:',
+            ),
 		));
 
 		$this->add(array(
@@ -775,5 +773,7 @@ class Fisica extends Form
 				'class' => 'btn btn-lg btn-primary',
 			),
 		));
-	}	
+	}
+
+
 }

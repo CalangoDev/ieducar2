@@ -11,8 +11,8 @@ namespace Sandbox;
 
 return array(
     'router' => array(
-        'routes' => array(            
-            'usuario' => array(
+        'routes' => array(
+            'sandbox' => array(
                 'type'    => 'Literal',
                 'options' => array(
                     'route'    => '/sandbox',
@@ -52,7 +52,7 @@ return array(
         ),
         'aliases' => array(
             'translator' => 'MvcTranslator',
-        ),        
+        ),
     ),
     'translator' => array(
         'locale' => 'pt_BR',
@@ -76,10 +76,6 @@ return array(
         'not_found_template'       => 'error/404',
         'exception_template'       => 'error/index',
         'template_map' => array(
-            'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
-            'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
-            'error/404'               => __DIR__ . '/../view/error/404.phtml',
-            'error/index'             => __DIR__ . '/../view/error/index.phtml',
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view',
@@ -92,30 +88,19 @@ return array(
             ),
         ),
     ),
-
     'doctrine' => array(
-        'driver' => array(            
+        'driver' => array(
             __NAMESPACE__ . '_driver' => array(
                 'class' => '\Doctrine\ORM\Mapping\Driver\AnnotationDriver',
-                'cache' => 'array',                
-                'paths' => array(__DIR__ . '/../src/' . __NAMESPACE__ . '/Entity')                
+                'cache' => 'array',
+                'paths' => array(__DIR__ . '/../src/' . __NAMESPACE__ . '/Entity')
             ),
-            'orm_default' => array(                
+            'orm_default' => array(
                 'drivers' => array(
                     __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver',
-                ),                                
-            ),          
-        ),
-        'fixture' => array(
-            __NAMESPACE__ . "_fixture" => __DIR__ . '/../src/' . __NAMESPACE__ . '/Fixture',
-        ),
-        'eventmanager' => array(
-            'orm_default' => array(
-                'subscribers' => array(
-
                 ),
             ),
-        ),        
+        ),
         // 'data-fixture' => array(
         //     'location' => __DIR__ . '/../src/' . __NAMESPACE__ . '/Fixture',
         // ),

@@ -58,11 +58,6 @@ class JuridicaTest extends EntityTestCase
 	{
 		$juridica = $this->buildJuridica();
 		$juridica->setNome("Steve Jobs");
-		$juridica->setTipo("J");
-		$juridica->setSituacao("A");
-		$juridica->setOrigemGravacao("M");
-		$juridica->setOperacao("I");
-		$juridica->setIdSisCad(1);
 
 		$this->em->persist($juridica);
 		$this->em->flush();
@@ -113,13 +108,8 @@ class JuridicaTest extends EntityTestCase
 		$this->em->remove($savedPessoa);
 		$this->em->flush();		
 		$juridica = $this->buildJuridica();
-		$juridica->setId($teste->getId());
 		$juridica->setNome($teste->getNome());
 		$juridica->setSituacao($teste->getSituacao());
-		$juridica->setOperacao($teste->getOperacao());
-		$juridica->setOrigemGravacao($teste->getOrigemGravacao());
-		$juridica->setIdsisCad($teste->getIdsisCad());
-		$juridica->setTipo("J");		
 		$this->em->persist($juridica);
 		$this->em->flush();
 
@@ -147,11 +137,7 @@ class JuridicaTest extends EntityTestCase
 	{
 		$juridica = $this->buildJuridica();
 		$juridica->setNome("Steve Jobs");
-		$juridica->setTipo("J");
 		$juridica->setSituacao("A");
-		$juridica->setOrigemGravacao("M");
-		$juridica->setOperacao("I");
-		$juridica->setIdSisCad(1);
 
 		$this->em->persist($juridica);
 
@@ -173,11 +159,7 @@ class JuridicaTest extends EntityTestCase
 	{
 		$juridica = $this->buildJuridica();
 		$juridica->setNome("Steve Jobs");
-		$juridica->setTipo("J");
 		$juridica->setSituacao("A");
-		$juridica->setOrigemGravacao("M");
-		$juridica->setOperacao("I");
-		$juridica->setIdSisCad(1);		
 
 		$this->em->persist($juridica);
 		$this->em->flush();
@@ -196,13 +178,9 @@ class JuridicaTest extends EntityTestCase
 	{
 		$pessoa = new Pessoa;
 		$pessoa->setNome("Steve Jobs");
-    	$pessoa->setTipo("P");
     	$pessoa->setSituacao("A");
-    	$pessoa->setOrigemGravacao("M");
-    	$pessoa->setOperacao("I");
-    	$pessoa->setIdsisCad(1);    	
-    	
-    	return $pessoa;
+
+		return $pessoa;
 	}
 
 	private function buildJuridica()
@@ -216,6 +194,7 @@ class JuridicaTest extends EntityTestCase
 		$juridica->setInscEstadual('866498342');
 		$juridica->setFantasia('Eduardojunior.com');
 		$juridica->setCapitalSocial('capital social');
+		$juridica->setSituacao('A');
 		
 		return $juridica;
 	}

@@ -10,6 +10,7 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
+use Usuario\Entity\Documento;
 
 /**
  * Entidade Fisica
@@ -313,12 +314,12 @@ class Fisica extends Pessoa
 	protected $pessoaResponsavel;
 
 	/**
-	 * @var Int $municiopio_nascimento Naturalidade obtem o id na tabela public.municipio
+	 * @var Int $municipioNascimento Naturalidade
 	 * 
 	 * @todo falta ajustar esse relacionamento
 	 * 
-	 * @ORM\ManyToOne(targetEntity="Core\Entity\Municipio")
-	 * @ORM\JoinColumn(name="idmun_nascimento", referencedColumnName="idmun", onDelete="NO ACTION")
+	 * @ORM\ManyToOne(targetEntity="Core\Entity\CepUnico", cascade={"all"})
+	 * @ORM\JoinColumn(referencedColumnName="seq")
 	 */
 	protected $municipioNascimento;
 
@@ -397,6 +398,19 @@ class Fisica extends Pessoa
 	 * @ORM\Column(type="string", length=120, nullable=true)
 	 */
 	protected $foto;
+
+	/**
+	 * @var documento $documento Entity Documento
+	 *
+	 * ORM\ManyToOne(targetEntity="Usuario\Entity\Documento", cascade={"persist"}, mappedBy="fisica")
+	 */
+	//protected $documento;
+
+    /**
+     * @var documento $documento Entity Documento
+     * @ORM\OneToOne(targetEntity="Usuario\Entity\Documento", inversedBy="fisica", cascade={"all"})
+     */
+    protected $documento;
 
 	/**
 	 * getters and setters
@@ -601,6 +615,16 @@ class Fisica extends Pessoa
         $this->pessoaMae = $this->valid("pessoaMae", $pessoaMae);
     }
 
+	public function getDocumento()
+	{
+		return $this->documento;
+	}
+
+	public function setDocumento(Documento $documento = null)
+	{
+		$this->documento = $documento;
+	}
+
     public function setData($data)
 	{
 		$this->setId(isset($data['id']) ? $data['id'] : null);
@@ -690,11 +714,12 @@ class Fisica extends Pessoa
         $factory = new InputFactory();
         $this->inputFilter->add($factory->createInput(array(
             'name' => 'raca',
-			'required' => false,
-//            'allow_empty' => true,
-//            'filters'     => array(
-//                array('name' => 'Null'),
-//            ),
+			'required' => true,
+            //'allow_empty' => true,
+			'continue_if_empty' => true,
+            'filters'     => array(
+                array('name' => 'Null'),
+            ),
         )));
 
         $this->inputFilter->add($factory->createInput(array(
@@ -887,6 +912,26 @@ class Fisica extends Pessoa
 
         $this->inputFilter->add($factory->createInput(array(
             'name' => 'pessoaMae',
+            'required' => false
+        )));
+
+        $this->inputFilter->add($factory->createInput(array(
+            'name' => 'documento',
+            'required' => true,
+            'continue_if_empty' => true,
+			'filters' => array(
+                array('name' => 'Null'),
+                //array('name' => 'Int'),
+//				array('name' => 'Null',
+//                    'options' => array(
+//                        'type' => 'all'
+//                    ),
+//                )
+            ),
+        )));
+
+		$this->inputFilter->add($factory->createInput(array(
+            'name' => 'municipioNascimento',
             'required' => false
         )));
 

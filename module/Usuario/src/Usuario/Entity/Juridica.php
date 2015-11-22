@@ -118,24 +118,6 @@ class Juridica extends Pessoa implements EventSubscriber
 	}
 
 	/**
-	 * Gatilhos
-	 * 
-	 * Verificar se a pessoa é uma pessoa fisica antes de inserir a pessoa juridica, se for lancar exceção - OK
-	 */
-	
-	/**
-	 * Funcao para checar se o tipo do usuario é dierente de J se for lanca exception
-	 * @access public
-	 * @return  Exception 
-	 * @ORM\PrePersist
-	 */
-	public function checkTipo()
-	{		
-		if(($this->getTipo() != "J") && ($this->getTipo() != "P") && ($this->getTipo() != ""))
-			throw new EntityException("O Identificador " . $this->getId() . " já está cadastrado como Pessoa Física: " . $this->getTipo(), 1);
-	}
-
-	/**
 	 * [$inputFilter recebe os filtros]
 	 * @var Zend\InputFilter\InputFilter
 	 */
