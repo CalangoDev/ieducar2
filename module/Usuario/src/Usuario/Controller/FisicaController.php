@@ -103,6 +103,12 @@ class FisicaController extends ActionController
 				$fisica->setDataNasc($fisica->getDataNasc()->format('d-m-Y'));
 
 			}
+
+			if ($fisica->getMunicipioNascimento()){
+//				$municipioNascimentoId = $fisica->getMunicipioNascimento()->getId();
+//				$fisica->setMunicipioNascimento($municipioNascimentoId);
+				$form->get('municipioNascimento')->setValue($fisica->getMunicipioNascimento()->getId());
+			}
 //            $documento = $form->get('documento');
 //            $documento->get('dataEmissaoRg')->setValue($fisica->getDocumento()->getDataEmissaoRg()->format('d-m-Y'));
 //            $form->get('documento')->setValue($documento);

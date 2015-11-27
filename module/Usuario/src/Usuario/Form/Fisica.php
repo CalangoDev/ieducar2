@@ -528,7 +528,6 @@ class Fisica extends Form
             ),
 		));
 
-
 		$this->add(array(
 			'name' => 'idpaisEstrangeiro',
 			'attributes' => array(
