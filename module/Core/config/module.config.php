@@ -14,7 +14,8 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Core\Controller\Index' => 'Core\Controller\IndexController',
-            'Core\Controller\Cep' => 'Core\Controller\CepController'            
+            'Core\Controller\Cep' => 'Core\Controller\CepController',
+            'Core\Controller\Municipio' => 'Core\Controller\MunicipioController'
         ),
     ),
     'router' => array(

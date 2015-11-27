@@ -126,14 +126,6 @@ class FisicaControllerTest extends ControllerTestCase
 		$this->assertEquals('nomeMae', $nomeMae->getName());
 		$this->assertEquals('text', $nomeMae->getAttribute('type'));
 
-		$nomePai = $form->get('nomePai');
-		$this->assertEquals('nomePai', $nomePai->getName());
-		$this->assertEquals('text', $nomePai->getAttribute('type'));
-
-		$nomeConjuge = $form->get('nomeConjuge');
-		$this->assertEquals('nomeConjuge', $nomeConjuge->getName());
-		$this->assertEquals('text', $nomeConjuge->getAttribute('type'));
-
 		$nomeResponsavel = $form->get('nomeResponsavel');
 		$this->assertEquals('nomeResponsavel', $nomeResponsavel->getName());
 		$this->assertEquals('text', $nomeResponsavel->getAttribute('type'));
@@ -145,10 +137,6 @@ class FisicaControllerTest extends ControllerTestCase
 		$cpf = $form->get('cpf');
 		$this->assertEquals('cpf', $cpf->getName());
 		$this->assertEquals('text', $cpf->getAttribute('type'));
-
-		$idmunNascimento = $form->get('idmunNascimento');
-		$this->assertEquals('idmunNascimento', $idmunNascimento->getName());
-		$this->assertEquals('Zend\Form\Element\Select', $idmunNascimento->getAttribute('type'));
 
 		$idpaisEstrangeiro = $form->get('idpaisEstrangeiro');
 		$this->assertEquals('idpaisEstrangeiro', $idpaisEstrangeiro->getName());
@@ -239,6 +227,10 @@ class FisicaControllerTest extends ControllerTestCase
         $pessoaMae = $form->get('pessoaMae');
         $this->assertEquals('pessoaMae', $pessoaMae->getName());
         $this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $pessoaMae->getAttribute('type'));
+
+		$municipioNascimento = $form->get('municipioNascimento');
+        $this->assertEquals('municipioNascimento', $municipioNascimento->getName());
+        $this->assertEquals('hidden', $municipioNascimento->getAttribute('type'));
 
         /**
          * documento form fieldset
@@ -370,15 +362,22 @@ class FisicaControllerTest extends ControllerTestCase
 	public function testFisicaSaveActionPostRequest()
 	{
 		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-		//	Cadastra uma raça
+
+        //	Cadastra uma raça
 		$raca = $this->buildRaca();
 		$em->persist($raca);
-		// Cadastra um tipo de logradouro
+
+        // Cadastra um tipo de logradouro
 		$tipoLogradouro = $this->buildTipoLogradouro();
 		$em->persist($tipoLogradouro);
-		// Cadastra um Uf
+
+        // Cadastra um Uf
 		$uf = $this->buildUf();
 		$em->persist($uf);
+
+        // Cadastra um municipio
+        $cepUnico = $this->buildCepUnico();
+        $em->persist($cepUnico);
 		
 		$em->flush();		
 
@@ -436,6 +435,7 @@ class FisicaControllerTest extends ControllerTestCase
             'certidaoNascimento' => '',
         );
         $this->request->getPost()->set('documento', $documento);
+        $this->request->getPost()->set('municipioNascimento', $cepUnico);
 
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
@@ -499,6 +499,7 @@ class FisicaControllerTest extends ControllerTestCase
             'certidaoNascimento' => '',
         );
         $this->request->getPost()->set('documento', $documento);
+        $this->request->getPost()->set('municipioNascimento', '');
 
         $result = $this->controller->dispatch(
             $this->request, $this->response
@@ -549,6 +550,10 @@ class FisicaControllerTest extends ControllerTestCase
         // Cadastrar OrgaoEmissorRg
         $orgaoEmissorRg = $this->buildOrgaoEmissorRg();
         $em->persist($orgaoEmissorRg);
+
+        // Cadastra um municipio
+        $cepUnico = $this->buildCepUnico();
+        $em->persist($cepUnico);
 
         $em->flush();
 
@@ -609,6 +614,7 @@ class FisicaControllerTest extends ControllerTestCase
             'certidaoNascimento' => 'certidaonascimento'
         );
         $this->request->getPost()->set('documento', $documento);
+        $this->request->getPost()->set('municipioNascimento', '1');
 
 
         $this->request->getPost()->set('url', 'www.calangodev.com.br');
@@ -674,6 +680,7 @@ class FisicaControllerTest extends ControllerTestCase
         $this->assertEquals('1234', $savedFisica->getDocumento()->getSecaoTituloEleitor());
         $this->assertEquals($orgaoEmissorRg, $savedFisica->getDocumento()->getOrgaoEmissorRg());
         $this->assertEquals('certidaonascimento', $savedFisica->getDocumento()->getCertidaoNascimento());
+        $this->assertEquals($cepUnico, $savedFisica->getMunicipioNascimento());
 
     }
 
@@ -695,6 +702,10 @@ class FisicaControllerTest extends ControllerTestCase
         // Cadastra um Uf
         $uf = $this->buildUf();
         $em->persist($uf);
+
+        // Cadastra um municipio
+        $cepUnico = $this->buildCepUnico();
+        $em->persist($cepUnico);
 
         $em->flush();
 
@@ -768,6 +779,7 @@ class FisicaControllerTest extends ControllerTestCase
             'certidaoNascimento' => '',
         );
         $this->request->getPost()->set('documento', $documento);
+        $this->request->getPost()->set('municipioNascimento', $cepUnico->getId());
 
         $result = $this->controller->dispatch(
             $this->request, $this->response
@@ -800,12 +812,22 @@ class FisicaControllerTest extends ControllerTestCase
 		// Cadastra um Uf
 		$uf = $this->buildUf();
 		$em->persist($uf);
+
+        // Cadastra um municipio
+        $cepUnico = $this->buildCepUnico();
+        $em->persist($cepUnico);
+
+        // Cadastra um municipio
+        $cepUnicoSalvador = $this->buildCepUnico();
+        $cepUnicoSalvador->setNome('Salvador');
+        $em->persist($cepUnicoSalvador);
 		
 
 		$fisica = $this->buildFisica();
 		$fisica->setNome('Bill Gates');
         $date = new \DateTime('03/05/1982', new \DateTimeZone('America/Sao_Paulo'));
         $fisica->setDataNasc($date);
+        $fisica->setMunicipioNascimento($cepUnico);
 		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
 		$em->persist($fisica);
     	$em->flush();
@@ -882,6 +904,7 @@ class FisicaControllerTest extends ControllerTestCase
             'certidaoNascimento' => '',
         );
         $this->request->getPost()->set('documento', $documento);
+        $this->request->getPost()->set('municipioNascimento', $cepUnicoSalvador->getId());
 
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
@@ -900,6 +923,7 @@ class FisicaControllerTest extends ControllerTestCase
         $savedFisica = $em->find('Usuario\Entity\Fisica', $fisica->getId());
         $date = new \DateTime('03/05/1982', new \DateTimeZone('America/Sao_Paulo'));        
         $this->assertEquals($date->format('d-m-Y'), $savedFisica->getDataNasc()->format('d-m-Y'));
+        $this->assertEquals($cepUnicoSalvador, $savedFisica->getMunicipioNascimento());
 	}
 
 	/**
@@ -1230,6 +1254,15 @@ class FisicaControllerTest extends ControllerTestCase
         $orgaoEmissorRg->setDescricao('SSP');
 
         return $orgaoEmissorRg;
+    }
+
+    private function buildCepUnico()
+    {
+        $cepUnico = new \Core\Entity\CepUnico();
+        $cepUnico->setNome('Irecê');
+        $cepUnico->setUf('BA');
+
+        return $cepUnico;
     }
 
 }

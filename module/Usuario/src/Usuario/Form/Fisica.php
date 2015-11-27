@@ -518,14 +518,16 @@ class Fisica extends Form
 		$this->add(array(
 			'name' => 'municipioNascimento',
             'attributes' => array(
-                'type' => 'text',
-                'class' => 'form-control municipioNascimento',
-                'title' => 'Digite o nome do munícipio'
+                'type' => 'hidden',
+                'class' => 'municipioNascimento',
+//                'title' => 'Digite o nome do munícipio',
+//                'placeholder' => 'Digite o Nome do Munícipio'
             ),
             'options' => array(
                 'label' => 'Municipio de Nascimento:',
             ),
 		));
+
 
 		$this->add(array(
 			'name' => 'idpaisEstrangeiro',

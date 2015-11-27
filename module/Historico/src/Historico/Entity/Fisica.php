@@ -256,6 +256,14 @@ class Fisica extends Entity implements InputFilterAwareInterface
 	 */
 	protected $ref_cod_religiao;
 
+    /**
+     * @var Int $municipioNascimento Naturalidade
+     *
+     * @ORM\ManyToOne(targetEntity="Core\Entity\CepUnico", cascade={"all"})
+     * @ORM\JoinColumn(referencedColumnName="seq")
+     */
+    protected $municipioNascimento;
+
 	/**
 	 * getters and setters
 	 */
@@ -449,16 +457,6 @@ class Fisica extends Entity implements InputFilterAwareInterface
 		$this->pessoa_responsavel = $this->valid("pessoa_responsavel", $value);
 	}
 
-	public function getMunicipioNascimento()
-	{
-		return $this->municipio_nascimento;
-	}
-	
-	public function setMunicipioNascimento($value)
-	{
-		$this->municipio_nascimento = $this->valid("municipio_nascimento", $value);
-	}
-
 	public function getPaisEstrangeiro()
 	{
 		return $this->pais_estrangeiro;
@@ -518,5 +516,15 @@ class Fisica extends Entity implements InputFilterAwareInterface
 	{
 		$this->ref_cod_religiao = $this->valid("ref_cod_religiao", $value);
 	}
+
+    public function getMunicipioNascimento()
+    {
+        return $this->municipioNascimento;
+    }
+
+    public function setMunicipioNascimento(\Core\Entity\CepUnico $municipioNascimento = null)
+    {
+        $this->municipioNascimento = $this->valid('municipioNascimento', $municipioNascimento);
+    }
 
 }

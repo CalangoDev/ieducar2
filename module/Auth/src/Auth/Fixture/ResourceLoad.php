@@ -73,6 +73,10 @@ class ResourceLoad implements FixtureInterface
 				'nome' => 'Usuario\Controller\Fisica.delete',
 				'descricao' => 'Remove uma pessoa física'
 			),
+            array(
+                'nome' => 'Core\Controller\Municipio.index',
+                'descricao' => 'Lista de municipios, por busca'
+            )
 
 		);
 

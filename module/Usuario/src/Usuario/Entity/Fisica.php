@@ -316,8 +316,6 @@ class Fisica extends Pessoa
 	/**
 	 * @var Int $municipioNascimento Naturalidade
 	 * 
-	 * @todo falta ajustar esse relacionamento
-	 * 
 	 * @ORM\ManyToOne(targetEntity="Core\Entity\CepUnico", cascade={"all"})
 	 * @ORM\JoinColumn(referencedColumnName="seq")
 	 */
@@ -624,6 +622,16 @@ class Fisica extends Pessoa
 	{
 		$this->documento = $documento;
 	}
+
+    public function getMunicipioNascimento()
+    {
+        return $this->municipioNascimento;
+    }
+
+    public function setMunicipioNascimento(\Core\Entity\CepUnico $municipioNascimento = null)
+    {
+        $this->municipioNascimento = $this->valid('municipioNascimento', $municipioNascimento);
+    }
 
     public function setData($data)
 	{

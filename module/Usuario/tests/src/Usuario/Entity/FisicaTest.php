@@ -35,7 +35,7 @@ class FisicaTest extends EntityTestCase
 	public function testInputFilterValid($if)
 	{
 		//testa os filtros 
-		$this->assertEquals(21, $if->count());
+		$this->assertEquals(22, $if->count());
 		$this->assertTrue($if->has('raca'));
 		$this->assertTrue($if->has('dataNasc'));
 		$this->assertTrue($if->has('sexo'));
@@ -51,6 +51,7 @@ class FisicaTest extends EntityTestCase
 		$this->assertTrue($if->has('pessoaMae'));
 		$this->assertTrue($if->has('pessoaPai'));
 		$this->assertTrue($if->has('documento'));
+		$this->assertTrue($if->has('municipioNascimento'));
 	}
 
 	/**
@@ -64,6 +65,7 @@ class FisicaTest extends EntityTestCase
 	public function testInsert()
 	{
         $documento = $this->buildDocumento();
+        $cepUnico = $this->buildCepUnico();
 		/**
 		 * Cadastrando uma nova pessoa Fisica
 		 */
@@ -71,6 +73,7 @@ class FisicaTest extends EntityTestCase
 		$fisica->setNome("Steve Jobs");
 		$fisica->setSituacao("A");
         $fisica->setDocumento($documento);
+        $fisica->setMunicipioNascimento($cepUnico);
 		$this->em->persist($fisica);
 		$this->em->flush();
 
@@ -86,6 +89,7 @@ class FisicaTest extends EntityTestCase
         $this->assertInstanceOf(get_class($fisica), $savedPessoaFisica);
         $this->assertEquals($fisica->getId(), $savedPessoaFisica->getId());
         $this->assertEquals("1111111111", $savedPessoaFisica->getDocumento()->getRg());
+        $this->assertEquals("Irecê", $savedPessoaFisica->getMunicipioNascimento()->getNome());
 	}
 
 
@@ -167,6 +171,10 @@ class FisicaTest extends EntityTestCase
         $pessoaMae->setSituacao("A");
         $this->em->persist($pessoaMae);
 
+        // Cadastrando Municipio de Nascimento
+        $cepUnico = $this->buildCepUnico();
+        $this->em->persist($cepUnico);
+
         $this->em->flush();
 
 		$fisica = $this->buildFisica();
@@ -183,6 +191,7 @@ class FisicaTest extends EntityTestCase
         $fisica->setEnderecoExterno($enderecoExterno);
         $fisica->setPessoaPai($pessoaPai);
         $fisica->setPessoaMae($pessoaMae);
+        $fisica->setMunicipioNascimento($cepUnico);
         // @todo: falta inserir os telefones.. criar entidade
 
         $this->em->persist($fisica);
@@ -205,6 +214,7 @@ class FisicaTest extends EntityTestCase
         $this->assertEquals($enderecoExterno, $savedFisica->getEnderecoExterno());
         $this->assertEquals($pessoaPai, $savedFisica->getPessoaPai());
         $this->assertEquals($pessoaMae, $savedFisica->getPessoaMae());
+        $this->assertEquals($cepUnico, $savedFisica->getMunicipioNascimento());
 
 	}
 
@@ -316,6 +326,15 @@ class FisicaTest extends EntityTestCase
         $uf->setCep2('48900');
 
         return $uf;
+    }
+
+    private function buildCepUnico()
+    {
+        $cepUnico = new \Core\Entity\CepUnico();
+        $cepUnico->setNome('Irecê');
+        $cepUnico->setUf('BA');
+
+        return $cepUnico;
     }
 
 }

@@ -626,6 +626,13 @@
                                             echo $this->formInput($municipioNascimento);
                                             echo $this->formElementErrors($municipioNascimento);
                                             ?>
+                                            <input type="text" class="form-control" id="municipioNascimento"
+                                                   placeholder='Digite o Nome do Munícipio' />
+                                        </div>
+                                        <div class="col-md-3 municipioNascimentoloading"
+                                             style="padding-left:25px; padding-top:4px; display:none;">
+                                            <i class='glyphicon icon-spinner icon-spin icon-large'></i>
+                                            Pesquisando Cidade, aguarde!
                                         </div>
                                     </div>
 
@@ -1222,9 +1229,40 @@ echo $this->headScript()->prependFile($this->basePath()
 		});
 
 
-        $( ".municipioNascimento" ).autocomplete({
-            source: [ "c++", "java", "php", "coldfusion", "javascript", "asp", "ruby" ]
+        $( "#municipioNascimento" ).autocomplete({
+            source: "/core/municipio/index",
+            //source: [ "c++", "java", "php", "coldfusion", "javascript", "asp", "ruby" ],
+            //source: [{"value":"Some Name","id":1},{"value":"Some Othername","id":2}],
+//            source : function ( request, response ){
+//                $.ajax({
+//                    url: "/core/municipio/index/term/" + request.term,
+//                    dataType: "json",
+//                    success: function(data){
+//                        response(data);
+//                    }
+//                })
+//            },
+            minLength: 2,
+            focus: function( event, ui ) {
+                $( "#municipioNascimento" ).val( ui.item.label );
+                return false;
+            },
+            select: function( event, ui ) {
+                $( "#municipioNascimento" ).val( ui.item.label );
+                $( ".municipioNascimento" ).val( ui.item.value );
+//                $( "#project-description" ).html( ui.item.desc );
+//                $( "#project-icon" ).attr( "src", "images/" + ui.item.icon );
+
+                return false;
+            },
+            search: function(event, ui) {
+                $('.municipioNascimentoloading').show();
+            },
+            response: function(event, ui) {
+                $('.municipioNascimentoloading').hide();
+            }
         });
+
 
 	});
     //end document ready function

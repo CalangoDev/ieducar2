@@ -374,9 +374,10 @@ class Pessoa extends Entity implements EventSubscriber
 			// var_dump($metadata);
 			$sequenceName = $metadata->sequenceGeneratorDefinition['sequenceName'];
 			//$sequenceName = 'historico.seq_pessoa';
-			$sequenceGenerator = new SeqGen($sequenceName, 1);
-			$newId = $sequenceGenerator->generate($em, $historicoPessoa);			
-			$historicoPessoa->setId($newId);			
+			//$sequenceGenerator = new SeqGen($sequenceName, 1);
+			//$newId = $sequenceGenerator->generate($em, $historicoPessoa);
+			//$historicoPessoa->setId($newId);
+
 			$historicoPessoa->setIdpes($this->oldId);
 			$historicoPessoa->setNome($this->usuario->nome);//->format('Y-m-d H:i:s')
 			//$historicoPessoa->data_cad = new \DateTime($this->usuario->getDataCad());
@@ -406,10 +407,10 @@ class Pessoa extends Entity implements EventSubscriber
 				$metadata = $em->getClassMetaData(get_class($historicoFisica));						
 				$sequenceName = $metadata->sequenceGeneratorDefinition['sequenceName'];
 				// $sequenceName = 'historico.seq_fisica';
-				$sequenceGenerator = new SeqGen($sequenceName, 1);
-				$newId = $sequenceGenerator->generate($em, $historicoFisica);
+				//$sequenceGenerator = new SeqGen($sequenceName, 1);
+				//$newId = $sequenceGenerator->generate($em, $historicoFisica);
 
-				$historicoFisica->setId($newId);
+				//$historicoFisica->setId($newId);
 				$historicoFisica->setIdpes($this->oldId);
 				$historicoFisica->setDataNasc($this->usuario->dataNasc);
 				$historicoFisica->setSexo($this->usuario->sexo);

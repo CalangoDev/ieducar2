@@ -13,7 +13,8 @@ return array(
         'DoctrineDataFixtureModule',
         'Core',
         'WebinoImageThumb',
-        'Sandbox'
+        'Sandbox',
+        //'DoctrineORMCidadesBr',
     ),    
     'module_listener_options' => array(
         'module_paths' => array(
