@@ -23,26 +23,40 @@ class MunicipioController extends ActionController
     {
         $termo = $this->params()->fromQuery('term');
         //$termo = $this->params()->fromRoute('term');
+        $id = $this->params()->fromRoute('id');
 
-        $dados = array();
-        if ($termo != ""){
+        $lista = array();
 
-            $query = $this->getEntityManager()->createQuery("SELECT cep FROM Core\Entity\CepUnico cep WHERE cep.nome LIKE :termo");
-            $query->setParameter('termo', '%' . $termo . '%');
-            $dados = $query->getResult();
-//            foreach ($dados as $municipio):
-//                $dados = array(
-//                    'value' => $municipio->getNome(),
-//                    'label' => $municipio->getNome()
-//                );
-//            endforeach;
-            $lista = array();
-            foreach ($dados as $cidade) {
-                $lista[] = array(
-                    'value' => $cidade->getId(),
-                    'label' => $cidade->getNome() . ' - ' . $cidade->getUf()
-                );
+        if ($id){
+            $cidade = $this->getEntityManager()->find('Core\Entity\CepUnico', $id);
+            $lista = array(
+                $cidade->getNome() . ' - ' . $cidade->getUf()
+            );
+
+        } else {
+
+            $dados = array();
+            if ($termo != ""){
+
+                $query = $this->getEntityManager()->createQuery("SELECT cep FROM Core\Entity\CepUnico cep WHERE cep.nome LIKE :termo");
+                $query->setParameter('termo', '%' . $termo . '%');
+                $dados = $query->getResult();
+    //            foreach ($dados as $municipio):
+    //                $dados = array(
+    //                    'value' => $municipio->getNome(),
+    //                    'label' => $municipio->getNome()
+    //                );
+    //            endforeach;
+                $lista = array();
+                foreach ($dados as $cidade) {
+                    $lista[] = array(
+                        'value' => $cidade->getId(),
+                        'label' => $cidade->getNome() . ' - ' . $cidade->getUf()
+                    );
+                }
+
             }
+
 
         }
 
@@ -52,6 +66,8 @@ class MunicipioController extends ActionController
         //[{"value":"Some Name","id":1},{"value":"Some Othername","id":2}],
 
         //return new JsonModel([$dados]);
+
         return new JsonModel($lista);
+
     }
 }

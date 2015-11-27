@@ -187,16 +187,6 @@ class Fisica extends Entity implements InputFilterAwareInterface
 	protected $pessoa_responsavel;
 
 	/**
-	 * @var Int $municiopio_nascimento Naturalidade obtem o id na tabela public.municipio
-	 * 
-	 * @todo falta ajustar esse relacionamento
-	 * 
-	 * @ORM\ManyToOne(targetEntity="Core\Entity\Municipio")
-	 * @ORM\JoinColumn(name="idmun_nascimento", referencedColumnName="idmun", onDelete="NO ACTION")
-	 */
-	protected $municipio_nascimento;
-
-	/**
 	 * @var Int $pais_estrangeiro	Armazena id do pais se for estrangeiro obtem o id na tabela public.pais
 	 * 
 	 * @todo falta ajustar esse relacionamento	 

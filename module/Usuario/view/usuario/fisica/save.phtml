@@ -1050,6 +1050,24 @@ echo $this->headScript()->prependFile($this->basePath()
 
     $(document).ready(function() {
 
+        var idMunicipioNascimento = $('.municipioNascimento').val();
+        if (idMunicipioNascimento > 0){
+            $.ajax({
+                url: '/core/municipio/index/id/'+ idMunicipioNascimento,
+                dataType: "json",
+                beforeSend : function(){
+                    $('.municipioNascimentoloading').show();
+                },
+                success : function(data){
+                    $('#municipioNascimento').val(data);
+                },
+                complete: function(){
+                    $('.municipioNascimentoloading').hide();
+                }
+            });
+        }
+
+
 		//$(".vendedor").before("<div style='display: none;' class='carregandovend'>Carregando...</div>");
 		//$(".vendedor").after("<a href='#modal' class='btn2 submit cadnovo'>Cadastrar Novo</a><br/>");
 
