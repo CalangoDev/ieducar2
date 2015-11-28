@@ -1,3 +1,4 @@
+
 <div class="container">
 	<div class="row">
 		<ol class="breadcrumb">
@@ -44,6 +45,7 @@
                             $pessoaMae = $this->form->get('pessoaMae');
                             $pessoaPai = $this->form->get('pessoaPai');
                             $municipioNascimento = $this->form->get('municipioNascimento');
+                            $telefones = $this->form->get('telefones');
 
                             /*
                              * begin enderecoExterno form fieldset
@@ -828,118 +830,59 @@
 									</div>										
 								</div>
 
-								<div class="form-group">
-									<label for="dddTelefone1">
-										<?php echo $dddTelefone1->getOption('label');?>
-									</label>
-									<div class="row">
-										<div class="col-md-1">
-											<?php
-											echo $this->formInput($dddTelefone1);
-											echo $this->formElementErrors($dddTelefone1);
-											?>
-										</div>
-									</div>
-								</div>
+								<!-- telefones -->
+<!--                                <div class="form-group">-->
+                                <?php
+                                //echo $this->formCollection($form->get('telefones'));
+                                ?>
+<!--                                </div>-->
+                                <div class="form-group">
 
-								<div class="form-group">
-									<label for="telefone1">
-										<?php echo $telefone1->getOption('label');?>
-									</label>
-									<div class="row">
-										<div class="col-md-2">
-											<?php
-											echo $this->formInput($telefone1);
-											echo $this->formElementErrors($telefone1);
-											?>
-										</div>
-									</div>
-								</div>
+                                    <label for="telefones">
+                                        <?php
+                                        echo $telefones->getOption('label');
+                                        ?>
+                                    </label>
 
-								<div class="form-group">
-									<label for="dddTelefone2">
-										<?php echo $dddTelefone2->getOption('label');
-										?>
-									</label>
-									<div class="row">
-										<div class="col-md-1">
-											<?php
-											echo $this->formInput($dddTelefone2);
-											echo $this->formElementErrors($dddTelefone2);
-											?>
-										</div>
-									</div>
-								</div>
+                                </div>
 
-								<div class="form-group">
-									<label for="telefone2">
-										<?php echo $telefone2->getOption('label');?>
-									</label>
-									<div class="row">
-										<div class="col-md-2">
-											<?php
-											echo $this->formInput($telefone2);
-											echo $this->formElementErrors($telefone2);
-											?>
-										</div>
-									</div>
-								</div>
+                                <?php
+                                foreach ($telefones as $telefone) {
+                                    echo $this->formInput($telefone->get('id'));
+                                    ?>
+                                    <div class="row">
+                                    <div class="form-group">
 
-								<div class="form-group">
-									<label for="dddCelular">
-										<?php echo $dddCelular->getOption('label');?>
-									</label>
-									<div class="row">
-										<div class="col-md-1">
-											<?php
-											echo $this->formInput($dddCelular);
-											echo $this->formElementErrors($dddCelular);
-											?>
-										</div>
-									</div>
-								</div>
+                                        <div class="col-md-1 form-group">
+                                            <label for="<?php echo $telefone->get('numero')->getOption('label');?>"><?php echo $telefone->get('ddd')->getOption('label');?></label>
 
-								<div class="form-group">
-									<label for="celular">
-										<?php echo $celular->getOption('label');?>
-									</label>
-									<div class="row">
-										<div class="col-md-2">
-											<?php 
-											echo $this->formInput($celular);
-											echo $this->formElementErrors($celular);
-											?>
-										</div>
-									</div>
-								</div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <?php
+                                                    echo $this->formInput($telefone->get('ddd'));?>
+                                                </div>
+                                            </div>
+                                        </div>
 
-								<div class="form-group">
-									<label for="dddFax">
-										<?php echo $dddFax->getOption('label');?>
-									</label>
-									<div class="row">
-										<div class="col-md-1">
-											<?php
-											echo $this->formInput($dddFax);
-											echo $this->formElementErrors($dddFax);
-											?>
-										</div>
-									</div>
-								</div>
+                                        <div class="col-md-2 form-group">
+                                            <label for="<?php echo $telefone->get('numero')->getOption('label');?>">
+                                                <?php echo $telefone->get('numero')->getOption('label');?>
+                                            </label>
 
-								<div class="form-group">
-									<label for="fax">
-										<?php echo $fax->getOption('label');?>
-									</label>
-									<div class="row">
-										<div class="col-md-2">
-											<?php
-											echo $this->formInput($fax);
-											echo $this->formElementErrors($fax);
-											?>
-										</div>
-									</div>
-								</div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <?php
+                                                    echo $this->formInput($telefone->get('numero'));?>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    </div>
+
+                                    <?php
+                                }
+                            ?>
 
 								<div class="form-group">
 									<label for="url">
@@ -1138,6 +1081,21 @@ echo $this->headScript()->prependFile($this->basePath()
             $(".dataEmissaoRg").mask("99-99-9999");
             $(".dataEmissaoCarteiraTrabalho").mask("99-99-9999");
             $(".dataEmissaoCertidaoCivil").mask("99-99-9999");
+            $(".ddd").mask("99?9");
+
+            //$(".numero").mask('9999-9999');
+            $('.numero').focusout(function(){
+                var phone, element;
+                element = $(this);
+                element.unmask();
+                phone = element.val().replace(/\D/g, '');
+                if(phone.length > 8) {
+                    element.mask("99999-999?9");
+                } else {
+                    element.mask("9999-9999?9");
+                }
+            }).trigger('focusout');
+
 
 		});
 		

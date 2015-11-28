@@ -275,6 +275,21 @@ class Fisica extends Form
         $this->add($documentoFieldset);
 
 
+        $telefoneFieldset = new TelefoneFieldset($objectManager);
+//        $telefoneFieldset->setLabel('Telefones');
+//        $telefoneFieldset->setName('telefones');
+//        $telefoneFieldset->setUseAsBaseFieldset(false);
+        $this->add(array(
+            'type'    => 'Zend\Form\Element\Collection',
+            'name' => 'telefones',
+            'options' => array(
+                'label' => 'Telefones:',
+                'count'           => 2,
+                'target_element' => $telefoneFieldset
+            )
+        ));
+
+
         // Set the validation group so that we don't care about city
 //        $this->setValidationGroup(array(
 //            'csrf', // assume we added a CSRF element
@@ -764,6 +779,8 @@ class Fisica extends Form
                 'label' => 'Foto',
             ),
         ));
+
+
 
 		$this->add(array(
 			'name' => 'submit',

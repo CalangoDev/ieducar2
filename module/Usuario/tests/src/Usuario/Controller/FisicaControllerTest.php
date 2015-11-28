@@ -680,7 +680,7 @@ class FisicaControllerTest extends ControllerTestCase
         $this->assertEquals('1234', $savedFisica->getDocumento()->getSecaoTituloEleitor());
         $this->assertEquals($orgaoEmissorRg, $savedFisica->getDocumento()->getOrgaoEmissorRg());
         $this->assertEquals('certidaonascimento', $savedFisica->getDocumento()->getCertidaoNascimento());
-        $this->assertEquals($cepUnico, $savedFisica->getMunicipioNascimento());
+        $this->assertEquals($cepUnico->getId(), $savedFisica->getMunicipioNascimento());
 
     }
 
@@ -923,7 +923,7 @@ class FisicaControllerTest extends ControllerTestCase
         $savedFisica = $em->find('Usuario\Entity\Fisica', $fisica->getId());
         $date = new \DateTime('03/05/1982', new \DateTimeZone('America/Sao_Paulo'));        
         $this->assertEquals($date->format('d-m-Y'), $savedFisica->getDataNasc()->format('d-m-Y'));
-        $this->assertEquals($cepUnicoSalvador, $savedFisica->getMunicipioNascimento());
+        $this->assertEquals($cepUnicoSalvador->getId(), $savedFisica->getMunicipioNascimento());
 	}
 
 	/**

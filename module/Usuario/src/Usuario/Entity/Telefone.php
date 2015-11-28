@@ -54,6 +54,12 @@ class Telefone extends Entity
     protected $dataCadastro;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Usuario\Entity\Fisica", inversedBy="telefones")
+     * @ORM\JoinColumn(referencedColumnName="idpes")
+     */
+    protected $fisica;
+
+    /**
      * Função para gerar o timestamp para o atributo dataCadastro, é executada antes de salvar os dados no banco
      * @access  public
      * @return  void
@@ -99,6 +105,16 @@ class Telefone extends Entity
     public function setNumero($numero)
     {
         $this->numero = $this->valid('numero', $numero);
+    }
+
+    public function getFisica()
+    {
+        return $this->fisica;
+    }
+
+    public function setFisica(\Usuario\Entity\Fisica $fisica = null)
+    {
+        $this->fisica = $fisica;
     }
 
     protected $inputFilter;
@@ -156,6 +172,11 @@ class Telefone extends Entity
                         )
                     )
                 )
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'fisica',
+                'required' => true
             )));
 
             $this->inputFilter = $inputFilter;

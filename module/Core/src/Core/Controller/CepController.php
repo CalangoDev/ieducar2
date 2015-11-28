@@ -67,9 +67,9 @@ class CepController extends ActionController
 						r.cep = :cep
 				");				
 				$query->setParameter('cep', $cep);
-				$dados = $query->getResult();								
+				$dados = $query->getResult();
 
-				if ($dados[0]) {					
+				if (count($dados) > 0) {
 					// var_dump($dados[0]);
 					$dados = array(
 						'id' => $dados[0][0]->getId(),
@@ -83,7 +83,6 @@ class CepController extends ActionController
 						'idTipoLogradouro' => $dados[0]['idTipoLogra']
 					);
 
-					//var_dump($dados);
 				}
 
 				/**

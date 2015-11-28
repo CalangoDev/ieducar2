@@ -38,10 +38,11 @@ class TelefoneTest extends EntityTestCase
      */
     public function testInputFilterValid($if)
     {
-        $this->assertEquals(3, $if->count());
+        $this->assertEquals(4, $if->count());
         $this->assertTrue($if->has('id'));
         $this->assertTrue($if->has('ddd'));
         $this->assertTrue($if->has('numero'));
+        $this->assertTrue($if->has('fisica'));
     }
 
     /**

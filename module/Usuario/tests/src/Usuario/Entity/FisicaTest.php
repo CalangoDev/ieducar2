@@ -6,6 +6,7 @@ use Usuario\Entity\Fisica;
 use Usuario\Entity\Pessoa;
 use Usuario\Entity\EnderecoExterno;
 use Zend\InputFilter\InputFilterInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 
 
 /**
@@ -35,7 +36,7 @@ class FisicaTest extends EntityTestCase
 	public function testInputFilterValid($if)
 	{
 		//testa os filtros 
-		$this->assertEquals(22, $if->count());
+		$this->assertEquals(23, $if->count());
 		$this->assertTrue($if->has('raca'));
 		$this->assertTrue($if->has('dataNasc'));
 		$this->assertTrue($if->has('sexo'));
@@ -52,6 +53,7 @@ class FisicaTest extends EntityTestCase
 		$this->assertTrue($if->has('pessoaPai'));
 		$this->assertTrue($if->has('documento'));
 		$this->assertTrue($if->has('municipioNascimento'));
+        $this->assertTrue($if->has('telefones'));
 	}
 
 	/**
@@ -66,6 +68,7 @@ class FisicaTest extends EntityTestCase
 	{
         $documento = $this->buildDocumento();
         $cepUnico = $this->buildCepUnico();
+        $telefones = $this->buildTelefones();
 		/**
 		 * Cadastrando uma nova pessoa Fisica
 		 */
@@ -74,6 +77,7 @@ class FisicaTest extends EntityTestCase
 		$fisica->setSituacao("A");
         $fisica->setDocumento($documento);
         $fisica->setMunicipioNascimento($cepUnico);
+        $fisica->addTelefones($telefones);
 		$this->em->persist($fisica);
 		$this->em->flush();
 
@@ -89,7 +93,16 @@ class FisicaTest extends EntityTestCase
         $this->assertInstanceOf(get_class($fisica), $savedPessoaFisica);
         $this->assertEquals($fisica->getId(), $savedPessoaFisica->getId());
         $this->assertEquals("1111111111", $savedPessoaFisica->getDocumento()->getRg());
-        $this->assertEquals("Irecê", $savedPessoaFisica->getMunicipioNascimento()->getNome());
+        //$this->assertEquals("Irecê", $savedPessoaFisica->getMunicipioNascimento()->getNome());
+		$this->assertEquals(1, $savedPessoaFisica->getMunicipioNascimento());
+        // Telefones
+        $this->assertEquals("74", $savedPessoaFisica->getTelefones()[0]->getDdd());
+        $this->assertEquals("12345678", $savedPessoaFisica->getTelefones()[0]->getNumero());
+        $this->assertEquals("74", $savedPessoaFisica->getTelefones()[0]->getDdd());
+        $this->assertEquals("12345678", $savedPessoaFisica->getTelefones()[0]->getNumero());
+        $this->assertEquals("74", $savedPessoaFisica->getTelefones()[1]->getDdd());
+        $this->assertEquals("87654321", $savedPessoaFisica->getTelefones()[1]->getNumero());
+
 	}
 
 
@@ -214,7 +227,7 @@ class FisicaTest extends EntityTestCase
         $this->assertEquals($enderecoExterno, $savedFisica->getEnderecoExterno());
         $this->assertEquals($pessoaPai, $savedFisica->getPessoaPai());
         $this->assertEquals($pessoaMae, $savedFisica->getPessoaMae());
-        $this->assertEquals($cepUnico, $savedFisica->getMunicipioNascimento());
+        $this->assertEquals($cepUnico->getId(), $savedFisica->getMunicipioNascimento());
 
 	}
 
@@ -335,6 +348,25 @@ class FisicaTest extends EntityTestCase
         $cepUnico->setUf('BA');
 
         return $cepUnico;
+    }
+
+	private function buildTelefones()
+    {
+        $telefones = new ArrayCollection();
+
+        $telefone = new \Usuario\Entity\Telefone();
+        $telefone->setDdd('74');
+        $telefone->setNumero('12345678');
+
+        $telefones->add($telefone);
+
+        $telefone2 = new \Usuario\Entity\Telefone();
+        $telefone2->setDdd('74');
+        $telefone2->setNumero('87654321');
+        $telefones->add($telefone2);
+
+        return $telefones;
+
     }
 
 }
