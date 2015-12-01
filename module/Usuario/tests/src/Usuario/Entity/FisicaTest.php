@@ -76,11 +76,10 @@ class FisicaTest extends EntityTestCase
 		$fisica->setNome("Steve Jobs");
 		$fisica->setSituacao("A");
         $fisica->setDocumento($documento);
-        $fisica->setMunicipioNascimento($cepUnico);
+        //$fisica->setMunicipioNascimento($cepUnico);
         $fisica->addTelefones($telefones);
 		$this->em->persist($fisica);
 		$this->em->flush();
-
 
 		$this->assertNotNull($fisica->getId());
 		$this->assertEquals(1, $fisica->getId());
@@ -93,8 +92,7 @@ class FisicaTest extends EntityTestCase
         $this->assertInstanceOf(get_class($fisica), $savedPessoaFisica);
         $this->assertEquals($fisica->getId(), $savedPessoaFisica->getId());
         $this->assertEquals("1111111111", $savedPessoaFisica->getDocumento()->getRg());
-        //$this->assertEquals("Irecê", $savedPessoaFisica->getMunicipioNascimento()->getNome());
-		$this->assertEquals(1, $savedPessoaFisica->getMunicipioNascimento());
+        $this->assertNull($savedPessoaFisica->getMunicipioNascimento());
         // Telefones
         $this->assertEquals("74", $savedPessoaFisica->getTelefones()[0]->getDdd());
         $this->assertEquals("12345678", $savedPessoaFisica->getTelefones()[0]->getNumero());
@@ -102,6 +100,7 @@ class FisicaTest extends EntityTestCase
         $this->assertEquals("12345678", $savedPessoaFisica->getTelefones()[0]->getNumero());
         $this->assertEquals("74", $savedPessoaFisica->getTelefones()[1]->getDdd());
         $this->assertEquals("87654321", $savedPessoaFisica->getTelefones()[1]->getNumero());
+        $this->assertEquals($savedPessoaFisica->getId(), $savedPessoaFisica->getTelefones()[0]->getFisica()->getId());
 
 	}
 
@@ -118,6 +117,17 @@ class FisicaTest extends EntityTestCase
 		$this->em->persist($fisica);
 		$this->em->flush();
 	}
+
+	/**
+	 * @expectedException Core\Entity\EntityException
+	 */
+    public function testInputFilterInvalidNascionalidade()
+    {
+        $fisica = $this->buildFisica();
+        $fisica->setNacionalidade(4);
+        $this->em->persist($fisica);
+        $this->em->flush();
+    }
 		
 	public function testUpdate()
 	{
@@ -156,6 +166,28 @@ class FisicaTest extends EntityTestCase
 		$this->assertNull($savedFisica);
 
 	}
+
+    public function testRemoveTelefones()
+    {
+        $telefones = $this->buildTelefones();
+        $fisica = $this->buildFisica();
+        $fisica->setNome('Steve Jobs');
+        $fisica->setSituacao('A');
+        $fisica->addTelefones($telefones);
+        $this->em->persist($fisica);
+        $this->em->flush();
+        $id = $fisica->getId();
+
+        $savedFisica = $this->em->find('Usuario\Entity\Fisica', $id);
+        $savedFisica->removeTelefones($telefones);
+
+        $this->em->flush();
+
+        $savedFisica = $this->em->find('Usuario\Entity\Fisica', $id);
+
+        //Verfify colletion is empty
+        $this->assertTrue($savedFisica->getTelefones()->isEmpty());
+    }
 
 	/**
 	 * Teste inserindo e checando todos os dados possíveis para uma pessoa física

@@ -192,7 +192,7 @@ class Fisica extends Entity implements InputFilterAwareInterface
 	 * @todo falta ajustar esse relacionamento	 
 	 * 	 
 	 * @ORM\ManyToOne(targetEntity="Core\Entity\Pais")
-	 * @ORM\JoinColumn(name="idpais_estrangeiro", referencedColumnName="idpais", onDelete="NO ACTION")
+	 * @ORM\JoinColumn(name="idpais_estrangeiro", referencedColumnName="id", onDelete="NO ACTION")
 	 */
 	protected $pais_estrangeiro;
 

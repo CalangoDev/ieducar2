@@ -275,10 +275,11 @@ class Fisica extends Pessoa
 
 	/**
 	 * @var int $ref_cod_sistema	Referencia do codigo do sistema
+	 * @deprecated deprecated since version 2.0
 	 * @todo  check nesse campo
-	 * @ORM\Column(name="ref_cod_sistema", type="integer", nullable=true)
+	 * ORM\Column(name="ref_cod_sistema", type="integer", nullable=true)
 	 */
-	protected $refCodSistema;
+	//protected $refCodSistema;
 
 	/**
 	 * @var string $cpf CPF
@@ -326,10 +327,9 @@ class Fisica extends Pessoa
 	/**
 	 * @var Int $pais_estrangeiro	Armazena id do pais se for estrangeiro obtem o id na tabela public.pais
 	 * 
-	 * @todo falta ajustar esse relacionamento	 
+	 * @todo falta ajustar esse relacionamento	 proximo a programar
 	 * 	 
 	 * @ORM\ManyToOne(targetEntity="Core\Entity\Pais")
-	 * @ORM\JoinColumn(name="idpais_estrangeiro", referencedColumnName="idpais", onDelete="NO ACTION")
 	 */
 	protected $paisEstrangeiro;
 
@@ -537,16 +537,6 @@ class Fisica extends Pessoa
 		$this->dataCad = $this->valid("dataCad", $value);
 	}
 
-	public function getRefCodSistema()
-	{
-		return $this->refCodSistema;
-	}
-	
-	public function setRefCodSistema($value)
-	{
-		$this->refCodSistema = $this->valid("refCodSistema", $value);
-	}
-
 	public function getCpf()
 	{
 		return $this->cpf;
@@ -555,26 +545,6 @@ class Fisica extends Pessoa
 	public function setCpf($value)
 	{
 		$this->cpf = $this->valid("cpf", $value);
-	}
-
-	public function getIdmunNascimento()
-	{
-		return $this->idmunNascimento;
-	}
-	
-	public function setIdmunNascimento($value)
-	{
-		$this->idmunNascimento = $this->valid("idmunNascimento", $value);
-	}
-
-	public function getIdpaisEstrangeiro()
-	{
-		return $this->idpaisEstrangeiro;
-	}
-	
-	public function setIdpaisEstrangeiro($value)
-	{
-		$this->idpaisEstrangeiro = $this->valid("idpaisEstrangeiro", $value);
 	}
 
 	public function getRaca()
@@ -670,77 +640,6 @@ class Fisica extends Pessoa
     {
         return $this->telefones;
     }
-
-
-    public function setData($data)
-	{
-		$this->setId(isset($data['id']) ? $data['id'] : null);
-		
-		if (!empty($data['dataNasc']))
-			$this->setDataNasc(isset($data['dataNasc']) ? $data['dataNasc'] : null);
-
-		if (!empty($data['sexo']))
-			$this->setSexo(isset($data['sexo']) ? $data['sexo'] : null);
-
-		if (!empty($data['dataUniao']))
-			$this->setDataUniao(isset($data['dataUniao']) ? $data['dataUniao'] : null);
-
-		if (!empty($data['dataObito']))
-			$this->setDataObito(isset($data['dataObito']) ? $data['dataObito'] : null);
-		
-		$this->setNacionalidade(isset($data['nacionalidade']) ? $data['nacionalidade'] : null);
-		
-		if (!empty($data['dataChegadaBrasil']))
-			$this->setDataChegadaBrasil(isset($data['dataChegadaBrasil']) ? $data['dataChegadaBrasil'] : null);
-		
-		if (!empty($data['ultimaEmpresa']))
-			$this->setUltimaEmpresa(isset($data['ultimaEmpresa']) ? $data['ultimaEmpresa'] : null);
-		
-		if (!empty($data['nomeMae']))
-			$this->setNomeMae(isset($data['nomeMae']) ? $data['nomeMae'] : null);
-		
-		if (!empty($data['nomePai']))
-			$this->setNomePai(isset($data['nomePai']) ? $data['nomePai'] : null);
-		
-		if (!empty($data['nomeConjuge']))
-			$this->setNomeConjuge(isset($data['nomeConjuge']) ? $data['nomeConjuge'] : null);
-		
-		if (!empty($data['nomeResponsavel']))
-			$this->setNomeResponsavel(isset($data['nomeResponsavel']) ? $data['nomeResponsavel'] : null);
-		
-		if (!empty($data['justificativaProvisorio']))
-			$this->setJustificativaProvisorio(isset($data['justificativaProvisorio']) ? $data['justificativaProvisorio'] : null);
-		
-		// if (!empty($data['dataRev']))
-		// 	$this->setDataRev(isset($data['dataRev']) ? $data['dataRev'] : null);
-		
-		//$this->setOrigemGravacao(isset($data['origem_gravacao']) ? $data['origem_gravacao'] : null);
-		$this->setDataCad(isset($data['dataCad']) ? $data['dataCad'] : null);
-		//$this->setOperacao(isset($data['operacao']) ? $data['operacao'] : null);
-		$this->setIdsisRev(isset($data['idsisRev']) ? $data['idsisRev'] : null);
-		//$this->setIdsisCad(isset($data['idsis_cad']) ? $data['idsis_cad'] : null);
-		$this->setRefCodSistema(isset($data['refCodSistema']) ? $data['refCodSistema'] : null);
-
-		if (!empty($data['cpf']))
-			$this->setCpf(isset($data['cpf']) ? $data['cpf'] : null);
-		
-		$this->setIdpesMae(isset($data['idpesMae']) ? $data['idpesMae'] : null);
-		$this->setIdpesPai(isset($data['idpesPai']) ? $data['idpesPai'] : null);
-		$this->setIdpesResponsavel(isset($data['idpesResponsavel']) ? $data['idpesResponsavel'] : null);
-		$this->setIdmunNascimento(isset($data['idmunNascimento']) ? $data['idmunNascimento'] : null);
-		$this->setIdpaisEstrangeiro(isset($data['idpaisEstrangeiro']) ? $data['idpaisEstrangeiro'] : null);
-		$this->setIdesco(isset($data['idesco']) ? $data['idesco'] : null);
-		$this->setIdeciv(isset($data['ideciv']) ? $data['ideciv'] : null);
-		$this->setIdpesCon(isset($data['idpesCon']) ? $data['idpesCon'] : null);
-		$this->setIdocup(isset($data['idocup']) ? $data['idocup'] : null);
-		$this->setNome(isset($data['nome']) ? $data['nome'] : null);
-		$this->setSituacao(isset($data['situacao']) ? $data['situacao'] : null);
-		$this->setRaca(isset($data['raca']) ? $data['raca'] : null);
-        $this->setEstadoCivil( isset($data['estadoCivil']) ? $data['estadoCivil'] : null );
-        $this->setPessoaMae( isset($data['pessoaMae']) ? $data['pessoaMae'] : null);
-
-	}
-
 
 	/**
 	 * [$inputFilter recebe os filtros]

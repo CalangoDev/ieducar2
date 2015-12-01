@@ -317,6 +317,10 @@ class FisicaControllerTest extends ControllerTestCase
         $this->assertEquals('certidaoNascimento', $certidaoNascimento->getName());
         $this->assertEquals('text', $certidaoNascimento->getAttribute('type'));
 
+        $telefones = $form->get('telefones');
+        $this->assertEquals('telefones', $telefones->getName());
+        $this->assertEquals('Zend\Form\Element\Collection', $telefones->getAttribute('type'));
+
 	}
 
 	/**
@@ -437,6 +441,14 @@ class FisicaControllerTest extends ControllerTestCase
         $this->request->getPost()->set('documento', $documento);
         $this->request->getPost()->set('municipioNascimento', $cepUnico);
 
+		$telefones = array(array(
+		    'id' => '',
+            'ddd' => '74',
+            'numero' => '12345678'
+            )
+		);
+        $this->request->getPost()->set('telefones', $telefones);
+
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
 		);
@@ -500,6 +512,13 @@ class FisicaControllerTest extends ControllerTestCase
         );
         $this->request->getPost()->set('documento', $documento);
         $this->request->getPost()->set('municipioNascimento', '');
+        $telefones = array(array(
+            'id' => '',
+            'ddd' => '',
+            'numero' => ''
+            )
+        );
+        $this->request->getPost()->set('telefones', $telefones);
 
         $result = $this->controller->dispatch(
             $this->request, $this->response
@@ -615,6 +634,13 @@ class FisicaControllerTest extends ControllerTestCase
         );
         $this->request->getPost()->set('documento', $documento);
         $this->request->getPost()->set('municipioNascimento', '1');
+        $telefones = array(array(
+            'id' => '',
+            'ddd' => '74',
+            'numero' => '12345678'
+            )
+        );
+        $this->request->getPost()->set('telefones', $telefones);
 
 
         $this->request->getPost()->set('url', 'www.calangodev.com.br');
@@ -682,6 +708,12 @@ class FisicaControllerTest extends ControllerTestCase
         $this->assertEquals('certidaonascimento', $savedFisica->getDocumento()->getCertidaoNascimento());
         $this->assertEquals($cepUnico->getId(), $savedFisica->getMunicipioNascimento());
 
+        foreach ($savedFisica->getTelefones() as $telefone) {
+
+            $this->assertEquals('74', $telefone->getDdd());
+            $this->assertEquals('12345678', $telefone->getNumero());
+
+        }
     }
 
 
@@ -780,6 +812,13 @@ class FisicaControllerTest extends ControllerTestCase
         );
         $this->request->getPost()->set('documento', $documento);
         $this->request->getPost()->set('municipioNascimento', $cepUnico->getId());
+        $telefones = array(array(
+            'id' => '',
+            'ddd' => '',
+            'numero' => ''
+        )
+        );
+        $this->request->getPost()->set('telefones', $telefones);
 
         $result = $this->controller->dispatch(
             $this->request, $this->response

@@ -17,9 +17,9 @@ use Zend\InputFilter\InputFilterInterface;
  * @author Eduardo Junior <ej@eduardojunior.com>
  * @category  Entidade
  * @package  Usuario
- * @subpackage  Raça
+ * @subpackage  Raca
  * @version  0.1
- * @example  Classe Raça
+ * @example  Classe Raca
  * @copyright  Copyright (c) 2014 Eduardo Junior.com (http://www.eduardojunior.com)
  * 
  * @ORM\Entity
@@ -103,11 +103,6 @@ class Raca extends Entity
 	public function getId()
 	{
 		return $this->id;
-	}
-	
-	public function setId($value)
-	{
-		$this->id = $this->valid("id", $value);
 	}
 
 	public function getNome()

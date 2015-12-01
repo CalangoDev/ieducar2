@@ -4,8 +4,6 @@ namespace Core\Entity;
 use Core\Entity\Entity;
 use Core\Entity\EntityException;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\SequenceGenerator;
-
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilterAwareInterface;
@@ -32,8 +30,35 @@ class Pais extends Entity
 	 * @var int $id
 	 * 
 	 * @ORM\Id
-	 * @ORM\Column(name="idpais", type="integer", nullable=false)
+	 * @ORM\Column(type="integer")
 	 * @ORM\GeneratedValue(strategy="AUTO")	 
 	 */
 	protected $id;
+
+    /**
+     * @var string $nome
+     *
+     * @ORM\Column(type="string", length=60)
+     */
+    protected $nome;
+
+    /**
+     * getters ands setters
+     */
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getNome()
+    {
+        return $this->nome;
+    }
+
+    public function setNome($nome)
+    {
+        $this->nome = $this->valid('nome', $nome);
+    }
+
 }

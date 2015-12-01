@@ -286,6 +286,9 @@ class Fisica extends Form
                 'label' => 'Telefones:',
                 'count'           => 2,
                 'target_element' => $telefoneFieldset
+            ),
+            'attributes' => array(
+                'type'    => 'Zend\Form\Element\Collection',
             )
         ));
 

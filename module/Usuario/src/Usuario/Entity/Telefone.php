@@ -163,6 +163,7 @@ class Telefone extends Entity
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
                 ),
+                'continue_if_empty' => true,
                 'validators' => array(
                     array(
                         'name' => 'StringLength',

@@ -264,12 +264,10 @@ class FisicaController extends ActionController
                 $id = (int) $this->params()->fromPost('id', 0);
                 if ($id == 0){
                     $this->getEntityManager()->persist($fisica);
-                    $this->flashMessenger()->addSuccessMessage('Pessoa Salva');
-
+                    $this->flashMessenger()->addMessage(array("success" => "Pessoa Física Salva!"));
                 } else {
-
-                    $this->flashMessenger()->addSuccessMessage('Pessoa foi alterada!');
-
+                    $this->flashMessenger()->addMessage(array("success" => "Pessoa Física foi alterada!"));
+                    //$this->flashMessenger()->addSuccessMessage('Pessoa foi alterada!');
                 }
 
 
@@ -343,7 +341,7 @@ class FisicaController extends ActionController
 		} catch(\Exception $e){
 			throw new \Exception("Registro não encontrado");			
 		}
-		
+        $this->flashMessenger()->addMessage(array("success" => "Registro Removido com sucesso!"));
 		return $this->redirect()->toUrl('/usuario/fisica');
 	}
 }

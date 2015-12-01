@@ -50,11 +50,6 @@ class EstadoCivil extends Entity
 	{
 		return $this->id;
 	}
-	
-	public function setId($value)
-	{
-		$this->id = $this->valid("id", $value);
-	}
 
 	public function getDescricao()
 	{

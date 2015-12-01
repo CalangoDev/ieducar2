@@ -49,7 +49,7 @@ class TelefoneFieldset extends Fieldset implements InputFilterProviderInterface
             ),
             'attributes' => array(
                 'type' => 'text',
-                'class' => 'form-control numero',
+                'class' => 'form-control numero-telefone',
                 'placeholder' => 'Número'
             ),
         ));

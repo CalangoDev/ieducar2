@@ -35,7 +35,7 @@
 			</div>			
 			<div class="row">			
 				<div class="col-md-12 p-20">
-					<table class="table table-bordered table-hover"> 
+					<table class="table table-bordered table-hover">
 	  				<thead>
 			  			<tr>
 			  				<th width="5%">#</th>
@@ -48,14 +48,15 @@
 	  				<tbody class="dados">
 	  					<?php						
 						if (count($this->dados) > 0):
+                            $estilos = array('active','warning');
+                            $this->cycle()->assign($estilos);
 							foreach ($this->dados as $fisica):
 	  					?>
-					  			<tr>
+					  			<tr class="<?php echo $this->cycle()->next();?>">
 					  				<td>
-					  					<?php 
-					  					
+					  					<?php
 					  						echo $fisica->getId();
-					  					?>				
+					  					?>
 					  				</td>
 					  				<td>
 					  					<?php
