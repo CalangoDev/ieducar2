@@ -451,7 +451,7 @@ class Fisica extends Form
             'type' => 'Zend\Form\Element\Select',
             'attributes' => array(
                 'type' => 'Zend\Form\Element\Select',
-                'class' => 'form-control'
+                'class' => 'form-control nacionalidade'
             ),
             'options' => array(
                 'empty_option' => 'Selecione',
@@ -544,17 +544,6 @@ class Fisica extends Form
             'options' => array(
                 'label' => 'Municipio de Nascimento:',
             ),
-		));
-
-		$this->add(array(
-			'name' => 'idpaisEstrangeiro',
-			'attributes' => array(
-				'type' => 'Zend\Form\Element\Select',
-				'class' => 'form-control'
-			),
-			'options' => array(
-				'label' => 'Pais Estrangeiro'
-			),
 		));
 
 		$this->add(array(
@@ -676,101 +665,6 @@ class Fisica extends Form
 		// 	),
 		// ));
 
-		$this->add(array(
-			'name' => 'dddTelefone1',
-			'attributes' => array(
-				'type' => 'text',
-				'class' => 'form-control',
-				'placeholder' => 'DDD'
-			),
-			'options' => array(
-				'label' => 'DDD Telefone 1'
-			)
-		));
-
-		$this->add(array(
-			'name' => 'telefone1',
-			'attributes' => array(
-				'type' => 'text',
-				'class' => 'form-control',
-				'placeholder' => 'Telefone'
-			),
-			'options' => array(
-				 'label' => 'Telefone 1'
-			)
-		));
-
-		$this->add(array(
-			'name' => 'dddTelefone2',
-			'attributes' => array(
-				'type' => 'text',
-				'class' => 'form-control',
-				'placeholder' => 'DDD'
-			),
-			'options' => array(
-				'label' => 'DDD Telefone 2'
-			)
-		));
-
-		$this->add(array(
-			'name' => 'telefone2',
-			'attributes' => array(
-				'type' => 'text',
-				'class' => 'form-control',
-				'placeholder' => 'Telefone'
-			),
-			'options' => array(
-				 'label' => 'Telefone 2'
-			)
-		));
-
-		$this->add(array(
-			'name' => 'dddCelular',
-			'attributes' => array(
-				'type' => 'text',
-				'class' => 'form-control',
-				'placeholder' => 'DDD'
-			),
-			'options' => array(
-				'label' => 'DDD Celular'
-			)
-		));
-
-		$this->add(array(
-			'name' => 'celular',
-			'attributes' => array(
-				'type' => 'text',
-				'class' => 'form-control',
-				'placeholder' => 'Telefone'
-			),
-			'options' => array(
-				 'label' => 'Celular'
-			)
-		));
-
-		$this->add(array(
-			'name' => 'dddFax',
-			'attributes' => array(
-				'type' => 'text',
-				'class' => 'form-control',
-				'placeholder' => 'DDD'
-			),
-			'options' => array(
-				'label' => 'DDD Fax'
-			)
-		));
-
-		$this->add(array(
-			'name' => 'fax',
-			'attributes' => array(
-				'type' => 'text',
-				'class' => 'form-control',
-				'placeholder' => 'Telefone'
-			),
-			'options' => array(
-				 'label' => 'Fax'
-			)
-		));
 
         $this->add(array(
             'name' => 'foto',
@@ -780,6 +674,36 @@ class Fisica extends Form
             ),
             'options' => array(
                 'label' => 'Foto',
+            ),
+        ));
+
+
+        $this->add(array(
+            'name' => 'paisEstrangeiro',
+            'attributes' => array(
+                'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+                'class' => 'form-control chosen-select',
+                'style' => 'height:100px;',
+                'id' => 'paisEstrangeiro'
+            ),
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'options' => array(
+                'label' => 'Pais Estrangeiro:',
+                //'empty_option' => 'Selecione',
+                'allow_empty' => true,
+                'continue_if_empty' => false,
+                'object_manager' => $em,
+                'target_class' => 'Core\Entity\Pais',
+                'property' => 'nome',
+                'find_method' => array(
+                    'name' => 'findBy',
+                    'params' => array(
+                        'criteria' => array(),
+                        'orderBy' => array('nome' => 'ASC')
+                    ),
+                ),
+                'display_empty_item' => true,
+                'empty_item_label'   => 'Selecione',
             ),
         ));
 

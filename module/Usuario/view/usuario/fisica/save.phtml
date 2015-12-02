@@ -42,6 +42,7 @@
 							$email = $this->form->get('email');
 							$raca = $this->form->get('raca');
                             $nacionalidade = $this->form->get('nacionalidade');
+                            $paisEstrangeiro = $this->form->get('paisEstrangeiro');
                             $pessoaMae = $this->form->get('pessoaMae');
                             $pessoaPai = $this->form->get('pessoaPai');
                             $municipioNascimento = $this->form->get('municipioNascimento');
@@ -91,16 +92,6 @@
                             $secaoTituloEleitor = $documento->get('secaoTituloEleitor');
                             $orgaoEmissorRg = $documento->get('orgaoEmissorRg');
                             $certidaoNascimento = $documento->get('certidaoNascimento');
-
-
-							$dddTelefone1 = $this->form->get('dddTelefone1');
-							$telefone1 = $this->form->get('telefone1');
-							$dddTelefone2 = $this->form->get('dddTelefone2');
-							$telefone2 = $this->form->get('telefone2');
-							$dddCelular = $this->form->get('dddCelular');
-							$celular = $this->form->get('celular');
-							$dddFax = $this->form->get('dddFax');
-							$fax = $this->form->get('fax');
 							$foto = $this->form->get('foto');
 							/**
 							 * @todo
@@ -599,22 +590,48 @@
 									</div>										
 								</div>
 
-                                <div class="form-group">
 
-                                    <label for="nacionalidade">
-                                        <?php echo $nacionalidade->getOption('label');?>
-                                    </label>
 
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <?php
-                                            echo $this->formSelect($nacionalidade);
-                                            echo $this->formElementErrors($nacionalidade);
-                                            ?>
+
+                            <div class="form-group">
+                                <div class="row form-group">
+                                    <div class="col-md-3">
+                                        <label for="nacionalidade">
+                                            <?php echo $nacionalidade->getOption('label');?>
+                                        </label>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <?php
+                                                echo $this->formSelect($nacionalidade);
+                                                echo $this->formElementErrors($nacionalidade);
+                                                ?>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-3 paisEstrangeiro">
+                                        <label for="paisEstrangeiro">
+                                            <?php echo $paisEstrangeiro->getOption('label');?>
+                                        </label>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <?php
+                                                echo $this->formSelect($paisEstrangeiro);
+                                                echo $this->formElementErrors($paisEstrangeiro);
+                                                ?>
+                                            </div>
                                         </div>
                                     </div>
 
+
                                 </div>
+                            </div>
+
+
+
 
                                 <div class="form-group">
 
@@ -1019,6 +1036,7 @@ echo $this->headScript()->prependFile($this->basePath()
         $('.livro').hide();
         $('.folha').hide();
         $('.siglaUfCertidaoCivil').hide();
+        $('.paisEstrangeiro').hide();
 
         var tipoCertidaoCivil = $('.tipoCertidaoCivil').val();
         if (tipoCertidaoCivil > 0){
@@ -1070,6 +1088,16 @@ echo $this->headScript()->prependFile($this->basePath()
                 $('.folha').hide();
                 $('.certidaoNascimento').hide();
                 $('.siglaUfCertidaoCivil').hide();
+            }
+        });
+
+        $('.nacionalidade').on('change', function(){
+            var id = $(this).val();
+            if (id == 2 || id == 3){
+                $('.paisEstrangeiro').show();
+            } else {
+                $('#paisEstrangeiro').val('').trigger('chosen:updated');
+                $('.paisEstrangeiro').hide();
             }
         });
 

@@ -326,8 +326,6 @@ class Fisica extends Pessoa
 
 	/**
 	 * @var Int $pais_estrangeiro	Armazena id do pais se for estrangeiro obtem o id na tabela public.pais
-	 * 
-	 * @todo falta ajustar esse relacionamento	 proximo a programar
 	 * 	 
 	 * @ORM\ManyToOne(targetEntity="Core\Entity\Pais")
 	 */
@@ -508,25 +506,6 @@ class Fisica extends Pessoa
 		$this->justificativaProvisorio = $this->valid("justificativaProvisorio", $value);
 	}
 
-	// public function getDataRev()
-	// {
-	// 	return $this->dataRev;
-	// }
-	
-	// public function setDataRev($value)
-	// {
-	// 	$this->dataRev = $this->valid("dataRev", $value);
-	// }
-
-	// public function getOrigemGravacao()
-	// {
-	// 	return $this->origem_gravacao;
-	// }
-	
-	// public function setOrigemGravacao($value){
-	// 	$this->origem_gravacao = $this->valid("origem_gravacao", $value);
-	// }
-
 	public function getDataCad()
 	{
 		return $this->dataCad;
@@ -639,6 +618,16 @@ class Fisica extends Pessoa
     public function getTelefones()
     {
         return $this->telefones;
+    }
+
+    public function getPaisEstrangeiro()
+    {
+        return $this->paisEstrangeiro;
+    }
+
+    public function setPaisEstrangeiro(\Core\Entity\Pais $paisEstrangeiro = null)
+    {
+        $this->paisEstrangeiro = $this->valid("paisEstrangeiro", $paisEstrangeiro);
     }
 
 	/**
@@ -883,6 +872,11 @@ class Fisica extends Pessoa
 
         $this->inputFilter->add($factory->createInput(array(
             'name' => 'telefones',
+            'required' => false
+        )));
+
+        $this->inputFilter->add($factory->createInput(array(
+            'name' => 'paisEstrangeiro',
             'required' => false
         )));
 
