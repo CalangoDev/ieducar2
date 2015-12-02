@@ -70,11 +70,21 @@
 					  				</td>
 					  				<td>
 					  					<?php
-					  					echo $fisica->getSituacao();
+										if ($fisica->getSituacao() == 'A'){
+                                            $situacao = 'Ativo';
+                                            $label = 'success';
+                                        } else if ($fisica->getSituacao() == 'P') {
+                                            $situacao = 'Provisório';
+                                            $label = 'warning';
+                                        } else {
+                                            $situacao = 'Inativo';
+                                            $label = 'default';
+                                        }
 					  					?>
+                                        <span class="label label-<?php echo $label;?>"><?php echo $situacao;?></span>
 					  				</td>	  									  				
 					  				<td>
-					  					<a href="/usuario/fisica/ver/id/<?php echo $fisica->getId()?>" class="btn btn-info"><i class="icon icon-list"></i> Ver detalhes</a>
+					  					<a href="/usuario/fisica/detalhes/id/<?php echo $fisica->getId()?>" class="btn btn-info"><i class="icon icon-list"></i> Ver detalhes</a>
 					  					<a href="/usuario/fisica/save/id/<?php echo $fisica->getId()?>" class="btn btn-primary"><i class="icon icon-pencil"></i> Editar</a>
 					  					<a href="/usuario/fisica/delete/id/<?php echo $fisica->getId()?>" class="btn btn-danger delete"><i class="icon icon-trash"></i> Apagar</a>
 					  				</td>

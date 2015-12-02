@@ -322,6 +322,27 @@ class FisicaController extends ActionController
 		));
 	}
 
+	public function detalhesAction()
+    {
+        $id = (int) $this->params()->fromRoute('id', 0);
+        if ($id == 0)
+            throw new \Exception("Código Obrigatório");
+
+        try {
+            $fisica = $this->getEntityManager()->find('Usuario\Entity\Fisica', $id);
+        } catch (\Exception $e){
+            throw new \Exception("Registro não encontrado");
+        }
+
+        $view = new ViewModel(array(
+            'data' => $fisica
+        ));
+
+        $view->setTerminal(true);
+
+        return $view;
+    }
+
 
 	/**
 	 * Excluir uma pessoa
