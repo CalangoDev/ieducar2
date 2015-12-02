@@ -327,7 +327,7 @@ class Fisica extends Pessoa
 	/**
 	 * @var Int $pais_estrangeiro	Armazena id do pais se for estrangeiro obtem o id na tabela public.pais
 	 * 	 
-	 * @ORM\ManyToOne(targetEntity="Core\Entity\Pais")
+	 * @ORM\ManyToOne(targetEntity="Core\Entity\Pais", cascade={"persist"})
 	 */
 	protected $paisEstrangeiro;
 

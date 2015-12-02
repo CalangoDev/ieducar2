@@ -138,9 +138,9 @@ class FisicaControllerTest extends ControllerTestCase
 		$this->assertEquals('cpf', $cpf->getName());
 		$this->assertEquals('text', $cpf->getAttribute('type'));
 
-		$idpaisEstrangeiro = $form->get('idpaisEstrangeiro');
-		$this->assertEquals('idpaisEstrangeiro', $idpaisEstrangeiro->getName());
-		$this->assertEquals('Zend\Form\Element\Select', $idpaisEstrangeiro->getAttribute('type'));
+		$paisEstrangeiro = $form->get('paisEstrangeiro');
+		$this->assertEquals('paisEstrangeiro', $paisEstrangeiro->getName());
+		$this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $paisEstrangeiro->getAttribute('type'));
 
 		$idesco = $form->get('idesco');
 		$this->assertEquals('idesco', $idesco->getName());
@@ -179,38 +179,6 @@ class FisicaControllerTest extends ControllerTestCase
 		$zonaLocalizacao = $enderecoExterno->get('zonaLocalizacao');
 		$this->assertEquals('zonaLocalizacao', $zonaLocalizacao->getName());
 		$this->assertEquals('select', $zonaLocalizacao->getAttribute('type'));
-
-		$dddTelefone1 = $form->get('dddTelefone1');
-		$this->assertEquals('dddTelefone1', $dddTelefone1->getName());
-		$this->assertEquals('text', $dddTelefone1->getAttribute('type'));
-
-		$telefone1 = $form->get('telefone1');
-		$this->assertEquals('telefone1', $telefone1->getName());
-		$this->assertEquals('text', $telefone1->getAttribute('type'));
-
-		$dddTelefone2 = $form->get('dddTelefone2');
-		$this->assertEquals('dddTelefone2', $dddTelefone2->getName());
-		$this->assertEquals('text', $dddTelefone2->getAttribute('type'));
-
-		$telefone2 = $form->get('telefone2');
-		$this->assertEquals('telefone2', $telefone2->getName());
-		$this->assertEquals('text', $telefone2->getAttribute('type'));
-
-		$dddCelular = $form->get('dddCelular');
-		$this->assertEquals('dddCelular', $dddCelular->getName());
-		$this->assertEquals('text', $dddCelular->getAttribute('type'));
-
-		$celular = $form->get('celular');
-		$this->assertEquals('celular', $celular->getName());
-		$this->assertEquals('text', $celular->getAttribute('type'));
-
-		$dddFax = $form->get('dddFax');
-		$this->assertEquals('dddFax', $dddFax->getName());
-		$this->assertEquals('text', $dddFax->getAttribute('type'));
-
-		$fax = $form->get('fax');
-		$this->assertEquals('fax', $fax->getName());
-		$this->assertEquals('text', $fax->getAttribute('type'));
 
         $raca = $form->get('raca');
         $this->assertEquals('raca', $raca->getName());
@@ -382,6 +350,10 @@ class FisicaControllerTest extends ControllerTestCase
         // Cadastra um municipio
         $cepUnico = $this->buildCepUnico();
         $em->persist($cepUnico);
+
+        // Cadastra um pais
+        $paisEstrangeiro = $this->buildPaisEstrangeiro();
+        $em->persist($paisEstrangeiro);
 		
 		$em->flush();		
 
@@ -448,6 +420,7 @@ class FisicaControllerTest extends ControllerTestCase
             )
 		);
         $this->request->getPost()->set('telefones', $telefones);
+        $this->request->getPost()->set('paisEstrangeiro', $paisEstrangeiro->getId());
 
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
@@ -519,6 +492,7 @@ class FisicaControllerTest extends ControllerTestCase
             )
         );
         $this->request->getPost()->set('telefones', $telefones);
+        $this->request->getPost()->set('paisEstrangeiro', '');
 
         $result = $this->controller->dispatch(
             $this->request, $this->response
@@ -573,6 +547,10 @@ class FisicaControllerTest extends ControllerTestCase
         // Cadastra um municipio
         $cepUnico = $this->buildCepUnico();
         $em->persist($cepUnico);
+
+        // Cadastrar um pais
+        $pais = $this->buildPaisEstrangeiro();
+        $em->persist($pais);
 
         $em->flush();
 
@@ -641,6 +619,7 @@ class FisicaControllerTest extends ControllerTestCase
             )
         );
         $this->request->getPost()->set('telefones', $telefones);
+        $this->request->getPost()->set('paisEstrangeiro', $pais->getId());
 
 
         $this->request->getPost()->set('url', 'www.calangodev.com.br');
@@ -714,6 +693,9 @@ class FisicaControllerTest extends ControllerTestCase
             $this->assertEquals('12345678', $telefone->getNumero());
 
         }
+
+        $this->assertEquals($pais, $savedFisica->getPaisEstrangeiro());
+
     }
 
 
@@ -738,6 +720,10 @@ class FisicaControllerTest extends ControllerTestCase
         // Cadastra um municipio
         $cepUnico = $this->buildCepUnico();
         $em->persist($cepUnico);
+
+        // cadastra um pais
+        $pais = $this->buildPaisEstrangeiro();
+        $em->persist($pais);
 
         $em->flush();
 
@@ -819,6 +805,7 @@ class FisicaControllerTest extends ControllerTestCase
         )
         );
         $this->request->getPost()->set('telefones', $telefones);
+        $this->request->getPost()->set('pais', $pais->getId());
 
         $result = $this->controller->dispatch(
             $this->request, $this->response
@@ -860,6 +847,10 @@ class FisicaControllerTest extends ControllerTestCase
         $cepUnicoSalvador = $this->buildCepUnico();
         $cepUnicoSalvador->setNome('Salvador');
         $em->persist($cepUnicoSalvador);
+
+        // cadastra um pais
+        $pais = $this->buildPaisEstrangeiro();
+        $em->persist($pais);
 		
 
 		$fisica = $this->buildFisica();
@@ -944,6 +935,7 @@ class FisicaControllerTest extends ControllerTestCase
         );
         $this->request->getPost()->set('documento', $documento);
         $this->request->getPost()->set('municipioNascimento', $cepUnicoSalvador->getId());
+        $this->request->getPost()->set('paisEstrangeiro', $pais->getId());
 
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
@@ -1302,6 +1294,14 @@ class FisicaControllerTest extends ControllerTestCase
         $cepUnico->setUf('BA');
 
         return $cepUnico;
+    }
+
+    private function buildPaisEstrangeiro()
+    {
+        $pais = new \Core\Entity\Pais();
+        $pais->setNome('Argetina');
+
+        return $pais;
     }
 
 }
