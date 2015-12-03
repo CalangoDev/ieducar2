@@ -586,8 +586,11 @@ class Fisica extends Pessoa
 		$this->documento = $documento;
 	}
 
-    public function getMunicipioNascimento()
+    public function getMunicipioNascimento($object = null)
     {
+        if ($object)
+            return $this->municipioNascimento;
+
         if ($this->municipioNascimento != null)
             return $this->municipioNascimento->getId();
 

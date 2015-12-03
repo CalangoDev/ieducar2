@@ -229,5 +229,168 @@
         }
         ?>
 
+        <dt>Raça:</dt>
+        <dd>
+            <?php
+            if ($data->getRaca())
+                echo $data->getRaca()->getNome();
+            ?>
+            &nbsp;
+        </dd>
+
+        <dt>Nacionalidade:</dt>
+        <dd>
+            <?php
+            if ($data->getNacionalidade()){
+
+                if ($data->getNacionalidade() == 1)
+
+                    echo 'Brasileiro';
+
+                elseif ($data->getNacionalidade() == 2)
+
+                    echo 'Naturalizado Brasileiro';
+
+                else
+                    echo 'Estrangeiro';
+            }
+            ?>&nbsp;
+        </dd>
+
+        <?php
+        if ($data->getNacionalidade() != 1){
+            ?>
+            <dt>Pais Estrangeiro:</dt>
+            <dd>
+                <?php
+                if ($data->getPaisEstrangeiro())
+                    echo $data->getPaisEstrangeiro()->getNome();
+                ?>&nbsp;
+            </dd>
+        <?php
+        }
+        ?>
+
+        <dt>Município de Nascimento:</dt>
+        <dd>
+            <?php
+            if ($data->getMunicipioNascimento())
+                echo $data->getMunicipioNascimento(true)->getNome();
+            ?>&nbsp;
+        </dd>
+
+        <?php
+        if ($data->getEnderecoExterno()){
+            ?>
+
+            <dt>CEP:</dt>
+            <dd>
+                <?php
+                if ($data->getEnderecoExterno()->getCep())
+                    echo $data->getEnderecoExterno()->getCep();?>
+                &nbsp;
+            </dd>
+
+            <dt>Tipo de Logradouro:</dt>
+            <dd>
+                <?php
+                if ($data->getEnderecoExterno()->getTipoLogradouro())
+                    echo $data->getEnderecoExterno()->getTipoLogradouro()->getDescricao();
+                ?>&nbsp;
+            </dd>
+
+            <dt>Logradouro:</dt>
+            <dd>
+                <?php
+                if ($data->getEnderecoExterno()->getLogradouro())
+                    echo $data->getEnderecoExterno()->getLogradouro();
+                ?>&nbsp;
+            </dd>
+
+            <dt>Número:</dt>
+            <dd>
+                <?php
+                if ($data->getEnderecoExterno()->getNumero())
+                    echo $data->getEnderecoExterno()->getNumero();
+                ?>&nbsp;
+            </dd>
+
+            <dt>Complemento:</dt>
+            <dd>
+                <?php
+                if ($data->getEnderecoExterno()->getComplemento())
+                    echo $data->getEnderecoExterno()->getComplemento();
+                ?>&nbsp;
+            </dd>
+
+            <dt>Letra:</dt>
+            <dd>
+                <?php
+                if ($data->getEnderecoExterno()->getLetra())
+                    echo $data->getEnderecoExterno()->getLetra();
+                ?>&nbsp;
+            </dd>
+
+            <dt>Apartamento:</dt>
+            <dd>
+                <?php
+                if ($data->getEnderecoExterno()->getApartamento())
+                    echo $data->getEnderecoExterno()->getApartamento();
+                ?>&nbsp;
+            </dd>
+
+            <dt>Bloco:</dt>
+            <dd>
+                <?php
+                if ($data->getEnderecoExterno()->getBloco())
+                    echo $data->getEnderecoExterno()->getBloco();
+                ?>&nbsp;
+            </dd>
+
+            <dt>Andar:</dt>
+            <dd>
+                <?php
+                if ($data->getEnderecoExterno()->getAndar())
+                    echo $data->getEnderecoExterno()->getAndar();
+                ?>&nbsp;
+            </dd>
+
+            <dt>Bairro:</dt>
+            <dd>
+                <?php
+                if ($data->getEnderecoExterno()->getBairro())
+                    echo $data->getEnderecoExterno()->getBairro();
+                ?>&nbsp;
+            </dd>
+
+            <dt>Zona Localização:</dt>
+            <dd>
+                <?php
+                if ($data->getEnderecoExterno()->getZonaLocalizacao())
+                    echo ($data->getEnderecoExterno()->getZonaLocalizacao() == 1) ? 'Urbana' : 'Rural';
+                ?>&nbsp;
+            </dd>
+
+            <dt>Cidade:</dt>
+            <dd>
+                <?php
+                if ($data->getEnderecoExterno()->getCidade())
+                    echo $data->getEnderecoExterno()->getCidade();
+                ?>&nbsp;
+            </dd>
+
+            <dt>Estado:</dt>
+            <dd>
+                <?php
+                if ($data->getEnderecoExterno()->getSiglaUf())
+                    echo $data->getEnderecoExterno()->getSiglaUf();
+                ?>&nbsp;
+            </dd>
+
+        <?php
+        }
+        ?>
+
+
     </dl>
 </div>
