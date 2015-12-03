@@ -1,1 +1,233 @@
-Mostrar os detalhes dessa bagaça :D
+<div class="row">
+    <dl class="dl-horizontal">
+
+        <dt>Nome:</dt>
+        <dd><?php echo $data->getNome();?></dd>
+
+        <dt>CPF:</dt>
+        <dd><?php echo $data->getCpf();?></dd>
+
+        <?php
+        if ($data->getDataNasc()):
+        ?>
+            <dt>Data de Nascimento</dt>
+            <dd>
+                <?php
+                //$date = new \DateTime($data->getDataNasc(), new \DateTimeZone('America/Sao_Paulo'));
+                echo $data->getDataNasc()->format('d-m-Y');?>
+            </dd>
+        <?php
+        endif;
+        ?>
+
+        <dt>Sexo:</dt>
+        <dd>
+            <?php
+            echo ($data->getSexo() == 'M') ? 'Masculino' : 'Feminino';
+            ?>
+        </dd>
+
+        <dt>Estado Civil:</dt>
+        <dd>
+            <?php
+            if ($data->getEstadoCivil())
+                echo $data->getEstadoCivil()->getDescricao();?></dd>
+
+        <dt>Mãe:</dt>
+        <dd>
+            <?php
+            if ($data->getPessoaMae())
+                echo $data->getPessoaMae()->getNome();?>&nbsp;
+        </dd>
+
+        <dt>Pai:</dt>
+        <dd>
+            <?php
+            if ($data->getPessoaPai())
+                echo $data->getPessoaPai()->getNome();?>&nbsp;
+        </dd>
+        <?php
+        if ($data->getDocumento()){
+        ?>
+            <dt>RG:</dt>
+            <dd>
+                <?php
+                    if ($data->getDocumento()->getRg())
+                        echo $data->getDocumento()->getRg();
+                ?>&nbsp;
+            </dd>
+
+            <dt>Orgão Emissor Rg:</dt>
+            <dd>
+                <?php if ($data->getDocumento()->getOrgaoEmissorRg())
+                    echo $data->getDocumento()->getOrgaoEmissorRg()->getSigla();?>
+                &nbsp;
+            </dd>
+
+            <dt>Estado Emissão Rg:</dt>
+            <dd>
+                <?php if ($data->getDocumento()->getSiglaUfEmissaoRg())
+                    echo $data->getDocumento()->getSiglaUfEmissaoRg()->getNome();?>
+                &nbsp;
+            </dd>
+
+            <dt>Tipo Certidão Civil:</dt>
+            <dd>
+                <?php if ($data->getDocumento()->getTipoCertidaoCivil()){
+                    switch($data->getDocumento()->getTipoCertidaoCivil()){
+                        case 1:
+                        case 2:
+                            echo 'Certidão de Nascimento';
+                            break;
+                        case 3:
+                            echo 'Casamento';
+                            break;
+
+                    }
+                }
+                ?>
+                &nbsp;
+            </dd>
+
+            <?php
+            if ($data->getDocumento()->getTipoCertidaoCivil()){
+
+                if ($data->getDocumento()->getTipoCertidaoCivil() == 1){
+
+                    ?>
+
+                    <dt>Número de Certidão:</dt>
+                    <dd>
+                        <?php
+                        if ($data->getDocumento()->getCertidaoNascimento())
+                            echo $data->getDocumento()->getCertidaoNascimento();?>
+                        &nbsp;
+                    </dd>
+
+
+                    <?php
+
+                } else {
+                    ?>
+
+                    <dt>Termo:</dt>
+                    <dd>
+                        <?php
+                        if ($data->getDocumento()->getTermo())
+                            echo $data->getDocumento()->getTermo();
+                        ?>
+                        &nbsp;
+                    </dd>
+
+                    <dt>Livro:</dt>
+                    <dd>
+                        <?php
+                        if ($data->getDocumento()->getLivro())
+                            echo $data->getDocumento()->getLivro();
+                        ?>
+                        &nbsp;
+                    </dd>
+
+                    <dt>Folha:</dt>
+                    <dd>
+                        <?php if ($data->getDocumento()->getFolha())
+                            echo $data->getDocumento()->getFolha();?>
+                        &nbsp;
+                    </dd>
+
+                    <?php
+                }
+
+            }
+            ?>
+
+            <dt>Data de Emissão:</dt>
+            <dd>
+                <?php
+                if ($data->getDocumento()->getDataEmissaoCertidaoCivil())
+                    echo $data->getDocumento()->getDataEmissaoCertidaoCivil();
+                ?>
+                &nbsp;
+            </dd>
+
+            <dt>Estado de Emissão:</dt>
+            <dd>
+                <?php
+                if ($data->getDocumento()->getSiglaUfCertidaoCivil())
+                    echo $data->getDocumento()->getSiglaUfCertidaoCivil()->getNome();
+                ?>
+                &nbsp;
+            </dd>
+
+            <dt>Cartório Certidão Civil:</dt>
+            <dd>
+                <?php
+                if ($data->getDocumento()->getCartorioCertidaoCivil())
+                    echo $data->getDocumento()->getCartorioCertidaoCivil();
+                ?>
+                &nbsp;
+            </dd>
+
+            <dt>Carteira de Trabalho:</dt>
+            <dd>
+                <?php
+                if ($data->getDocumento()->getNumeroCarteiraTrabalho())
+                    echo $data->getDocumento()->getNumeroCarteiraTrabalho();
+                ?>
+                &nbsp;
+            </dd>
+
+            <dt>Série Carteira de Trabalho:</dt>
+            <dd>
+                <?php
+                if ($data->getDocumento()->getSerieCarteiraTrabalho())
+                    echo $data->getDocumento()->getSerieCarteiraTrabalho();
+                ?>&nbsp;
+            </dd>
+
+            <dt>Data Emissão Carteira de Trabalho:</dt>
+            <dd>
+                <?php
+                if ($data->getDocumento()->getDataEmissaoCarteiraTrabalho())
+                    echo $data->getDocumento()->getDataEmissaoCarteiraTrabalho();
+                ?>&nbsp;
+            </dd>
+
+            <dt>Estado Carteira de Trabalho:</dt>
+            <dd>
+                <?php
+                if ($data->getDocumento()->getSiglaUfCarteiraTrabalho())
+                    echo $data->getDocumento()->getSiglaUfCarteiraTrabalho()->getNome();
+                ?>&nbsp;
+            </dd>
+
+            <dt>Título de Eleitor:</dt>
+            <dd>
+                <?php
+                if ($data->getDocumento()->getNumeroTituloEleitor())
+                    echo $data->getDocumento()->getNumeroTituloEleitor();
+                ?>&nbsp;
+            </dd>
+
+            <dt>Zona:</dt>
+            <dd>
+                <?php
+                if ($data->getDocumento()->getZonaTituloEleitor())
+                    echo $data->getDocumento()->getZonaTituloEleitor();
+                ?>&nbsp;
+            </dd>
+
+            <dt>Seção:</dt>
+            <dd>
+                <?php
+                if ($data->getDocumento()->getSecaoTituloEleitor())
+                    echo $data->getDocumento()->getSecaoTituloEleitor();
+                ?>&nbsp;
+            </dd>
+
+        <?php
+        }
+        ?>
+
+    </dl>
+</div>
