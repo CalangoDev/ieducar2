@@ -327,17 +327,19 @@ class FisicaController extends ActionController
 		));
 	}
 
+    /**
+     * Detalhes de uma pessoa
+     */
 	public function detalhesAction()
     {
         $id = (int) $this->params()->fromRoute('id', 0);
         if ($id == 0)
             throw new \Exception("Código Obrigatório");
 
-        try {
-            $fisica = $this->getEntityManager()->find('Usuario\Entity\Fisica', $id);
-        } catch (\Exception $e){
+        $fisica = $this->getEntityManager()->find('Usuario\Entity\Fisica', $id);
+
+        if (!$fisica)
             throw new \Exception("Registro não encontrado");
-        }
 
         $view = new ViewModel(array(
             'data' => $fisica

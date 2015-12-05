@@ -1174,6 +1174,60 @@ class FisicaControllerTest extends ControllerTestCase
 		);
 	}
 
+    /**
+     * Testa a tela de detalhes
+     */
+    public function testFisicaDetalhesAction()
+    {
+        $fisica = $this->buildFisica();
+        $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
+        $em->persist($fisica);
+        $em->flush();
+
+        // Dispara a acao
+        $this->routeMatch->setParam('action', 'detalhes');
+        $this->routeMatch->setParam('id', $fisica->getId());
+
+        $result = $this->controller->dispatch(
+            $this->request, $this->response
+        );
+
+        // Verifica a resposta
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+
+        //	Testa se um ViewModel foi retornado
+        $this->assertInstanceOf('Zend\View\Model\ViewModel', $result);
+
+
+        //	Testa os dados da View
+        $variables = $result->getVariables();
+        $this->assertArrayHasKey('data', $variables);
+
+        //	Faz a comparação dos dados
+        $data = $variables["data"];
+        $this->assertEquals($fisica->getNome(), $data->getNome());
+
+    }
+
+    /**
+     * Testa visualizaçao de detalhes de um id inexistente
+     * @expectedException Exception
+     * @expectedExceptionMessage Registro não encontrado
+     */
+    public function testFisicaDetalhesInvalidIdAction()
+    {
+        $this->routeMatch->setParam('action', 'detalhes');
+        $this->routeMatch->setParam('id', -1);
+
+        $result = $this->controller->dispatch(
+            $this->request, $this->response
+        );
+        //	Verifica a resposta
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+    }
+
 	/**
 	 * Testa a exlusao passando um id inexistente
 	 * @expectedException Exception
@@ -1194,7 +1248,7 @@ class FisicaControllerTest extends ControllerTestCase
 			$this->request, $this->response
 		);
 
-		//	Verifica a reposta
+		//	Verifica a resposta
 		$response = $this->controller->getResponse();
 
 		//	A pagina redireciona, entao o status = 302
