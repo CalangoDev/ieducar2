@@ -9,64 +9,101 @@
 
 namespace Application\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
+//use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Doctrine\ORM\EntityManager;
+use Core\Controller\ActionController;
+use Zend\Http\Headers;
+use Zend\Http\Response\Stream;
 
-class IndexController extends AbstractActionController
+
+/**
+ * Controlador da aplicacao
+ *
+ * @category Application
+ * @package Controller
+ * @author Eduardo Junior <ej@calangodev.com.br>
+ */
+class IndexController extends ActionController
 {
-	private $em;
-
-	public function setEntityManager(EntityManager $em)
-	{
-		$this->em = $em;
-	}
-
-	public function getEntityManager()
-	{
-		if (null === $this->em){
-			$this->em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-		}
-		return $this->em;
-	}
-    /**
-     * @var  Int $id
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="SEQUENCE") 
-     * @SequenceGenerator(sequenceName="historico.seq_pessoa", initialValue=1, allocationSize=1)     
-     */
-    //protected $id;
-
     public function indexAction()
     {
-    	
-    	// $pessoa = new \Usuario\Entity\Pessoa();
-    	// $pessoa->nome = "NOME2";
-    	// $pessoa->tipo = "F";
-    	// $pessoa->situacao = "A";
-    	// $pessoa->origem_gravacao = "M";
-    	// $pessoa->operacao = "I";
-    	// $pessoa->idsis_cad = 1;
-    	// $pessoa->idpes_cad = 1;
-    	// $pessoa->idpes_rev = 1;
-    	
-    	// $this->getEntityManager()->persist($pessoa);
-    	
-    	//delete
-    	//$teste = $this->getEntityManager()->find('Usuario\Entity\Pessoa', 71);
-    	if ($teste) {
-    		//$this->getEntityManager()->remove($teste);                		
-    	}
-
-        //update
-        // $teste2 = $this->getEntityManager()->find('Usuario\Entity\Pessoa', 72);        
-        // var_dump($teste2->nome);
-
-        // $this->getEntityManager()->flush();
-    	// $pessoa = $objectManager->getRepository('Usuario\Entity\Pessoa')->findOneBy(array('id' => 47));
-    	// $objectManager->remove($pessoa);
-    	// $objectManager->flush();    	
         return new ViewModel();
+    }
+
+    public function arquivoAction()
+    {
+        $diretorio = (string) $this->params()->fromRoute('diretorio');
+        $arquivo = (string) $this->params()->fromRoute('nome');
+
+        switch ($diretorio) {
+            case 'pessoa':
+                if (is_file(getcwd() . '/data/pessoa/' . $arquivo)){
+                    $file = getcwd() . '/data/pessoa/'. $arquivo;
+                }
+                break;
+            default:
+                throw new \Exception("Diretório Inexistente", 1);
+                break;
+        }
+
+        $response = new Stream();
+        $response->setStream(fopen($file, 'r'));
+        $response->setStatusCode(200);
+        $response->setStreamName(basename($file));
+
+        $extension = substr($arquivo, strrpos($arquivo, '.') + 1);
+
+        // $finfo = finfo_open($extension);
+        // var_dump($finfo);
+
+        switch ($extension) {
+            case 'JPG':
+            case 'jpg':
+                $contentType = 'image/jpeg';
+                break;
+            case 'pdf':
+            case 'PDF':
+                $contentType = 'application/pdf';
+                break;
+            case 'png':
+            case 'PNG':
+                $contentType = 'image/png';
+                break;
+            case 'gif':
+            case 'GIF':
+                $contentType = 'image/gif';
+                break;
+            case 'doc':
+            case 'docx':
+                $contentType = 'application/msword';
+                break;
+            case 'html':
+                $contentType = 'text/html';
+                break;
+        }
+
+        if ($diretorio == 'arquivo'){
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            // var_dump($finfo);
+            $contentType = finfo_file($finfo, $file);
+            finfo_close($finfo);
+        }
+
+        $headers = new Headers();
+
+
+        // $headers->addHeaders(array(
+        //     'Content-Disposition' => 'attachment; filename="' . basename($file) .'"',
+        //     'Content-Type' => 'application/octet-stream',
+        //     'Content-Length' => filesize($file)
+        // ));
+        $headers->addHeaders(array(
+            'Content-Type' => $contentType,
+            'Content-Length' => filesize($file)
+        ));
+        $response->setHeaders($headers);
+        return $response;
+
     }
 }

@@ -283,6 +283,8 @@ class FisicaTest extends EntityTestCase
 
 	private function buildEnderecoExterno()
 	{
+        $uf = $this->buildUf();
+
 		$enderecoExterno = new EnderecoExterno;
 		$enderecoExterno->setTipo(1);
 		$enderecoExterno->setLogradouro('Teste');
@@ -292,7 +294,7 @@ class FisicaTest extends EntityTestCase
 		$enderecoExterno->setBairro('Centro');
 		$enderecoExterno->setCep('44900-000');
 		$enderecoExterno->setCidade('Irecê');
-		$enderecoExterno->setSiglaUf('BA');
+		$enderecoExterno->setSiglaUf($uf);
 		$enderecoExterno->setResideDesde(new \DateTime());
 		// $enderecoExterno->setDataRev();
 		$enderecoExterno->setBloco('A');

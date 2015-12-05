@@ -116,7 +116,14 @@ class EnderecoExterno extends Entity
 	/**
 	 * @var string $siglaUf
 	 * 
-	 * @ORM\Column(name="sigla_uf", type="string", length=2, nullable=true)
+	 * ORM\Column(name="sigla_uf", type="string", length=2, nullable=true)
+	 */
+	//protected $siglaUf;
+
+	/**
+	 * @var Entity Uf
+	 * @ORM\ManyToOne(targetEntity="Core\Entity\Uf", cascade={"persist"})
+	 * @ORM\JoinColumn(name="sigla_uf", onDelete="NO ACTION", nullable=true)
 	 */
 	protected $siglaUf;
 
@@ -330,7 +337,7 @@ class EnderecoExterno extends Entity
 		return $this->siglaUf;
 	}
 	
-	public function setSiglaUf($siglaUf)
+	public function setSiglaUf(\Core\Entity\Uf $siglaUf = null)
 	{
 		$this->siglaUf = $this->valid("siglaUf", $siglaUf);
 	}
@@ -555,24 +562,33 @@ class EnderecoExterno extends Entity
 				),				
 			)));
 
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'siglaUf',
-				'required' => false,
-				'filters'	=>	array(
-					array('name'	=>	'StripTags'),
-					array('name'	=>	'StringTrim'),
-				),
-				'validators' => array(
-					array(
-						'name' => 'StringLength',
-						'options' => array(
-							'encoding' => 'UTF-8',
-							'min' => 1,
-							'max' => 2,
-						),
-					),
-				),
-			)));
+//			$inputFilter->add($factory->createInput(array(
+//				'name' => 'siglaUf',
+//				'required' => false,
+//				'filters'	=>	array(
+//					array('name'	=>	'StripTags'),
+//					array('name'	=>	'StringTrim'),
+//				),
+//				'validators' => array(
+//					array(
+//						'name' => 'StringLength',
+//						'options' => array(
+//							'encoding' => 'UTF-8',
+//							'min' => 1,
+//							'max' => 2,
+//						),
+//					),
+//				),
+//			)));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'siglaUf',
+                'required' => true,
+                'continue_if_empty' => true,
+                'filters'     => array(
+                    array('name' => 'Null'),
+                ),
+            )));
 
 			$inputFilter->add($factory->createInput(array(
 				'name' => 'resideDesde',

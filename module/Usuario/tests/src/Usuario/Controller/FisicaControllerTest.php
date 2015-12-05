@@ -575,7 +575,7 @@ class FisicaControllerTest extends ControllerTestCase
             'numero' => '1',
             'cidade' => 'Irecê',
             'bairro' => 'Centro',
-            'siglaUf' => '5',
+            'siglaUf' => $uf->getId(),
             'letra' => 'A',
             'apartamento' =>'101',
             'bloco' => '1',
@@ -657,7 +657,7 @@ class FisicaControllerTest extends ControllerTestCase
         $this->assertEquals('1', $savedFisica->getEnderecoExterno()->getNumero());
         $this->assertEquals('Irecê', $savedFisica->getEnderecoExterno()->getCidade());
         $this->assertEquals('Centro', $savedFisica->getEnderecoExterno()->getBairro());
-        $this->assertEquals('5', $savedFisica->getEnderecoExterno()->getSiglaUf());
+        $this->assertEquals($uf, $savedFisica->getEnderecoExterno()->getSiglaUf());
         $this->assertEquals('A', $savedFisica->getEnderecoExterno()->getLetra());
         $this->assertEquals('101', $savedFisica->getEnderecoExterno()->getApartamento());
         $this->assertEquals('1', $savedFisica->getEnderecoExterno()->getBloco());
@@ -1207,6 +1207,8 @@ class FisicaControllerTest extends ControllerTestCase
 
 	private function buildEnderecoExterno()
 	{
+        $uf = $this->buildUf();
+
 		$enderecoExterno = new EnderecoExterno;
 		$enderecoExterno->setTipo(1);
 		$enderecoExterno->setLogradouro('Teste');
@@ -1216,7 +1218,7 @@ class FisicaControllerTest extends ControllerTestCase
 		$enderecoExterno->setBairro('Centro');
 		$enderecoExterno->setCep('44900-000');
 		$enderecoExterno->setCidade('Irecê');
-		$enderecoExterno->setSiglaUf('BA');
+		$enderecoExterno->setSiglaUf($uf);
 		$enderecoExterno->setResideDesde(new \DateTime());
 		$enderecoExterno->setBloco('A');
 		$enderecoExterno->setAndar('1');

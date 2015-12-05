@@ -543,7 +543,23 @@ class Fisica extends Pessoa
 
     public function setFoto($foto)
     {
-        $this->foto = $this->valid("foto", $foto);
+
+        /*
+        if (is_array($filename) && isset($filename['tmp_name'])) {
+            $filename = $filename['tmp_name'];
+        }
+        $this->fileName = $filename;
+        */
+        /**
+         * Para ter um insert preciso ter id = 0 e ter conteudo no $foto
+         *
+         * Para ter um update de entidade sem alterar o nome no banco de dados caso passe a $foto vazia preciso que
+         * tenha um id e o $foto seja vazio.. ai nao deve haver set
+         *
+         * para ter um update da imagem preciso que o id seja maior que zero e ter conteudo na foto
+         */
+        if ($foto != '')
+            $this->foto = $this->valid("foto", $foto);
     }
 
 	public function getEstadoCivil()
@@ -824,24 +840,29 @@ class Fisica extends Pessoa
             'required' => false,
         )));
 
+//        $this->inputFilter->add($factory->createInput(array(
+//            'name' => 'foto',
+//                'required' => false,
+//                'filters'	=>	array(
+//                    array('name'	=>	'StripTags'),
+//                    array('name'	=>	'StringTrim'),
+//                ),
+//                'validators' => array(
+//                    array(
+//                        'name' => 'StringLength',
+//                        'options' => array(
+//                            'encoding' => 'UTF-8',
+//                            'min' => 0,
+//                            'max' => 120,
+//                        ),
+//                    ),
+//                ),
+//		)));
+
         $this->inputFilter->add($factory->createInput(array(
             'name' => 'foto',
-                'required' => false,
-                'filters'	=>	array(
-                    array('name'	=>	'StripTags'),
-                    array('name'	=>	'StringTrim'),
-                ),
-                'validators' => array(
-                    array(
-                        'name' => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min' => 1,
-                            'max' => 120,
-                        ),
-                    ),
-                ),
-		)));
+            'required' => false
+        )));
 
         $this->inputFilter->add($factory->createInput(array(
             'name' => 'pessoaPai',

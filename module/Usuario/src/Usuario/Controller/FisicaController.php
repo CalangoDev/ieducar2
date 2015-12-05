@@ -122,14 +122,12 @@ class FisicaController extends ActionController
 
 		if ($request->isPost()){
 
-			/**
-			 * $id vindo do formulario se id > 0 é update/alteracao se nao é insercao
-			 */
-			$id  = (int) $this->params()->fromPost('id', 0);
 			$date = new \DateTime($this->params()->fromPost('dataNasc'), new \DateTimeZone('America/Sao_Paulo'));
 
             $fisica->setDataNasc($date->format('Y-m-d'));
 			$request->getPost()->set('dataNasc', $fisica->getDataNasc());
+
+
 
 			$form->setInputFilter($fisica->getInputFilter());
 
@@ -200,9 +198,55 @@ class FisicaController extends ActionController
                     $documento['siglaUfCarteiraTrabalho'] = 0;
 
 
+            $tamanho = new Size(array('max' => 20000000));
+            $extensao = new \Zend\Validator\File\Extension(array('extension' => array('gif', 'jpg', 'png')));
+            $adapter = new \Zend\File\Transfer\Adapter\Http();
+            $adapter->setValidators(array($tamanho, $extensao), $arquivoFoto['name']);
+            $fotoValidaOuVazia = false;
+
+            // Validando upload da foto
+            if ($adapter->isValid()){
+                $fotoValidaOuVazia = true;
+                $adapter->setDestination(getcwd() . '/data/pessoa');
+                $extensao = substr($arquivoFoto['name'], strrpos($arquivoFoto['name'], '.') + 1);
+                $horaGeracaoArquivo = date('Ymdhs');
+                $nomeArquivoFoto = 'pessoafisica_' . $horaGeracaoArquivo . '.' . $extensao;
+                $adapter->addFilter('Rename', array('target' => getcwd() . '/data/pessoa/' . $nomeArquivoFoto . '', 'overwrite' => true));
+                //$data['foto'] = $nomeArquivoFoto;
+                if ($adapter->receive($arquivoFoto['name'])){
+                    if ( is_file( getcwd() . '/data/pessoa/' . $nomeArquivoFoto ) ){
+                        $thumbnailer = $this->getServiceLocator()->get('WebinoImageThumb');
+                        $thumb = $thumbnailer->create( getcwd() . '/data/pessoa/' . $nomeArquivoFoto, $options = array(
+                            'jpegQuality' => 66
+                        ));
+                        $dimensoes = $thumb->getCurrentDimensions();
+
+                        if ($dimensoes['width'] > 1000){
+                            $thumb->resize(1000);
+                            $thumb->save( getcwd() . '/data/pessoa/' . $nomeArquivoFoto);
+                        }
+
+                    }
+                    /*
+                     * Tudo ok, salvar no banco de dados
+                     */
+                    //var_dump($fisica->getId());
+                    $data['foto'] = $nomeArquivoFoto;
+                    //$fisica->setFoto($nomeArquivoFoto);
+                }
+            }
+
+
+            if ($this->params()->fromFiles('foto')['size'] == 0)
+                $fotoValidaOuVazia = true;
+
+            if (!isset($nomeArquivoFoto)){
+                $nomeArquivoFoto = $arquivoFoto['name'];
+            }
+
             $data = array_merge(
                 $semArquivoFoto,
-                array('foto' => $arquivoFoto['name']),
+                array('foto' => $nomeArquivoFoto),
                 array('enderecoExterno' => $enderecoExterno),
                 array('documento' => $documento)
             );
@@ -210,17 +254,6 @@ class FisicaController extends ActionController
 
 			$form->setData($data);
 
-            $tamanho = new Size(array('max' => 20000000));
-            $extensao = new \Zend\Validator\File\Extension(array('extension' => array('gif', 'jpg', 'png')));
-            $adapter = new \Zend\File\Transfer\Adapter\Http();
-            $adapter->setValidators(array($tamanho, $extensao), $arquivoFoto['name']);
-            $fotoValidaOuVazia = false;
-
-            if ($adapter->isValid())
-                $fotoValidaOuVazia = true;
-
-            if ($this->params()->fromFiles('foto')['size'] == 0)
-                $fotoValidaOuVazia = true;
 
 			if ($form->isValid() && $fotoValidaOuVazia){
 
@@ -229,33 +262,6 @@ class FisicaController extends ActionController
                 //var_dump($form->getData());
 				// unset($data['submit']);
 				// $fisica->setData($data);
-                // Validando upload da foto
-				if ($adapter->isValid()){
-					$adapter->setDestination(getcwd() . '/data/pessoa');
-                    $extensao = substr($arquivoFoto['name'], strrpos($arquivoFoto['name'], '.') + 1);
-                    $horaGeracaoArquivo = date('Ymdhs');
-                    $nomeArquivoFoto = 'pessoafisica_' . $horaGeracaoArquivo . '.' . $extensao;
-                    $adapter->addFilter('Rename', array('target' => getcwd() . '/data/pessoa/' . $nomeArquivoFoto . '', 'overwrite' => true));
-                    $data['foto'] = $nomeArquivoFoto;
-                    if ($adapter->receive($arquivoFoto['name'])){
-                        if (is_file(getcwd() . '/data/pessoa/' . $data['foto'])){
-                            /*
-                             * Tudo ok, salvar no banco de dados
-                             */
-                            $fisica->setFoto($data['foto']);
-                            $thumbnailer = $this->getServiceLocator()->get('WebinoImageThumb');
-                            $thumb = $thumbnailer->create( getcwd() . '/data/pessoa/' . $nomeArquivoFoto, $options = array(
-                                'jpegQuality' => 66
-                            ));
-                            $dimensoes = $thumb->getCurrentDimensions();
-
-                            if ($dimensoes['width'] > 1000){
-                                $thumb->resize(1000);
-                                $thumb->save( getcwd() . '/data/pessoa/' . $nomeArquivoFoto);
-                            }
-                        }
-                    }
-				}
 
 
                 /**
@@ -267,11 +273,13 @@ class FisicaController extends ActionController
                     $this->flashMessenger()->addMessage(array("success" => "Pessoa Física Salva!"));
                 } else {
                     $this->flashMessenger()->addMessage(array("success" => "Pessoa Física foi alterada!"));
-                    //$this->flashMessenger()->addSuccessMessage('Pessoa foi alterada!');
                 }
 
-
                 $this->getEntityManager()->flush();
+
+//                $teste = $this->getEntityManager()->find('Usuario\Entity\Fisica', $fisica->getId());
+//                var_dump('pegando do banco depois do flush');
+//                var_dump($teste->getFoto());
 
                 /**
                  * Redirecionando para lista de pessoas fisicas
@@ -304,18 +312,15 @@ class FisicaController extends ActionController
 
 		}
 
-        /*
-         * codigo desnecessario
+//		$id = (int) $this->params()->fromRoute('id', 0);
+//
+//		if ($id >0){
+//
+//			$fisica = $this->getEntityManager()->find('Usuario\Entity\Fisica', $id);
+//			//$form->get('submit')->setAttribute('value', 'Edit');
+//
+//		}
 
-		$id = (int) $this->params()->fromRoute('id', 0);
-
-		if ($id >0){
-
-			$fisica = $this->getEntityManager()->find('Usuario\Entity\Fisica', $id);			
-			//$form->get('submit')->setAttribute('value', 'Edit');
-         *
-		}
-        */
 
 		return new ViewModel(array(
 			'form' => $form

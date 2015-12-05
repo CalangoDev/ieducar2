@@ -485,45 +485,45 @@ class Pessoa extends Entity implements EventSubscriber
 	 * 
 	 * @param  array $data
 	 */
-	public function populate($data)
-	{		
-		$this->setId(isset($data['id']) ? $data['id'] : null);
-		$this->setNome(isset($data['nome']) ? $data['nome'] : null);
-		$this->setDataCad(isset($data['dataCad']) ? $data['dataCad'] : null);
-		if (!empty($data['url']))
-			$this->setUrl(isset($data['url']) ? $data['url'] : null);
-		$this->setTipo(isset($data['tipo']) ? $data['tipo'] : null);
-		$this->setDataRev(isset($data['dataRev']) ? $data['dataRev'] : null);		
-		if (!empty($data['email']))
-			$this->setEmail(isset($data['email']) ? $data['email'] : null);
-		$this->setSituacao(isset($data['situacao']) ? $data['situacao'] : null);
-		//$this->setOrigemGravacao(isset($data['origem_gravacao']) ? $data['origem_gravacao'] : null);
-		//$this->setOperacao(isset($data['operacao']) ? $data['operacao'] : null);
-		$this->setIdsisRev(isset($data['idsisRev']) ? $data['idsisRev'] : null);
-		//$this->setIdsisCad(isset($data['idsis_cad']) ? $data['idsis_cad'] : null);
-		$this->setPessoaCad(isset($data['pessoaCad']) ? $data['pessoaCad'] : null);
-		$this->setPessoaRev(isset($data['pessoaRev']) ? $data['pessoaRev'] : null);	
-	}	
+//	public function populate($data)
+//	{
+//		$this->setId(isset($data['id']) ? $data['id'] : null);
+//		$this->setNome(isset($data['nome']) ? $data['nome'] : null);
+//		$this->setDataCad(isset($data['dataCad']) ? $data['dataCad'] : null);
+//		if (!empty($data['url']))
+//			$this->setUrl(isset($data['url']) ? $data['url'] : null);
+//		$this->setTipo(isset($data['tipo']) ? $data['tipo'] : null);
+//		$this->setDataRev(isset($data['dataRev']) ? $data['dataRev'] : null);
+//		if (!empty($data['email']))
+//			$this->setEmail(isset($data['email']) ? $data['email'] : null);
+//		$this->setSituacao(isset($data['situacao']) ? $data['situacao'] : null);
+//		//$this->setOrigemGravacao(isset($data['origem_gravacao']) ? $data['origem_gravacao'] : null);
+//		//$this->setOperacao(isset($data['operacao']) ? $data['operacao'] : null);
+//		$this->setIdsisRev(isset($data['idsisRev']) ? $data['idsisRev'] : null);
+//		//$this->setIdsisCad(isset($data['idsis_cad']) ? $data['idsis_cad'] : null);
+//		$this->setPessoaCad(isset($data['pessoaCad']) ? $data['pessoaCad'] : null);
+//		$this->setPessoaRev(isset($data['pessoaRev']) ? $data['pessoaRev'] : null);
+//	}
 
-	public function setData($data)
-	{				
-		$this->setId(isset($data['id']) ? $data['id'] : null);
-		$this->setNome(isset($data['nome']) ? $data['nome'] : null);
-		$this->setDataCad(isset($data['dataCad']) ? $data['dataCad'] : null);
-		if (!empty($data['url']))
-			$this->setUrl(isset($data['url']) ? $data['url'] : null);
-		$this->setTipo(isset($data['tipo']) ? $data['tipo'] : null);
-		$this->setDataRev(isset($data['dataRev']) ? $data['dataRev'] : null);		
-		if (!empty($data['email']))
-			$this->setEmail(isset($data['email']) ? $data['email'] : null);
-		$this->setSituacao(isset($data['situacao']) ? $data['situacao'] : null);
-		//$this->setOrigemGravacao(isset($data['origem_gravacao']) ? $data['origem_gravacao'] : null);
-		//$this->setOperacao(isset($data['operacao']) ? $data['operacao'] : null);
-		$this->setIdsisRev(isset($data['idsisRev']) ? $data['idsisRev'] : null);
-		//$this->setIdsisCad(isset($data['idsis_cad']) ? $data['idsis_cad'] : null);
-		$this->setPessoaCad(isset($data['pessoaCad']) ? $data['pessoaCad'] : null);
-		$this->setPessoaRev(isset($data['pessoaRev']) ? $data['pessoaRev'] : null);	
-	}
+//	public function setData($data)
+//	{
+//		$this->setId(isset($data['id']) ? $data['id'] : null);
+//		$this->setNome(isset($data['nome']) ? $data['nome'] : null);
+//		$this->setDataCad(isset($data['dataCad']) ? $data['dataCad'] : null);
+//		if (!empty($data['url']))
+//			$this->setUrl(isset($data['url']) ? $data['url'] : null);
+//		$this->setTipo(isset($data['tipo']) ? $data['tipo'] : null);
+//		$this->setDataRev(isset($data['dataRev']) ? $data['dataRev'] : null);
+//		if (!empty($data['email']))
+//			$this->setEmail(isset($data['email']) ? $data['email'] : null);
+//		$this->setSituacao(isset($data['situacao']) ? $data['situacao'] : null);
+//		//$this->setOrigemGravacao(isset($data['origem_gravacao']) ? $data['origem_gravacao'] : null);
+//		//$this->setOperacao(isset($data['operacao']) ? $data['operacao'] : null);
+//		$this->setIdsisRev(isset($data['idsisRev']) ? $data['idsisRev'] : null);
+//		//$this->setIdsisCad(isset($data['idsis_cad']) ? $data['idsis_cad'] : null);
+//		$this->setPessoaCad(isset($data['pessoaCad']) ? $data['pessoaCad'] : null);
+//		$this->setPessoaRev(isset($data['pessoaRev']) ? $data['pessoaRev'] : null);
+//	}
 
 	// public function exchangeArray($data)
  //    {

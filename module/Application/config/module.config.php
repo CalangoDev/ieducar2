@@ -21,6 +21,17 @@ return array(
                     ),
                 ),
             ),
+            'arquivo' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/arquivo/diretorio[/:diretorio]/nome[/:nome]',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action' => 'arquivo',
+                        'module' => 'application'
+                    )
+                )
+            ),
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them

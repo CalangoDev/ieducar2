@@ -1,8 +1,21 @@
 <div class="row">
     <dl class="dl-horizontal">
 
+        <?php
+        if ($data->getFoto()){
+        ?>
+            <dt>Foto:</dt>
+            <dd>
+                <img src="/arquivo/diretorio/pessoa/nome/<?php echo $data->getFoto();?>" alt="<?php echo $data->getFoto();?>"
+                     class="img-responsive img-thumbnail">
+            </dd>
+        <?php
+        }
+        ?>
+
         <dt>Nome:</dt>
         <dd><?php echo $data->getNome();?></dd>
+
 
         <dt>CPF:</dt>
         <dd><?php echo $data->getCpf();?></dd>
@@ -383,7 +396,7 @@
             <dd>
                 <?php
                 if ($data->getEnderecoExterno()->getSiglaUf())
-                    echo $data->getEnderecoExterno()->getSiglaUf();
+                    echo $data->getEnderecoExterno()->getSiglaUf()->getNome();
                 ?>&nbsp;
             </dd>
 
@@ -391,6 +404,44 @@
         }
         ?>
 
+        <?php
+        if ($data->getTelefones()->count() > 0){
+            ?>
+            <dt>Telefone(s):</dt>
+            <dd>
+                <?php
+                foreach($data->getTelefones() as $telefone){
+                    if ($telefone->getDdd())
+                    echo '(' . $telefone->getDdd() . ')';
+                    if ($telefone->getNumero()){
+                        echo ' ' . $telefone->getNumero();
+
+                        if ($data->getTelefones()->last() != $telefone)
+                            echo ', ';
+                    }
+                }
+                ?>
+                &nbsp;
+            </dd>
+        <?php
+        }
+        ?>
+
+        <dt>URL:</dt>
+        <dd>
+            <?php
+            if ($data->getUrl())
+                echo $data->getUrl();
+            ?>&nbsp;
+        </dd>
+
+        <dt>E-mail:</dt>
+        <dd>
+            <?php
+            if ($data->getEmail())
+                echo $data->getEmail();
+            ?>&nbsp;
+        </dd>
 
     </dl>
 </div>
