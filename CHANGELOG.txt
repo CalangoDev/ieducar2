@@ -24,7 +24,13 @@ forma melhor
 - Atributo operacao da entidade Usuario\Entity\EnderecoExterno, depreciado
 - Atributo data_exp_rg da tabela cadastro.documento mudado para data_emissao_rg
 - Atributo sigla_uf_exp_rg da tabela cadastro.documento mudado para sigla_uf_emissao_rg
-
+- Entidade/Form/Controller/Datafixtures Funcionario mudada do modulo portal para modulo Drh
+- Entidade Drh\Entity\Funcionario passa a herdar da Entidade Usuario\Entity\Fisica
+- Atributos removidos de Drh\Entity\Funcionario refCodPessoaFj, opcaoMenu, refRefCodPessoaFj, refCodSetorNew,
+matriculaNew, $tipoMenu, $email, statusToken, refSec, sequencial, refCodSetorNew
+- Entidade Drh\Entity\Funcionario, Atributo refCodSetor muda para codigoSetor e aponta para entidade Drh\Entity\Setor
+- Entidade Drh\Entity\Funcionario - Atributo $refCodFuncionarioVinculo mudado para $vinculo
+- Entidade Drh\Entity\Funcionario - Atributo $proibido mudado para $banido
 
 i-Educar 1.1.0 2010-02-15
 -------------------------

@@ -1,10 +1,10 @@
 <?php
-namespace Portal\Controller;
+namespace Drh\Controller;
 
 use Zend\View\Model\ViewModel;
 use Core\Controller\ActionController;
-use Portal\Entity\Funcionario;
-use Portal\Form\Funcionario as FuncionarioForm;
+use Drh\Entity\Funcionario;
+use Drh\Form\Funcionario as FuncionarioForm;
 use DoctrineORMModule\Stdlib\Hydrator\DoctrineEntity;
 use Doctrine\ORM\EntityManager;
 
