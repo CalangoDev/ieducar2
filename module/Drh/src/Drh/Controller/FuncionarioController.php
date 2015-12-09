@@ -132,6 +132,30 @@ class FuncionarioController extends ActionController
 		));
 	}
 
+
+    /**
+     * Detalhes de uma pessoa
+     */
+    public function detalhesAction()
+    {
+        $id = (int) $this->params()->fromRoute('id', 0);
+        if ($id == 0)
+            throw new \Exception("Código Obrigatório");
+
+        $funcionario = $this->getEntityManager()->find('Drh\Entity\Funcionario', $id);
+
+        if (!$funcionario)
+            throw new \Exception("Registro não encontrado");
+
+        $view = new ViewModel(array(
+            'data' => $funcionario
+        ));
+
+        $view->setTerminal(true);
+
+        return $view;
+    }
+
 	/**
 	 * Excluir um funcionario
 	 * @return void

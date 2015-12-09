@@ -1,0 +1,103 @@
+<div class="row">
+    <dl class="dl-horizontal">
+        <?php
+        if ($data->getFisica()->getFoto()){
+        ?>
+            <dt>Foto:</dt>
+            <dd>
+                <img src="/arquivo/diretorio/pessoa/nome/<?php echo $data->getFisica()->getFoto();?>"
+                     alt="<?php echo $data->getFisica()->getFoto();?>"
+                     class="img-responsive img-thumbnail">
+            </dd>
+        <?php
+        }
+        ?>
+
+        <dt>Nome:</dt>
+        <dd>
+            <?php if ($data->getFisica()->getNome()) echo $data->getFisica()->getNome(); ?>
+            &nbsp;
+        </dd>
+
+        <dt>Matrícula:</dt>
+        <dd>
+            <?php if ($data->getMatricula()) echo $data->getMatricula(); ?>
+            &nbsp;
+        </dd>
+
+        <dt>Setor:</dt>
+        <dd>
+            <?php if ($data->getCodigoSetor()) echo $data->getCodigoSetor()->getNome();?>
+            &nbsp;
+        </dd>
+
+        <dt>Ramal:</dt>
+        <dd>
+            <?php if ($data->getRamal()) echo $data->getRamal();?>
+            &nbsp;
+        </dd>
+
+        <dt>Ativo:</dt>
+        <dd>
+            <?php if ($data->getAtivo()){
+                $situacao = 'Ativo';
+                $label = 'success';
+            } else {
+                $situacao = 'Inativo';
+                $label = 'default';
+            }
+            ?>
+            <span class="label label-<?php echo $label;?>"><?php echo $situacao;?></span>
+            &nbsp;
+        </dd>
+
+        <dt>Vínculo:</dt>
+        <dd>
+            <?php
+            if ($data->getVinculo()){
+                switch($data->getVinculo()){
+                    case 6:
+                        echo 'Estágiario';
+                        break;
+                    case 5:
+                        echo 'Comissionado';
+                        break;
+                    case 4:
+                        echo 'Contratado';
+                        break;
+                    case 3:
+                        echo 'Efetivo';
+                        break;
+                }
+            }
+            ?>
+            &nbsp;
+        </dd>
+
+        <dt>Tempo de expiração da conta:</dt>
+        <dd>
+            <?php if ($data->getTempoExpiraConta()) echo $data->getTempoExpiraConta();?> dias
+            &nbsp;
+        </dd>
+
+        <dt>Banido:</dt>
+        <dd>
+            <?php echo ($data->getBanido()) ? 'Sim' : 'Não'; ?>
+            &nbsp;
+        </dd>
+
+        <dt>Matrícula Permanente:</dt>
+        <dd>
+            <?php echo ($data->getMatriculaPermanente()) ? 'Sim': 'Não';?>
+            &nbsp;
+        </dd>
+
+        <dt>Super Admin</dt>
+        <dd>
+            <?php echo ($data->getSuperAdmin()) ? 'Sim' : 'Não'; ?>
+            &nbsp;
+        </dd>
+
+    </dl>
+
+</div>
