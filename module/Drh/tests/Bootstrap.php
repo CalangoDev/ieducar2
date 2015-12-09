@@ -1,4 +1,5 @@
 <?php
+namespace DrhTest;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Mvc\Service\ServiceManagerConfig;
 use Zend\Loader\AutoloaderFactory;
@@ -28,8 +29,8 @@ class Bootstrap
 		);
 		set_include_path(implode(PATH_SEPARATOR, $path));
 
-		require_once 'Zend/Loader/AutoloaderFactory.php';
-		require_once 'Zend/Loader/StandardAutoLoader.php';
+//		require_once 'Zend/Loader/AutoloaderFactory.php';
+//		require_once 'Zend/Loader/StandardAutoLoader.php';
 
 		//setup autoloader
 		AutoloaderFactory::factory(

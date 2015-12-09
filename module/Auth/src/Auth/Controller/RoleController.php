@@ -73,9 +73,9 @@ class RoleController extends ActionController
 		$id = (int) $this->getEvent()->getRouteMatch()->getParam('id');
 		if ($id > 0){			
 			$role = $this->getEntityManager()->find('Auth\Entity\Role', $id);
-			$form->get('submit')->setAttribute('value', 'Edit');
+			$form->get('submit')->setAttribute('value', 'Atualizar');
 		}
-		$form->setHydrator(new DoctrineEntity($this->getEntityManager(), 'Auth\Entity\Role'));
+
 		$form->bind($role);
 
 		if ($request->isPost()){			
@@ -90,9 +90,9 @@ class RoleController extends ActionController
 				$id = (int) $this->params()->fromPost('id', 0);
 				if ($id == 0){
 					$this->getEntityManager()->persist($role);
-					$this->flashMessenger()->addSuccessMessage('Nova Regra salva');
+					$this->flashMessenger()->addSuccessMessage(array("success" => "Nova Regra salva"));
 				} else {
-					$this->flashMessenger()->addSuccessMessage('Permissão foi alterada!');
+					$this->flashMessenger()->addSuccessMessage(array("success" => "Permissão foi alterada!"));
 				}
 				$this->getEntityManager()->flush();
 				
@@ -102,15 +102,6 @@ class RoleController extends ActionController
 				return $this->redirect()->toUrl('/auth/role');
 			} 
 		} 
-
-		/**
-		 * @todo refatorar a logica do get id, estou praticamente duplicando codigo 		 
-		 */
-		$id = (int) $this->params()->fromRoute('id', 0);
-		if ($id >0){			
-			$role = $this->getEntityManager()->find('Auth\Entity\Role', $id);
-			$form->get('submit')->setAttribute('value', 'Edit');
-		}
 
 		return new ViewModel(array(
 			'form' => $form

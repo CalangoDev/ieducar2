@@ -71,8 +71,7 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Portal\Controller\Index' => 'Portal\Controller\IndexController', 
-            'Portal\Controller\Funcionario' => 'Portal\Controller\FuncionarioController',            
+            'Portal\Controller\Index' => 'Portal\Controller\IndexController',
         ),
     ),
     'view_manager' => array(        

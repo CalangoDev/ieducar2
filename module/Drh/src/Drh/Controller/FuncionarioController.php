@@ -24,31 +24,13 @@ use Zend\Paginator\Paginator;
 class FuncionarioController extends ActionController
 {
 	/**
-	 * @var Doctrine\ORM\EntityManager
-	 */
-	protected $em;
-
-	public function setEntityManager(EntityManager $em)
-	{
-		$this->em = $em;
-	}
-
-	public function getEntityManager()
-	{		
-		if (null === $this->em){
-			$this->em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-		}		
-		return $this->em;
-	}
-
-	/**
 	 * Mostra os funcionarios cadastrados
 	 * @return void 
 	 */
 	public function indexAction()
 	{
 		// $dados = $this->getEntityManager()->getRepository('Portal\Entity\Funcionario')->findAll();
-		$query = $this->getEntityManager()->createQuery('SELECT f FROM Portal\Entity\Funcionario f');
+		$query = $this->getEntityManager()->createQuery('SELECT f FROM Drh\Entity\Funcionario f');
 
 		$dados = new Paginator(
 			new DoctrinePaginator(new ORMPaginator($query))
@@ -74,11 +56,11 @@ class FuncionarioController extends ActionController
 
 			FROM
 
-				Portal\Entity\Funcionario f
+				Drh\Entity\Funcionario f
 
 			LEFT JOIN
 
-				f.refCodPessoaFj fj
+				f.fisica fisica
 
 			WHERE
 
@@ -86,7 +68,7 @@ class FuncionarioController extends ActionController
 
 			OR 
 
-				fj.nome LIKE :query
+				fisica.nome LIKE :query
 		");
 		$query->setParameter('query', "%".$q."%");		
 		$dados = $query->getResult();		
@@ -107,60 +89,42 @@ class FuncionarioController extends ActionController
 	{
 		$funcionario = new Funcionario;
 		$form = new FuncionarioForm($this->getEntityManager());
-		// $form = new FuncionarioForm();
 		$request = $this->getRequest();
 
-		// $id = (int) $this->getEvent()->getRouteMatch()->getParam('id');
-		$id = (int) $this->getEvent()->getRouteMatch()->getParam('refCodPessoaFj');
+		$id = (int) $this->getEvent()->getRouteMatch()->getParam('id');
+
 		if ($id > 0){			
-			$funcionario = $this->getEntityManager()->find('Portal\Entity\Funcionario', $id);
-			$form->get('submit')->setAttribute('value', 'Edit');
+			$funcionario = $this->getEntityManager()->find('Drh\Entity\Funcionario', $id);
+			$form->get('submit')->setAttribute('value', 'Atualizar');
 		}
-		$form->setHydrator(new DoctrineEntity($this->getEntityManager(), 'Portal\Entity\Funcionario'));		
 		$form->bind($funcionario);
 
 		if ($request->isPost()){
-			$id = (int) $this->params()->fromPost('refCodPessoaFj', 0);
+
 			$form->setInputFilter($funcionario->getInputFilter());
-			$form->setData($request->getPost());						
-			if ($form->isValid()){								
-				$refCodPessoaFj = $form->get('refCodPessoaFj')->getValue();				
-				/**
-				 * Buscar a Pessoa Fisica pelo o ID passado e associar a entity fisica com a de funcionario
-				 * 
-				 * Pode ser feito usando hydrator como no codigo depois das duas linhas seguintes que esta comentado
-				 */				
-				$pessoaFisica = $this->getEntityManager()->find('Usuario\Entity\Fisica', $refCodPessoaFj);
-				$funcionario->setRefCodPessoaFj($pessoaFisica);				
-				// $hydrator = new DoctrineHydrator($this->getEntityManager(), 'Usuario\Entity\Fisica');
-				// $fisica = new \Usuario\Entity\Fisica;
-				// $dados = array(
-				// 	'id' => $ref_cod_pessoa_fj
-				// );
-				// $fisica = $hydrator->hydrate($dados, $fisica);
-				// $funcionario->setRefCodPessoaFj($fisica);
-				
-				/**
-				 * Persistindo os dados
-				 */
-				
-				// $this->getEntityManager()->persist($funcionario);
-				$this->getEntityManager()->flush();
-				$this->flashMessenger()->addSuccessMessage('Novo Funcionário Inserido');
-				/**
-				 * @todo verificar quando tiver inserindo ou editando 
-				 * personalisar mensagem de funcionario inserido ou nao
-				 * e verificar questoes de tempo de renovacao de conta e tempo para expirar a senha
-				 * checar se essas funcionalidades vao ser codificadas
-				 */				 
-				return $this->redirect()->toUrl('/portal/funcionario');
-			} 	
-		}
-		// $id = (int) $this->params()->fromRoute('id', 0);
-		$id = (int) $this->params()->fromRoute('refCodPessoaFj', 0);
-		if ($id >0){			
-			$funcionario = $this->getEntityManager()->find('Portal\Entity\Funcionario', $id);
-			$form->get('submit')->setAttribute('value', 'Edit');
+            $form->setData($request->getPost());
+
+            if ($form->isValid()){
+
+                /**
+                 * Persistindo os dados
+                 */
+                $id = (int) $this->params()->fromPost('id', 0);
+                if ($id == 0){
+                    $this->getEntityManager()->persist($funcionario);
+                    $this->flashMessenger()->addMessage(array("success" => "Funcionário Salvo!"));
+                } else {
+                    $this->flashMessenger()->addMessage(array("success" => 'Funcionário Alterado!'));
+                }
+
+                $this->getEntityManager()->flush();
+
+                /**
+                 * Redirecionando para a lista de funcionarios
+                 */
+				return $this->redirect()->toUrl('/drh/funcionario');
+			}
+
 		}
 
 		return new ViewModel(array(
@@ -171,6 +135,7 @@ class FuncionarioController extends ActionController
 	/**
 	 * Excluir um funcionario
 	 * @return void
+     * @throws \Exception If Registro não encontrado
 	 */
 	public function deleteAction()
 	{
@@ -179,14 +144,14 @@ class FuncionarioController extends ActionController
 			throw new \Exception("Código Obrigatório");
 
 		try{		
-			$funcionario = $this->getEntityManager()->find('Portal\Entity\Funcionario', $id);
+			$funcionario = $this->getEntityManager()->find('Drh\Entity\Funcionario', $id);
 			$this->getEntityManager()->remove($funcionario);
 			$this->getEntityManager()->flush();			
 		} catch(\Exception $e){
 			throw new \Exception("Registro não encontrado");			
 		}
 		
-		return $this->redirect()->toUrl('/portal/funcionario');
+		return $this->redirect()->toUrl('/drh/funcionario');
 	}
 
 }

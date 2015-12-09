@@ -107,7 +107,7 @@ return array(
         'authentication' => array(
             'orm_default' => array(
                 'object_manager' => 'Doctrine\ORM\EntityManager',
-                'identity_class' => 'Portal\Entity\Funcionario',
+                'identity_class' => 'Drh\Entity\Funcionario',
                 'identity_property' => 'matricula',
                 'credential_property' => 'senha',
             ),

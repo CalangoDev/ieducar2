@@ -2,16 +2,20 @@
 namespace Auth\Form;
 
 use Zend\Form\Form;
-use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Persistence\ObjectManager;
+use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 
 class Role extends Form
 {
-	public function __construct(EntityManager $em)
+	public function __construct(ObjectManager $objectManager)
 	{
 		parent::__construct('role');
 		$this->setAttribute('method', 'post');
 		$this->setAttribute('action', '/auth/role/save');
-		$this->setAttribute('role', 'form');		
+		$this->setAttribute('role', 'form');
+        $this->setHydrator(new DoctrineHydrator($objectManager))->setObject(new \Auth\Entity\Role());
+
+        $this->setUseInputFilterDefaults(false);
 
 		$this->add(array(
 			'name' => 'id',
@@ -32,9 +36,19 @@ class Role extends Form
 			'options' => array(
 				'label' => 'Funcionário ',
 				'empty_option' => 'Escolha um funcionário',
-				'object_manager' => $em,
-				'target_class' => 'Usuario\Entity\Fisica',
-				'property' => 'nome',
+				'object_manager' => $objectManager,
+				'target_class' => 'Drh\Entity\Funcionario',
+				'property' => 'matricula',
+                'label_generator' => function($objectManager){
+                    $label = '';
+                    if ($objectManager->getFisica()->getNome()){
+                        $label .= $objectManager->getFisica()->getNome();
+                    }
+                    if ($objectManager->getMatricula()) {
+                        $label .= ' (' . $objectManager->getMatricula() . ')';
+                    }
+                    return $label;
+                }
 			),
 		));
 
@@ -48,7 +62,7 @@ class Role extends Form
 			'options' => array(
 				'label' => 'Recurso',
 				'empty_option' => 'Selecione',
-				'object_manager' => $em,
+				'object_manager' => $objectManager,
 				'target_class' => 'Auth\Entity\Resource',
 				'property' => 'nome',
 			),

@@ -25,7 +25,7 @@ use Doctrine\Common\Collections\Collection;
  * @example  Classe Fisica
  * @copyright  Copyright (c) 2013 Eduardo Junior.com (http://www.eduardojunior.com)
  * 
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Usuario\Repository\FisicaRepository")
  * @ORM\Table(name="cadastro_fisica")
  * @ORM\HasLifecycleCallbacks
  * 

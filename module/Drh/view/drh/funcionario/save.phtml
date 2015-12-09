@@ -1,0 +1,299 @@
+
+<div class="container">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="/">Ínicio</a></li>
+            <li><a href="<?php echo $this->url('drh');?>">DRH</a>
+
+            </li>
+            <li>
+                <a href="<?php
+                echo $this->url('drh/default', array('controller' => 'funcionario', 'action' => 'index'));?>">
+                    Cadastro de Funcionários </a>
+            </li>
+            <li class="active">Salvar
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1><i class="icon icon-group"></i> Cadastro <small>de Funcionário</small></h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <b>Salvar</b>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <?php
+                            $this->form->prepare();
+                            echo $this->form()->openTag($form);
+                            $id = $this->form->get('id');
+                            $fisica = $this->form->get('fisica');
+                            $matricula = $this->form->get('matricula');
+                            $senha = $this->form->get('senha');
+                            $ramal = $this->form->get('ramal');
+                            $ativo = $this->form->get('ativo');
+                            $vinculo = $this->form->get('vinculo');
+                            $tempoExpiraConta = $this->form->get('tempoExpiraConta');
+                            $banido = $this->form->get('banido');
+                            $matriculaPermanente = $this->form->get('matriculaPermanente');
+                            $codigoSetor = $this->form->get('codigoSetor');
+                            $superAdmin = $this->form->get('superAdmin');
+                            echo $this->formInput($id);
+                            ?>
+                            <br>
+                            <div class="form-group">
+                                <div class="row">
+
+                                    <div class="col-md-3">
+
+                                        <label for="fisica">
+                                            <?php echo $fisica->getOption('label'); ?>
+                                        </label>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <?php
+                                                echo $this->formSelect($fisica);
+                                                echo $this->formElementErrors($fisica);
+                                                ?>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-3">
+
+                                        <label for="novapessoafisica">&nbsp;</label>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <a href="/usuario/fisica/save/ajax/1" class="btn btn-primary novo">
+                                                    <i class="icon icon-plus"></i> Nova Pessoa Física
+                                                </a>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                                <!-- end fisica -->
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="matricula"><?php echo $matricula->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <?php echo $this->formInput($matricula);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($matricula);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="senha"><?php echo $senha->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <?php echo $this->formInput($senha);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($senha);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="codigoSetor">
+                                    <?php echo $codigoSetor->getOption('label');?>
+                                </label>
+
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <?php echo $this->formSelect($codigoSetor);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($codigoSetor);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ramal"><?php echo $ramal->getOption('label');?></label>
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <?php echo $this->formInput($ramal);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($ramal);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ativo"><?php echo $ativo->getOption('label');?></label>
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <?php echo $this->formSelect($ativo);?>
+                                        <span class="help-block">
+                                            <?php echo $this->FormElementErrors($ativo);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="vinculo"><?php echo $vinculo->getOption('label');?></label>
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <?php echo $this->formSelect($vinculo);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($vinculo);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tempoExpiraConta"><?php echo $tempoExpiraConta->getOption('label');?></label>
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <?php echo $this->formSelect($tempoExpiraConta);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($tempoExpiraConta);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <div class="row">
+
+                                    <div class="col-md-2">
+
+                                        <label for="banido"><?php echo $banido->getOption('label');?></label>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <?php echo $this->formCheckbox($banido);?>
+                                                <span class="help-block">
+                                                    <?php echo $this->formElementErrors($banido);?>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-3">
+
+                                        <label for="matriculaPermanente">
+                                            <?php echo $matriculaPermanente->getOption('label');?>
+                                        </label>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <?php echo $this->formCheckbox($matriculaPermanente);?>
+                                                <span class="help-block">
+                                                    <?php echo $this->formElementErrors($matriculaPermanente);?>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <?php
+                                    //pegando a identidade do usuario, se for superadmin pode setar outro superadmin
+                                    if ($usuario = $this->identity()) {
+                                        //echo 'Logged in as ' . $this->escapeHtml($user->getMatricula());
+                                        if ($usuario->getSuperAdmin()) {
+                                            ?>
+
+                                            <div class="col-md-2">
+                                                <label for="superAdmin">
+                                                    <?php echo $superAdmin->getOption('label'); ?>
+                                                </label>
+
+                                                <div class="row">
+                                                    <div class="col-md-12">
+
+                                                        <?php echo $this->formCheckbox($superAdmin); ?>
+                                                        <span class="help-block">
+                                                    <?php echo $this->formElementErrors($superAdmin); ?>
+                                                </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <?php
+                                        }
+                                    }
+                                    ?>
+
+                                </div>
+
+                            </div>
+
+                            <br>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <?php
+                                        $enviar = $this->form->get('submit');
+                                        echo $this->formElement($enviar);
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <?php
+                            echo $this->form()->closeTag();
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php
+echo $this->headLink()->prependStylesheet($this->basePath() . '/componentes/chosen/chosen.css');
+echo $this->headScript()->prependFile($this->basePath() . '/componentes/chosen/chosen.jquery.min.js', 'text/javascript');
+echo $this->headScript()->prependFile($this->basePath()
+    . '/componentes/jquery.masked-input/jquery.maskedinput.min.js');
+?>
+<script type="text/javascript">
+    var config = {
+        '.chosen-select'           : {},
+        '.chosen-select-deselect'  : {allow_single_deselect:true},
+        '.chosen-select-no-single' : {disable_search_threshold:10},
+        '.chosen-select-no-results': {no_results_text:'Oops, nada foi encontrado!'},
+        '.chosen-select-width'     : {width:"95%"}
+    }
+    for (var selector in config) {
+        $(selector).chosen(config[selector]);
+    }
+
+    $(document).ready(function() {
+
+    });
+    //end document ready function
+</script>

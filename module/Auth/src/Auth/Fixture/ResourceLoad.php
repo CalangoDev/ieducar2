@@ -58,6 +58,18 @@ class ResourceLoad implements FixtureInterface
 			),
 			//faltando busca do setor
 			array(
+                'nome' => 'Drh\Controller\Funcionario.index',
+                'descricao' => 'Lista de Funcionarios'
+            ),
+            array(
+                'nome' => 'Drh\Controller\Funcionario.busca',
+                'descricao' => 'Busca de Funcionarios'
+            ),
+            array(
+                'nome' => 'Drh\Controller\Funcionario.save',
+                'descricao' => 'Salva ou Edita Funcionários'
+            ),
+			array(
 				'nome' => 'Usuario\Controller\Fisica.index',
 				'descricao' => 'Lista de pessoas fisicas'
 			),

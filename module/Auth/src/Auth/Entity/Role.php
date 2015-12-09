@@ -44,8 +44,8 @@ class Role extends Entity
 	/**
 	 * @var int $funcionario Id do funcionario 
 	 * 	 
-	 * @ORM\ManyToOne(targetEntity="Portal\Entity\Funcionario", cascade={"persist"})
-	 * @ORM\JoinColumn(name="funcionario_id", referencedColumnName="id", onDelete="RESTRICT")
+	 * @ORM\ManyToOne(targetEntity="Drh\Entity\Funcionario", cascade={"persist"})
+	 * @ORM\JoinColumn(referencedColumnName="id", onDelete="RESTRICT")
 	 */
 	protected $funcionario;
 
@@ -84,21 +84,21 @@ class Role extends Entity
 	{
 		return $this->funcionario;
 	}
-	
-	public function setFuncionario($value)
+
+	public function setFuncionario(\Drh\Entity\Funcionario $funcionario)
 	{
-		$this->funcionario = $value;
+		$this->funcionario = $this->valid('funcionario', $funcionario);
 	}
 
 	public function getResource()
 	{
 		return $this->resource;
 	}
-	
-	public function setResource($value)
-	{
-		$this->resource = $value;
-	}
+
+    public function setResource(\Auth\Entity\Resource $resource)
+    {
+        $this->resource = $this->valid('resource', $resource);
+    }
 
 	public function getPrivilegio()
 	{
@@ -154,6 +154,16 @@ class Role extends Entity
 					array('name' => 'Int'),
 				),
 			)));
+
+			$inputFilter->add($factory->createInput(array(
+                'name' => 'funcionario',
+                'required' => true,
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'resource',
+                'required' => true,
+            )));
 
 			$this->inputFilter = $inputFilter;
 		}

@@ -84,9 +84,9 @@ class Builder implements ServiceManagerAwareInterface
 				 * Se a regra nao existe, insere ele
 				 */
 				// var_dump($role->getFuncionario()->getRefCodPessoaFj()->getId());			
-				if (! $acl->hasRole($role->getFuncionario()->getRefCodPessoaFj()->getId())){				
-					$acl->addRole(new Role($role->getFuncionario()->getRefCodPessoaFj()->getId(), 'visitante'));
-					$acl->allow($role->getFuncionario()->getRefCodPessoaFj()->getId(), 'Auth\Controller\Index.logout');
+				if (! $acl->hasRole($role->getFuncionario()->getFisica()->getId())){
+					$acl->addRole(new Role($role->getFuncionario()->getFisica()->getId(), 'visitante'));
+					$acl->allow($role->getFuncionario()->getFisica()->getId(), 'Auth\Controller\Index.logout');
 				}
 				/**
 				 * Verifica o privilegio
@@ -94,7 +94,9 @@ class Builder implements ServiceManagerAwareInterface
 				 * 0 - allow
 				 * 1 - denny			
 				 */
-				($role->getPrivilegio() == 0) ? $acl->allow($role->getFuncionario()->getRefCodPessoaFj()->getId(), $role->getResource()->getNome()) : $acl->deny($role->getFuncionario()->getRefCodPessoaFj()->getId(), $role->getResource()->getNome());
+				($role->getPrivilegio() == 0) ? $acl->allow($role->getFuncionario()->getFisica()->getId(),
+						$role->getResource()->getNome()) : $acl->deny($role->getFuncionario()->getFisica()->getId(),
+						$role->getResource()->getNome());
 			}
 		}		
 

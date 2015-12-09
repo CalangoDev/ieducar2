@@ -1,7 +1,7 @@
 <?php
-namespace Portal\Fixture;
+namespace Drh\Fixture;
 
-use Portal\Entity\Funcionario;
+use Drh\Entity\Funcionario;
 use Usuario\Entity\Fisica;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\FixtureInterface;
@@ -14,12 +14,11 @@ class FuncionarioLoad extends AbstractFixture implements FixtureInterface, Order
 	{
 		
 		$funcionario = new Funcionario();
-		$funcionario->setRefCodPessoaFj($this->getReference('admin-user'));
+		$funcionario->setFisica($this->getReference('admin-user'));
 		$funcionario->setMatricula('admin');
 		$funcionario->setSenha('admin');
 		$funcionario->setAtivo(1);
 		$funcionario->setSuperAdmin(1);
-
 		$manager->persist($funcionario);
 		$manager->flush();
 

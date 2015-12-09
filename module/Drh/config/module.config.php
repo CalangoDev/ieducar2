@@ -12,16 +12,6 @@ namespace Drh;
 return array(
     'router' => array(
         'routes' => array(
-            // 'home' => array(
-            //     'type' => 'Zend\Mvc\Router\Http\Literal',
-            //     'options' => array(
-            //         'route'    => '/',
-            //         'defaults' => array(
-            //             'controller' => 'Drh\Controller\Index',
-            //             'action'     => 'index',
-            //         ),
-            //     ),
-            // ),            
             'drh' => array(
                 'type'    => 'Literal',
                 'options' => array(
@@ -43,6 +33,12 @@ return array(
                                 'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
                             ),
                             'defaults' => array(
+                            ),
+                        ),
+                        'may_terminate' => true,
+                        'child_routes' => array(
+                            'wildcard' => array(
+                                'type' => 'Wildcard'
                             ),
                         ),
                     ),
@@ -73,6 +69,7 @@ return array(
         'invokables' => array(
             'Drh\Controller\Index' => 'Drh\Controller\IndexController',
             'Drh\Controller\Setor' => 'Drh\Controller\SetorController',
+            'Drh\Controller\Funcionario' => 'Drh\Controller\FuncionarioController',
             
         ),
     ),
@@ -100,6 +97,9 @@ return array(
                     __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver',
                 ),                                
             ),          
-        ),        
+        ),
+        'fixture' => array(
+            __NAMESPACE__ . "_fixture" => __DIR__ . '/../src/' . __NAMESPACE__ . '/Fixture',
+        ),
     ),    
 );

@@ -10,22 +10,29 @@ if (count($this->dados) > 0):
 			</td>
 			<td>
 				<?php
-				echo $funcionario->getRefCodPessoaFj()->getNome();
+				echo $funcionario->getFisica()->getNome();
 				?>
 			</td>
 			<td>
 				<?php
-				echo $funcionario->getAtivo();
+				if ($funcionario->getAtivo()){
+					$situacao = 'Ativo';
+					$label = 'success';
+				} else {
+					$situacao = 'Inativo';
+					$label = 'default';
+				}
 				?>
+				<span class="label label-<?php echo $label;?>"><?php echo $situacao;?></span>
 			</td>					  									  				
 			<td>
-				<a href="/auth/funcionario/ver/id/<?php echo $funcionario->getId()?>" class="btn btn-info">
+				<a href="/drh/funcionario/ver/id/<?php echo $funcionario->getId()?>" class="btn btn-info">
 					<i class="icon icon-list"></i> Ver detalhes
 				</a>
-				<a href="/auth/funcionario/save/id/<?php echo $funcionario->getId()?>" class="btn btn-primary">
+				<a href="/drh/funcionario/save/id/<?php echo $funcionario->getId()?>" class="btn btn-primary">
 					<i class="icon icon-pencil"></i> Editar
 				</a>
-				<a href="/auth/funcionario/delete/id/<?php echo $funcionario->getId()?>" class="btn btn-danger delete">
+				<a href="/drh/funcionario/delete/id/<?php echo $funcionario->getId()?>" class="btn btn-danger delete">
 					<i class="icon icon-trash"></i> Apagar
 				</a>
 			</td>

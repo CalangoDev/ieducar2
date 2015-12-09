@@ -27,7 +27,7 @@ forma melhor
 - Entidade/Form/Controller/Datafixtures Funcionario mudada do modulo portal para modulo Drh
 - Entidade Drh\Entity\Funcionario passa a herdar da Entidade Usuario\Entity\Fisica
 - Atributos removidos de Drh\Entity\Funcionario refCodPessoaFj, opcaoMenu, refRefCodPessoaFj, refCodSetorNew,
-matriculaNew, $tipoMenu, $email, statusToken, refSec, sequencial, refCodSetorNew
+matriculaNew, $tipoMenu, $email, statusToken, refSec, sequencial, refCodSetorNew, tempoExpiraSenha
 - Entidade Drh\Entity\Funcionario, Atributo refCodSetor muda para codigoSetor e aponta para entidade Drh\Entity\Setor
 - Entidade Drh\Entity\Funcionario - Atributo $refCodFuncionarioVinculo mudado para $vinculo
 - Entidade Drh\Entity\Funcionario - Atributo $proibido mudado para $banido

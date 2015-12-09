@@ -1,7 +1,7 @@
 <?php
 use Core\Test\ControllerTestCase;
-use Portal\Controller\FuncionarioController;
-use Portal\Entity\Funcionario;
+use Drh\Controller\FuncionarioController;
+use Drh\Entity\Funcionario;
 use Zend\Http\Request;
 use Zend\Stdlib\Parameters;
 use Zend\View\Renderer\PhpRenderer;
@@ -15,13 +15,13 @@ class FuncionarioControllerTest extends ControllerTestCase
 	 * Namespace completa do Controller
 	 * @var string FuncionarioController
 	 */
-	protected $controllerFQDN = 'Portal\Controller\FuncionarioController';
+	protected $controllerFQDN = 'Drh\Controller\FuncionarioController';
 
 	/**
 	 * Nome da rota. geralmente o nome do modulo
 	 * @var string portal
 	 */
-	protected $controllerRoute = 'portal';
+	protected $controllerRoute = 'drh';
 
 	/**
 	 * Testa a pagina inicial, que deve mostrar os funcionarios
@@ -37,14 +37,13 @@ class FuncionarioControllerTest extends ControllerTestCase
 		$em->persist($pB);
 
 		$funcionarioA = $this->buildFuncionario();
-		$funcionarioA->setRefCodPessoaFj($pA);
+		$funcionarioA->setFisica($pA);
 		// $funcionarioA->setId($pA);
 
 		$funcionarioB = $this->buildFuncionario();
 		// $funcionarioB->setId($pB);
-		$funcionarioB->setRefCodPessoaFj($pB);
+		$funcionarioB->setFisica($pB);
 		$funcionarioB->setMatricula('gold');
-		
 		
 		$em->persist($funcionarioA);
 		$em->persist($funcionarioB);
@@ -62,7 +61,6 @@ class FuncionarioControllerTest extends ControllerTestCase
 
 		//	Testa se um ViewModel foi retornado
 		$this->assertInstanceOf('Zend\View\Model\ViewModel', $result);
-		
 
 		//	Testa os dados da View
 		$variables = $result->getVariables();
@@ -105,9 +103,9 @@ class FuncionarioControllerTest extends ControllerTestCase
 		$this->assertEquals('id', $id->getName());
 		$this->assertEquals('hidden', $id->getAttribute('type'));
 
-		$refCodPessoaFj = $form->get('refCodPessoaFj');
-		$this->assertEquals('refCodPessoaFj', $refCodPessoaFj->getName());
-		$this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $refCodPessoaFj->getAttribute('type'));
+		$fisica = $form->get('fisica');
+		$this->assertEquals('fisica', $fisica->getName());
+		$this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $fisica->getAttribute('type'));
 
 		$matricula = $form->get('matricula');
 		$this->assertEquals('matricula', $matricula->getName());
@@ -118,30 +116,37 @@ class FuncionarioControllerTest extends ControllerTestCase
 		$this->assertEquals('password', $senha->getAttribute('type'));
 
 		$ativo = $form->get('ativo');
-		// var_dump($ativo);
 		$this->assertEquals('ativo', $ativo->getName());
-		$this->assertEquals('select', $ativo->getAttribute('type'));
+		$this->assertEquals('Zend\Form\Element\Select', $ativo->getAttribute('type'));
 		$this->assertInstanceOf('Zend\Form\Element', $ativo);
+
+		$ramal = $form->get('ramal');
+        $this->assertEquals('ramal', $ramal->getName());
+        $this->assertEquals('text', $ramal->getAttribute('type'));
 		
-		$refCodFuncionarioVinculo = $form->get('refCodFuncionarioVinculo');
-		$this->assertEquals('refCodFuncionarioVinculo', $refCodFuncionarioVinculo->getName());
-		$this->assertEquals('select', $refCodFuncionarioVinculo->getAttribute('type'));
+		$vinculo = $form->get('vinculo');
+		$this->assertEquals('vinculo', $vinculo->getName());
+		$this->assertEquals('Zend\Form\Element\Select', $vinculo->getAttribute('type'));
 
 		$tempoExpiraConta = $form->get('tempoExpiraConta');
 		$this->assertEquals('tempoExpiraConta', $tempoExpiraConta->getName());
-		$this->assertEquals('select', $tempoExpiraConta->getAttribute('type'));			
+		$this->assertEquals('Zend\Form\Element\Select', $tempoExpiraConta->getAttribute('type'));
 
-		$proibido = $form->get('proibido');
-		$this->assertEquals('proibido', $proibido->getName());
-		$this->assertEquals('Zend\Form\Element\Checkbox', $proibido->getAttribute('type'));
+		$banido = $form->get('banido');
+		$this->assertEquals('banido', $banido->getName());
+		$this->assertEquals('Zend\Form\Element\Checkbox', $banido->getAttribute('type'));
 
 		$matriculaPermanente = $form->get('matriculaPermanente');
 		$this->assertEquals('matriculaPermanente', $matriculaPermanente->getName());
 		$this->assertEquals('Zend\Form\Element\Checkbox', $matriculaPermanente->getAttribute('type'));			
 
-		$refCodSetorNew = $form->get('refCodSetorNew');
-		$this->assertEquals('refCodSetorNew', $refCodSetorNew->getName());
-		$this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $refCodSetorNew->getAttribute('type'));			
+		$codigoSetor = $form->get('codigoSetor');
+		$this->assertEquals('codigoSetor', $codigoSetor->getName());
+		$this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $codigoSetor->getAttribute('type'));
+
+        $superAdmin = $form->get('superAdmin');
+        $this->assertEquals('superAdmin', $superAdmin->getName());
+        $this->assertEquals('Zend\Form\Element\Checkbox', $superAdmin->getAttribute('type'));
 		
 	}
 
@@ -158,7 +163,7 @@ class FuncionarioControllerTest extends ControllerTestCase
 
 		$funcionario = $this->buildFuncionario();
 		// $funcionario->setId($fisica);				
-		$funcionario->setRefCodPessoaFj($fisica);
+		$funcionario->setFisica($fisica);
 		
 		$em->persist($funcionario);
 		$em->flush();
@@ -167,7 +172,7 @@ class FuncionarioControllerTest extends ControllerTestCase
 
 		//	Dispara a acao
 		$this->routeMatch->setParam('action', 'save');
-		$this->routeMatch->setParam('id', $funcionario->getRefCodPessoaFj()->getId());
+		$this->routeMatch->setParam('id', $funcionario->getFisica()->getId());
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
 		);
@@ -189,9 +194,9 @@ class FuncionarioControllerTest extends ControllerTestCase
 		$this->assertEquals('id', $id->getName());
 		$this->assertEquals('hidden', $id->getAttribute('type'));
 
-		$refCodPessoaFj = $form->get('refCodPessoaFj');
-		$this->assertEquals('refCodPessoaFj', $refCodPessoaFj->getName());
-		$this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $refCodPessoaFj->getAttribute('type'));
+		$fisica = $form->get('fisica');
+		$this->assertEquals('fisica', $fisica->getName());
+		$this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $fisica->getAttribute('type'));
 
 		$matricula = $form->get('matricula');
 		$this->assertEquals('matricula', $matricula->getName());
@@ -202,30 +207,37 @@ class FuncionarioControllerTest extends ControllerTestCase
 		$this->assertEquals('password', $senha->getAttribute('type'));
 
 		$ativo = $form->get('ativo');
-		// var_dump($ativo);
 		$this->assertEquals('ativo', $ativo->getName());
-		$this->assertEquals('select', $ativo->getAttribute('type'));
+		$this->assertEquals('Zend\Form\Element\Select', $ativo->getAttribute('type'));
 		$this->assertInstanceOf('Zend\Form\Element', $ativo);
-		
-		$refCodFuncionarioVinculo = $form->get('refCodFuncionarioVinculo');
-		$this->assertEquals('refCodFuncionarioVinculo', $refCodFuncionarioVinculo->getName());
-		$this->assertEquals('select', $refCodFuncionarioVinculo->getAttribute('type'));
+
+		$ramal = $form->get('ramal');
+		$this->assertEquals('ramal', $ramal->getName());
+		$this->assertEquals('text', $ramal->getAttribute('type'));
+
+		$vinculo = $form->get('vinculo');
+		$this->assertEquals('vinculo', $vinculo->getName());
+		$this->assertEquals('Zend\Form\Element\Select', $vinculo->getAttribute('type'));
 
 		$tempoExpiraConta = $form->get('tempoExpiraConta');
 		$this->assertEquals('tempoExpiraConta', $tempoExpiraConta->getName());
-		$this->assertEquals('select', $tempoExpiraConta->getAttribute('type'));			
+		$this->assertEquals('Zend\Form\Element\Select', $tempoExpiraConta->getAttribute('type'));
 
-		$proibido = $form->get('proibido');
-		$this->assertEquals('proibido', $proibido->getName());
-		$this->assertEquals('Zend\Form\Element\Checkbox', $proibido->getAttribute('type'));
+		$banido = $form->get('banido');
+		$this->assertEquals('banido', $banido->getName());
+		$this->assertEquals('Zend\Form\Element\Checkbox', $banido->getAttribute('type'));
 
 		$matriculaPermanente = $form->get('matriculaPermanente');
 		$this->assertEquals('matriculaPermanente', $matriculaPermanente->getName());
-		$this->assertEquals('Zend\Form\Element\Checkbox', $matriculaPermanente->getAttribute('type'));			
+		$this->assertEquals('Zend\Form\Element\Checkbox', $matriculaPermanente->getAttribute('type'));
 
-		$refCodSetorNew = $form->get('refCodSetorNew');
-		$this->assertEquals('refCodSetorNew', $refCodSetorNew->getName());
-		$this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $refCodSetorNew->getAttribute('type'));			
+		$codigoSetor = $form->get('codigoSetor');
+		$this->assertEquals('codigoSetor', $codigoSetor->getName());
+		$this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $codigoSetor->getAttribute('type'));
+
+		$superAdmin = $form->get('superAdmin');
+		$this->assertEquals('superAdmin', $superAdmin->getName());
+		$this->assertEquals('Zend\Form\Element\Checkbox', $superAdmin->getAttribute('type'));
 
 	}
 
@@ -251,15 +263,15 @@ class FuncionarioControllerTest extends ControllerTestCase
 
 		$this->request->setMethod('post');
 		$this->request->getPost()->set('id', '');
-		$this->request->getPost()->set('refCodPessoaFj', $fisica->getId());
+		$this->request->getPost()->set('fisica', $fisica->getId());
 		$this->request->getPost()->set('matricula', 'admin');
 		$this->request->getPost()->set('senha', 'admin');
 		$this->request->getPost()->set('ativo', true);
-		$this->request->getPost()->set('refCodFuncionarioVinculo', 3);
+		$this->request->getPost()->set('vinculo', 3);
 		$this->request->getPost()->set('tempoExpiraConta', 10);
-		$this->request->getPost()->set('proibido', '0');
+		$this->request->getPost()->set('banido', '0');
 		$this->request->getPost()->set('matriculaPermanente', '0');		
-		$this->request->getPost()->set('refCodSetorNew', $setor->getId());
+		$this->request->getPost()->set('codigoSetor', $setor->getId());
 		
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
@@ -269,7 +281,7 @@ class FuncionarioControllerTest extends ControllerTestCase
 		//	a pagina redireciona, estao o status = 302
 		$this->assertEquals(302, $response->getStatusCode());
 		$headers = $response->getHeaders();
-		$this->assertEquals('Location: /portal/funcionario', $headers->get('Location'));		
+		$this->assertEquals('Location: /drh/funcionario', $headers->get('Location'));
 
 	}
 
@@ -287,8 +299,7 @@ class FuncionarioControllerTest extends ControllerTestCase
 		$em->persist($setor);
 
 		$funcionario = $this->buildFuncionario();
-		// $funcionario->setId($fisica);
-		$funcionario->setRefCodPessoaFj($fisica);
+		$funcionario->setFisica($fisica);
 		$em->persist($funcionario);
 
 		
@@ -297,20 +308,18 @@ class FuncionarioControllerTest extends ControllerTestCase
 		//	Dispara a acao
 		$this->routeMatch->setParam('action', 'save');
 		// $this->routeMatch->setParam('fisica', $funcionario->getRefCodPessoaFj()->getId());
-		// $this->routeMatch->setParam('id', $funcionario->getId());
-		$this->routeMatch->setParam('id', $funcionario->getRefCodPessoaFj());
-
+		$this->routeMatch->setParam('id', $funcionario->getId());
 		$this->request->setMethod('post');
-		// $this->request->getPost()->set('id', $funcionario->getId());				
-		$this->request->getPost()->set('refCodPessoaFj', $fisica->getId());
+		$this->request->getPost()->set('id', $funcionario->getId());
+		$this->request->getPost()->set('fisica', $fisica->getId());
 		$this->request->getPost()->set('matricula', 'teste');
 		$this->request->getPost()->set('senha', 'admin');
 		$this->request->getPost()->set('ativo', true);
-		$this->request->getPost()->set('refCodFuncionarioVinculo', 3);
+		$this->request->getPost()->set('vinculo', 3);
 		$this->request->getPost()->set('tempoExpiraConta', 10);
-		$this->request->getPost()->set('proibido', '0');
+		$this->request->getPost()->set('banido', '0');
 		$this->request->getPost()->set('matriculaPermanente', '0');		
-		$this->request->getPost()->set('refCodSetorNew', $setor->getId());
+		$this->request->getPost()->set('codigoSetor', $setor->getId());
 
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
@@ -322,7 +331,7 @@ class FuncionarioControllerTest extends ControllerTestCase
 		$headers = $response->getHeaders();
 
 		$this->assertEquals(
-			'Location: /portal/funcionario', $headers->get('Location')
+			'Location: /drh/funcionario', $headers->get('Location')
 		);
 	}
 
@@ -392,14 +401,14 @@ class FuncionarioControllerTest extends ControllerTestCase
 
 		$funcionario = $this->buildFuncionario();
 		// $funcionario->setId($fisica);
-		$funcionario->setRefCodPessoaFj($fisica);
+		$funcionario->setFisica($fisica);
 		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
 		$em->persist($funcionario);
     	$em->flush();		
 		
 		//	Dispara a acao
 		$this->routeMatch->setParam('action', 'delete');
-		$this->routeMatch->setParam('id', $funcionario->getRefCodPessoaFj()->getId());
+		$this->routeMatch->setParam('id', $funcionario->getFisica()->getId());
 
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
@@ -412,7 +421,7 @@ class FuncionarioControllerTest extends ControllerTestCase
 		$this->assertEquals(302, $response->getStatusCode());
 		$headers = $response->getHeaders();
 		$this->assertEquals(
-			'Location: /portal/funcionario', $headers->get('Location')
+			'Location: /drh/funcionario', $headers->get('Location')
 		);
 	}
 
@@ -430,7 +439,7 @@ class FuncionarioControllerTest extends ControllerTestCase
 
 		$funcionario = $this->buildFuncionario();
 		// $funcionario->setId($fisica);	
-		$funcionario->setRefCodPessoaFj($fisica);	
+		$funcionario->setFisica($fisica);
 		$em->persist($funcionario);
     	$em->flush();		
 		
@@ -449,9 +458,63 @@ class FuncionarioControllerTest extends ControllerTestCase
 		$this->assertEquals(302, $response->getStatusCode());
 		$headers = $response->getHeaders();
 		$this->assertEquals(
-			'Location: /portal/funcionario', $headers->get('Location')
+			'Location: /drh/funcionario', $headers->get('Location')
 		);	
 	}
+
+
+    /**
+     * Testa a busca com resultados
+     */
+    public function testFuncionarioBuscaPostActionRequest()
+    {
+        //	cria pessoas fisicas para testar
+        $pA = $this->buildFisica();
+        $pA->setCpf("111.111.111-11");
+
+        $pB = $this->buildFisica();
+        $pB->setNome("GOLD");
+        $pB->setCpf("222.222.222-22");
+
+        $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
+
+        $funcionarioA = $this->buildFuncionario();
+        $funcionarioA->setFisica($pA);
+
+        $funcionarioB = $this->buildFuncionario();
+        $funcionarioB->setMatricula('steve');
+        $funcionarioB->setFisica($pB);
+
+        $em->persist($funcionarioA);
+        $em->persist($funcionarioB);
+
+        $em->flush();
+
+        //	Invoca a rota index
+        $this->routeMatch->setParam('action', 'busca');
+        $this->request->getPost()->set('q', 'admin');
+
+        $result = $this->controller->dispatch(
+            $this->request, $this->response
+        );
+
+        //	Verifica o response
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+
+        //	Testa se um ViewModel foi retornado
+        $this->assertInstanceOf('Zend\View\Model\ViewModel', $result);
+
+
+        //	Testa os dados da View
+        $variables = $result->getVariables();
+
+        $this->assertArrayHasKey('dados', $variables);
+
+        //	Faz a comparação dos dados
+        $dados = $variables["dados"];
+        $this->assertEquals('admin', $dados[0]->getMatricula());
+    }
 
 	private function buildFisica()
 	{	
@@ -460,14 +523,8 @@ class FuncionarioControllerTest extends ControllerTestCase
     	 */    	
 		$fisica = new \Usuario\Entity\Fisica;		
 		$fisica->setSexo("M");
-		$fisica->setOrigemGravacao("M");
-		$fisica->setOperacao("I");
-		$fisica->setIdsisCad(1);
 		$fisica->setNome('Steve Jobs');
 		$fisica->setSituacao('A');
-		$fisica->setOrigemGravacao('U');
-		$fisica->setOperacao('I');
-		$fisica->setIdsisCad(1);
 		$fisica->setCpf('111.111.111-11');
 
     	return $fisica;
@@ -480,8 +537,8 @@ class FuncionarioControllerTest extends ControllerTestCase
 		 * Dados setor
 		 */
 		$setor = new \Drh\Entity\Setor;
-		$setor->setNome('SEDUC');
-		$setor->setSiglaSetor('SEDUC');
+		$setor->setNome('Prefeitura Municipal de CalangoDev');
+		$setor->setSiglaSetor('PMC');
 		$setor->setTipo('s');
 
 		return $setor;

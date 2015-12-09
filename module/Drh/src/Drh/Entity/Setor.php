@@ -37,7 +37,7 @@ class Setor extends Entity
 	 * @var  int $id
 	 * 
 	 * @ORM\Id
-	 * @ORM\Column(name="cod_setor", type="integer", nullable=false)
+	 * @ORM\Column(type="integer")
 	 * @ORM\GeneratedValue(strategy="AUTO")	 
 	 */
 	protected $id;
@@ -69,7 +69,7 @@ class Setor extends Entity
 	 * @var int $ref_cod_setor Ref do codigo setor pai
 	 * 
 	 * @ORM\ManyToOne(targetEntity="Setor", cascade={"persist"})
-	 * @ORM\JoinColumn(name="ref_cod_setor", referencedColumnName="cod_setor", onDelete="SET NULL")
+	 * @ORM\JoinColumn(referencedColumnName="id", onDelete="SET NULL")
 	 */
 	protected $refCodSetor;
 

@@ -3,11 +3,9 @@ namespace Drh\Entity;
 
 use Core\Entity\Entity;
 use Doctrine\ORM\Mapping as ORM;
-
 use Usuario\Entity\Fisica;
-use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\Factory as InputFactory;
-
+use Zend\InputFilter\InputFilter;
 /**
  * Entidade Funcionario
  * 
@@ -23,8 +21,21 @@ use Zend\InputFilter\Factory as InputFactory;
  * @ORM\Table(name="drh_funcionario")
  *
  */
-class Funcionario extends Fisica
+class Funcionario extends Entity
 {
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * unique=true
+     * @ORM\OneToOne(targetEntity="Usuario\Entity\Fisica", cascade={"persist"})
+     * @ORM\JoinColumn(referencedColumnName="idpes")
+     */
+    protected $fisica;
 
 	/**
 	 * @var string $matricula Matricula do funcionario
@@ -71,30 +82,23 @@ class Funcionario extends Fisica
 	protected $vinculo;
 
 	/**
-	 * @var integer $tempo_expira_senha Tempo de expiracao da senha
-	 * 
-	 * @ORM\Column(name="tempo_expira_senha", type="integer", nullable=true)
-	 */
-	protected $tempoExpiraSenha;
-
-	/**
 	 * @var integer $tempo_expira_conta Tempo de Expiracao de conta
-	 * 
-	 * @ORM\Column(name="tempo_expira_conta", type="integer", nullable=true)
+	 *
+	 * @ORM\Column(type="integer", nullable=true)
 	 */
 	protected $tempoExpiraConta;
 
 	/**
 	 * @var date $data_troca_senha
 	 * 
-	 * @ORM\Column(name="data_troca_senha", type="date", nullable=true)
+	 * @ORM\Column(type="date", nullable=true)
 	 */
 	protected $dataTrocaSenha;
 
 	/**
 	 * @var date $data_reativa_conta data para reativação da conta
 	 * 
-	 * @ORM\Column(name="data_reativa_conta", type="date", nullable=true)
+	 * @ORM\Column(type="date", nullable=true)
 	 */
 	protected $dataReativaConta;
 
@@ -148,6 +152,21 @@ class Funcionario extends Fisica
 	 * getters and setters
 	 */
 
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getFisica()
+    {
+        return $this->fisica;
+    }
+
+    public function setFisica(\Usuario\Entity\Fisica $fisica)
+    {
+        $this->fisica = $this->valid('fisica', $fisica);
+    }
+
 	public function getMatricula()
 	{
 		return $this->matricula;
@@ -165,7 +184,7 @@ class Funcionario extends Fisica
 
     public function setSenha($senha)
     {
-        $this->senha = $this->valid('senha', $senha);
+        $this->senha = $this->valid('senha', md5($senha));
     }
 
     public function getAtivo()
@@ -196,16 +215,6 @@ class Funcionario extends Fisica
     public function setVinculo($vinculo)
     {
         $this->vinculo = $this->valid('vinculo', $vinculo);
-    }
-
-    public function getTempoExpiraSenha()
-    {
-        return $this->tempoExpiraSenha;
-    }
-
-    public function setTempoExpiraSenha($tempoExpiraSenha)
-    {
-        $this->tempoExpiraSenha = $this->valid('tempoExpiraSenha', $tempoExpiraSenha);
     }
 
     public function getTempoExpiraConta()
@@ -298,6 +307,12 @@ class Funcionario extends Fisica
         $this->superAdmin = $this->valid('superAdmin', $superAdmin);
     }
 
+    /**
+     * [$inputFilter recebe os filtros]
+     * @var Zend\InputFilter\InputFilter
+     */
+    protected $inputFilter;
+
 	/**
 	 * Configura os filtros dos campos da entidade
 	 * 
@@ -306,172 +321,186 @@ class Funcionario extends Fisica
 	public function getInputFilter()
 	{
         //herdando o inputfilter de fisica
-        parent::getInputFilter();
+        if (!$this->inputFilter){
 
-        $factory = new InputFactory();
+            $factory = new InputFactory();
+            $inputFilter = new InputFilter();
 
-        $this->inputFilter->add($factory->createInput(array(
-            'name' => 'matricula',
-            'required' => false,
-            'filters'	=>	array(
-                array('name'	=>	'StripTags'),
-                array('name'	=>	'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'StringLength',
-                    false,
-                    'options' => array(
-                        'encoding' => 'UTF-8',
-                        'min' => 1,
-                        'max' => 12,
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'id',
+                'required' => true,
+                'filters' => array(
+                    array('name' => 'Int'),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'matricula',
+                'required' => true,
+                'filters'	=>	array(
+                    array('name'	=>	'StripTags'),
+                    array('name'	=>	'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name' => 'StringLength',
+                        false,
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min' => 1,
+                            'max' => 12,
+                        ),
                     ),
                 ),
-            ),
-        )));
+            )));
 
-        $this->inputFilter->add($factory->createInput(array(
-            'name' => 'senha',
-            'required' => false,
-            'filters'	=>	array(
-                array('name'	=>	'StripTags'),
-                array('name'	=>	'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'StringLength',
-                    false,
-                    'options' => array(
-                        'encoding' => 'UTF-8',
-                        'min' => 1,
-                        'max' => 32,
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'senha',
+                'required' => true,
+                'filters'	=>	array(
+                    array('name'	=>	'StripTags'),
+                    array('name'	=>	'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name' => 'StringLength',
+                        false,
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min' => 1,
+                            'max' => 32,
+                        ),
                     ),
                 ),
-            ),
-        )));
+            )));
 
-        $this->inputFilter->add($factory->createInput(array(
-            'name' => 'ativo',
-            'required' => false,
-            'filters' => array(
-                array('name' => 'Int'),
-            ),
-        )));
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'ativo',
+                'required' => false,
+                'filters' => array(
+                    array('name' => 'Int'),
+                ),
+            )));
 
 
-        $this->inputFilter->add($factory->createInput(array(
-            'name' => 'ramal',
-            'required' => false,
-            'allow_empty' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'StringLength',
-                    false,
-                    'options' => array(
-                        'encoding' => 'UTF-8',
-                        'min' => 0,
-                        'max' => 10,
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'ramal',
+                'required' => false,
+                'allow_empty' => true,
+                'filters' => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name' => 'StringLength',
+                        false,
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min' => 0,
+                            'max' => 10,
+                        ),
                     ),
                 ),
-            ),
-        )));
+            )));
 
-        $this->inputFilter->add($factory->createInput(array(
-            'name' => 'vinculo',
-            'required' => false,
-            'filters' => array(
-                array('name' => 'Int'),
-            ),
-        )));
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'vinculo',
+                'required' => false,
+                'filters' => array(
+                    array('name' => 'Int'),
+                ),
+            )));
 
-        $this->inputFilter->add($factory->createInput(array(
-            'name' => 'tempoExpiraSenha',
-            'required' => false,
-            'filters' => array(
-                array('name' => 'Int'),
-            ),
-        )));
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'tempoExpiraConta',
+                'required' => false,
+                'filters' => array(
+                    array('name' => 'Int'),
+                ),
+            )));
 
-        $this->inputFilter->add($factory->createInput(array(
-            'name' => 'tempoExpiraConta',
-            'required' => false,
-            'filters' => array(
-                array('name' => 'Int'),
-            ),
-        )));
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'dataTrocaSenha',
+                'required' => false,
+                'validators' => array(
+                    'name' => new \Zend\Validator\Date(),
+                ),
+            )));
 
-        $this->inputFilter->add($factory->createInput(array(
-            'name' => 'dataTrocaSenha',
-            'required' => false,
-            'validators' => array(
-                'name' => new \Zend\Validator\Date(),
-            ),
-        )));
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'dataReativaConta',
+                'required' => false,
+                'validators' => array(
+                    'name' => new \Zend\Validator\Date(),
+                ),
+            )));
 
-        $this->inputFilter->add($factory->createInput(array(
-            'name' => 'dataReativaConta',
-            'required' => false,
-            'validators' => array(
-                'name' => new \Zend\Validator\Date(),
-            ),
-        )));
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'banido',
+                'required' => false,
+                'filters' => array(
+                    array('name' => 'Int'),
+                ),
+            )));
 
-        $this->inputFilter->add($factory->createInput(array(
-            'name' => 'proibido',
-            'required' => false,
-            'filters' => array(
-                array('name' => 'Int'),
-            ),
-        )));
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'matriculaPermanente',
+                'required' => false,
+                'filters' => array(
+                    array('name' => 'Int'),
+                ),
+            )));
 
-        $this->inputFilter->add($factory->createInput(array(
-            'name' => 'matriculaPermanente',
-            'required' => false,
-            'filters' => array(
-                array('name' => 'Int'),
-            ),
-        )));
-
-        $this->inputFilter->add($factory->createInput(array(
-            'name' => 'ipLogado',
-            'required' => false,
-            'allow_empty' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'StringLength',
-                    false,
-                    'options' => array(
-                        'encoding' => 'UTF-8',
-                        'min' => 0,
-                        'max' => 15,
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'ipLogado',
+                'required' => false,
+                'allow_empty' => true,
+                'filters' => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name' => 'StringLength',
+                        false,
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min' => 0,
+                            'max' => 15,
+                        ),
                     ),
                 ),
-            ),
-        )));
+            )));
 
-        $this->inputFilter->add($factory->createInput(array(
-            'name' => 'dataLogin',
-            'required' => false,
-            'validators' => array(
-                'name' => new \Zend\Validator\Date(),
-            ),
-        )));
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'dataLogin',
+                'required' => false,
+                'validators' => array(
+                    'name' => new \Zend\Validator\Date(),
+                ),
+            )));
 
-        $this->inputFilter->add($factory->createInput(array(
-            'name' => 'superAdmin',
-            'required' => false,
-            'filters' => array(
-                array('name' => 'Int'),
-            ),
-        )));
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'superAdmin',
+                'required' => false,
+                'filters' => array(
+                    array('name' => 'Int'),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'fisica',
+                'required' => true,
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'codigoSetor',
+                'required' => false
+            )));
+
+            $this->inputFilter = $inputFilter;
+        }
 
 		return $this->inputFilter;
 	}

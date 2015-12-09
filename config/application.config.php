@@ -7,7 +7,7 @@ return array(
         'Usuario',
         'Historico',
         'Application',
-        'Portal',
+        //'Portal',
         'Drh',
         'Auth',
         'DoctrineDataFixtureModule',

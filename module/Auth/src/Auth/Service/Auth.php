@@ -122,7 +122,7 @@ class Auth extends Service
         if ($auth->hasIdentity()) {        	        	
         	$user = $auth->getIdentity();
         	if ($user){        		
-            	$role = $user->getRefCodPessoaFj()->getId();//pega o codigo da pessoa fisica 
+            	$role = $user->getFisica()->getId();//pega o codigo da pessoa fisica
             	/*
 	             * Verificando se é superusuario se for liberar acesso ao sistema todo
 	             */            

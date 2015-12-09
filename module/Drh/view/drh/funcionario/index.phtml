@@ -1,7 +1,7 @@
 <div class="row">
 	<ol class="breadcrumb">
 		<li><a href="/">Ínicio</a></li>
-	  	<li><a href="#">DRH</a></li>
+	  	<li><a href="<?php echo $this->url('drh');?>">DRH</a></li>
 	  	<li class="active">Cadastro de Funcionários</li>
 	</ol>
 </div>
@@ -20,12 +20,12 @@
   			</div>
   			<div class="row">
 				<div class="col-md-4 p-20">
-					<a href="/portal/funcionario/save" class="btn btn-primary">
+					<a href="/drh/funcionario/save" class="btn btn-primary">
 						<i class="icon icon-plus"></i> Novo Funcionário
 					</a>
 				</div>
 				<div class="col-md-4 col-md-offset-4 p-20">
-					<form id="busca" method="post" action="/portal/funcionario/busca">
+					<form id="busca" method="post" action="/drh/funcionario/busca">
 						<div class="input-group">
 		  					<span class="input-group-addon"><i class="icon icon-search"></i></span>
 		  					<input type="text" class="form-control" name="q" placeholder="Pesquisar">
@@ -47,9 +47,11 @@
 	  				<tbody class="dados">
 	  					<?php						
 						if (count($this->dados) > 0):
+                            $estilos = array('active', 'warning');
+                            $this->cycle()->assign($estilos);
 							foreach ($this->dados as $funcionario):
 	  					?>
-					  			<tr>
+					  			<tr class="<?php echo $this->cycle()->next();?>">
 					  				<td>
 					  					<?php 
 					  					
@@ -58,18 +60,25 @@
 					  				</td>
 					  				<td>
 					  					<?php
-					  					echo $funcionario->getRefCodPessoaFj()->getNome();
+					  					echo $funcionario->getFisica()->getNome();
 					  					?>
 					  				</td>
 					  				<td>
 					  					<?php
-					  					echo $funcionario->getAtivo();
+                                        if ($funcionario->getAtivo()){
+                                            $situacao = 'Ativo';
+                                            $label = 'success';
+                                        } else {
+                                            $situacao = 'Inativo';
+                                            $label = 'default';
+                                        }
 					  					?>
+                                        <span class="label label-<?php echo $label;?>"><?php echo $situacao;?></span>
 					  				</td>					  									  				
 					  				<td>
-					  					<a href="/auth/funcionario/ver/id/<?php echo $funcionario->getId()?>" class="btn btn-info"><i class="icon icon-list"></i> Ver detalhes</a>
-					  					<a href="/auth/funcionario/save/id/<?php echo $funcionario->getId()?>" class="btn btn-primary"><i class="icon icon-pencil"></i> Editar</a>
-					  					<a href="/auth/funcionario/delete/id/<?php echo $funcionario->getId()?>" class="btn btn-danger delete"><i class="icon icon-trash"></i> Apagar</a>
+					  					<a href="/drh/funcionario/ver/id/<?php echo $funcionario->getId()?>" class="btn btn-info"><i class="icon icon-list"></i> Ver detalhes</a>
+					  					<a href="/drh/funcionario/save/id/<?php echo $funcionario->getId()?>" class="btn btn-primary"><i class="icon icon-pencil"></i> Editar</a>
+					  					<a href="/drh/funcionario/delete/id/<?php echo $funcionario->getId()?>" class="btn btn-danger delete"><i class="icon icon-trash"></i> Apagar</a>
 					  				</td>
 					  			</tr>
 				  		<?php
