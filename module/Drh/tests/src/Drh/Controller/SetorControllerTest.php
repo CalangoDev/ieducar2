@@ -31,7 +31,7 @@ class SetorControllerTest extends ControllerTestCase
 		$setorA = $this->buildSetor();
 		$setorB = $this->buildSetor();
 		$setorB->setNome('Setor Y');
-		$setorB->setSiglaSetor('STY');
+		$setorB->setSigla('STY');
 		
 		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
 		$em->persist($setorA);
@@ -57,9 +57,9 @@ class SetorControllerTest extends ControllerTestCase
 		$this->assertArrayHasKey('dados', $variables);
 
 		//	Faz a comparacao dos dados
-		$controllerData = $variables['dados'];
-		$this->assertEquals($setorA->getNome(), $controllerData[0]->getNome());
-		$this->assertEquals($setorB->getNome(), $controllerData[1]->getNome());
+        $pagination = $variables['dados'];
+        $this->assertEquals($setorA->getNome(), $pagination->getItem(1)->getNome());
+        $this->assertEquals($setorB->getNome(), $pagination->getItem(2)->getNome());
 	}
 
 	/**
@@ -91,33 +91,30 @@ class SetorControllerTest extends ControllerTestCase
 		$this->assertEquals('id', $id->getName());
 		$this->assertEquals('hidden', $id->getAttribute('type'));
 
+        $parentSetor = $form->get('parentSetor');
+        $this->assertEquals('parentSetor', $parentSetor->getName());
+        $this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $parentSetor->getAttribute('type'));
+
 		$nome = $form->get('nome');
 		$this->assertEquals('nome', $nome->getName());
 		$this->assertEquals('text', $nome->getAttribute('type'));
 
-		$siglaSetor = $form->get('siglaSetor');
-		$this->assertEquals('siglaSetor', $siglaSetor->getName());
-		$this->assertEquals('text', $siglaSetor->getAttribute('type'));
+		$sigla = $form->get('sigla');
+		$this->assertEquals('sigla', $sigla->getName());
+		$this->assertEquals('text', $sigla->getAttribute('type'));
 
-		$noPaco = $form->get('noPaco');
-		$this->assertEquals('noPaco', $noPaco->getName());
-		$this->assertEquals('text', $noPaco->getAttribute('type'));
 
 		$endereco = $form->get('endereco');
 		$this->assertEquals('endereco', $endereco->getName());
-		$this->assertEquals('text', $endereco->getAttribute('type'));
-
-		$tipo = $form->get('tipo');
-		$this->assertEquals('tipo', $tipo->getName());
-		$this->assertEquals('select', $tipo->getAttribute('type'));
-
-		// $secretario = $form->get('secretario');
-		// $this->assertEquals('secretario', $secretario->getName());
-		// $this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $secretario->getAttribute('type'));
+		$this->assertEquals('textarea', $endereco->getAttribute('type'));
 
 		$ativo = $form->get('ativo');
 		$this->assertEquals('ativo', $ativo->getName());
-		$this->assertEquals('select', $ativo->getAttribute('type'));
+		$this->assertEquals('Zend\Form\Element\Select', $ativo->getAttribute('type'));
+
+        $nivel = $form->get('nivel');
+        $this->assertEquals('nivel', $nivel->getName());
+        $this->assertEquals('Zend\Form\Element\Select', $nivel->getAttribute('type'));
 
 	}
 
@@ -169,7 +166,7 @@ class SetorControllerTest extends ControllerTestCase
 		$this->request->setMethod('post');
 		$this->request->getPost()->set('id', '');
 		$this->request->getPost()->set('nome', 'Setor Y');
-		$this->request->getPost()->set('siglaSetor', 'STY');
+		$this->request->getPost()->set('sigla', 'STY');
 		$this->request->getPost()->set('ativo', 1);
 		$this->request->getPost()->set('nivel', 1);
 		$this->request->getPost()->set('endereco', 'Rua do setor y');
@@ -204,11 +201,10 @@ class SetorControllerTest extends ControllerTestCase
 		$this->request->setMethod('post');
 		$this->request->getPost()->set('id', $setor->getId());
 		$this->request->getPost()->set('nome', 'Setor X');
-		$this->request->getPost()->set('siglaSetor', 'STY');
+		$this->request->getPost()->set('sigla', 'STY');
 		$this->request->getPost()->set('ativo', 1);
 		$this->request->getPost()->set('nivel', 1);
 		$this->request->getPost()->set('endereco', 'Rua do setor y');
-		$this->request->getPost()->set('tipo', 's');		
 
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
@@ -337,12 +333,10 @@ class SetorControllerTest extends ControllerTestCase
 	{
 		$setor = new Setor;
 		$setor->setNome('Setor X');
-		$setor->setSiglaSetor('STX');
+		$setor->setSigla('STX');
 		$setor->setAtivo(1);
 		$setor->setNivel(1);
-		$setor->setNoPaco(1);
 		$setor->setEndereco('Rua do Setor X');
-		$setor->setTipo('s');
 
 		return $setor;
 	}

@@ -32,18 +32,15 @@ class SetorTest extends EntityTestCase
 	 */
 	public function testInputFilterValid($if)
 	{
-		$this->assertEquals(11, $if->count());
+		$this->assertEquals(7, $if->count());
 
 		$this->assertTrue($if->has('id'));
 		$this->assertTrue($if->has('nome'));
-		$this->assertTrue($if->has('pessoaExclu'));
-		$this->assertTrue($if->has('pessoaCad'));
-		$this->assertTrue($if->has('refCodSetor'));
-		$this->assertTrue($if->has('siglaSetor'));		
+		$this->assertTrue($if->has('parentSetor'));
+		$this->assertTrue($if->has('sigla'));
 		$this->assertTrue($if->has('ativo'));
-		$this->assertTrue($if->has('noPaco'));
-		$this->assertTrue($if->has('tipo'));
-		$this->assertTrue($if->has('secretario'));		
+		$this->assertTrue($if->has('nivel'));
+        $this->assertTrue($if->has('endereco'));
 	}
 
 	/**
@@ -73,7 +70,7 @@ class SetorTest extends EntityTestCase
 	public function testInputFilterInvalidSetor()
 	{
 		$setor = $this->buildSetor();		
-		$setor->setSiglaSetor("Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá,
+		$setor->setSigla("Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá,
 		depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum
 		girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i 
 		pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.");		
@@ -85,13 +82,13 @@ class SetorTest extends EntityTestCase
 	{
 		$setor = $this->buildSetor();
 		$this->em->persist($setor);
+		$this->em->flush();
 
 		$savedSetor = $this->em->find('Drh\Entity\Setor', $setor->getId());
 
 		$this->assertEquals('Setor X', $savedSetor->getNome());
 
 		$savedSetor->setNome('Setor Y');
-		$this->em->persist($savedSetor);
 		$this->em->flush();
 
 		$savedSetor = $this->em->find('Drh\Entity\Setor', $savedSetor->getId());
@@ -110,7 +107,7 @@ class SetorTest extends EntityTestCase
 
 		$savedSetor = $this->em->find('Drh\Entity\Setor', $id);
 
-		$this->em->remove($setor);
+		$this->em->remove($savedSetor);
 		$this->em->flush();
 
 		$savedSetor = $this->em->find('Drh\Entity\Setor', $id);
@@ -153,12 +150,10 @@ class SetorTest extends EntityTestCase
 	{
 		$setor = new Setor;
 		$setor->setNome('Setor X');
-		$setor->setSiglaSetor('STX');
+		$setor->setSigla('STX');
 		$setor->setAtivo(1);
 		$setor->setNivel(1);
-		$setor->setNoPaco(1);
 		$setor->setEndereco('Rua do Setor X');
-		$setor->setTipo('s');
 
 		return $setor;
 	}

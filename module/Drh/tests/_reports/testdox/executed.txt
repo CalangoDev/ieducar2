@@ -1,1 +1,39 @@
 FuncionarioController
+ [x] Funcionario index action
+ [x] Funcionario save action new request
+ [x] Funcionario save action update form request
+ [x] Funcionario save action post request
+ [x] Funcionario update action
+ [x] Funcionario save action invalid post request
+ [x] Funcionario invalid delete action
+ [x] Funcionario delete action
+ [x] Funcionario invalid id delete action
+ [x] Funcionario busca post action request
+
+SetorController
+ [x] Setor index action
+ [x] Setor save action new request
+ [x] Setor save action update form request
+ [x] Setor save action post request
+ [x] Setor update action
+ [x] Setor save action invalid post request
+ [x] Setor invalid delete action
+ [x] Setor delete action
+ [x] Funcionario invalid id delete action
+
+Drh\Entity\Funcionario
+ [x] Get input filter
+ [x] Input filter valid
+ [x] Insert
+ [x] Input filter invalid matricula
+ [x] Update
+ [x] Delete
+
+Drh\Entity\Setor
+ [x] Get input filter
+ [x] Input filter valid
+ [x] Insert
+ [x] Input filter invalid setor
+ [x] Update
+ [x] Delete
+

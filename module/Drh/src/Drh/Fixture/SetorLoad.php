@@ -18,7 +18,7 @@ class SetorLoad extends AbstractFixture implements FixtureInterface
     {
         $setor = new Setor();
         $setor->setNome('Educação');
-        $setor->setSiglaSetor('EDUC');
+        $setor->setSigla('EDUC');
 
         $manager->persist($setor);
         $manager->flush();

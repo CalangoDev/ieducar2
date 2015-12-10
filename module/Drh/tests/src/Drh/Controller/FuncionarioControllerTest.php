@@ -538,8 +538,7 @@ class FuncionarioControllerTest extends ControllerTestCase
 		 */
 		$setor = new \Drh\Entity\Setor;
 		$setor->setNome('Prefeitura Municipal de CalangoDev');
-		$setor->setSiglaSetor('PMC');
-		$setor->setTipo('s');
+		$setor->setSigla('PMC');
 
 		return $setor;
 	}
