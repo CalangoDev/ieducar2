@@ -11,7 +11,7 @@ use Doctrine\ORM\EntityManager;
 use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 use Zend\Paginator\Paginator;
-
+use DoctrineModule\Validator\NoObjectExists as NoObjectExistsValidator;
 // use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 
 /**
@@ -100,6 +100,18 @@ class FuncionarioController extends ActionController
 		$form->bind($funcionario);
 
 		if ($request->isPost()){
+
+            // add filter unique to input matricula
+			$matriculaInput = $funcionario->getInputFilter()->get('matricula');
+			$noObjectExistsValidator = new NoObjectExistsValidator(array(
+                'object_repository' => $this->getEntityManager()->getRepository('Drh\Entity\Funcionario'),
+                'fields' => 'matricula',
+                'messages' => array(
+                    'objectFound' => 'Nos desculpe, mas essa matrícula já existe no sistema !'
+                )
+			));
+
+			$matriculaInput->getValidatorChain()->attach($noObjectExistsValidator);
 
 			$form->setInputFilter($funcionario->getInputFilter());
             $form->setData($request->getPost());

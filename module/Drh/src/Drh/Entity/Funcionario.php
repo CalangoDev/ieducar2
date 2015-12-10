@@ -40,7 +40,7 @@ class Funcionario extends Entity
 	/**
 	 * @var string $matricula Matricula do funcionario
 	 * 
-	 * @ORM\Column(type="string", length=12, nullable=true)
+	 * @ORM\Column(type="string", length=12, nullable=false, unique=true)
 	 */
 	protected $matricula;
 
@@ -333,6 +333,7 @@ class Funcionario extends Entity
                     array('name' => 'Int'),
                 ),
             )));
+
 
             $inputFilter->add($factory->createInput(array(
                 'name' => 'matricula',

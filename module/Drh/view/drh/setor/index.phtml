@@ -1,0 +1,111 @@
+<div class="row">
+    <ol class="breadcrumb">
+        <li><a href="/">Ínicio</a></li>
+        <li><a href="<?php echo $this->url('drh'); ?>">DRH</a></li>
+        <li class="active">Cadastro de Setores</li>
+    </ol>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-header">
+            <h1><i class="icon icon-group"></i> Cadastro <small>de setores</small></h1>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <b>Lista de Setores</b>
+            </div>
+            <div class="row">
+                <div class="col-md-4 p-20">
+                    <a href="/drh/setor/save" class="btn btn-primary">
+                        <i class="icon icon-plus"></i> Novo Setor
+                    </a>
+                </div>
+                <div class="col-md-4 col-md-offset-4 p-20">
+                    <form id="busca" method="post" action="/drh/setor/busca">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="icon icon-search"></i></span>
+                            <input type="text" class="form-control" name="q" placeholder="Pesquisar">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 p-20">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th width="5%">#</th>
+                            <th>NOME</th>
+                            <th width="5%">SIGLA</th>
+                            <th width="30%">AÇÕES</th>
+                        </tr>
+                        </thead>
+                        <tbody class="dados">
+                        <?php
+                        if (count($this->dados) > 0):
+                            $estilos = array('active', 'warning');
+                            $this->cycle()->assign($estilos);
+                            foreach ($this->dados as $setor):
+                                ?>
+                                <tr class="<?php echo $this->cycle()->next();?>">
+                                    <td>
+                                        <?php
+
+                                        echo $setor->getId();
+                                        ?>
+                                    </td>
+                                    <td>
+                                        <?php
+                                        echo $setor->getNome();
+                                        ?>
+                                    </td>
+                                    <td>
+                                        <?php
+                                        echo $setor->getSiglaSetor();
+                                        ?>
+                                    </td>
+                                    <td>
+                                        <a href="#<?php echo $setor->getId()?>"
+                                           class="btn btn-info btn-detalhes" data-toggle="modal"
+                                           data-target="#detalhesModal"><i class="icon icon-list"></i> Ver detalhes</a>
+                                        <a href="/drh/setor/save/id/<?php echo $setor->getId()?>"
+                                           class="btn btn-primary"><i class="icon icon-pencil"></i> Editar</a>
+                                        <a href="/drh/setor/delete/id/<?php echo $setor->getId()?>"
+                                           class="btn btn-danger delete"><i class="icon icon-trash"></i> Apagar</a>
+                                    </td>
+                                </tr>
+                                <?php
+                            endforeach;
+                        else:
+                            ?>
+                            <tr class="warning">
+                                <td colspan="4" class="text-center">
+                                    <b>Nenhum registro encontrado</b>
+                                </td>
+                            </tr>
+                            <?php
+                        endif;
+                        ?>
+                        </tbody>
+                        <tr class="loading">
+                            <td class="info text-center" colspan="4">
+                                <i class='glyphicon icon-spinner icon-spin icon-large'></i> Carregando...
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <?php
+                    echo $this->paginationControl($dados, 'Sliding', 'partials/paginator/control.phtml');
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

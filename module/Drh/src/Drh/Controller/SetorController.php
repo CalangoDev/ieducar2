@@ -7,7 +7,9 @@ use Drh\Entity\Setor;
 use Drh\Form\Setor as SetorForm;
 use Doctrine\ORM\EntityManager;
 use DoctrineORMModule\Stdlib\Hydrator\DoctrineEntity;
-
+use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
+use Zend\Paginator\Paginator;
 
 
 /**
@@ -25,10 +27,16 @@ class SetorController extends ActionController
 	 */
 	public function indexAction()
 	{
-		$dados = $this->getEntityManager()->getRepository('Drh\Entity\Setor')->findAll();
+		$query = $this->getEntityManager()->createQuery('SELECT s FROM Drh\Entity\Setor s');
+
+		$dados = new Paginator(
+            new DoctrinePaginator(new ORMPaginator($query))
+		);
+
+		$dados->setCurrentPageNumber($this->params()->fromRoute('page'))->setItemCountPerPage(10);
 
 		return new ViewModel(array(
-			'dados' => $dados
+            'dados' => $dados
 		));
 	}
 

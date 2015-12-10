@@ -32,6 +32,7 @@ matriculaNew, $tipoMenu, $email, statusToken, refSec, sequencial, refCodSetorNew
 - Entidade Drh\Entity\Funcionario - Atributo $refCodFuncionarioVinculo mudado para $vinculo
 - Entidade Drh\Entity\Funcionario - Atributo $proibido mudado para $banido
 
+
 i-Educar 1.1.0 2010-02-15
 -------------------------
 
