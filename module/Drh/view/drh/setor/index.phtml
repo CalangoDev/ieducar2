@@ -65,7 +65,7 @@
                                     </td>
                                     <td>
                                         <?php
-                                        echo $setor->getSiglaSetor();
+                                        echo $setor->getSigla();
                                         ?>
                                     </td>
                                     <td>
@@ -109,3 +109,108 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Apagar?</h4>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger">
+                    <p>Tem certeza que deseja remover esse registro?</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Não</button>
+                <button type="button" class="btn btn-primary confirmation">Sim</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="detalhesModal" tabindex="-1" role="dialog" aria-labelledby="detalhesModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" area-hidden="true">&times;</button>
+                <h4 class="modal-title" id="detalhesModalLabel">Detalhes</h4>
+            </div>
+
+            <div class="modal-body">
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        url = null;
+        $('.dados').on("click", ".delete", function(event){
+            event.preventDefault();
+            url = $(this).attr('href');
+            $("#deleteModal").modal();
+        });
+
+
+        $(".confirmation").click(function(event){
+            $("#deleteModal").modal('hide');
+            window.location.href = url;
+        });
+
+
+        $('.dados').on('click', '.btn-detalhes', function(event){
+            event.preventDefault();
+            var id = $(this).attr('href').split('#')[1];
+            $.ajax({
+                type: "GET",
+                url: '/drh/setor/detalhes/id/' + id,
+                success: function(data){
+                    $('#detalhesModalLabel').html('Detalhes Setor ID#' + id);
+                    $('#detalhesModal .modal-body').html(data);
+                },
+                beforeSend: function(){
+                    $('#detalhesModalLabel').html('Detalhes');
+                    $('#detalhesModal .modal-body').html("<p class='text-center'> " +
+                        "<i class='glyphicon icon-spinner icon-spin icon-large'></i> Carregando...</p>");
+                }
+            });
+        });
+
+        $( "#busca" ).submit(function( event ) {
+            event.preventDefault();
+            // var query = $(this).serialize();
+            var query = $("input[name=q]").val();
+            $.ajax({
+                type : "POST",
+                data : { q:query },
+                url : $(this).attr('action'),
+                success : function(result){
+                    $(".dados").html(result);
+                },
+                beforeSend : function(){
+                    $(".dados").html('');
+                    $(".dados").hide();
+                    $(".loading").show();
+                },
+                complete : function(msg){
+                    $(".loading").hide();
+                    $(".dados").show();
+                }
+            })
+        });
+
+        $("#go").click(function(event) {
+            $("#busca").submit();
+        });
+    });
+</script>

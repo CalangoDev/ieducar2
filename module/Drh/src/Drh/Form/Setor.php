@@ -2,15 +2,18 @@
 namespace Drh\Form;
 
 use Zend\Form\Form;
-use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Persistence\ObjectManager;
+use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 
 class Setor extends Form
 {
-	public function __construct(EntityManager $em)
+	public function __construct(ObjectManager $objectManager)
 	{
 		parent::__construct('setor');
 		$this->setAttribute('method', 'post');
 		$this->setAttribute('action', '/drh/setor/save');
+        $this->setHydrator(new DoctrineHydrator($objectManager))->setObject(new \Drh\Entity\Setor());
+        $this->setUseInputFilterDefaults(false);
 
 		$this->add(array(
 			'name' => 'id',
@@ -30,7 +33,7 @@ class Setor extends Form
 			'options' => array(
 				'label' => 'Setor Pai:',
 				'empty_option' => 'Selecione um setor já cadastrado',
-				'object_manager' => $em,
+				'object_manager' => $objectManager,
 				'target_class' => 'Drh\Entity\Setor',
 				'property' => 'nome',
 			),
@@ -51,7 +54,8 @@ class Setor extends Form
 		$this->add(array(
 			'name' => 'sigla',
 			'attributes' => array(
-				'type' => 'text'
+				'type' => 'text',
+                'class' => 'form-control'
 			),
 			'options' => array(
 				'label' => 'Sigla do Setor:'
@@ -62,7 +66,8 @@ class Setor extends Form
 		$this->add(array(
 			'name' => 'endereco',
 			'attributes' => array(
-				'type' => 'text'
+				'type' => 'textarea',
+                'class' => 'form-control'
 			),
 			'options' => array(
 				'label' => 'Endereço:'
@@ -81,18 +86,36 @@ class Setor extends Form
 			),
 			'attributes' => array(
                 'type' => 'Zend\Form\Element\Select',
-				'value' => 1
+				'value' => 1,
+                'class' => 'form-control chosen-select',
+                'style' => 'height:100px;',
 			),
 		));
 
         $this->add(array(
-           'name' => 'nivel',
-            'attributes' => array(
-                'type' => 'text'
-            ),
+            'name' => 'nivel',
+            'type' => 'Zend\Form\Element\Select',
             'options' => array(
-                'label' => 'Nivel:'
-            )
+                'label' => 'Nível:',
+                'value_options' => array(
+                    1 => '1',
+                    2 => '2',
+                    3 => '3',
+                    4 => '4',
+                    5 => '5',
+                    6 => '6',
+                    7 => '7',
+                    8 => '8',
+                    9 => '9',
+                    10 => '10',
+                ),
+                'empty_option' => 'Selecione um nível',
+            ),
+            'attributes' => array(
+                'value' => '',
+                'type' => 'Zend\Form\Element\Select',
+                'class' => 'form-control chosen-select'
+            ),
         ));
 
 		$this->add(array(
@@ -100,6 +123,7 @@ class Setor extends Form
 			'attributes' => array(
 				'type' => 'submit',
 				'value' => 'Enviar',
+                'class' => 'btn btn-lg btn-primary',
 				'id' => 'submitbutton',
 			),			
 		));

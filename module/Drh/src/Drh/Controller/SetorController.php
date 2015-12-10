@@ -49,22 +49,27 @@ class SetorController extends ActionController
 		$id = (int) $this->getEvent()->getRouteMatch()->getParam('id');
 		if ($id > 0){
 			$setor = $this->getEntityManager()->find('Drh\Entity\Setor', $id);
-			$form->get('submit')->setAttribute('value', 'Edit');
+			$form->get('submit')->setAttribute('value', 'Atualizar');
 		}
-		$form->setHydrator(new DoctrineEntity($this->getEntityManager(), 'Drh\Entity\Setor'));
 		$form->bind($setor);
 
 		if ($request->isPost()){			
-			$form->setInputFilter($setor->getInputFilter());
+
+            $form->setInputFilter($setor->getInputFilter());
 			// $setor->removeInputFilter('sigla_setor');
 			$form->setData($request->getPost());				
 			if ($form->isValid()){				
 				/**
 				 * Persistindo os dados
-				 */				
-				$this->getEntityManager()->persist($setor);
+				 */
+                $id = (int) $this->params()->fromPost('id', 0);
+                if ($id == 0){
+                    $this->getEntityManager()->persist($setor);
+                    $this->flashMessenger()->addSuccessMessage(array("success" => "Novo Setor salvo"));
+                } else {
+                    $this->flashMessenger()->addSuccessMessage(array("success" => "Setor alterado"));
+                }
 				$this->getEntityManager()->flush();
-				$this->flashMessenger()->addSuccessMessage('Novo Setor salvo');
 				/**
 				 * Redirecionando para lista de setores
 				 */
@@ -72,24 +77,75 @@ class SetorController extends ActionController
 			} 
 		} 
 
-		/**
-		 * @todo refatorar a logica do get id, estou praticamente duplicando codigo 		 
-		 */
-		$id = (int) $this->params()->fromRoute('id', 0);
-		if ($id >0){
-			$setor = $this->getEntityManager()->find('Drh\Entity\Setor', $id);
-			$form->get('submit')->setAttribute('value', 'Edit');
-		}
-
 		return new ViewModel(array(
 			'form' => $form
 		));
 
 	}
 
+
+    /**
+     * Busca
+     */
+    public function buscaAction()
+    {
+        $q = (string) $this->params()->fromPost('q');
+        $query = $this->getEntityManager()->createQuery("
+			SELECT
+
+				s
+
+			FROM
+
+				Drh\Entity\Setor s
+
+			WHERE
+
+				s.nome LIKE :query
+
+			OR
+
+				s.sigla LIKE :query
+		");
+        $query->setParameter('query', "%".$q."%");
+        $dados = $query->getResult();
+
+        $view = new ViewModel(array(
+            'dados' => $dados
+        ));
+        $view->setTerminal(true);
+
+        return $view;
+    }
+
+
+    /**
+     * Detalhes de um setor
+     */
+    public function detalhesAction()
+    {
+        $id = (int) $this->params()->fromRoute('id', 0);
+        if ($id == 0)
+            throw new \Exception("Código Obrigatório");
+
+        $setor = $this->getEntityManager()->find('Drh\Entity\Setor', $id);
+
+        if (!$setor)
+            throw new \Exception("Registro não encontrado");
+
+        $view = new ViewModel(array(
+            'data' => $setor
+        ));
+
+        $view->setTerminal(true);
+
+        return $view;
+    }
+
 	/**
 	 * Excluir um setor
 	 * @return void
+     * @throws \Exception If Registro não encontrado
 	 */
 	public function deleteAction()
 	{

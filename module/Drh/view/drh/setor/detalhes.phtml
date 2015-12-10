@@ -1,0 +1,35 @@
+<div class="row">
+    <dl class="dl-horizontal">
+
+        <dt>Setor Pai</dt>
+        <dd>
+            <?php if ($data->getParentSetor()) echo $data->getParentSetor()->getNome();?>&nbsp;
+        </dd>
+
+        <dt>Nome:</dt>
+        <dd>
+            <?php if ($data->getNome()) echo $data->getNome();?>&nbsp;
+        </dd>
+
+        <dt>Sigla:</dt>
+        <dd>
+            <?php if ($data->getSigla()) echo $data->getSigla();?>&nbsp;
+        </dd>
+
+        <dt>Endereço:</dt>
+        <dd>
+            <?php if ($data->getEndereco()) echo $data->getEndereco();?>&nbsp;
+        </dd>
+
+        <dt>Ativo:</dt>
+        <dd>
+            <?php echo ($data->getAtivo()) ? 'Sim': 'Não';?>&nbsp;
+        </dd>
+
+        <dt>Nível:</dt>
+        <dd>
+            <?php if ($data->getNivel()) echo $data->getNivel();?>&nbsp;
+        </dd>
+
+    </dl>
+</div>

@@ -50,26 +50,18 @@
                             ?>
                             <br>
                             <div class="form-group">
+
+                                <label for="refCodSetor">
+                                    <?php echo $parentSetor->getOption('label'); ?>
+                                </label>
                                 <div class="row">
-
                                     <div class="col-md-3">
-
-                                        <label for="refCodSetor">
-                                            <?php echo $parentSetor->getOption('label'); ?>
-                                        </label>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <?php
-                                                echo $this->formSelect($parentSetor);
-                                                echo $this->formElementErrors($parentSetor);
-                                                ?>
-                                            </div>
-                                        </div>
-
+                                        <?php
+                                        echo $this->formSelect($parentSetor);
+                                        echo $this->formElementErrors($parentSetor);
+                                        ?>
                                     </div>
-
                                 </div>
-                                <!-- end parentSetor -->
 
                             </div>
 
@@ -80,6 +72,64 @@
                                         <?php echo $this->formInput($nome);?>
                                         <span class="help-block">
                                             <?php echo $this->formElementErrors($nome);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="sigla">
+                                    <?php echo $sigla->getOption('label');?>
+                                </label>
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <?php echo $this->formInput($sigla);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($sigla);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="endereco">
+                                    <?php echo $endereco->getOption('label');?>
+                                </label>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <?php echo $this->formElement($endereco);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($endereco);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ativo"><?php echo $ativo->getOption('label');?></label>
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <?php echo $this->formSelect($ativo);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($ativo);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="nivel">
+                                    <?php echo $nivel->getOption('label');?>
+                                </label>
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <?php echo $this->formSelect($nivel);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($nivel);?>
                                         </span>
                                     </div>
                                 </div>

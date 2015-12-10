@@ -1,7 +1,6 @@
 <?php
 namespace Drh\Form;
 
-use DoctrineModule\Validator\NoObjectExists;
 use Zend\Form\Form;
 use Doctrine\Common\Persistence\ObjectManager;
 use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
