@@ -29,21 +29,11 @@ class JuridicaControllerTest extends ControllerTestCase
 	public function testJuridicaIndexAction()
 	{
 		$pA = $this->buildJuridica();
-		$pA->setNome("Steve Jobs");
-		$pA->setTipo("J");
-		$pA->setSituacao("A");
-		$pA->setOrigemGravacao("M");
-		$pA->setOperacao("I");
-		$pA->setIdSisCad(1);
+
 
 		$pB = $this->buildJuridica();
 		$pB->setFantasia('Apple.com');
 		$pB->setNome("Steve Jobs");
-		$pB->setTipo("J");
-		$pB->setSituacao("A");
-		$pB->setOrigemGravacao("M");
-		$pB->setOperacao("I");
-		$pB->setIdSisCad(1);
 
 		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
 		$em->persist($pA);
@@ -69,9 +59,9 @@ class JuridicaControllerTest extends ControllerTestCase
 		$this->assertArrayHasKey('dados', $variables);
 
 		//	Faz a comparacao dos dados
-		$controllerData = $variables['dados'];
-		$this->assertEquals($pA->getFantasia(), $controllerData[0]->getFantasia());
-		$this->assertEquals($pB->getFantasia(), $controllerData[1]->getFantasia());
+		$paginator = $variables['dados'];
+		$this->assertEquals($pA->getFantasia(), $paginator->getItem(1)->getFantasia());
+		$this->assertEquals($pB->getFantasia(), $paginator->getItem(2)->getFantasia());
 	}
 
 	/**
@@ -106,17 +96,17 @@ class JuridicaControllerTest extends ControllerTestCase
 		$this->assertEquals('nome', $nome->getName());
 		$this->assertEquals('text', $nome->getAttribute('type'));
 
-		// $situacao = $form->get('situacao');
-		// $this->assertEquals('situacao', $situacao->getName());
-		// $this->assertEquals('Zend\Form\Element\Select', $situacao->getAttribute('type'));		
+		$situacao = $form->get('situacao');
+		$this->assertEquals('situacao', $situacao->getName());
+		$this->assertEquals('Zend\Form\Element\Select', $situacao->getAttribute('type'));
 
 		$cnpj = $form->get('cnpj');
 		$this->assertEquals('cnpj', $cnpj->getName());
 		$this->assertEquals('text', $cnpj->getAttribute('type'));
 
-		$inscEstadual = $form->get('inscEstadual');
-		$this->assertEquals('inscEstadual', $inscEstadual->getName());
-		$this->assertEquals('text', $inscEstadual->getAttribute('type'));
+		$inscricaoEstadual = $form->get('inscricaoEstadual');
+		$this->assertEquals('inscricaoEstadual', $inscricaoEstadual->getName());
+		$this->assertEquals('text', $inscricaoEstadual->getAttribute('type'));
 
 		$fantasia = $form->get('fantasia');
 		$this->assertEquals('fantasia', $fantasia->getName());
@@ -125,6 +115,19 @@ class JuridicaControllerTest extends ControllerTestCase
 		$capitalSocial = $form->get('capitalSocial');
 		$this->assertEquals('capitalSocial', $capitalSocial->getName());
 		$this->assertEquals('text', $capitalSocial->getAttribute('type'));
+
+        $telefones = $form->get('telefones');
+        $this->assertEquals('telefones', $telefones->getName());
+        $this->assertEquals('Zend\Form\Element\Collection', $telefones->getAttribute('type'));
+
+        $url = $form->get('url');
+        $this->assertEquals('url', $url->getName());
+        $this->assertEquals('text', $url->getAttribute('type'));
+
+        $email = $form->get('email');
+        $this->assertEquals('email', $email->getName());
+        $this->assertEquals('email', $email->getAttribute('type'));
+
 	}
 
 	/**
@@ -134,11 +137,6 @@ class JuridicaControllerTest extends ControllerTestCase
 	{
 		$juridica = $this->buildJuridica();
 		$juridica->setNome("Steve Jobs");
-		$juridica->setTipo("J");
-		$juridica->setSituacao("A");
-		$juridica->setOrigemGravacao("M");
-		$juridica->setOperacao("I");
-		$juridica->setIdSisCad(1);
 		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
 		$em->persist($juridica);
 		$em->flush();
@@ -183,6 +181,24 @@ class JuridicaControllerTest extends ControllerTestCase
 		$this->request->getPost()->set('nome', 'Garrincha');
 		$this->request->getPost()->set('situacao', 'A');
 		$this->request->getPost()->set('cnpj', '52.476.528/0001-35');
+        $this->request->getPost()->set('fantasia', 'CalangoDev');
+        $enderecoExterno = array(
+            'id' => '0',
+            'cep' => '',
+            'tipoLogradouro' => '0',
+            'logradouro' => '',
+            'numero' => '',
+            'cidade' => '',
+            'bairro' => '',
+            'siglaUf' => '',
+            'letra' => '',
+            'apartamento' =>'',
+            'bloco' => '',
+            'andar' => '',
+            'zonaLocalizacao' => ''
+        );
+
+        $this->request->getPost()->set('enderecoExterno', $enderecoExterno);
 
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
@@ -203,11 +219,7 @@ class JuridicaControllerTest extends ControllerTestCase
 	{
 		$juridica = $this->buildJuridica();
 		$juridica->setNome('Bill Gates');
-		$juridica->setTipo("J");
 		$juridica->setSituacao("A");
-		$juridica->setOrigemGravacao("M");
-		$juridica->setOperacao("I");
-		$juridica->setIdSisCad(1);
 		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
 		$em->persist($juridica);
     	$em->flush();
@@ -221,6 +233,24 @@ class JuridicaControllerTest extends ControllerTestCase
 		$this->request->getPost()->set('nome', 'Alan Turing');
 		$this->request->getPost()->set('situacao', 'I');
 		$this->request->getPost()->set('cnpj', '52.476.528/0001-35');
+        $this->request->getPost()->set('fantasia', 'CalangoDev');
+        $enderecoExterno = array(
+            'id' => '0',
+            'cep' => '',
+            'tipoLogradouro' => '0',
+            'logradouro' => '',
+            'numero' => '',
+            'cidade' => '',
+            'bairro' => '',
+            'siglaUf' => '',
+            'letra' => '',
+            'apartamento' =>'',
+            'bloco' => '',
+            'andar' => '',
+            'zonaLocalizacao' => ''
+        );
+
+        $this->request->getPost()->set('enderecoExterno', $enderecoExterno);
 
 		$result = $this->controller->dispatch(
 			$this->request, $this->response
@@ -290,11 +320,6 @@ class JuridicaControllerTest extends ControllerTestCase
 	{
 		$juridica = $this->buildJuridica();
 		$juridica->setNome("Steve Jobs");
-		$juridica->setTipo("J");
-		$juridica->setSituacao("A");
-		$juridica->setOrigemGravacao("M");
-		$juridica->setOperacao("I");
-		$juridica->setIdSisCad(1);
 		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
 		$em->persist($juridica);
     	$em->flush();		
@@ -327,11 +352,6 @@ class JuridicaControllerTest extends ControllerTestCase
 	{
 		$juridica = $this->buildJuridica();
 		$juridica->setNome("Steve Jobs");
-		$juridica->setTipo("J");
-		$juridica->setSituacao("A");
-		$juridica->setOrigemGravacao("M");
-		$juridica->setOperacao("I");
-		$juridica->setIdSisCad(1);
 		$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
 		$em->persist($juridica);
     	$em->flush();		
@@ -360,11 +380,13 @@ class JuridicaControllerTest extends ControllerTestCase
 		/**
 		 * Dados Juridica
 		 */
-		$juridica = new Juridica;		
+		$juridica = new Juridica;
+		$juridica->setNome('Eduardo Junior');
 		$juridica->setCnpj('52.476.528/0001-35');
-		$juridica->setInscEstadual('866498342');
-		$juridica->setFantasia('Eduardojunior.com');
+		$juridica->setInscricaoEstadual('866498342');
+		$juridica->setFantasia('CalangoDev');
 		$juridica->setCapitalSocial('capital social');
+        $juridica->setSituacao('A');
 		
 		return $juridica;
 	}

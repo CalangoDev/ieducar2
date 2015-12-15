@@ -1,0 +1,678 @@
+
+<div class="container">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="/">Ínicio</a></li>
+            <li><a href="/usuario/juridica">Cadastro de Pessoa Jurídica</a></li>
+            <li class="active">Salvar</li>
+        </ol>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1><i class="icon icon-group"></i> Cadastro <small>de pessoa jurídica</small></h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <b>Salvar</b>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <?php
+                            $this->form->prepare();
+                            echo $this->form()->openTag($form);
+                            $id = $this->form->get('id');
+                            $nome = $this->form->get('nome');
+                            $situacao = $this->form->get('situacao');
+                            $cnpj = $this->form->get('cnpj');
+                            $inscricaoEstadual = $this->form->get('inscricaoEstadual');
+                            $fantasia = $this->form->get('fantasia');
+                            $capitalSocial = $this->form->get('capitalSocial');
+
+                            /*
+                             * begin enderecoExterno form fieldset
+                             */
+                            $enderecoExterno = $this->form->get('enderecoExterno');
+                            $idEnderecoExterno = $enderecoExterno->get('id');
+                            $cep = $enderecoExterno->get('cep');
+                            $tipoLogradouro = $enderecoExterno->get('tipoLogradouro');
+                            $logradouro = $enderecoExterno->get('logradouro');
+                            $numero = $enderecoExterno->get('numero');
+                            $cidade = $enderecoExterno->get('cidade');
+                            $bairro = $enderecoExterno->get('bairro');
+                            $uf = $enderecoExterno->get('siglaUf');
+                            $letra = $enderecoExterno->get('letra');
+                            $apartamento = $enderecoExterno->get('apartamento');
+                            $bloco = $enderecoExterno->get('bloco');
+                            $andar = $enderecoExterno->get('andar');
+                            $zonaLocalizacao = $enderecoExterno->get('zonaLocalizacao');
+                            $complemento = $enderecoExterno->get('complemento');
+
+                            $telefones = $this->form->get('telefones');
+                            $url = $this->form->get('url');
+                            $email = $this->form->get('email');
+
+
+                            echo $this->formInput($id);
+                            echo $this->formInput($idEnderecoExterno);
+                            ?>
+                            <br>
+
+                            <div class="form-group required">
+                                <label for="fantasia">
+                                    <?php echo $fantasia->getOption('label');?>
+                                </label>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <?php echo $this->formInput($fantasia);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($fantasia);?>
+                                        </span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group required">
+                                <label for="nome">
+                                    <?php
+                                    echo $nome->getOption('label');
+                                    ?>
+                                </label>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <?php
+                                        echo $this->formInput($nome);
+                                        ?>
+                                        <span class="help-block">
+                                                <?php
+                                                echo $this->formElementErrors($nome);
+                                                ?>
+                                            </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="capitalSocial"><?php echo $capitalSocial->getOption('label');?></label>
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <?php echo $this->formInput($capitalSocial);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($capitalSocial);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="cnpj">
+                                    <?php
+                                    echo $cnpj->getOption('label');
+                                    ?>
+                                </label>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <?php
+                                        echo $this->formInput($cnpj);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($cnpj); ?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inscricaoEstadual">
+                                    <?php echo $inscricaoEstadual->getOption('label');?>
+                                </label>
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <?php echo $this->formInput($inscricaoEstadual);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($inscricaoEstadual);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cep">
+                                    <?php echo $cep->getOption('label');?>
+                                </label>
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <?php
+                                        echo $this->formInput($cep);
+                                        echo $this->formElementErrors($cep);
+                                        ?>
+                                    </div>
+                                    <div class="col-md-3 ceploading"
+                                         style="padding-left:25px; padding-top:4px; display:none;">
+                                        <i class='glyphicon icon-spinner icon-spin icon-large'></i>
+                                        Pesquisando CEP, aguarde!
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="tipoLogradouro">
+                                    <?php
+                                    echo $tipoLogradouro->getOption('label');
+                                    ?>
+                                </label>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <?php
+                                        echo $this->formSelect($tipoLogradouro);
+                                        echo $this->formElementErrors($tipoLogradouro);
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="logradouro">
+                                    <?php echo $logradouro->getOption('label'); ?>
+                                </label>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <?php
+                                        echo $this->formInput($logradouro);
+                                        echo $this->formElementErrors($logradouro);
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="numero">
+                                    <?php echo $numero->getOption('label'); ?>
+                                </label>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <?php
+                                        echo $this->formInput($numero);
+                                        echo $this->formElementErrors($numero);
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="complemento">
+                                    <?php echo $complemento->getOption('label'); ?>
+                                </label>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <?php
+                                        echo $this->formInput($complemento);
+                                        echo $this->formElementErrors($complemento);
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="letra">
+                                    <?php echo $letra->getOption('label'); ?>
+                                </label>
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <?php
+                                        echo $this->formInput($letra);
+                                        echo $this->formElementErrors($letra);
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="apartamento">
+                                    <?php echo $apartamento->getOption('label');?>
+                                </label>
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <?php
+                                        echo $this->formInput($apartamento);
+                                        echo $this->formElementErrors($apartamento);
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="bloco">
+                                    <?php echo $bloco->getOption('label');?>
+                                </label>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <?php
+                                        echo $this->formInput($bloco);
+                                        echo $this->formElementErrors($bloco);
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="andar">
+                                    <?php echo $andar->getOption('label');?>
+                                </label>
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <?php
+                                        echo $this->formInput($andar);
+                                        echo $this->formElementErrors($andar);
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="bairro">
+                                    <?php echo $bairro->getOption('label');?>
+                                </label>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <?php
+                                        echo $this->formInput($bairro);
+                                        echo $this->formElementErrors($bairro);
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="zonaLocalizacao">
+                                    <?php
+                                    echo $zonaLocalizacao->getOption('label');
+                                    ?>
+                                </label>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <?php
+                                        echo $this->formSelect($zonaLocalizacao);
+                                        echo $this->formElementErrors($zonaLocalizacao);
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cidade">
+                                    <?php echo $cidade->getOption('label'); ?>
+                                </label>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <?php
+                                        echo $this->formInput($cidade);
+                                        echo $this->formElementErrors($cidade);
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="uf">
+                                    <?php
+                                    echo $uf->getOption('label');
+                                    ?>
+                                </label>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <?php
+                                        echo $this->formSelect($uf);
+                                        echo $this->formElementErrors($uf);
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+                            <?php
+                            foreach ($telefones as $telefone) {
+                                echo $this->formInput($telefone->get('id'));
+                                ?>
+                                <div class="row">
+                                    <div class="form-group">
+
+                                        <div class="col-md-1 form-group">
+                                            <label for="<?php echo $telefone->get('numero')->getOption('label');?>">
+                                                <?php echo $telefone->get('ddd')->getOption('label');?></label>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <?php
+                                                    echo $this->formInput($telefone->get('ddd'));?>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-2 form-group">
+                                            <label for="<?php echo $telefone->get('numero')->getOption('label');?>">
+                                                <?php echo $telefone->get('numero')->getOption('label');?>
+                                            </label>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <?php
+                                                    echo $this->formInput($telefone->get('numero'));?>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <?php
+                            }
+                            ?>
+
+                            <div class="form-group">
+                                <label for="url">
+                                    <?php echo $url->getOption('label');?>
+                                </label>
+
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <?php echo $this->formInput($url);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($url);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">
+                                    <?php echo $email->getOption('label');?>
+                                </label>
+
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <?php echo $this->formInput($email);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($email);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="situacao">
+                                    <?php
+                                    echo $situacao->getOption('label');
+                                    ?>
+                                </label>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <?php
+                                        echo $this->formSelect($situacao);
+                                        echo $this->formElementErrors($situacao);
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <?php
+                                        $enviar = $this->form->get('submit');
+                                        echo $this->formElement($enviar);
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <?php
+                            echo $this->form()->closeTag();
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<?php
+echo $this->headLink()->prependStylesheet($this->basePath() . '/componentes/chosen/chosen.css');
+echo $this->headScript()->prependFile($this->basePath() . '/componentes/chosen/chosen.jquery.min.js', 'text/javascript');
+echo $this->headScript()->prependFile($this->basePath()
+    . '/componentes/jquery.masked-input/jquery.maskedinput.min.js');
+?>
+<script type="text/javascript">
+    var config = {
+        '.chosen-select'           : {},
+        '.chosen-select-deselect'  : {allow_single_deselect:true},
+        '.chosen-select-no-single' : {disable_search_threshold:10},
+        '.chosen-select-no-results': {no_results_text:'Oops, nada foi encontrado!'},
+        '.chosen-select-width'     : {width:"95%"}
+    }
+    for (var selector in config) {
+        $(selector).chosen(config[selector]);
+    }
+
+    $(document).ready(function() {
+
+        var idMunicipioNascimento = $('.municipioNascimento').val();
+        if (idMunicipioNascimento > 0){
+            $.ajax({
+                url: '/core/municipio/index/id/'+ idMunicipioNascimento,
+                dataType: "json",
+                beforeSend : function(){
+                    $('.municipioNascimentoloading').show();
+                },
+                success : function(data){
+                    $('#municipioNascimento').val(data);
+                },
+                complete: function(){
+                    $('.municipioNascimentoloading').hide();
+                }
+            });
+        }
+
+
+        //$(".vendedor").before("<div style='display: none;' class='carregandovend'>Carregando...</div>");
+        //$(".vendedor").after("<a href='#modal' class='btn2 submit cadnovo'>Cadastrar Novo</a><br/>");
+
+        $('.certidaoNascimento').hide();
+        $('.termo').hide();
+        $('.livro').hide();
+        $('.folha').hide();
+        $('.siglaUfCertidaoCivil').hide();
+        $('.paisEstrangeiro').hide();
+
+        var tipoCertidaoCivil = $('.tipoCertidaoCivil').val();
+        if (tipoCertidaoCivil > 0){
+            if (tipoCertidaoCivil == 1){
+                $('.certidaoNascimento').show();
+                $('.siglaUfCertidaoCivil').show();
+            } else if (tipoCertidaoCivil == 2 || tipoCertidaoCivil == 3){
+                $('.termo').show();
+                $('.livro').show();
+                $('.folha').show();
+                $('.siglaUfCertidaoCivil').show();
+            }
+        }
+
+        $('.tipoCertidaoCivil').on('change', function(){
+
+            var id = $(this).val();
+
+            if (id == 1){
+
+                $('.termo').hide();
+                $('.livro').hide();
+                $('.folha').hide();
+                $('#termo').val('');
+                $('#livro').val('');
+                $('#folha').val('');
+                $('.certidaoNascimento').show();
+                $('.siglaUfCertidaoCivil').show();
+
+            } else if (id == 2 || id == 3){
+
+                $('.certidaoNascimento').hide();
+                $('#certidaoNascimento').val('');
+                $('.termo').show();
+                $('.livro').show();
+                $('.folha').show();
+                $('.siglaUfCertidaoCivil').show();
+
+            } else {
+                $('#certidaoNascimento').val('');
+                $('#termo').val('');
+                $('#livro').val('');
+                $('#folha').val('');
+                $('#siglaUfCertidaoCivil').val('').trigger('chosen:updated');
+                $('#dataEmissaoCertidaoCivil').val('');
+                $('#cartorioCertidaoCivil').val('');
+                $('.termo').hide();
+                $('.livro').hide();
+                $('.folha').hide();
+                $('.certidaoNascimento').hide();
+                $('.siglaUfCertidaoCivil').hide();
+            }
+        });
+
+        $('.nacionalidade').on('change', function(){
+            var id = $(this).val();
+            if (id == 2 || id == 3){
+                $('.paisEstrangeiro').show();
+            } else {
+                $('#paisEstrangeiro').val('').trigger('chosen:updated');
+                $('.paisEstrangeiro').hide();
+            }
+        });
+
+        jQuery(function($){
+            $(".cnpj").mask("99.999.999/9999-99")
+            $(".cep").mask("99999-999");
+            //mask data documento
+            $(".ddd").mask("99?9");
+
+            //$(".numero").mask('9999-9999');
+            $('.numero-telefone').focusout(function(){
+                var phone, element;
+                element = $(this);
+                element.unmask();
+                phone = element.val().replace(/\D/g, '');
+                if(phone.length > 8) {
+                    element.mask("99999-999?9");
+                } else {
+                    element.mask("9999-9999?9");
+                }
+            }).trigger('focusout');
+
+
+        });
+
+        var last_cep = 0;
+
+        $('.cep').on('keyup', function(){
+            var cep = $.trim($('.cep').val()).replace('_','');
+            if(cep.length >= 9){
+                if(cep != last_cep){
+                    busca();
+                    last_cep = cep;
+                }
+            }
+        });
+
+        function busca(){
+            var cep = $('.cep').val();
+            $.ajax({
+                url: '/core/cep/index/value/' + cep,
+                dataType: "json",
+                beforeSend : function(){
+                    $(".ceploading").show();
+                },
+                success : function(data){
+                    $(".cidade").val("");
+                    $(".logradouro").val("");
+                    $(".bairro").val("");
+                    $('.uf').val('').trigger('chosen:updated');
+                    $('.tipoLogradouro').val('').trigger('chosen:updated');
+                    //$('.uf').find('option:first-child').prop('selected', true).end().trigger('liszt:updated');
+                    if (typeof data.length == "undefined"){
+                        //limpando os dados
+
+                        if (data.id){
+                            // console.log(data.id);
+                        }
+                        if (data.cep){
+                            // console.log(data.cep);
+                        }
+                        if (data.nome){
+                            $(".cidade").val(data.nome);
+                            //$(".logradouro").focus();
+                            $(".tipoLogradouro").trigger('chosen:activate');
+                        }
+                        if (data.cidade){
+                            $(".cidade").val(data.cidade);
+                        }
+                        if (data.logradouro){
+                            $(".logradouro").val(data.logradouro);
+                            $(".numero").focus();
+                        }
+                        if (data.bairro){
+                            $(".bairro").val(data.bairro);
+                        }
+                        if (data.tipoLogradouro){
+
+                        }
+                        if (data.uf){
+
+                        }
+                        if (data.nomeSemAcento){
+
+                        }
+                        if (data.idEstado){
+                            //tem estado escolher o estado no select :D
+                            $('.uf').val(data.idEstado).trigger('chosen:updated');
+                        }
+                        if (data.idTipoLogradouro) {
+                            $('.tipoLogradouro').val(data.idTipoLogradouro).trigger('chosen:updated');
+                        }
+                    } else {
+                        decisao = confirm("CEP! Não encontrado na base de dados!, Deseja digitar novamente o CEP? Clique no botão OK");
+                        if (decisao){
+                            $(".cep").val("");
+                            $(".cep").focus();
+                            last_cep = 0;
+                        } else {
+                            $(".logradouro").focus();
+                        }
+                    }
+                },
+                complete: function(){
+                    $(".ceploading").hide();
+                }
+            });
+
+        }
+
+    });
+    //end document ready function
+</script>

@@ -34,19 +34,10 @@ class JuridicaTest extends EntityTestCase
 	{
 		//testa os filtros
 		
-		$this->assertEquals(12, $if->count());
+		$this->assertEquals(11, $if->count());
 
-		$this->assertTrue($if->has('id'));
 		$this->assertTrue($if->has('cnpj'));
-		$this->assertTrue($if->has('inscEstadual'));
-		$this->assertTrue($if->has('idpesRev'));
-		$this->assertTrue($if->has('dataRev'));
-		$this->assertTrue($if->has('origemGravacao'));
-		$this->assertTrue($if->has('idpesCad'));
-		// $this->assertTrue($if->has('data_cad'));
-		$this->assertTrue($if->has('operacao'));
-		$this->assertTrue($if->has('idsisRev'));
-		$this->assertTrue($if->has('idsisCad'));
+		$this->assertTrue($if->has('inscricaoEstadual'));
 		$this->assertTrue($if->has('fantasia'));
 		$this->assertTrue($if->has('capitalSocial'));
 	}
@@ -57,8 +48,6 @@ class JuridicaTest extends EntityTestCase
 	public function testInsert()
 	{
 		$juridica = $this->buildJuridica();
-		$juridica->setNome("Steve Jobs");
-
 		$this->em->persist($juridica);
 		$this->em->flush();
 
@@ -75,52 +64,6 @@ class JuridicaTest extends EntityTestCase
 		$this->assertEquals($juridica->getId(), $savedPessoaJuridica->getId());
 	}
 
-	/**
-	 * Teste que insere uma pessoa
-	 * depois faz um clone dessa pessoa e copia seus dados para uma pessoaJuridica gerando novos registros 
-	 * 
-	 * isso representa um cenario onde digamos que tenha inserido uma Entity Pessoa no banco, e depois queira
-	 * que essa pessoa seja uma Entidade Fisica
-	 */
-	public function testInsertAfter()
-	{
-		/**
-		 * Cadastrando uma pessoa
-		 */
-		$pessoa = $this->buildPessoa();
-		$this->em->persist($pessoa);
-		$this->em->flush();
-
-		/**
-		 * Buscando pessoa cadastrada no banco
-		 */
-		$savedPessoa = $this->em->find('Usuario\Entity\Pessoa', 1);
-
-		/**
-		 * Verificando se o id do banco é igual a 1
-		 */
-		$this->assertEquals(1, $savedPessoa->getId());
-
-		/**
-		 * Cadastrando uma pessoa juridica
-		 */		
-		$teste = clone $savedPessoa;
-		$this->em->remove($savedPessoa);
-		$this->em->flush();		
-		$juridica = $this->buildJuridica();
-		$juridica->setNome($teste->getNome());
-		$juridica->setSituacao($teste->getSituacao());
-		$this->em->persist($juridica);
-		$this->em->flush();
-
-		$this->assertNotNull($juridica->getId());
-		
-
-		$savedJuridica = $this->em->find('Usuario\Entity\Juridica', $juridica->getId());
-		
-		$this->assertEquals($juridica->getId(), $savedJuridica->getId());
-	}
-	
 
 	/**
 	 * @expectedException Core\Entity\EntityException
@@ -136,51 +79,33 @@ class JuridicaTest extends EntityTestCase
 	public function testUpdate()
 	{
 		$juridica = $this->buildJuridica();
-		$juridica->setNome("Steve Jobs");
-		$juridica->setSituacao("A");
-
 		$this->em->persist($juridica);
+		$this->em->flush();
 
 		$savedJuridica = $this->em->find('Usuario\Entity\Juridica', $juridica->getId());
 
-		$this->assertEquals('Eduardojunior.com', $juridica->getFantasia());
-
+		$this->assertEquals('CalangoDev', $juridica->getFantasia());
 		$savedJuridica->setFantasia('Apple');
-
-		$this->em->persist($savedJuridica);
 		$this->em->flush();
 
-		$savedJuridica = $this->em->find('Usuario\Entity\Juridica', $savedJuridica->getId());
-
-		$this->assertEquals('Apple', $savedJuridica->getFantasia());
+		$savedJuridica2 = $this->em->find('Usuario\Entity\Juridica', $savedJuridica->getId());
+		$this->assertEquals('Apple', $savedJuridica2->getFantasia());
 	}
 
 	public function testDelete()
 	{
 		$juridica = $this->buildJuridica();
-		$juridica->setNome("Steve Jobs");
-		$juridica->setSituacao("A");
-
 		$this->em->persist($juridica);
 		$this->em->flush();
 
 		$id = $juridica->getId();
 
 		$savedJuridica = $this->em->find('Usuario\Entity\Juridica', $id);
-		$this->em->remove($juridica);
+		$this->em->remove($savedJuridica);
 		$this->em->flush();
 
 		$savedJuridica = $this->em->find('Usuario\Entity\Juridica', $id);
 		$this->assertNull($savedJuridica);
-	}
-
-	private function buildPessoa()
-	{
-		$pessoa = new Pessoa;
-		$pessoa->setNome("Steve Jobs");
-    	$pessoa->setSituacao("A");
-
-		return $pessoa;
 	}
 
 	private function buildJuridica()
@@ -189,10 +114,11 @@ class JuridicaTest extends EntityTestCase
 		 * Daddos Juridica		 
 		 */
 		$juridica = new Juridica;
-		//52.476.528/0001-35
+
 		$juridica->setCnpj('52.476.528/0001-35');
-		$juridica->setInscEstadual('866498342');
-		$juridica->setFantasia('Eduardojunior.com');
+		$juridica->setInscricaoEstadual('866498342');
+		$juridica->setNome('Eduardo Junior');
+		$juridica->setFantasia('CalangoDev');
 		$juridica->setCapitalSocial('capital social');
 		$juridica->setSituacao('A');
 		

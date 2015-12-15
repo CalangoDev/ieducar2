@@ -18,8 +18,10 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Id\SequenceGenerator as SeqGen;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\Index;
 use Doctrine\ORM\Mapping\UniqueConstraint;
+
 
 /**
  * Entidade Pessoa 
@@ -47,6 +49,7 @@ class Pessoa extends Entity implements EventSubscriber
 
 	public function __construct() {
 		//$this->filho = new ArrayCollection();
+        $this->telefones = new ArrayCollection();
 	}
 
 	public function getSubscribedEvents ()
@@ -222,7 +225,13 @@ class Pessoa extends Entity implements EventSubscriber
 	 */
 	protected $oldId;
 
-	/**
+    /**
+     * @var Doctrine\Common\Collections\Collection
+     * @ORM\OneToMany(targetEntity="Usuario\Entity\Telefone", mappedBy="pessoa", cascade={"all"}, orphanRemoval=true, fetch="LAZY")
+     */
+    protected $telefones;
+
+    /**
 	 * Funcao para gravar o historico da pessoa, depois de deletar o registro.
 	 * @param OnFlushEventArgs $args Argumentos do tipo OnFlushEventArgs
 	 */
@@ -444,13 +453,13 @@ class Pessoa extends Entity implements EventSubscriber
 				$metadata = $em->getClassMetaData(get_class($historicoJuridica));						
 				$sequenceName = $metadata->sequenceGeneratorDefinition['sequenceName'];
 				// $sequenceName = 'historico.seq_juridica';
-				$sequenceGenerator = new SeqGen($sequenceName, 1);
-				$newId = $sequenceGenerator->generate($em, $historicoJuridica);
+				//$sequenceGenerator = new SeqGen($sequenceName, 1);
+				//$newId = $sequenceGenerator->generate($em, $historicoJuridica);
 
-				$historicoJuridica->setId($newId);
+				//$historicoJuridica->setId($newId);
 				$historicoJuridica->setIdpes($this->oldId);
 				$historicoJuridica->setCnpj($this->usuario->cnpj);
-				$historicoJuridica->setInscEstadual($this->usuario->inscEstadual);
+				$historicoJuridica->setInscEstadual($this->usuario->inscricaoEstadual);
 				$historicoJuridica->setFantasia($this->usuario->fantasia);
 				$historicoJuridica->setCapitalSocial($this->usuario->capitalSocial);
 				$logMetadata = $em->getClassMetadata('Historico\Entity\Juridica');
@@ -603,6 +612,28 @@ class Pessoa extends Entity implements EventSubscriber
 		$this->enderecoExterno = $this->valid("enderecoExterno", $enderecoExterno);
 	}
 
+
+    public function addTelefones(Collection $telefones)
+    {
+        foreach ($telefones as $telefone){
+            $telefone->setPessoa($this);
+            $this->telefones->add($telefone);
+        }
+    }
+
+    public function removeTelefones(Collection $telefones)
+    {
+        foreach ($telefones as $telefone){
+            $telefone->setPessoa(null);
+            $this->telefones->removeElement($telefone);
+        }
+    }
+
+    public function getTelefones()
+    {
+        return $this->telefones;
+    }
+
 	/**
 	 * Configura os filtros dos campos da entidade
 	 * 
@@ -703,6 +734,11 @@ class Pessoa extends Entity implements EventSubscriber
 				'required' => true,
 				'continue_if_empty' => true,
 			)));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'telefones',
+                'required' => false
+            )));
 
 			$this->inputFilter = $inputFilter;
 		}

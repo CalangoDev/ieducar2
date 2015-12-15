@@ -1,6 +1,9 @@
 <?php
 namespace Usuario\Controller;
 
+use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
+use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+use Zend\Paginator\Paginator;
 use Zend\View\Model\ViewModel;
 use Core\Controller\ActionController;
 use Usuario\Entity\Juridica;
@@ -24,7 +27,13 @@ class JuridicaController extends ActionController
 	 */
 	public function indexAction()
 	{
-		$dados = $this->getEntityManager()->getRepository('Usuario\Entity\Juridica')->findAll();
+		$query = $this->getEntityManager()->createQuery('SELECT j FROM Usuario\Entity\Juridica j');
+
+        $dados = new Paginator(
+            new DoctrinePaginator(new ORMPaginator($query))
+        );
+
+        $dados->setCurrentPageNumber($this->params()->fromRoute('page'))->setItemCountPerPage(10);
 		
 		return new ViewModel(array(
 			'dados' => $dados
@@ -34,59 +43,39 @@ class JuridicaController extends ActionController
 	public function saveAction()
 	{
 		$juridica = new Juridica;
-		$form = new JuridicaForm();
+		$form = new JuridicaForm($this->getEntityManager());
 		$request = $this->getRequest();
 
 		$id = (int) $this->getEvent()->getRouteMatch()->getParam('id');
 		if ($id > 0){
 			$juridica = $this->getEntityManager()->find('Usuario\Entity\Juridica', $id);
-			$form->get('submit')->setAttribute('value', 'Edit');			
+			$form->get('submit')->setAttribute('value', 'Atualizar');
 		}
-		$form->setHydrator(new DoctrineEntity($this->getEntityManager(), 'Usuario\Entity\Juridica'));
 		$form->bind($juridica);
 
 		if ($request->isPost()){
 
-			/**
-			 * [$pessoa->origem_gravacao origem da gravacao U = usuario]
-			 * @var string
-			 */
-			$juridica->setOrigemGravacao("U");
-			/**
-			 * $id vindo do formulario se id > 0 é update/alteracao se nao é insercao
-			 */
-			$id  = (int) $this->params()->fromPost('id', 0);			
-			$juridica->setOperacao(($id > 0) ? "A" : "I");						
-
-			$juridica->setIdsisCad(1);
 			$form->setInputFilter($juridica->getInputFilter());
-
-			/**
-			 * Removendo filters de inputs nao recebidos pelo o formulario
-			 */			
-			$juridica->removeInputFilter('origemGravacao');
-			$juridica->removeInputFilter('operacao');
-			$juridica->removeInputFilter('idsisCad');
-
 			$form->setData($request->getPost());			
 			if ($form->isValid()){												
 				/**
 				 * Persistindo os dados
 				 */
-				$this->getEntityManager()->persist($juridica);
+				$id = (int) $this->params()->fromPost('id', 0);
+                if ($id == 0){
+                    $this->getEntityManager()->persist($juridica);
+                    $this->flashMessenger()->addMessage(array('success' => 'Pessoa Jurídica Salva!'));
+                } else {
+                    $this->flashMessenger()->addMessage(array('success' => 'Pessoa Jurídica alterada!'));
+                }
+
 				$this->getEntityManager()->flush();
-				$this->flashMessenger()->addSuccessMessage('Pessoa Salva');
 				/**
 				 * Redirecionando para lista de pessoas juridica
 				 */
 				return $this->redirect()->toUrl('/usuario/juridica');
 			}
-		}
 
-		$id = (int) $this->params()->fromRoute('id', 0);
-		if ($id >0){
-			$juridica = $this->getEntityManager()->find('Usuario\Entity\Juridica', $id);
-			$form->get('submit')->setAttribute('value', 'Edit');
 		}
 
 		return new ViewModel(array(
@@ -94,9 +83,54 @@ class JuridicaController extends ActionController
 		));
 	}
 
+    /**
+     * Busca
+     */
+    public function buscaAction()
+    {
+        $q = (string) $this->params()->fromPost('q');
+        $query = $this->getEntityManager()->createQuery(
+            "SELECT j FROM Usuario\Entity\Juridica j WHERE j.nome LIKE :query OR j.cnpj LIKE :query OR j.fantasia
+        LIKE :query ");
+        $query->setParameter('query', "%".$q."%");
+        $dados = $query->getResult();
+
+        $view = new ViewModel(array(
+            'dados' => $dados
+        ));
+        $view->setTerminal(true);
+
+        return $view;
+    }
+
+
+    /**
+     * Detalhes de uma pessoa
+     */
+    public function detalhesAction()
+    {
+        $id = (int) $this->params()->fromRoute('id', 0);
+        if ($id == 0)
+            throw new \Exception("Código Obrigatório");
+
+        $juridica = $this->getEntityManager()->find('Usuario\Entity\Juridica', $id);
+
+        if (!$juridica)
+            throw new \Exception("Registro não encontrado");
+
+        $view = new ViewModel(array(
+            'data' => $juridica
+        ));
+
+        $view->setTerminal(true);
+
+        return $view;
+    }
+
 
 	/**
 	 * Excluir uma pessoa
+     * @throws \Exception If registro não encontrado
 	 * @return void
 	 */
 	public function deleteAction()

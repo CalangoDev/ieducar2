@@ -54,10 +54,10 @@ class Telefone extends Entity
     protected $dataCadastro;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Usuario\Entity\Fisica", inversedBy="telefones")
+     * @ORM\ManyToOne(targetEntity="Usuario\Entity\Pessoa", inversedBy="telefones")
      * @ORM\JoinColumn(referencedColumnName="idpes")
      */
-    protected $fisica;
+    protected $pessoa;
 
     /**
      * Função para gerar o timestamp para o atributo dataCadastro, é executada antes de salvar os dados no banco
@@ -107,14 +107,14 @@ class Telefone extends Entity
         $this->numero = $this->valid('numero', $numero);
     }
 
-    public function getFisica()
+    public function getPessoa()
     {
-        return $this->fisica;
+        return $this->pessoa;
     }
 
-    public function setFisica(\Usuario\Entity\Fisica $fisica = null)
+    public function setPessoa(\Usuario\Entity\Pessoa $pessoa = null)
     {
-        $this->fisica = $fisica;
+        $this->pessoa = $pessoa;
     }
 
     protected $inputFilter;
@@ -176,7 +176,7 @@ class Telefone extends Entity
             )));
 
             $inputFilter->add($factory->createInput(array(
-                'name' => 'fisica',
+                'name' => 'pessoa',
                 'required' => true
             )));
 

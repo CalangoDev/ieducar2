@@ -411,16 +411,6 @@ class Fisica extends Pessoa
     protected $documento;
 
 
-    /**
-	 * @var Doctrine\Common\Collections\Collection
-     * @ORM\OneToMany(targetEntity="Usuario\Entity\Telefone", mappedBy="fisica", cascade={"all"}, orphanRemoval=true, fetch="LAZY")
-     */
-    protected $telefones;
-
-    public function __construct()
-    {
-        $this->telefones = new ArrayCollection();
-    }
 
     /**
 	 * getters and setters
@@ -618,26 +608,7 @@ class Fisica extends Pessoa
         $this->municipioNascimento = $this->valid('municipioNascimento', $municipioNascimento);
     }
 
-    public function addTelefones(Collection $telefones)
-    {
-        foreach ($telefones as $telefone){
-            $telefone->setFisica($this);
-            $this->telefones->add($telefone);
-        }
-    }
 
-    public function removeTelefones(Collection $telefones)
-    {
-        foreach ($telefones as $telefone){
-            $telefone->setFisica(null);
-            $this->telefones->removeElement($telefone);
-        }
-    }
-
-    public function getTelefones()
-    {
-        return $this->telefones;
-    }
 
     public function getPaisEstrangeiro()
     {
@@ -891,11 +862,6 @@ class Fisica extends Pessoa
 
 		$this->inputFilter->add($factory->createInput(array(
             'name' => 'municipioNascimento',
-            'required' => false
-        )));
-
-        $this->inputFilter->add($factory->createInput(array(
-            'name' => 'telefones',
             'required' => false
         )));
 
