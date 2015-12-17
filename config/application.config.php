@@ -14,6 +14,7 @@ return array(
         'Core',
         'WebinoImageThumb',
         'Sandbox',
+        'Escola',
         //'DoctrineORMCidadesBr',
     ),    
     'module_listener_options' => array(

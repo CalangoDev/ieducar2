@@ -1,0 +1,54 @@
+<?php
+if (count($this->dados) > 0):
+    $estilos = array('active','warning');
+    $this->cycle()->assign($estilos);
+    foreach ($this->dados as $instituicao):
+        ?>
+        <tr class="<?php echo $this->cycle()->next();?>">
+            <td>
+                <?php
+                echo $instituicao->getId();
+                ?>
+            </td>
+            <td>
+                <?php
+                echo $instituicao->getNome();
+                ?>
+            </td>
+            <td>
+                <?php
+                echo $instituicao->getResponsavel();
+                ?>
+            </td>
+            <td>
+                <?php
+                if ($instituicao->getAtivo()){
+                    $situacao = 'Sim';
+                    $label = 'success';
+                } else {
+                    $situacao = 'Não';
+                    $label = 'default';
+                }
+                ?>
+                <span class="label label-<?php echo $label;?>"><?php echo $situacao;?></span>
+            </td>
+            <td>
+                <a href="#<?php echo $instituicao->getId()?>"
+                   class="btn btn-info btn-detalhes" data-toggle="modal"
+                   data-target="#detalhesModal"><i class="icon icon-list"></i> Ver detalhes</a>
+                <a href="/escola/instituicao/save/id/<?php echo $instituicao->getId()?>" class="btn btn-primary"><i class="icon icon-pencil"></i> Editar</a>
+                <a href="/escola/instituicao/delete/id/<?php echo $instituicao->getId()?>" class="btn btn-danger delete"><i class="icon icon-trash"></i> Apagar</a>
+            </td>
+        </tr>
+        <?php
+    endforeach;
+else:
+    ?>
+    <tr class="warning">
+        <td colspan="5" class="text-center">
+            <b>Nenhum registro encontrado</b>
+        </td>
+    </tr>
+    <?php
+endif;
+?>
