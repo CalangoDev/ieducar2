@@ -115,7 +115,9 @@ class InstituicaoController extends ActionController
     public function buscaAction()
     {
         $q = (string) $this->params()->fromPost('q');
-        $query = $this->getEntityManager()->createQuery("SELECT i FROM Escola\Entity\Instituicao i WHERE i.nome LIKE :query	OR i.responsavel LIKE :query");
+        $query = $this->getEntityManager()->createQuery("
+          SELECT i FROM Escola\Entity\Instituicao i WHERE i.nome LIKE :query	OR i.responsavel LIKE :query
+        ");
         $query->setParameter('query', "%".$q."%");
         $dados = $query->getResult();
 

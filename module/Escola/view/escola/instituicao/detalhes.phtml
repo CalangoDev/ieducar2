@@ -1,0 +1,210 @@
+<div class="row">
+    <dl class="dl-horizontal">
+
+        <dt>Nome:</dt>
+        <dd>
+            <?php echo $data->getNome();?>
+        </dd>
+
+        <?php
+        if ($data->getResponsavel()):
+        ?>
+            <dt>Responsável:</dt>
+            <dd>
+                <?php echo $data->getResponsavel();?>
+            </dd>
+        <?php
+        endif;
+        ?>
+
+        <?php
+        if ($data->getEnderecoExterno()){
+
+            if ($data->getEnderecoExterno()->getCep()):
+            ?>
+                <dt>CEP:</dt>
+                <dd>
+                    <?php echo $data->getEnderecoExterno()->getCep();?>
+                    &nbsp;
+                </dd>
+            <?php
+            endif;
+
+            if ($data->getEnderecoExterno()->getTipoLogradouro()):
+            ?>
+
+                <dt>Tipo de Logradouro:</dt>
+                <dd>
+                    <?php echo $data->getEnderecoExterno()->getTipoLogradouro()->getDescricao(); ?>&nbsp;
+                </dd>
+            <?php
+            endif;
+
+            if ($data->getEnderecoExterno()->getLogradouro()):
+            ?>
+
+                <dt>Logradouro:</dt>
+                <dd>
+                    <?php
+                        echo $data->getEnderecoExterno()->getLogradouro();
+                    ?>&nbsp;
+                </dd>
+                <?php
+            endif;
+
+            if ($data->getEnderecoExterno()->getNumero()):
+            ?>
+                <dt>Número:</dt>
+                <dd>
+                    <?php
+                        echo $data->getEnderecoExterno()->getNumero();
+                    ?>&nbsp;
+                </dd>
+            <?php
+            endif;
+
+            if ($data->getEnderecoExterno()->getComplemento()):
+            ?>
+
+                <dt>Complemento:</dt>
+                <dd>
+                    <?php
+                        echo $data->getEnderecoExterno()->getComplemento();
+                    ?>&nbsp;
+                </dd>
+                <?php
+            endif;
+
+            if ($data->getEnderecoExterno()->getLetra()):
+            ?>
+
+                <dt>Letra:</dt>
+                <dd>
+                    <?php
+                        echo $data->getEnderecoExterno()->getLetra();
+                    ?>&nbsp;
+                </dd>
+                <?php
+            endif;
+
+            if ($data->getEnderecoExterno()->getApartamento()):
+            ?>
+
+                <dt>Apartamento:</dt>
+                <dd>
+                    <?php
+                        echo $data->getEnderecoExterno()->getApartamento();
+                    ?>&nbsp;
+                </dd>
+
+                <?php
+            endif;
+
+            if ($data->getEnderecoExterno()->getBloco()):
+            ?>
+                <dt>Bloco:</dt>
+                <dd>
+                    <?php
+                        echo $data->getEnderecoExterno()->getBloco();
+                    ?>&nbsp;
+                </dd>
+                <?php
+            endif;
+
+            if ($data->getEnderecoExterno()->getAndar()):
+            ?>
+
+                <dt>Andar:</dt>
+                <dd>
+                    <?php
+                        echo $data->getEnderecoExterno()->getAndar();
+                    ?>&nbsp;
+                </dd>
+                <?php
+            endif;
+
+            if ($data->getEnderecoExterno()->getBairro()):
+            ?>
+
+                <dt>Bairro:</dt>
+                <dd>
+                    <?php
+                        echo $data->getEnderecoExterno()->getBairro();
+                    ?>&nbsp;
+                </dd>
+                <?php
+            endif;
+
+            if ($data->getEnderecoExterno()->getZonaLocalizacao()):
+            ?>
+
+                <dt>Zona Localização:</dt>
+                <dd>
+                    <?php
+                        echo ($data->getEnderecoExterno()->getZonaLocalizacao() == 1) ? 'Urbana' : 'Rural';
+                    ?>&nbsp;
+                </dd>
+                <?php
+            endif;
+
+            if ($data->getEnderecoExterno()->getCidade()):
+            ?>
+
+                <dt>Cidade:</dt>
+                <dd>
+                    <?php
+                        echo $data->getEnderecoExterno()->getCidade();
+                    ?>&nbsp;
+                </dd>
+            <?php
+            endif;
+
+            if ($data->getEnderecoExterno()->getSiglaUf()):
+            ?>
+
+                <dt>Estado:</dt>
+                <dd>
+                    <?php
+                        echo $data->getEnderecoExterno()->getSiglaUf()->getNome();
+                    ?>&nbsp;
+                </dd>
+
+            <?php
+            endif;
+        }
+        ?>
+
+        <?php
+        if ($data->getTelefones()->count() > 0){
+            ?>
+            <dt>Telefone(s):</dt>
+            <dd>
+                <?php
+                foreach($data->getTelefones() as $telefone){
+                    if ($telefone->getDdd())
+                        echo '(' . $telefone->getDdd() . ')';
+                    if ($telefone->getNumero()){
+                        echo ' ' . $telefone->getNumero();
+
+                        if ($data->getTelefones()->last() != $telefone)
+                            echo ', ';
+                    }
+                }
+                ?>
+                &nbsp;
+            </dd>
+            <?php
+        }
+
+        if ($data->getAtivo()):
+        ?>
+            <dt>Ativo:</dt>
+            <dd>
+                <?php echo ($data->getAtivo()) ? 'Sim' : 'Não';?>
+            </dd>
+        <?php
+        endif;
+        ?>
+
+    </dl>
+</div>
