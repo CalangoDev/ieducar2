@@ -37,7 +37,7 @@ class InstituicaoTest extends EntityTestCase
      */
     public function testInputFilterValid($if)
     {
-        $this->assertEquals(5, $if->count());
+        $this->assertEquals(6, $if->count());
 
         $this->assertTrue($if->has('id'));
         $this->assertTrue($if->has('nome'));
