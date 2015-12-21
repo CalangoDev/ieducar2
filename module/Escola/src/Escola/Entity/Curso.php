@@ -121,7 +121,6 @@ class Curso extends Entity
      */
     protected $multiSeriado = false;
 
-    // TODO: falta as referencias
     /**
      * @var int $instituicao
      * 
@@ -152,5 +151,12 @@ class Curso extends Entity
      * @ORM\ManyToOne(targetEntity="Escola\Entity\TipoRegime")
      */
     protected $tipoRegime;
+
+    /**
+     * @var int $habilitacao
+     *
+     * @ORM\ManyToOne(targetEntity="Escola\Entity\Habilitacao")
+     */
+    protected $habilitacao;
 
 }
