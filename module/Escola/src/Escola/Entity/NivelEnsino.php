@@ -39,18 +39,18 @@ class NivelEnsino extends Entity
     
     /**
      * @var string $nome Nome do nivel de ensino
-	 * 
+	 *
 	 * @ORM\Column(type="string", length=255, nullable=false)
 	 */
 	protected $nome;
-
+	
 	/**
 	 * @var String $descricao
-	 * 
+	 *
 	 * @ORM\Column(type="text")
 	 */
 	protected $descricao;
-
+	
 	/**
 	 * @var DateTime $dataCadastro Data de cadastro
 	 *
@@ -60,7 +60,7 @@ class NivelEnsino extends Entity
 
 	/**
 	 * @var Boolean $ativo
-	 * 
+	 *
 	 * @ORM\Column(type="boolean", nullable=false)
 	 */
 	protected $ativo = true;
@@ -71,25 +71,23 @@ class NivelEnsino extends Entity
 	 * @ORM\ManyToOne(targetEntity="Escola\Entity\Instituicao")
 	 * @ORM\JoinColumn(nullable=false)
 	 */
-	protected $instituicao; 
-   
+	protected $instituicao;
+	
 	/**
-     * Função para gerar o timestamp para o atributo dataCadastro, é executada antes de salvar os dados no banco
-     * @access  public
-     * @return  void
-     * @ORM\PrePersist
-     */
-    public function timestamp()
-    {
-        if (is_null($this->getDataCadastro())) {
-            $this->setDataCadastro(new \DateTime());
-        }
+	 * Função para gerar o timestamp para o atributo dataCadastro, é executada antes de salvar os dados no banco
+	 * @access  public
+	 * @return  void
+	 * @ORM\PrePersist
+	 */
+	public function timestamp()
+	{
+		if (is_null($this->getDataCadastro())) $this->setDataCadastro(new \DateTime());
     }
 
 	/**
 	 * getters and setters
 	 */
-
+	
 	public function getId()
 	{
 		return $this->id;
@@ -102,7 +100,7 @@ class NivelEnsino extends Entity
 
 	public function setDataCadastro($dataCadastro)
 	{
-		$this->dataCadastro = $this->valid('dataCadastro', $dataCadastro);	
+		$this->dataCadastro = $this->valid('dataCadastro', $dataCadastro);
 	}
 
 	public function getNome()
@@ -135,18 +133,20 @@ class NivelEnsino extends Entity
 		$this->instituicao = $this->valid('instituicao', $instituicao);
 	}
 
-	// filter
-    protected $inputFilter;
+	/**
+	 * @var Zend\InputFilter\InputFilter $inputFilter
+	 */
+	protected $inputFilter;
 
-    /**
-     * Configura os filtros dos campos da entidade
-     *
-     * @return Zend\InputFilter\InputFilter
-     */
-    public function getInputFilter()
-    {
-        if (!$this->inputFilter){
-            $inputFilter = new InputFilter();
+	/**
+	 * Configura os filtros dos campos da entidade
+	 *
+	 * @return Zend\InputFilter\InputFilter
+	 */
+	public function getInputFilter()
+	{
+		if (!$this->inputFilter){
+			$inputFilter = new InputFilter();
             $factory = new InputFactory();
 
             $inputFilter->add($factory->createInput(array(
