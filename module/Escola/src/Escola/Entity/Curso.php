@@ -125,14 +125,32 @@ class Curso extends Entity
     /**
      * @var int $instituicao
      * 
-     * @ORM\ManyToOne(targetEntity="Escola\Entity\Instituicao", cascade={"persist"}) 
+     * @ORM\ManyToOne(targetEntity="Escola\Entity\Instituicao")
+     * @ORM\JoinColumn(nullable=false)
      */
     protected $instituicao;
 
     /**
      * @var int $nivelEnsino
-     * TODO: Criar Entidade
-     * @ORM\ManyToOne(targetEntity="Escola\Entity\NivelEnsino", cascade={"persist"})
+     *
+     * @ORM\ManyToOne(targetEntity="Escola\Entity\NivelEnsino")
+     * @ORM\JoinColumn(nullable=false)
      */
     protected $nivelEnsino;
+
+    /**
+     * @var int $tipoEnsino
+     *
+     * @ORM\ManyToOne(targetEntity="Escola\Entity\TipoEnsino")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    protected $tipoEnsino;
+
+    /**
+     * @var int $tipoRegime
+     *
+     * @ORM\ManyToOne(targetEntity="Escola\Entity\TipoRegime")
+     */
+    protected $tipoRegime;
+
 }
