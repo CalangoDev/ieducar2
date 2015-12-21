@@ -1,8 +1,0 @@
-Usuario\Entity\EnderecoExterno
- [x] Get input filter
- [x] Input filter valid
- [x] Insert
- [x] Input filter invalid logradouro
- [x] Update
- [x] Delete
-

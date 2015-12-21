@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="Usuario Test Suite" tests="1" assertions="1" failures="1" errors="0" time="70.929093">
+    <testsuite name="Usuario\Entity\FisicaTest" file="/var/www/module/Usuario/tests/src/Usuario/Entity/FisicaTest.php" tests="1" assertions="1" failures="1" errors="0" time="70.929093">
+      <testcase name="testInsertFullData" class="Usuario\Entity\FisicaTest" file="/var/www/module/Usuario/tests/src/Usuario/Entity/FisicaTest.php" line="230" assertions="1" time="70.929093">
+        <failure type="PHPUnit_Framework_ExpectationFailedException">Usuario\Entity\FisicaTest::testInsertFullData
+Failed asserting that 1 matches expected 2.
+
+/var/www/module/Usuario/tests/src/Usuario/Entity/FisicaTest.php:256
+</failure>
+        <system-out>string(10) "1982-05-03"
+</system-out>
+      </testcase>
+    </testsuite>
+  </testsuite>
+</testsuites>

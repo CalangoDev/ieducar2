@@ -122,5 +122,17 @@ class Curso extends Entity
     protected $multiSeriado = false;
 
     // TODO: falta as referencias
+    /**
+     * @var int $instituicao
+     * 
+     * @ORM\ManyToOne(targetEntity="Escola\Entity\Instituicao", cascade={"persist"}) 
+     */
+    protected $instituicao;
 
+    /**
+     * @var int $nivelEnsino
+     * TODO: Criar Entidade
+     * @ORM\ManyToOne(targetEntity="Escola\Entity\NivelEnsino", cascade={"persist"})
+     */
+    protected $nivelEnsino;
 }
