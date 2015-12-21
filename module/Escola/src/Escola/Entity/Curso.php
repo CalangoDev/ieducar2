@@ -61,7 +61,7 @@ class Curso extends Entity
     /**
      * @var double $cargaHoraria Carga Horaria do Curso
      *
-     * @ORM\Column(type="double", nullable=false)
+     * @ORM\Column(type="float", nullable=false)
      */
     protected $cargaHoraria;
 
@@ -110,7 +110,7 @@ class Curso extends Entity
     /**
      * @var double $horaFalta
      *
-     * @ORM\Column(type="double", nullable=false)
+     * @ORM\Column(type="float", nullable=false)
      */
     protected $horaFalta;
 

@@ -60,7 +60,7 @@ class Telefone extends Entity
     protected $pessoa;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Escola\Entity\Instituicao", inversedBy="instituicao")
+     * @ORM\ManyToOne(targetEntity="Escola\Entity\Instituicao", inversedBy="telefones")
      */
     protected $instituicao;
 
