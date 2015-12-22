@@ -41,9 +41,7 @@ class TipoRegimeTest extends EntityTestCase
 
         $this->assertTrue($if->has('id'));
         $this->assertTrue($if->has('nome'));
-        $this->assertTrue($if->has('responsavel'));
-        $this->assertTrue($if->has('enderecoExterno'));
-        $this->assertTrue($if->has('telefones'));
+        $this->assertTrue($if->has('instituicao'));
         $this->assertTrue($if->has('ativo'));
     }
 
@@ -52,22 +50,22 @@ class TipoRegimeTest extends EntityTestCase
      */
     public function testInsert()
     {
-        $telefones = $this->buildTelefones();
         $instituicao = $this->buildInstituicao();
-        $instituicao->addTelefones($telefones);
-
         $this->em->persist($instituicao);
+		$tipoRegime = $this->buildTipoRegime();
+		$tipoRegime->setInstituicao($instituicao);
+		$this->em->persist($tipoRegime);
         $this->em->flush();
 
-        $this->assertNotNull($instituicao->getId());
-        $this->assertEquals(1, $instituicao->getId());
+        $this->assertNotNull($tipoRegime->getId());
+        $this->assertEquals(1, $tipoRegime->getId());
 
         /**
          * get row from database
          */
-        $savedInstituicao = $this->em->find(get_class($instituicao), $instituicao->getId());
+        $savedTipoRegime = $this->em->find(get_class($tipoRegime), $tipoRegime->getId());
 
-        $this->assertEquals(1, $savedInstituicao->getId());
+        $this->assertEquals(1, $savedTipoRegime->getId());
     }
 
     /**
@@ -76,66 +74,61 @@ class TipoRegimeTest extends EntityTestCase
     public function testInputFilterInvalidNome()
     {
         $instituicao = $this->buildInstituicao();
-        $instituicao->setNome('Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá,
+		$tipoRegime = $this->buildTipoRegime();
+        $tipoRegime->setNome('Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá,
 		depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum
 		girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois
 		paga. Sapien in monti palavris qui num significa nadis i
 		pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.');
-        $this->em->persist($instituicao);
+		$tipoRegime->setInstituicao($instituicao);
+        $this->em->persist($tipoRegime);
         $this->em->flush();
     }
 
     public function testUpdate()
     {
         $instituicao = $this->buildInstituicao();
-        $this->em->persist($instituicao);
+		$tipoRegime = $this->buildTipoRegime();
+		$tipoRegime->setInstituicao($instituicao);
+        $this->em->persist($tipoRegime);
         $this->em->flush();
 
-        $savedInstituicao = $this->em->find(get_class($instituicao), $instituicao->getId());
-        $this->assertEquals('Prefeitura Municipal Modelo', $savedInstituicao->getNome());
-        $savedInstituicao->setNome('Prefeitura Municipal Modelo X');
+        $savedTipoRegime = $this->em->find(get_class($tipoRegime), $tipoRegime->getId());
+        $this->assertEquals('Integral', $savedTipoRegime->getNome());
+        $savedInstituicao->setNome('Integral X');
 
         $this->em->flush();
 
-        $savedInstituicao = $this->em->find(get_class($instituicao), $savedInstituicao->getId());
-        $this->assertEquals('Prefeitura Municipal Modelo X', $savedInstituicao->getNome());
+        $savedTipoRegime = $this->em->find(get_class($tipoRegime), $savedTipoRegime->getId());
+        $this->assertEquals('Integral X', $savedTipoRegime->getNome());
 
     }
 
     public function testDelete()
     {
         $instituicao = $this->buildInstituicao();
-        $this->em->persist($instituicao);
+		$tipoRegime = $this->buildTipoRegime();
+		$tipoRegime->setInstituicao($instituicao);
+        $this->em->persist($tipoRegime);
         $this->em->flush();
 
-        $id = $instituicao->getId();
-        $savedInstituicao = $this->em->find(get_class($instituicao), $id);
-        $this->em->remove($savedInstituicao);
+        $id = $tipoRegime->getId();
+        $savedTipoRegime = $this->em->find(get_class($tipoRegime), $id);
+        $this->em->remove($savedTipoRegime);
         $this->em->flush();
 
-        $savedInstituicao = $this->em->find(get_class($instituicao), $id);
-        $this->assertNull($savedInstituicao);
+        $savedTipoRegime = $this->em->find(get_class($tipoRegime), $id);
+        $this->assertNull($savedTipoRegime);
 
     }
 
-    private function buildTelefones()
-    {
-        $telefones = new ArrayCollection();
-
-        $telefone = new \Usuario\Entity\Telefone();
-        $telefone->setDdd('74');
-        $telefone->setNumero('12345678');
-
-        $telefones->add($telefone);
-
-        $telefone2 = new \Usuario\Entity\Telefone();
-        $telefone2->setDdd('74');
-        $telefone2->setNumero('87654321');
-        $telefones->add($telefone2);
-
-        return $telefones;
-
-    }
+    private function buildTipoRegime() 
+	{
+		$tipoRegime = new TipoRegime();
+		$tipoRegime->setNome('Integral');
+		
+		return $tipoRegime;
+	}
 
     private function buildInstituicao()
     {
