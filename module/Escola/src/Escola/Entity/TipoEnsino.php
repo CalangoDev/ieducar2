@@ -61,7 +61,7 @@ class TipoEnsino extends Entity
     /**
      * @var Int $instituicao
      *
-     * @ORM\ManyToOne(targetEntity="Escola\Entity\Instituicao")
+     * @ORM\ManyToOne(targetEntity="Escola\Entity\Instituicao", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     protected $instituicao;

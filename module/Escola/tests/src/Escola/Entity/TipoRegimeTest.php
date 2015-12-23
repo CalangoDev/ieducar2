@@ -8,7 +8,6 @@
 namespace Escola\Entity;
 
 use Core\Test\EntityTestCase;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @group Entity
