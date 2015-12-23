@@ -10,15 +10,16 @@ namespace Escola\Form;
 use Zend\Form\Form;
 use Doctrine\Common\Persistence\ObjectManager;
 use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
+//use DoctrineORMModule\Stdlib\Hydrator\DoctrineEntity as DoctrineHydrator;
 
-class Instituicao extends Form
+class TipoRegime extends Form
 {
     public function __construct(ObjectManager $objectManager)
     {
-        parent::__construct('instituicao');
+        parent::__construct('tipo-regime');
         $this->setAttribute('method', 'post');
-        $this->setAttribute('action', '/escola/instituicao/save');
-        $this->setHydrator(new DoctrineHydrator($objectManager))->setObject(new \Escola\Entity\Instituicao());
+        $this->setAttribute('action', '/escola/tipo-regime/save');
+        $this->setHydrator(new DoctrineHydrator($objectManager))->setObject(new \Escola\Entity\TipoRegime());
 
         $this->add(array(
             'name' => 'id',
@@ -40,34 +41,30 @@ class Instituicao extends Form
         ));
 
         $this->add(array(
-            'name' => 'responsavel',
+            'name' => 'instituicao',
             'attributes' => array(
-                'type' => 'text',
-                'class' => 'form-control',
+                'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+                'class' => 'form-control chosen-select',
+                'style' => 'height:100px;',
             ),
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
             'options' => array(
-                'label' => 'Responsável Instituição:'
+                'label' => 'Instituição:',
+                'allow_empty' => false,
+                'continue_if_empty' => false,
+                'object_manager' => $objectManager,
+                'target_class' => 'Escola\Entity\Instituicao',
+                'property' => 'nome',
+                'find_method' => array(
+                    'name' => 'findBy',
+                    'params' => array(
+                        'criteria' => array('ativo' => true),
+                        'orderBy' => array('nome' => 'ASC')
+                    ),
+                ),
+                'display_empty_item' => true,
+                'empty_item_label'   => 'Selecione',
             ),
-        ));
-
-        $enderecoExternoFieldset = new \Usuario\Form\EnderecoExternoFieldset($objectManager);
-        $enderecoExternoFieldset->setLabel('Endereço');
-        $enderecoExternoFieldset->setName('enderecoExterno');
-        $enderecoExternoFieldset->setUseAsBaseFieldset(false);
-        $this->add($enderecoExternoFieldset);
-
-        $telefoneFieldset = new \Usuario\Form\TelefoneFieldset($objectManager);
-        $this->add(array(
-            'type'    => 'Zend\Form\Element\Collection',
-            'name' => 'telefones',
-            'options' => array(
-                'label' => 'Telefones:',
-                'count'           => 2,
-                'target_element' => $telefoneFieldset
-            ),
-            'attributes' => array(
-                'type'    => 'Zend\Form\Element\Collection',
-            )
         ));
 
         $this->add(array(

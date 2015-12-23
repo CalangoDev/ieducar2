@@ -20,3 +20,14 @@ RUN         echo "xdebug.remote_connect_back=on" >> /etc/php5/apache2/conf.d/xde
 
 -- mudança no nome das tabelas, para manter o conceito do ORM e compatibildade com demais bancos remoção dos schemas do postgresl
 e organalização da tabela por prefixo exemplo cadastro.tabela mudou para cadastro_tabela
+
+
+
+PROBLEMAS COM
+
+1) TipoRegimeControllerTest::testTipoRegimeSaveActionPostRequest
+ Object of class Escola\Entity\Instituicao could not be converted to int
+
+ Solução:
+
+ not found yet

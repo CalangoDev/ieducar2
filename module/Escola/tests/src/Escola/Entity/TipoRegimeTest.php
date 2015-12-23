@@ -26,7 +26,7 @@ class TipoRegimeTest extends EntityTestCase
     public function testGetInputFilter()
     {
         $tipoRegime = new TipoRegime();
-        $if = $instituicao->getInputFilter();
+        $if = $tipoRegime->getInputFilter();
         $this->assertInstanceOf('Zend\InputFilter\InputFilter', $if);
 
         return $if;
@@ -37,7 +37,7 @@ class TipoRegimeTest extends EntityTestCase
      */
     public function testInputFilterValid($if)
     {
-        $this->assertEquals(6, $if->count());
+        $this->assertEquals(4, $if->count());
 
         $this->assertTrue($if->has('id'));
         $this->assertTrue($if->has('nome'));
@@ -95,7 +95,7 @@ class TipoRegimeTest extends EntityTestCase
 
         $savedTipoRegime = $this->em->find(get_class($tipoRegime), $tipoRegime->getId());
         $this->assertEquals('Integral', $savedTipoRegime->getNome());
-        $savedInstituicao->setNome('Integral X');
+        $savedTipoRegime->setNome('Integral X');
 
         $this->em->flush();
 

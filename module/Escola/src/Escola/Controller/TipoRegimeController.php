@@ -101,7 +101,7 @@ class TipoRegimeController extends ActionController
             throw new \Exception("Registro não encontrado");
 
         $view = new ViewModel(array(
-            'data' => $instituicao
+            'data' => $tipoRegime
         ));
 
         $view->setTerminal(true);

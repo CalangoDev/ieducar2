@@ -61,8 +61,8 @@ class TipoRegime extends Entity
     /**
      * @var Int $instituicao
      *
-     * @ORM\ManyToOne(targetEntity="Escola\Entity\Instituicao")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="Instituicao", cascade={"persist"})
+     * @ORM\JoinColumn(name="instituicao_id", referencedColumnName="id", nullable=false)
      */
     protected $instituicao;
 
@@ -91,7 +91,7 @@ class TipoRegime extends Entity
         return $this->instituicao;
     }
 
-    public function setInstituicao(\Escola\Entity\Instituicao $instituicao)
+    public function setInstituicao($instituicao)
     {
         $this->instituicao = $this->valid('instituicao', $instituicao);
     }

@@ -41,6 +41,7 @@ return array(
         'invokables' => array(
             'Escola\Controller\Index' => 'Escola\Controller\IndexController',
             'Escola\Controller\Instituicao' => 'Escola\Controller\InstituicaoController',
+            'Escola\Controller\TipoRegime' => 'Escola\Controller\TipoRegimeController',
         ),
     ),
     'view_manager' => array(
