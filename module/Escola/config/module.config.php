@@ -42,6 +42,7 @@ return array(
             'Escola\Controller\Index' => 'Escola\Controller\IndexController',
             'Escola\Controller\Instituicao' => 'Escola\Controller\InstituicaoController',
             'Escola\Controller\TipoRegime' => 'Escola\Controller\TipoRegimeController',
+			'Escola\Controller\TipoEnsino' => 'Escola\Controller\TipoEnsinoController',
         ),
     ),
     'view_manager' => array(
