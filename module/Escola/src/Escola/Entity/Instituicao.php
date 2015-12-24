@@ -88,7 +88,7 @@ class Instituicao extends Entity
     /**
      * @var boolean $ativo
      *
-     * @ORM\Column(type="boolean", nullable=false)
+     * @ORM\Column(type="boolean")
      */
     protected $ativo = true;
 

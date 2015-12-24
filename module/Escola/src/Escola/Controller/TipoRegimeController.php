@@ -69,7 +69,7 @@ class TipoRegimeController extends ActionController
                     $this->getEntityManager()->persist($tipoRegime);
                     $this->flashMessenger()->addMessage(array('success' => 'Tipo de Regime Salvo!'));
                 } else {
-                    $this->flashMessenger()->addMessage(array('success' => 'Tipo de Regimeo Alterado!'));
+                    $this->flashMessenger()->addMessage(array('success' => 'Tipo de Regime Alterado!'));
                 }
 
                 $this->getEntityManager()->flush();

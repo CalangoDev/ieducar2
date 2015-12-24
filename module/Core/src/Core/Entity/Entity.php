@@ -113,12 +113,12 @@ abstract class Entity implements InputFilterAwareInterface
         try {
             $filter = $this->getInputFilter()->get($key);
         } catch(InvalidArgumentException $e) {
-            //não existe filtro para esse campo            
+            //não existe filtro para esse campo
             return $value;
         }    
 
         $filter->setValue($value);
-        if(!$filter->isValid()) 
+        if(!$filter->isValid())
             throw new EntityException("Input inválido: $key = $value");
 
         return $filter->getValue($key);

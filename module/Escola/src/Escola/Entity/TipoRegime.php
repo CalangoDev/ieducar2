@@ -54,7 +54,7 @@ class TipoRegime extends Entity
     /**
      * @var Boolean $ativo
      *
-     * @ORM\Column(type="boolean", nullable=false)
+     * @ORM\Column(type="boolean")
      */
     protected $ativo = true;
 
@@ -91,7 +91,7 @@ class TipoRegime extends Entity
         return $this->instituicao;
     }
 
-    public function setInstituicao($instituicao)
+    public function setInstituicao(Instituicao $instituicao)
     {
         $this->instituicao = $this->valid('instituicao', $instituicao);
     }
@@ -120,6 +120,7 @@ class TipoRegime extends Entity
     {
         return $this->ativo;
     }
+
 
     public function setAtivo($ativo)
     {
@@ -178,7 +179,7 @@ class TipoRegime extends Entity
 
             $inputFilter->add($factory->createInput(array(
                 'name' => 'ativo',
-                'required' => true,
+                'required' => false,
                 'filters' => array(
                     array('name' => 'Boolean'),
                 ),

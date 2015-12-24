@@ -30,4 +30,7 @@ PROBLEMAS COM
 
  Solução:
 
+ add nos formularios:
+ $this->setUseInputFilterDefaults(false);
+
  not found yet

@@ -21,6 +21,9 @@ class TipoRegime extends Form
         $this->setAttribute('action', '/escola/tipo-regime/save');
         $this->setHydrator(new DoctrineHydrator($objectManager))->setObject(new \Escola\Entity\TipoRegime());
 
+        //very important
+        $this->setUseInputFilterDefaults(false);
+
         $this->add(array(
             'name' => 'id',
             'attributes' => array(
@@ -72,8 +75,8 @@ class TipoRegime extends Form
             'options' => array(
                 'label' => 'Ativo',
                 'value_options' => array(
-                    true	=> 'Ativo',
-                    false => 'Inativo',
+                    true	=> 'Sim',
+                    false => 'Não',
                 ),
             ),
             'type' => 'Zend\Form\Element\Select',
