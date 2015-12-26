@@ -19,7 +19,7 @@ class TipoEnsino extends Form
         $this->setAttribute('method', 'post');
         $this->setAttribute('action', '/escola/tipo-ensino/save');
         $this->setHydrator(new DoctrineHydrator($objectManager))->setObject(new \Escola\Entity\TipoEnsino());
-
+		$this->setUseInputFilterDefaults(false);
         $this->add(array(
             'name' => 'id',
             'attributes' => array(
