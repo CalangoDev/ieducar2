@@ -121,10 +121,12 @@ class HabilitacaoTest extends EntityTestCase
 
     }
 
-    private function buildTipoEnsino()
+    private function buildHabilitacao()
     {
-        $tipoEnsino = new TipoEnsino();
-        $tipoEnsino->setNome('Integral');
+        $habilitacao = new Habilitacao();
+		$habilitacao->setNome('Integral');
+		$instituicao = $this->buildInstituicao();
+		$habilitacao->setInstituicao($habilitacao);
 
         return $tipoEnsino;
     }
