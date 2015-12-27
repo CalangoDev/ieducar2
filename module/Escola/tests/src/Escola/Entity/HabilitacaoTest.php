@@ -49,22 +49,20 @@ class HabilitacaoTest extends EntityTestCase
      */
     public function testInsert()
     {
-        $instituicao = $this->buildInstituicao();
-        $this->em->persist($instituicao);
-        $tipoEnsino = $this->buildTipoEnsino();
-        $tipoEnsino->setInstituicao($instituicao);
-        $this->em->persist($tipoEnsino);
+        $habilitacao = $this->buildHabilitacao();
+        $habilitacao->setInstituicao($habilitacao);
+        $this->em->persist($habilitacao);
         $this->em->flush();
 
-        $this->assertNotNull($tipoEnsino->getId());
-        $this->assertEquals(1, $tipoEnsino->getId());
+        $this->assertNotNull($habilitacao->getId());
+        $this->assertEquals(1, $habilitacao->getId());
 
         /**
          * get row from database
          */
-        $savedTipoEnsino = $this->em->find(get_class($tipoEnsino), $tipoEnsino->getId());
+        $savedHabilitacao = $this->em->find(get_class($habilitacao), $habilitacao->getId());
 
-        $this->assertEquals(1, $savedTipoEnsino->getId());
+        $this->assertEquals(1, $savedHabilitacao->getId());
     }
 
     /**
@@ -72,52 +70,46 @@ class HabilitacaoTest extends EntityTestCase
      */
     public function testInputFilterInvalidNome()
     {
-        $instituicao = $this->buildInstituicao();
-        $tipoEnsino = $this->buildTipoEnsino();
-        $tipoEnsino->setNome('Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá,
+        $habilitacao = $this->buildHabilitacao();
+        $habilitacao->setNome('Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá,
 		depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum
 		girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois
 		paga. Sapien in monti palavris qui num significa nadis i
 		pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.');
-        $tipoEnsino->setInstituicao($instituicao);
-        $this->em->persist($tipoEnsino);
+        $this->em->persist($habilitacao);
         $this->em->flush();
     }
 
     public function testUpdate()
     {
-        $instituicao = $this->buildInstituicao();
-        $tipoEnsino = $this->buildTipoEnsino();
-        $tipoEnsino->setInstituicao($instituicao);
-        $this->em->persist($tipoEnsino);
+        $habilitacao = $this->buildHabilitacao();
+        $this->em->persist($habilitacao);
         $this->em->flush();
 
-        $savedTipoEnsino = $this->em->find(get_class($tipoEnsino), $tipoEnsino->getId());
-        $this->assertEquals('Integral', $savedTipoEnsino->getNome());
-        $savedTipoEnsino->setNome('Integral X');
+        $savedHabilitacao = $this->em->find(get_class($habilitacao), $habilitacao->getId());
+        $this->assertEquals('Integral', $savedHabilitacao->getNome());
+        $savedHabilitacao->setNome('Integral X');
 
         $this->em->flush();
 
-        $savedTipoEnsino = $this->em->find(get_class($tipoEnsino), $savedTipoEnsino->getId());
-        $this->assertEquals('Integral X', $savedTipoEnsino->getNome());
+        $savedHabilitacao = $this->em->find(get_class($habilitacao), $savedHabilitacao->getId());
+        $this->assertEquals('Integral X', $savedHabilitacao->getNome());
 
     }
 
     public function testDelete()
     {
-        $instituicao = $this->buildInstituicao();
-        $tipoEnsino = $this->buildTipoEnsino();
-        $tipoEnsino->setInstituicao($instituicao);
-        $this->em->persist($tipoEnsino);
+        $habilitacao = $this->buildHabilitacao();
+        $this->em->persist($habilitacao);
         $this->em->flush();
 
-        $id = $tipoEnsino->getId();
-        $savedTipoEnsino = $this->em->find(get_class($tipoEnsino), $id);
-        $this->em->remove($savedTipoEnsino);
+        $id = $habilitacao->getId();
+        $savedHabilitacao = $this->em->find(get_class($habilitacao), $id);
+        $this->em->remove($savedHabilitacao);
         $this->em->flush();
 
-        $savedTipoEnsino = $this->em->find(get_class($tipoEnsino), $id);
-        $this->assertNull($savedTipoEnsino);
+        $savedHabilitacao = $this->em->find(get_class($habilitacao), $id);
+        $this->assertNull($savedHabilitacao);
 
     }
 
@@ -126,9 +118,9 @@ class HabilitacaoTest extends EntityTestCase
         $habilitacao = new Habilitacao();
 		$habilitacao->setNome('Integral');
 		$instituicao = $this->buildInstituicao();
-		$habilitacao->setInstituicao($habilitacao);
+		$habilitacao->setInstituicao($instituicao);
 
-        return $tipoEnsino;
+        return $habilitacao;
     }
 
     private function buildInstituicao()
