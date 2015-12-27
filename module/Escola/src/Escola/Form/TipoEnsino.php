@@ -19,7 +19,9 @@ class TipoEnsino extends Form
         $this->setAttribute('method', 'post');
         $this->setAttribute('action', '/escola/tipo-ensino/save');
         $this->setHydrator(new DoctrineHydrator($objectManager))->setObject(new \Escola\Entity\TipoEnsino());
-		$this->setUseInputFilterDefaults(false);
+
+        $this->setUseInputFilterDefaults(false);
+
         $this->add(array(
             'name' => 'id',
             'attributes' => array(
@@ -73,14 +75,14 @@ class TipoEnsino extends Form
             'options' => array(
                 'label' => 'Ativo',
                 'value_options' => array(
-                    true	=> 'Ativo',
-                    false => 'Inativo',
+                    '1'	=> 'Sim',
+                    '0' => 'Não',
                 ),
             ),
             'type' => 'Zend\Form\Element\Select',
             'attributes' => array(
                 'type' => 'Zend\Form\Element\Select',
-                'value' => true,
+                'value' => '1',
                 'class' => 'form-control'
             ),
         ));

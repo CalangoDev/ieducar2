@@ -181,7 +181,7 @@ class TipoRegime extends Entity
                 'name' => 'ativo',
                 'required' => false,
                 'filters' => array(
-                    array('name' => 'Boolean'),
+                    array('name' => 'Int'),
                 ),
             )));
 

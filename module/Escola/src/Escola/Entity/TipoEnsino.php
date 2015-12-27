@@ -54,7 +54,7 @@ class TipoEnsino extends Entity
     /**
      * @var Boolean $ativo
      *
-     * @ORM\Column(type="boolean", nullable=false)
+     * @ORM\Column(type="boolean")
      */
     protected $ativo = true;
 
@@ -178,9 +178,9 @@ class TipoEnsino extends Entity
 
             $inputFilter->add($factory->createInput(array(
                 'name' => 'ativo',
-                'required' => true,
+                'required' => false,
                 'filters' => array(
-                    array('name' => 'Boolean'),
+                    array('name' => 'Int'),
                 ),
             )));
 

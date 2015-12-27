@@ -194,7 +194,7 @@ class NivelEnsino extends Entity
                 'name' => 'ativo',
                 'required' => true,
                 'filters' => array(
-                    array('name' => 'Boolean'),
+                    array('name' => 'Int'),
                 ),
             )));
 

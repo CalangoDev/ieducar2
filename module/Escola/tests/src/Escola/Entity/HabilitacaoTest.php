@@ -24,8 +24,8 @@ class HabilitacaoTest extends EntityTestCase
      */
     public function testGetInputFilter()
     {
-        $tipoEnsino = new TipoEnsino();
-        $if = $tipoEnsino->getInputFilter();
+        $habilitacao = new Habilitacao();
+        $if = $habilitacao->getInputFilter();
         $this->assertInstanceOf('Zend\InputFilter\InputFilter', $if);
 
         return $if;
@@ -36,12 +36,13 @@ class HabilitacaoTest extends EntityTestCase
      */
     public function testInputFilterValid($if)
     {
-        $this->assertEquals(4, $if->count());
+        $this->assertEquals(5, $if->count());
 
         $this->assertTrue($if->has('id'));
         $this->assertTrue($if->has('nome'));
         $this->assertTrue($if->has('instituicao'));
         $this->assertTrue($if->has('ativo'));
+        $this->assertTrue($if->has('descricao'));
     }
 
     /**
@@ -50,7 +51,6 @@ class HabilitacaoTest extends EntityTestCase
     public function testInsert()
     {
         $habilitacao = $this->buildHabilitacao();
-        $habilitacao->setInstituicao($habilitacao);
         $this->em->persist($habilitacao);
         $this->em->flush();
 
@@ -117,6 +117,7 @@ class HabilitacaoTest extends EntityTestCase
     {
         $habilitacao = new Habilitacao();
 		$habilitacao->setNome('Integral');
+        $habilitacao->setDescricao('Descrição');
 		$instituicao = $this->buildInstituicao();
 		$habilitacao->setInstituicao($instituicao);
 
