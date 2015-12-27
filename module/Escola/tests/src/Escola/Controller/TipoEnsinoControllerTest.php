@@ -58,7 +58,7 @@ class TipoEnsinoControllerTest extends \Core\Test\ControllerTestCase
         // faz a comparacao dos dados
         $paginator = $variables['dados'];
         $this->assertEquals($tipoEnsinoA->getNome(), $paginator->getItem(1)->getNome());
-        $this->assertEquals($tipoEnsinoB->getNome(), $paginator->getItem(1)->getNome());
+        $this->assertEquals($tipoEnsinoB->getNome(), $paginator->getItem(2)->getNome());
 
     }
 
@@ -68,6 +68,8 @@ class TipoEnsinoControllerTest extends \Core\Test\ControllerTestCase
         $tipoEnsino = new TipoEnsino();
         $tipoEnsino->setNome('Integral');
         $tipoEnsino->setInstituicao($instituicao);
+
+        return $tipoEnsino;
     }
 
     private function buildInstituicao()

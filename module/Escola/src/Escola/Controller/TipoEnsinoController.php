@@ -116,7 +116,7 @@ class TipoEnsinoController extends ActionController
     {
         $q = (string) $this->params()->fromPost('q');
         $query = $this->getEntityManager()->createQuery("
-          SELECT i FROM Escola\Entity\TipoEnsino te WHERE te.nome LIKE :query");
+          SELECT te FROM Escola\Entity\TipoEnsino te WHERE te.nome LIKE :query");
         $query->setParameter('query', "%".$q."%");
         $dados = $query->getResult();
 

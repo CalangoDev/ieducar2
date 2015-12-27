@@ -1,0 +1,23 @@
+<div class="row">
+	<dl class="dl-horizontal">
+		
+		<dt>Nome:</dt>
+		<dd><?php echo $data->getNome();?></dd>
+		
+		<?php
+		if ($data->getInstituicao()):
+		?>
+			<dt>Instituição</dt>
+			<dd><?php echo $data->getInstituicao()->getNome();?></dd>
+		<?php
+		endif;
+		?>
+		
+		<dt>Ativo:</dt>
+		<dd>
+			<?php
+			echo ($data->getAtivo())? 'Sim' : 'Não';
+			?>
+		</dd>
+	</dl>
+</div>
