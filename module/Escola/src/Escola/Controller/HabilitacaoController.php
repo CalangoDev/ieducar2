@@ -1,36 +1,36 @@
 <?php
 /**
- * Created by Vim.
+ * Created by PhpStorm.
  * User: eduardojunior
- * Date: 22/12/15
- * Time: 17:30
+ * Date: 27/12/15
+ * Time: 14:16
  */
 namespace Escola\Controller;
 
 use Core\Controller\ActionController;
 use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
-use Escola\Entity\TipoRegime;
+use Escola\Entity\Habilitacao;
 use Zend\Paginator\Paginator;
 use Zend\View\Model\ViewModel;
-use Escola\Form\TipoRegime as TipoRegimeForm;
+use Escola\Form\Habilitacao as HabilitacaoForm;
 
 /**
- * Controlador que gerencia os tipos de regimes
+ * Controlador que gerencia as habilitações
  *
  * @category Escola
  * @package Controller
  * @author Eduardo Junior <ej@calangodev.com.br>
  */
-class TipoRegimeController extends ActionController
+class HabilitacaoController extends ActionController
 {
     /**
-     * Lista os tipos de regimes cadastrados
+     * Lista as habilitacoes
      * @return void
      */
     public function indexAction()
     {
-        $query = $this->getEntityManager()->createQuery('SELECT tp FROM Escola\Entity\TipoRegime tp');
+        $query = $this->getEntityManager()->createQuery('SELECT h FROM Escola\Entity\Habilitacao h');
 
         $dados = new Paginator(
             new DoctrinePaginator(new ORMPaginator($query))
@@ -38,27 +38,25 @@ class TipoRegimeController extends ActionController
 
         $dados->setCurrentPageNumber($this->params()->fromRoute('page'))->setItemCountPerPage(10);
 
-        return new ViewModel(array(
-            'dados' => $dados
-        ));
+        return new ViewModel(array('dados' => $dados));
     }
 
     public function saveAction()
     {
-        $tipoRegime = new TipoRegime();
-        $form = new TipoRegimeForm($this->getEntityManager());
+        $habilitacao = new Habilitacao();
+        $form = new HabilitacaoForm($this->getEntityManager());
         $request = $this->getRequest();
 
         $id = (int) $this->getEvent()->getRouteMatch()->getParam('id');
         if ($id > 0){
-            $tipoRegime = $this->getEntityManager()->find('Escola\Entity\TipoRegime', $id);
+            $habilitacao = $this->getEntityManager()->find('Escola\Entity\Habilitacao', $id);
             $form->get('submit')->setAttribute('value', 'Atualizar');
         }
 
-        $form->bind($tipoRegime);
+        $form->bind($habilitacao);
 
         if ($request->isPost()){
-            $form->setInputFilter($tipoRegime->getInputFilter());
+            $form->setInputFilter($habilitacao->getInputFilter());
             $form->setData($request->getPost());
             if ($form->isValid()){
                 /*
@@ -66,17 +64,17 @@ class TipoRegimeController extends ActionController
                  */
                 $id = (int) $this->params()->fromPost('id', 0);
                 if ($id == 0){
-                    $this->getEntityManager()->persist($tipoRegime);
-                    $this->flashMessenger()->addMessage(array('success' => 'Tipo de Regime Salvo!'));
+                    $this->getEntityManager()->persist($habilitacao);
+                    $this->flashMessenger()->addMessage(array('success' => 'Habilitação Salva!'));
                 } else {
-                    $this->flashMessenger()->addMessage(array('success' => 'Tipo de Regime Alterado!'));
+                    $this->flashMessenger()->addMessage(array('success' => 'Habilitação Alterada!'));
                 }
 
                 $this->getEntityManager()->flush();
                 /**
                  * Redirecionando
                  */
-                return $this->redirect()->toUrl('/escola/tipo-regime');
+                return $this->redirect()->toUrl('/escola/habilitacao');
             }
         }
 
@@ -87,7 +85,7 @@ class TipoRegimeController extends ActionController
     }
 
     /**
-     * Detalhes do tipo de regime
+     * Detalhes
      */
     public function detalhesAction()
     {
@@ -95,13 +93,13 @@ class TipoRegimeController extends ActionController
         if ($id == 0)
             throw new \Exception("Código Obrigatório");
 
-        $tipoRegime = $this->getEntityManager()->find('Escola\Entity\TipoRegime', $id);
+        $habilitacao = $this->getEntityManager()->find('Escola\Entity\Habilitacao', $id);
 
-        if (!$tipoRegime)
+        if (!$habilitacao)
             throw new \Exception("Registro não encontrado");
 
         $view = new ViewModel(array(
-            'data' => $tipoRegime
+            'data' => $habilitacao
         ));
 
         $view->setTerminal(true);
@@ -116,8 +114,7 @@ class TipoRegimeController extends ActionController
     {
         $q = (string) $this->params()->fromPost('q');
         $query = $this->getEntityManager()->createQuery("
-          SELECT tp FROM Escola\Entity\TipoRegime tp WHERE tp.nome LIKE :query
-        ");
+          SELECT h FROM Escola\Entity\Habilitacao h WHERE h.nome LIKE :query OR h.descricao LIKE :query ");
         $query->setParameter('query', "%".$q."%");
         $dados = $query->getResult();
 
@@ -131,7 +128,7 @@ class TipoRegimeController extends ActionController
 
 
     /**
-     * Excluir um tipo de regime
+     * Excluir uma habilitacao
      * @throws \Exception If registro não encontrado
      * @return void
      */
@@ -142,13 +139,13 @@ class TipoRegimeController extends ActionController
             throw new \Exception("Código Obrigatório");
 
         try{
-            $tipoRegime = $this->getEntityManager()->find('Escola\Entity\TipoRegime', $id);
-            $this->getEntityManager()->remove($tipoRegime);
+            $habilitacao = $this->getEntityManager()->find('Escola\Entity\Habilitacao', $id);
+            $this->getEntityManager()->remove($habilitacao);
             $this->getEntityManager()->flush();
         } catch(\Exception $e){
             throw new \Exception("Registro não encontrado");
         }
         $this->flashMessenger()->addMessage(array("success" => "Registro Removido com sucesso!"));
-        return $this->redirect()->toUrl('/escola/tipo-regime');
+        return $this->redirect()->toUrl('/escola/habilitacao');
     }
 }

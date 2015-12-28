@@ -2,21 +2,21 @@
 /**
  * Created by PhpStorm.
  * User: eduardojunior
- * Date: 23/12/15
- * Time: 16:04
+ * Date: 27/12/15
+ * Time: 14:27
  */
-use Escola\Entity\TipoEnsino;
+use Escola\Entity\Habilitacao;
 
 /**
  * @group Controller
  */
-class TipoEnsinoControllerTest extends \Core\Test\ControllerTestCase
+class HabilitacaoControllerTest extends \Core\Test\ControllerTestCase
 {
     /**
      * Namespace completa do controller
-     * @var string TipoEnsinoController
+     * @var string HabilitacaoController
      */
-    protected $controllerFQDN = 'Escola\Controller\TipoEnsinoController';
+    protected $controllerFQDN = 'Escola\Controller\HabilitacaoController';
 
     /**
      * Nome da rota. geralmente o nome do moulo
@@ -25,16 +25,16 @@ class TipoEnsinoControllerTest extends \Core\Test\ControllerTestCase
     protected $controllerRoute = 'escola';
 
     /**
-     * testa a pagina inicial, listando os tipos de ensino
+     * testa a pagina inicial, listando as habilitacoes
      */
-    public function testTipoEnsinoIndexAction()
+    public function testHabilitacaoIndexAction()
     {
-        $tipoEnsinoA = $this->buildTipoEnsino();
-        $tipoEnsinoB = $this->buildTipoEnsino();
-        $tipoEnsinoB->setNome('Medio');
+        $habilitacaoA = $this->buildHabilitacao();
+        $habilitacaoB = $this->buildHabilitacao();
+        $habilitacaoB->setNome('Medio');
         $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-        $em->persist($tipoEnsinoA);
-        $em->persist($tipoEnsinoB);
+        $em->persist($habilitacaoA);
+        $em->persist($habilitacaoB);
         $em->flush();
 
         // invoca a rota index
@@ -57,22 +57,22 @@ class TipoEnsinoControllerTest extends \Core\Test\ControllerTestCase
 
         // faz a comparacao dos dados
         $paginator = $variables['dados'];
-        $this->assertEquals($tipoEnsinoA->getNome(), $paginator->getItem(1)->getNome());
-        $this->assertEquals($tipoEnsinoB->getNome(), $paginator->getItem(2)->getNome());
+        $this->assertEquals($habilitacaoA->getNome(), $paginator->getItem(1)->getNome());
+        $this->assertEquals($habilitacaoB->getNome(), $paginator->getItem(2)->getNome());
 
     }
 
     /**
      * Testa a busca com resultados
      */
-    public function testTipoEnsinoBuscaPostActionRequest()
+    public function testHabilitacaoBuscaPostActionRequest()
     {
-        $tipoEnsinoA = $this->buildTipoEnsino();
-        $tipoEnsinoB = $this->buildTipoEnsino();
-        $tipoEnsinoB->setNome('GOLD');
+        $habilitacaoA = $this->buildHabilitacao();
+        $habilitacaoB = $this->buildHabilitacao();
+        $habilitacaoB->setNome('GOLD');
         $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-        $em->persist($tipoEnsinoA);
-        $em->persist($tipoEnsinoB);
+        $em->persist($habilitacaoA);
+        $em->persist($habilitacaoB);
         $em->flush();
 
         // invoca a rota index
@@ -92,7 +92,7 @@ class TipoEnsinoControllerTest extends \Core\Test\ControllerTestCase
 
         // faz a comparacao dos dados
         $dados = $variables['dados'];
-        $this->assertEquals($tipoEnsinoB->getNome(), $dados[0]->getNome());
+        $this->assertEquals($habilitacaoB->getNome(), $dados[0]->getNome());
     }
 
     /**
@@ -100,7 +100,7 @@ class TipoEnsinoControllerTest extends \Core\Test\ControllerTestCase
      * @expectedException Exception
      * @expectedExceptionMessage Código Obrigatório
      */
-    public function testTipoEnsinoInvalidDeleteAction()
+    public function testHabilitacaoInvalidDeleteAction()
     {
         // dispara a acao
         $this->routeMatch->setParam('action', 'delete');
@@ -116,16 +116,16 @@ class TipoEnsinoControllerTest extends \Core\Test\ControllerTestCase
     /**
      * Testa a exclusao
      */
-    public function testTipoEnsinoDeleteAction()
+    public function testHabilitacaoDeleteAction()
     {
-        $tipoEnsino = $this->buildTipoEnsino();
+        $habilitacao = $this->buildHabilitacao();
         $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-        $em->persist($tipoEnsino);
+        $em->persist($habilitacao);
         $em->flush();
 
         // dispara a acao
         $this->routeMatch->setParam('action', 'delete');
-        $this->routeMatch->setParam('id', $tipoEnsino->getId());
+        $this->routeMatch->setParam('id', $habilitacao->getId());
 
         $result = $this->controller->dispatch(
             $this->request, $this->response
@@ -137,22 +137,22 @@ class TipoEnsinoControllerTest extends \Core\Test\ControllerTestCase
         // a pagina redireciona, entao o status = 302
         $this->assertEquals(302, $response->getStatusCode());
         $headers = $response->getHeaders();
-        $this->assertEquals('Location: /escola/tipo-ensino', $headers->get('Location'));
+        $this->assertEquals('Location: /escola/habilitacao', $headers->get('Location'));
     }
 
     /**
      * Testa a tela de detalhes
      */
-    public function testTipoEnsinoDetalhesAction()
+    public function testHabilitacaoDetalhesAction()
     {
-        $tipoEnsino = $this->buildTipoEnsino();
+        $habilitacao = $this->buildHabilitacao();
         $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-        $em->persist($tipoEnsino);
+        $em->persist($habilitacao);
         $em->flush();
 
         // Dispara a acao
         $this->routeMatch->setParam('action', 'detalhes');
-        $this->routeMatch->setParam('id', $tipoEnsino->getId());
+        $this->routeMatch->setParam('id', $habilitacao->getId());
 
         $result = $this->controller->dispatch(
             $this->request, $this->response
@@ -172,7 +172,7 @@ class TipoEnsinoControllerTest extends \Core\Test\ControllerTestCase
 
         //	Faz a comparação dos dados
         $data = $variables["data"];
-        $this->assertEquals($tipoEnsino->getNome(), $data->getNome());
+        $this->assertEquals($habilitacao->getNome(), $data->getNome());
 
     }
 
@@ -181,7 +181,7 @@ class TipoEnsinoControllerTest extends \Core\Test\ControllerTestCase
      * @expectedException Exception
      * @expectedExceptionMessage Registro não encontrado
      */
-    public function testTipoEnsinoDetalhesInvalidIdAction()
+    public function testHabilitacaoDetalhesInvalidIdAction()
     {
         $this->routeMatch->setParam('action', 'detalhes');
         $this->routeMatch->setParam('id', -1);
@@ -199,11 +199,11 @@ class TipoEnsinoControllerTest extends \Core\Test\ControllerTestCase
      * @expectedException Exception
      * @expectedExceptionMessage Registro não encontrado
      */
-    public function testTipoEnsinoInvalidIdDeleteAction()
+    public function testHabilitacaoInvalidIdDeleteAction()
     {
-        $tipoEnsino = $this->buildTipoEnsino();
+        $habilitacao = $this->buildHabilitacao();
         $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-        $em->persist($tipoEnsino);
+        $em->persist($habilitacao);
         $em->flush();
 
         //	Dispara a acao
@@ -221,18 +221,19 @@ class TipoEnsinoControllerTest extends \Core\Test\ControllerTestCase
         $this->assertEquals(302, $response->getStatusCode());
         $headers = $response->getHeaders();
         $this->assertEquals(
-            'Location: /escola/tipo-ensino', $headers->get('Location')
+            'Location: /escola/habilitacao', $headers->get('Location')
         );
     }
 
-    private function buildTipoEnsino()
+    private function buildHabilitacao()
     {
         $instituicao = $this->buildInstituicao();
-        $tipoEnsino = new TipoEnsino();
-        $tipoEnsino->setNome('Integral');
-        $tipoEnsino->setInstituicao($instituicao);
+        $habilitacao = new Habilitacao();
+        $habilitacao->setNome('Habilitacao 1');
+        $habilitacao->setDescricao('Descricao');
+        $habilitacao->setInstituicao($instituicao);
 
-        return $tipoEnsino;
+        return $habilitacao;
     }
 
     private function buildInstituicao()

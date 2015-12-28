@@ -43,6 +43,7 @@ return array(
             'Escola\Controller\Instituicao' => 'Escola\Controller\InstituicaoController',
             'Escola\Controller\TipoRegime' => 'Escola\Controller\TipoRegimeController',
 			'Escola\Controller\TipoEnsino' => 'Escola\Controller\TipoEnsinoController',
+            'Escola\Controller\Habilitacao' => 'Escola\Controller\HabilitacaoController',
         ),
     ),
     'view_manager' => array(

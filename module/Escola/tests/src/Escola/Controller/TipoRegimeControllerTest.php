@@ -173,7 +173,7 @@ class TipoRegimeControllerTest extends ControllerTestCase
         //	a pagina redireciona, estao o status = 302
         $this->assertEquals(302, $response->getStatusCode());
         $headers = $response->getHeaders();
-        $this->assertEquals('Location: /escola/tiporegime', $headers->get('Location'));
+        $this->assertEquals('Location: /escola/tipo-regime', $headers->get('Location'));
     }
 
     /**
@@ -204,7 +204,7 @@ class TipoRegimeControllerTest extends ControllerTestCase
         //	a pagina redireciona, estao o status = 302
         $this->assertEquals(302, $response->getStatusCode());
         $headers = $response->getHeaders();
-        $this->assertEquals('Location: /escola/tiporegime', $headers->get('Location'));
+        $this->assertEquals('Location: /escola/tipo-regime', $headers->get('Location'));
 
         $savedTipoRegime = $em->find(get_class($tipoRegime), $tipoRegime->getId());
         $this->assertEquals('Medio', $savedTipoRegime->getNome());
@@ -331,7 +331,7 @@ class TipoRegimeControllerTest extends ControllerTestCase
         $this->assertEquals(302, $response->getStatusCode());
         $headers = $response->getHeaders();
         $this->assertEquals(
-            'Location: /escola/tiporegime', $headers->get('Location')
+            'Location: /escola/tipo-regime', $headers->get('Location')
         );
     }
 
