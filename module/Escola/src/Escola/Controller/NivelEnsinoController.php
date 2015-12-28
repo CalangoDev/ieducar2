@@ -44,7 +44,7 @@ class NivelEnsinoController extends ActionController
     public function saveAction()
     {
         $nivelEnsino = new NivelEnsino();
-        $form = new HabilitacaoForm($this->getEntityManager());
+        $form = new NivelEnsinoForm($this->getEntityManager());
         $request = $this->getRequest();
 
         $id = (int) $this->getEvent()->getRouteMatch()->getParam('id');

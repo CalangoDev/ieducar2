@@ -5,6 +5,8 @@
  * Date: 27/12/15
  * Time: 23:00
  */
+namespace Escola\Form;
+
 use Zend\Form\Form;
 use Doctrine\Common\Persistence\ObjectManager;
 use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
