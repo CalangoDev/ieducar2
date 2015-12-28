@@ -8,6 +8,7 @@
 namespace Escola\Entity;
 
 use Core\Entity\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\Factory as InputFactory;
@@ -28,6 +29,7 @@ use Zend\InputFilter\Factory as InputFactory;
  */
 class Curso extends Entity
 {
+
     /**
      * @var Int $id
      *
@@ -153,10 +155,55 @@ class Curso extends Entity
     protected $tipoRegime;
 
     /**
-     * @var int $habilitacao
+     * @var \Doctrine\Common\Collections\Collection|CursoHabilitacao[]
      *
-     * @ORM\ManyToOne(targetEntity="Escola\Entity\Habilitacao")
+     *
+     * @ORM\ManyToMany(targetEntity="Escola\Entity\Habilitacao")
+     * @ORM\JoinTable(
+     *     name="curso_habilitacao",
+     *     joinColumns={
+     *      @ORM\JoinColumn(name="curso_id", referencedColumnName="id")
+     * },
+     *     inversedJoinColumns={
+     *      @ORM\JoinColumn(name="habilitacao_id", referencedColumnName="id")
+     * }
+     *     )
      */
-    protected $habilitacao;
+    protected $cursoHabilitacoes;
+
+    /**
+     * default constructor, initializes collections
+     */
+    public function __construct()
+    {
+        $this->cursoHabilitacoes = new ArrayCollection();
+    }
+
+    /**
+     * @param CursoHabilitacao $cursoHabilitacao
+     */
+    public function addCursoHabilitacao(CursoHabilitacao $cursoHabilitacao)
+    {
+        if ($this->cursoHabilitacoes->contains($cursoHabilitacao)){
+            return;
+        }
+
+        $this->cursoHabilitacoes->add($cursoHabilitacao);
+        $cursoHabilitacao->addUser($this);
+    }
+
+    /**
+     * @param CursoHabilitacao $cursoHabilitacao
+     */
+    public function removeCursoHabilitacao(CursoHabilitacao $cursoHabilitacao)
+    {
+        if (!$this->cursoHabilitacoes->contains($cursoHabilitacao)){
+            return;
+        }
+
+        $this->cursoHabilitacoes->removeElement($cursoHabilitacao);
+        $cursoHabilitacao->removeUser($this);
+
+    }
 
 }
