@@ -44,6 +44,7 @@ return array(
             'Escola\Controller\TipoRegime' => 'Escola\Controller\TipoRegimeController',
 			'Escola\Controller\TipoEnsino' => 'Escola\Controller\TipoEnsinoController',
             'Escola\Controller\Habilitacao' => 'Escola\Controller\HabilitacaoController',
+            'Escola\Controller\NivelEnsino' => 'Escola\Controller\NivelEnsinoController',
         ),
     ),
     'view_manager' => array(

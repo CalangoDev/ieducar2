@@ -68,7 +68,7 @@ class NivelEnsino extends Entity
 	/**
 	 * @var Int $instituicao
 	 *
-	 * @ORM\ManyToOne(targetEntity="Escola\Entity\Instituicao")
+	 * @ORM\ManyToOne(targetEntity="Escola\Entity\Instituicao", cascade={"persist"})
 	 * @ORM\JoinColumn(nullable=false)
 	 */
 	protected $instituicao;
@@ -131,6 +131,16 @@ class NivelEnsino extends Entity
 	public function setInstituicao(\Escola\Entity\Instituicao $instituicao)
 	{
 		$this->instituicao = $this->valid('instituicao', $instituicao);
+	}
+
+	public function getDescricao()
+	{
+		return $this->descricao;
+	}
+
+	public function setDescricao($descricao)
+	{
+		$this->descricao = $this->valid('descricao', $descricao);
 	}
 
 	/**
