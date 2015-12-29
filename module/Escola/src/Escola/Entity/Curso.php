@@ -25,7 +25,7 @@ use Zend\InputFilter\Factory as InputFactory;
  *
  * @ORM\Entity
  * @ORM\Table(name="escola_curso")
- *
+ * @ORM\HasLifecycleCallbacks
  */
 class Curso extends Entity
 {
@@ -160,11 +160,11 @@ class Curso extends Entity
      *
      * @ORM\ManyToMany(targetEntity="Escola\Entity\Habilitacao")
      * @ORM\JoinTable(
-     *     name="curso_habilitacao",
+     *     name="escola_curso_habilitacao",
      *     joinColumns={
      *      @ORM\JoinColumn(name="curso_id", referencedColumnName="id")
      * },
-     *     inversedJoinColumns={
+     *     inverseJoinColumns={
      *      @ORM\JoinColumn(name="habilitacao_id", referencedColumnName="id")
      * }
      *     )
@@ -204,6 +204,277 @@ class Curso extends Entity
         $this->cursoHabilitacoes->removeElement($cursoHabilitacao);
         $cursoHabilitacao->removeUser($this);
 
+    }
+
+    /**
+     * Função para gerar o timestamp para o atributo dataCadastro, é executada antes de salvar os dados no banco
+     * @access  public
+     * @return  void
+     * @ORM\PrePersist
+     */
+    public function timestamp()
+    {
+        if (is_null($this->getDataCadastro())) $this->setDataCadastro(new \DateTime());
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getNome()
+    {
+        return $this->nome;
+    }
+
+    public function setNome($nome)
+    {
+        $this->nome = $this->valid('nome', $nome);
+    }
+
+    public function getAtoPoderPublico()
+    {
+        return $this->atoPoderPublico;
+    }
+
+    public function setAtoPoderPublico($atoPoderPublico)
+    {
+        $this->atoPoderPublico = $this->valid('atoPoderPublico', $atoPoderPublico);
+    }
+
+    public function getCargaHoraria()
+    {
+        return $this->cargaHoraria;
+    }
+
+    public function setCargaHoraria($cargaHoraria)
+    {
+        $this->cargaHoraria = $this->valid('cargaHoraria', $cargaHoraria);
+    }
+
+    public function getDataCadastro()
+    {
+        return $this->dataCadastro;
+    }
+
+    public function setDataCadastro($dataCadastro)
+    {
+        $this->dataCadastro = $this->valid('dataCadastro', $dataCadastro);
+    }
+
+    public function getHoraFalta()
+    {
+        return $this->horaFalta;
+    }
+
+    public function setHoraFalta($horaFalta)
+    {
+        $this->horaFalta = $this->valid('horaFalta', $horaFalta);
+    }
+
+    public function getInstituicao()
+    {
+        return $this->instituicao;
+    }
+
+    public function setInstituicao(\Escola\Entity\Instituicao $instituicao)
+    {
+        $this->instituicao = $this->valid('instituicao', $instituicao);
+    }
+
+    public function getNivelEnsino()
+    {
+        return $this->nivelEnsino;
+    }
+
+    public function setNivelEnsino(\Escola\Entity\NivelEnsino $nivelEnsino)
+    {
+        $this->nivelEnsino = $this->valid('nivelEnsino', $nivelEnsino);
+    }
+
+    public function getObjetivo()
+    {
+        return $this->objetivo;
+    }
+
+    public function setObjetivo($objetivo)
+    {
+        $this->objetivo = $this->valid('objetivo', $objetivo);
+    }
+
+    public function getPublicoAlvo()
+    {
+        return $this->publicoAlvo;
+    }
+
+    public function setPublicoAlvo($publicoAlvo)
+    {
+        $this->publicoAlvo = $this->valid('publicoAlvo', $publicoAlvo);
+    }
+
+    public function getQuantidadeEtapa()
+    {
+        return $this->quantidadeEtapa;
+    }
+
+    public function setQuantidadeEtapa($quantidadeEtapa)
+    {
+        $this->quantidadeEtapa = $this->valid('quantidadeEtapa', $quantidadeEtapa);
+    }
+
+    public function getSigla()
+    {
+        return $this->sigla;
+    }
+
+    public function setSigla($sigla)
+    {
+        $this->sigla = $this->valid('sigla', $sigla);
+    }
+
+    public function getTipoEnsino()
+    {
+        return $this->tipoEnsino;
+    }
+
+    public function setTipoEnsino(\Escola\Entity\TipoEnsino $tipoEnsino)
+    {
+        $this->tipoEnsino = $tipoEnsino;
+    }
+
+    public function getTipoRegime()
+    {
+        return $this->tipoRegime;
+    }
+
+    public function setTipoRegime(\Escola\Entity\TipoRegime $tipoRegime = null)
+    {
+        $this->tipoRegime = $tipoRegime;
+    }
+
+    public function getAtivo()
+    {
+        return $this->ativo;
+    }
+
+    public function setAtivo($ativo)
+    {
+        $this->ativo = $this->valid('ativo', $ativo);
+    }
+
+    public function getMultiSeriado()
+    {
+        return $this->multiSeriado;
+    }
+
+    public function setMultiSeriado($multiSeriado)
+    {
+        $this->multiSeriado = $this->valid('multiSeriado', $multiSeriado);
+    }
+
+    // TODO: check this
+    public function isPadraoAnoEscolar()
+    {
+        return $this->padraoAnoEscolar;
+    }
+
+    public function setPadraoAnoEscolar($padraoAnoEscolar)
+    {
+        $this->padraoAnoEscolar = $this->valid('padraoAnoEscolar', $padraoAnoEscolar);
+    }
+
+    public function getCursoHabilitacoes()
+    {
+        return $this->cursoHabilitacoes;
+    }
+
+    /**
+     * @var Zend\InputFilter\InputFilter $inputFilter
+     */
+    protected $inputFilter;
+
+    /**
+     * Configura os filtros dos campos da entidade
+     *
+     * @return Zend\InputFilter\InputFilter
+     */
+    public function getInputFilter()
+    {
+        if (!$this->inputFilter){
+            $inputFilter = new InputFilter();
+            $factory = new InputFactory();
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'id',
+                'required' => true,
+                'filters' => array(
+                    array('name' => 'Int'),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'nome',
+                'required' => true,
+                'filters' => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name' => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min' => 1,
+                            'max' => 200,
+                        ),
+                    ),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'sigla',
+                'required' => true,
+                'filters' => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name' => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min' => 1,
+                            'max' => 20,
+                        ),
+                    ),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'quantidadeEtapa',
+                'required' => true,
+                'filters' => array(
+                    array('name' => 'Int'),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'cargaHoraria',
+                'required' => true,
+                'validators' => array(
+                    array(
+                        'name' => 'Float',
+                        'options' =>  array(
+                            'locale' => 'pt_BR'
+                        )
+                    )
+                )
+            )));
+
+            $this->inputFilter = $inputFilter;
+        }
+
+        return $this->inputFilter;
     }
 
 }
