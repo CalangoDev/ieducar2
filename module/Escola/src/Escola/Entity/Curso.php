@@ -385,7 +385,7 @@ class Curso extends Entity
 
     public function getCursoHabilitacoes()
     {
-        return $this->cursoHabilitacoes;
+       return $this->cursoHabilitacoes;
     }
 
     /**
@@ -469,7 +469,99 @@ class Curso extends Entity
                         )
                     )
                 )
+			)));
+
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'atoPoderPublico',
+                'required' => false,
+                'filters' => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name' => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min' => 1,
+                            'max' => 255,
+                        ),
+                    ),
+                ),
             )));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'objetivo',
+				'required' => 'false',
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'publicoAlvo',
+				'required' => 'false',
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'ativo',
+				'required' => true,
+				'filters' => array(
+					array('name' => 'Int')
+				),
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'padraoAnoEscolar',
+				'required' => true,
+				'filters' => array(
+					array('name' => 'Int')
+				),
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+                'name' => 'horaFalta',
+                'required' => true,
+                'validators' => array(
+                    array(
+                        'name' => 'Float',
+                        'options' =>  array(
+                            'locale' => 'pt_BR'
+                        )
+                    )
+                )
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'multiSeriado',
+				'required' => false,
+				'validators' => array(
+					array('name' => 'Int'),
+				),
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'instituicao',
+				'required' => true,
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'nivelEnsino',
+				'required' => true,
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'tipoEnsino',
+				'required' => true,
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'tipoRegime',
+				'required' => false,
+			)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name' => 'cursoHabilitacoes',
+				'required' => false,
+			)));
 
             $this->inputFilter = $inputFilter;
         }
