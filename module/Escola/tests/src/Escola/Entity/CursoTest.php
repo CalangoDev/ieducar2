@@ -58,6 +58,96 @@ class CursoTest extends EntityTestCase
 		// TODO: continue this
 	}
 
+	public function testInsert()
+	{
+		$curso = $this->buildCurso();
+		$this->em->persist($curso);
+		$this->em->flush();
+		$this->assertNotNull($curso->getId());
+		$this->assertEquals(1, $curso->getId());
+
+		// searching record in db
+		$savedCurso = $this->em->find(get_class($curso), $curso->getId());
+		$this->assertInstanceOf(get_class($savedCurso),$savedCurso);
+		$this->assertEquals($curso->getId(), $savedCurso->getId());
+		$this->assertEquals('Curso Teste', $savedCurso->getNome());
+		$this->assertEquals('CT', $savedCurso->getSigla());
+		$this->assertEquals(4, $savedCurso->getQuantidadeEtapa());
+		$this->assertEquals(60.0, $savedCurso->getCargaHoraria());
+		$this->assertEquals('ato', $savedCurso->getAtoPoderPublico());
+		$this->assertEquals('Objetivo do curso', $savedCurso->getObjetivo());
+		$this->assertEquals('Infantil', $savedCurso->getPublicoAlvo());
+		$this->assertEquals(true, $savedCurso->getAtivo());
+		$this->assertEquals(false, $savedCurso->getPadraoAnoEscolar());
+		$this->assertEquals(50.0, $savedCurso->getHoraFalta());
+		$this->assertEquals(false, $savedCurso->getMultiSeriado());
+		$this->assertEquals($curso->getInstituicao(), $savedCurso->getInstituicao());
+		$this->assertEquals($curso->getNivelEnsino(), $savedCurso->getNivelEnsino());
+		$this->assertEquals($curso->getTipoEnsino(), $savedCurso->getTipoEnsino());
+		$this->assertEquals($curso->getTipoRegime(), $savedCurso->getTipoRegime());
+		$this->assertEquals($curso->getCursoHabilitacao(), $savedCurso->getCursoHabilitacao());
+		
+		//		
+	}
+
+	/**
+	 * @expectedException Core\Entity\EntityException	 
+	 */
+	public function testInputFilterInvalidNome()
+	{
+		$curso = $this->buildCurso();
+		$curso->setNome('qwertyuiop[]\asdfghjkl;zxcvbnm,/1234567890-=qwertyuiiop[]\asdfghkjk;;;vbnm,../qwertryuioppasdfhjhlxzc,xzmkjasdoioqwe qweoioi wqe oiasodi osadi osadioa sdoas oi oasid o oi osad oioi oi dasoi oido oi oisdoio asd oi oadoi oia dsoi oiasdoi oi dosaidoi asdois osadoi oisdoi oi asdoi o asdoi oia sdoi asdoi asdoi oi adoi sadoaisdoi sadoi sado asdoi odoasi dsooioiasd oiasd osdoai sadoi oiasdoasi doasdoid oia odiasodi oia doi oi dasodi oi asdoi oi oi asdoi oiasd oio i doasi oasido asdio ');
+		$this->em->persist($curso);
+		$this->em->flush();
+	}
+
+	public function testUpdate()
+	{
+		$curso = $this->buildCurso();
+		$this->em->persist($curso);
+		$this->em->flush();
+		$savedCurso = $this->em->find(get_class($curso), $curso->getId());
+
+		$this->assertEqual('Curso Teste', $savedCurso->getNome());
+		$savedCurso->setNome('Curso Outro Nome');
+		$this->em->flush();
+		$savedCurso = $this->em->find(get_class($curso), $savedCurso->getId());
+		$this->assertEqual('Curso Outro Nome', $savedCurso->getNome());
+	}
+
+	public function testDelete()
+	{
+		$curso = $this->buildCurso();
+		$this->em->persist($curso);
+		$this->em->flush();
+		$id = $curso->getId();
+		$savedCurso = $this->em->find(get_class($curso), $id);
+		$this->em->remove($savedCurso);
+		$this->em->flush();
+		$savedCurso = $this->em->find(get_class($curso), $id);
+		$this->assertNull($savedCurso);
+	}
+
+	public function testRemoveHabilitacoes()
+    {
+        $habilitacoes = $this->buildCursoHabilitacoes();
+        $curso = $this->buildCurso();
+        $curso->addCursoHabilitacoes($habilitacoes);
+        $this->em->persist($curso);
+        $this->em->flush();
+        $id = $curso->getId();
+
+        $savedCurso = $this->em->find('Escola\Entity\Curso', $id);
+        $savedCurso->removeCursoHabilitacoes($habilitacoes);
+
+        $this->em->flush();
+
+        $savedCurso = $this->em->find('Escola\Entity\Curso', $id);
+
+        //Verfify colletion is empty
+        $this->assertTrue($savedCurso->getCursoHabilitacoes()->isEmpty());
+    }
+
 	private function buildCurso()
 	{
 		$curso = new Curso();
@@ -85,7 +175,8 @@ class CursoTest extends EntityTestCase
 		$tipoRegime = $this->buildTipoRegime();
 		$curso->setTipoRegime($tipoRegime);
 
-		// TODO: Inserir Habilitacoes do curso
+		$cursoHabilitacaoes = $this->buildCursoHabilitacoes();
+		$curso->addCursoHabilitacao($cursoHabilitacoes);
 
 		return $curso;
 	}
@@ -130,6 +221,21 @@ class CursoTest extends EntityTestCase
 		$tipoRegime->setInstituicao($instituicao);
 
 		return $tipoRegime;
+	}
+
+	private function buildCursosHabilitacoes()
+	{
+		$cursoHabilitacoes = new ArrayCollection(); 
+		$habilitacao = new \Escola\Entity\Habilitacao();
+        $habilitacao->setNome('Habilitacao Nome');
+		$habilitacao->setDescricao('Desc Habilitacao');
+		$habilitacao->setAtivo(true);
+		$instituicao = $this->buildInstituicao();
+		$habilitacao->setInstituicao($instituicao);
+
+        $cursoHabilitacoes->add($habilitacao);
+
+        return $cursoHabilitacoes;
 	}
 
 }
