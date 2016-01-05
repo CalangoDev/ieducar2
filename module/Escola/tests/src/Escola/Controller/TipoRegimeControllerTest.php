@@ -30,13 +30,9 @@ class TipoRegimeControllerTest extends ControllerTestCase
      */
     public function testTipoRegimeIndexAction()
     {
-        $instituicao = $this->buildInstituicao();
         $tipoRegimeA = $this->buildTipoRegime();
-        $tipoRegimeA->setInstituicao($instituicao);
-
         $tipoRegimeB = $this->buildTipoRegime();
         $tipoRegimeB->setNome('Medio');
-        $tipoRegimeB->setInstituicao($instituicao);
 
         $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
         $em->persist($tipoRegimeA);
@@ -99,10 +95,6 @@ class TipoRegimeControllerTest extends ControllerTestCase
         $this->assertEquals('nome', $nome->getName());
         $this->assertEquals('text', $nome->getAttribute('type'));
 
-        $instituicao = $form->get('instituicao');
-        $this->assertEquals('instituicao', $instituicao->getName());
-        $this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $instituicao->getAttribute('type'));
-
         $ativo = $form->get('ativo');
         $this->assertEquals('ativo', $ativo->getName());
         $this->assertEquals('Zend\Form\Element\Select', $ativo->getAttribute('type'));
@@ -114,9 +106,7 @@ class TipoRegimeControllerTest extends ControllerTestCase
      */
     public function testTipoRegimeSaveActionUpdateFormRequest()
     {
-        $instituicao = $this->buildInstituicao();
         $tipoRegime = $this->buildTipoRegime();
-        $tipoRegime->setInstituicao($instituicao);
         $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
         $em->persist($tipoRegime);
         $em->flush();
@@ -152,9 +142,9 @@ class TipoRegimeControllerTest extends ControllerTestCase
      */
     public function testTipoRegimeSaveActionPostRequest()
     {
-        $instituicao = $this->buildInstituicao();
+        $tipoRegime = $this->buildInstituicao();
         $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-        $em->persist($instituicao);
+        $em->persist($tipoRegime);
         $em->flush();
         //	Dispara a acao
         $this->routeMatch->setParam('action', 'save');
@@ -162,7 +152,6 @@ class TipoRegimeControllerTest extends ControllerTestCase
         $this->request->setMethod('post');
         $this->request->getPost()->set('id', '');
         $this->request->getPost()->set('nome', 'Garrincha');
-        $this->request->getPost()->set('instituicao', $instituicao->getId());
         $this->request->getPost()->set('ativo', true);
 
         $result = $this->controller->dispatch(
@@ -181,9 +170,7 @@ class TipoRegimeControllerTest extends ControllerTestCase
      */
     public function testTipoRegimeUpdateAction()
     {
-        $instituicao = $this->buildInstituicao();
         $tipoRegime = $this->buildTipoRegime();
-        $tipoRegime->setInstituicao($instituicao);
         $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
         $em->persist($tipoRegime);
         $em->flush();
@@ -193,7 +180,6 @@ class TipoRegimeControllerTest extends ControllerTestCase
         $this->request->setMethod('post');
         $this->request->getPost()->set('id', $tipoRegime->getId());
         $this->request->getPost()->set('nome', 'Medio');
-        $this->request->getPost()->set('instituicao', $instituicao->getId());
         $this->request->getPost()->set('ativo', true);
 
         $result = $this->controller->dispatch(
@@ -215,16 +201,15 @@ class TipoRegimeControllerTest extends ControllerTestCase
      */
     public function testTipoRegimeSaveActionInvalidFormPostRequest()
     {
-        $instituicao = $this->buildInstituicao();
+        $tipoRegime = $this->buildInstituicao();
         $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-        $em->persist($instituicao);
+        $em->persist($tipoRegime);
         $em->flush();
         // dispara a acao
         $this->routeMatch->setParam('action', 'save');
         $this->request->setMethod('post');
         $this->request->getPost()->set('id', '');
         $this->request->getPost()->set('nome', '');
-        $this->request->getPost()->set('instituicao', $instituicao->getId());
         $this->request->getPost()->set('ativo', true);
 
         $result = $this->controller->dispatch(
@@ -249,11 +234,8 @@ class TipoRegimeControllerTest extends ControllerTestCase
      */
     public function testTipoRegimeBuscaPostActionRequest()
     {
-        $instituicao = $this->buildInstituicao();
         $tipoRegimeA = $this->buildTipoRegime();
-        $tipoRegimeA->setInstituicao($instituicao);
         $tipoRegimeB = $this->buildTipoRegime();
-        $tipoRegimeB->setInstituicao($instituicao);
         $tipoRegimeB->setNome("GOLD");
         $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
         $em->persist($tipoRegimeA);
@@ -309,9 +291,7 @@ class TipoRegimeControllerTest extends ControllerTestCase
      */
     public function testTipoRegimeDeleteAction()
     {
-        $instituicao = $this->buildInstituicao();
         $tipoRegime = $this->buildTipoRegime();
-        $tipoRegime->setInstituicao($instituicao);
         $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
         $em->persist($tipoRegime);
         $em->flush();
@@ -340,9 +320,7 @@ class TipoRegimeControllerTest extends ControllerTestCase
      */
     public function testTipoRegimeDetalhesAction()
     {
-        $instituicao = $this->buildInstituicao();
         $tipoRegime = $this->buildTipoRegime();
-        $tipoRegime->setInstituicao($instituicao);
         $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
         $em->persist($tipoRegime);
         $em->flush();
@@ -398,9 +376,7 @@ class TipoRegimeControllerTest extends ControllerTestCase
      */
     public function testTipoRegimeInvalidIdDeleteAction()
     {
-        $instituicao = $this->buildInstituicao();
         $tipoRegime = $this->buildTipoRegime();
-        $tipoRegime->setInstituicao($instituicao);
         $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
         $em->persist($tipoRegime);
         $em->flush();
@@ -425,14 +401,6 @@ class TipoRegimeControllerTest extends ControllerTestCase
     }
 
 
-    private function buildInstituicao()
-    {
-        $instituicao = new \Escola\Entity\Instituicao();
-        $instituicao->setNome('Prefeitura Municipal Modelo');
-        $instituicao->setResponsavel('Secretaria Municipal Modelo');
-
-        return $instituicao;
-    }
 
     private function buildTipoRegime()
     {

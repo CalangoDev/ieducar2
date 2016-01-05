@@ -87,3 +87,6 @@ sudo apt-get install php5-intl
 
 
 Inicio do sistema - preciso cadastrar um usuario de acesso e depois suas permissoes
+
+
+## API RESTFULL

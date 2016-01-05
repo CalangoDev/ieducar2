@@ -65,13 +65,6 @@ class NivelEnsino extends Entity
 	 */
 	protected $ativo = true;
 
-	/**
-	 * @var Int $instituicao
-	 *
-	 * @ORM\ManyToOne(targetEntity="Escola\Entity\Instituicao", cascade={"persist"})
-	 * @ORM\JoinColumn(nullable=false)
-	 */
-	protected $instituicao;
 	
 	/**
 	 * Função para gerar o timestamp para o atributo dataCadastro, é executada antes de salvar os dados no banco
@@ -121,16 +114,6 @@ class NivelEnsino extends Entity
 	public function setAtivo($ativo)
 	{
 		$this->ativo = $this->valid('ativo', $ativo);
-	}
-
-	public function getInstituicao()
-	{
-		return $this->instituicao;
-	}
-
-	public function setInstituicao(\Escola\Entity\Instituicao $instituicao)
-	{
-		$this->instituicao = $this->valid('instituicao', $instituicao);
 	}
 
 	public function getDescricao()
@@ -193,11 +176,6 @@ class NivelEnsino extends Entity
                     array('name'	=>	'StripTags'),
                     array('name'	=>	'StringTrim'),
                 ),
-            )));
-
-            $inputFilter->add($factory->createInput(array(
-                'name' => 'instituicao',
-                'required' => true,
             )));
 
             $inputFilter->add($factory->createInput(array(

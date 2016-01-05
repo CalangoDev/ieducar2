@@ -53,35 +53,6 @@ class NivelEnsino extends Form
         ));
 
         $this->add(array(
-            'name' => 'instituicao',
-            'attributes' => array(
-                'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-                'class' => 'form-control chosen-select',
-                'style' => 'height:100px;',
-                'id' => 'instituicao'
-            ),
-            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-            'options' => array(
-                'label' => 'Instituição:',
-                //'empty_option' => 'Selecione',
-                'allow_empty' => true,
-                'continue_if_empty' => false,
-                'object_manager' => $objectManager,
-                'target_class' => 'Escola\Entity\Instituicao',
-                'property' => 'nome',
-                'find_method' => array(
-                    'name' => 'findBy',
-                    'params' => array(
-                        'criteria' => array('ativo' => true),
-                        'orderBy' => array('nome' => 'ASC')
-                    ),
-                ),
-                'display_empty_item' => true,
-                'empty_item_label'   => 'Selecione',
-            ),
-        ));
-
-        $this->add(array(
             'name' => 'ativo',
             'options' => array(
                 'label' => 'Ativo',

@@ -230,17 +230,8 @@ class TipoEnsinoControllerTest extends \Core\Test\ControllerTestCase
         $instituicao = $this->buildInstituicao();
         $tipoEnsino = new TipoEnsino();
         $tipoEnsino->setNome('Integral');
-        $tipoEnsino->setInstituicao($instituicao);
 
         return $tipoEnsino;
     }
 
-    private function buildInstituicao()
-    {
-        $instituicao = new \Escola\Entity\Instituicao();
-        $instituicao->setNome('Prefeitura Municipial Modelo');
-        $instituicao->setResponsavel('Secretaria Municipal Modelo');
-
-        return $instituicao;
-    }
 }

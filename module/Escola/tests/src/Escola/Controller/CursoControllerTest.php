@@ -7,6 +7,7 @@
  */
 use Escola\Entity\Curso;
 
+
 /**
  * @group Controller
  */
@@ -49,7 +50,7 @@ class CursoControllerTest extends \Core\Test\ControllerTestCase
 		$this->assertEquals(200, $response->getStatusCode());
 
 		// testa se um ViewModel foi retornado
-		$this->asserInstanceOf('Zend\View\Model\ViewModel', $result);
+		$this->assertInstanceOf('Zend\View\Model\ViewModel', $result);
 
 		// testa os dados da View
 		$variables = $result->getVariables();
@@ -221,7 +222,7 @@ class CursoControllerTest extends \Core\Test\ControllerTestCase
 		$this->assertEquals(302, $response->getStatusCode());
 		$headers = $response->getHeaders();
 		$this->assertEquals(
-			'Location: /escola/curso', $headers->get('Location');
+			'Location: /escola/curso', $headers->get('Location')
 		);
 	}
 
@@ -238,10 +239,10 @@ class CursoControllerTest extends \Core\Test\ControllerTestCase
 		$curso->setAtivo(true);
 		$curso->setPadraoAnoEscolar(false);
 		$curso->setHoraFalta(50.0);
-		$curso->setMultiSeriado(false);
+		$curso->setMultiSeriado(0);
 		
 		$instituicao = $this->buildInstituicao();
-		$curso->setInstituicao($curso);
+		$curso->setInstituicao($instituicao);
 		
 		$nivelEnsino = $this->buildNivelEnsino();
 		$curso->setNivelEnsino($nivelEnsino);
@@ -251,9 +252,6 @@ class CursoControllerTest extends \Core\Test\ControllerTestCase
 
 		$tipoRegime = $this->buildTipoRegime();
 		$curso->setTipoRegime($tipoRegime);
-
-		$cursoHabilitacaoes = $this->buildCursoHabilitacoes();
-		$curso->addCursoHabilitacao($cursoHabilitacoes);
 
 		return $curso;
 	}
@@ -269,50 +267,29 @@ class CursoControllerTest extends \Core\Test\ControllerTestCase
 
 	private function buildNivelEnsino()
 	{
-		$nivelEnsino = new NivelEnsino();
+		$nivelEnsino = new \Escola\Entity\NivelEnsino();
 		$nivelEnsino->setNome('Nivel 1');
 		$nivelEnsino->setDescricao('Descricao nivel de ensino');
-		$instituicao = $this->buildInstituicao();
-		$nivelEnsino->setInstituicao($instituicao);
 
 		return $nivelEnsino;
 	}
 
 	private function buildTipoEnsino()
 	{
-		$tipoEnsino = new TipoEnsino();
+		$tipoEnsino = new \Escola\Entity\TipoEnsino();
 		$tipoEnsino->setNome('Tipo Ensino');
 		$tipoEnsino->setAtivo(true);
-		$instituicao = $this->buildInstituicao();
-		$tipoEnsino->setInstituicao($instituicao);
 
 		return $tipoEnsino;
 	}
 
 	private function buildTipoRegime()
 	{
-		$tipoRegime = new TipoRegime();
+		$tipoRegime = new \Escola\Entity\TipoRegime();
 		$tipoRegime->setNome('Tipo Regime 1');
 		$tipoRegime->setAtivo(true);
-		$instituicao = $this->buildInstituicao();
-		$tipoRegime->setInstituicao($instituicao);
 
 		return $tipoRegime;
-	}
-
-	private function buildCursosHabilitacoes()
-	{
-		$cursoHabilitacoes = new ArrayCollection(); 
-		$habilitacao = new \Escola\Entity\Habilitacao();
-        $habilitacao->setNome('Habilitacao Nome');
-		$habilitacao->setDescricao('Desc Habilitacao');
-		$habilitacao->setAtivo(true);
-		$instituicao = $this->buildInstituicao();
-		$habilitacao->setInstituicao($instituicao);
-
-        $cursoHabilitacoes->add($habilitacao);
-
-        return $cursoHabilitacoes;
 	}
 
 

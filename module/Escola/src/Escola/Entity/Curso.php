@@ -9,6 +9,7 @@ namespace Escola\Entity;
 
 use Core\Entity\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\Factory as InputFactory;
@@ -126,7 +127,7 @@ class Curso extends Entity
     /**
      * @var int $instituicao
      * 
-     * @ORM\ManyToOne(targetEntity="Escola\Entity\Instituicao")
+     * @ORM\ManyToOne(targetEntity="Escola\Entity\Instituicao", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     protected $instituicao;
@@ -134,7 +135,7 @@ class Curso extends Entity
     /**
      * @var int $nivelEnsino
      *
-     * @ORM\ManyToOne(targetEntity="Escola\Entity\NivelEnsino")
+     * @ORM\ManyToOne(targetEntity="Escola\Entity\NivelEnsino", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     protected $nivelEnsino;
@@ -142,7 +143,7 @@ class Curso extends Entity
     /**
      * @var int $tipoEnsino
      *
-     * @ORM\ManyToOne(targetEntity="Escola\Entity\TipoEnsino")
+     * @ORM\ManyToOne(targetEntity="Escola\Entity\TipoEnsino", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     protected $tipoEnsino;
@@ -150,15 +151,15 @@ class Curso extends Entity
     /**
      * @var int $tipoRegime
      *
-     * @ORM\ManyToOne(targetEntity="Escola\Entity\TipoRegime")
+     * @ORM\ManyToOne(targetEntity="Escola\Entity\TipoRegime", cascade={"persist"})
      */
     protected $tipoRegime;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection|CursoHabilitacao[]
+     * @var \Doctrine\Common\Collections\Collection|Habilitacao[]
      *
      *
-     * @ORM\ManyToMany(targetEntity="Escola\Entity\Habilitacao")
+     * @ORM\ManyToMany(targetEntity="Escola\Entity\Habilitacao", cascade={"persist"})
      * @ORM\JoinTable(
      *     name="escola_curso_habilitacao",
      *     joinColumns={
@@ -169,42 +170,38 @@ class Curso extends Entity
      * }
      *     )
      */
-    protected $cursoHabilitacoes;
+    protected $habilitacoes;
 
     /**
      * default constructor, initializes collections
      */
     public function __construct()
     {
-        $this->cursoHabilitacoes = new ArrayCollection();
+        $this->habilitacoes = new ArrayCollection();
     }
 
     /**
-     * @param CursoHabilitacao $cursoHabilitacao
+     * @param Habilitacao $habilitacao
      */
-    public function addCursoHabilitacao(CursoHabilitacao $cursoHabilitacao)
+    public function addHabilitacao(\Escola\Entity\Habilitacao $habilitacao)
     {
-        if ($this->cursoHabilitacoes->contains($cursoHabilitacao)){
+        if ($this->habilitacoes->contains($habilitacao)){
             return;
         }
-
-        $this->cursoHabilitacoes->add($cursoHabilitacao);
-        $cursoHabilitacao->addUser($this);
+        $this->habilitacoes->add($habilitacao);
     }
 
     /**
-     * @param CursoHabilitacao $cursoHabilitacao
+     * @param Habilitacao $habilitacao
      */
-    public function removeCursoHabilitacao(CursoHabilitacao $cursoHabilitacao)
+    public function removeHabilitacao(\Escola\Entity\Habilitacao $habilitacao)
     {
-        if (!$this->cursoHabilitacoes->contains($cursoHabilitacao)){
+        if (!$this->habilitacoes->contains($habilitacao)){
             return;
         }
-
-        $this->cursoHabilitacoes->removeElement($cursoHabilitacao);
-        $cursoHabilitacao->removeUser($this);
-
+        $this->habilitacoes->removeElement($habilitacao);
     }
+
 
     /**
      * Função para gerar o timestamp para o atributo dataCadastro, é executada antes de salvar os dados no banco
@@ -372,8 +369,7 @@ class Curso extends Entity
         $this->multiSeriado = $this->valid('multiSeriado', $multiSeriado);
     }
 
-    // TODO: check this
-    public function isPadraoAnoEscolar()
+    public function getPadraoAnoEscolar()
     {
         return $this->padraoAnoEscolar;
     }
@@ -383,9 +379,14 @@ class Curso extends Entity
         $this->padraoAnoEscolar = $this->valid('padraoAnoEscolar', $padraoAnoEscolar);
     }
 
-    public function getCursoHabilitacoes()
+    public function getHabilitacoes()
     {
-       return $this->cursoHabilitacoes;
+        return $this->habilitacoes;
+    }
+
+    public function setHabilitacoes($habilitacoes)
+    {
+        $this->habilitacoes = $habilitacoes;
     }
 
     /**

@@ -17,11 +17,6 @@ if (count($this->dados) > 0):
             </td>
             <td>
                 <?php
-                echo $habilitacao->getInstituicao()->getNome();
-                ?>
-            </td>
-            <td>
-                <?php
                 if ($habilitacao->getAtivo()){
                     $situacao = 'Sim';
                     $label = 'success';

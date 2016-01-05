@@ -34,7 +34,6 @@
                             $id = $this->form->get('id');
                             $nome = $this->form->get('nome');
                             $descricao = $this->form->get('descricao');
-                            $instituicao = $this->form->get('instituicao');
                             $ativo = $this->form->get('ativo');
                             echo $this->formInput($id);
                             ?>
@@ -68,23 +67,6 @@
                                         <span class="help-block">
                                             <?php echo $this->formElementErrors($descricao);?>
                                         </span>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="form-group required">
-                                <label for="instituicao">
-                                    <?php
-                                    echo $instituicao->getOption('label');
-                                    ?>
-                                </label>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <?php
-                                        echo $this->formSelect($instituicao);
-                                        echo $this->formElementErrors($instituicao);
-                                        ?>
                                     </div>
                                 </div>
                             </div>

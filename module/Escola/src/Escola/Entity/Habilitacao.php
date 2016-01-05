@@ -66,14 +66,6 @@ class Habilitacao extends Entity
     protected $ativo = true;
 
     /**
-     * @var Int $instituicao
-     *
-     * @ORM\ManyToOne(targetEntity="Escola\Entity\Instituicao", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    protected $instituicao;
-
-    /**
      * Função para gerar o timestamp para o atributo dataCadastro, é executada antes de salvar os dados no banco
      * @access  public
      * @return  void
@@ -195,10 +187,6 @@ class Habilitacao extends Entity
                 ),
             )));
 
-            $inputFilter->add($factory->createInput(array(
-                'name' => 'instituicao',
-                'required' => true,
-            )));
 
             $inputFilter->add($factory->createInput(array(
                 'name' => 'ativo',

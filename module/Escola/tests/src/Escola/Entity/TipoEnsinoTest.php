@@ -36,11 +36,10 @@ class TipoEnsinoTest extends EntityTestCase
      */
     public function testInputFilterValid($if)
     {
-        $this->assertEquals(4, $if->count());
+        $this->assertEquals(3, $if->count());
 
         $this->assertTrue($if->has('id'));
         $this->assertTrue($if->has('nome'));
-        $this->assertTrue($if->has('instituicao'));
         $this->assertTrue($if->has('ativo'));
     }
 
@@ -49,10 +48,8 @@ class TipoEnsinoTest extends EntityTestCase
      */
     public function testInsert()
     {
-        $instituicao = $this->buildInstituicao();
-        $this->em->persist($instituicao);
+
         $tipoEnsino = $this->buildTipoEnsino();
-        $tipoEnsino->setInstituicao($instituicao);
         $this->em->persist($tipoEnsino);
         $this->em->flush();
 
@@ -72,23 +69,19 @@ class TipoEnsinoTest extends EntityTestCase
      */
     public function testInputFilterInvalidNome()
     {
-        $instituicao = $this->buildInstituicao();
         $tipoEnsino = $this->buildTipoEnsino();
         $tipoEnsino->setNome('Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá,
 		depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum
 		girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois
 		paga. Sapien in monti palavris qui num significa nadis i
 		pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.');
-        $tipoEnsino->setInstituicao($instituicao);
         $this->em->persist($tipoEnsino);
         $this->em->flush();
     }
 
     public function testUpdate()
     {
-        $instituicao = $this->buildInstituicao();
         $tipoEnsino = $this->buildTipoEnsino();
-        $tipoEnsino->setInstituicao($instituicao);
         $this->em->persist($tipoEnsino);
         $this->em->flush();
 
@@ -105,9 +98,8 @@ class TipoEnsinoTest extends EntityTestCase
 
     public function testDelete()
     {
-        $instituicao = $this->buildInstituicao();
+
         $tipoEnsino = $this->buildTipoEnsino();
-        $tipoEnsino->setInstituicao($instituicao);
         $this->em->persist($tipoEnsino);
         $this->em->flush();
 
@@ -127,15 +119,6 @@ class TipoEnsinoTest extends EntityTestCase
         $tipoEnsino->setNome('Integral');
 
         return $tipoEnsino;
-    }
-
-    private function buildInstituicao()
-    {
-        $instituicao = new Instituicao();
-        $instituicao->setNome('Prefeitura Municipal Modelo');
-        $instituicao->setResponsavel('Secretaria Municipal Modelo');
-
-        return $instituicao;
     }
 
 }

@@ -36,11 +36,10 @@ class NivelEnsinoTest extends EntityTestCase
      */
     public function testInputFilterValid($if)
     {
-        $this->assertEquals(5, $if->count());
+        $this->assertEquals(4, $if->count());
 
         $this->assertTrue($if->has('id'));
         $this->assertTrue($if->has('nome'));
-        $this->assertTrue($if->has('instituicao'));
         $this->assertTrue($if->has('ativo'));
         $this->assertTrue($if->has('descricao'));
     }
@@ -118,19 +117,8 @@ class NivelEnsinoTest extends EntityTestCase
         $nivelEnsino = new NivelEnsino();
         $nivelEnsino->setNome('Integral');
         $nivelEnsino->setDescricao('Descrição');
-        $instituicao = $this->buildInstituicao();
-        $nivelEnsino->setInstituicao($instituicao);
 
         return $nivelEnsino;
-    }
-
-    private function buildInstituicao()
-    {
-        $instituicao = new Instituicao();
-        $instituicao->setNome('Prefeitura Municipal Modelo');
-        $instituicao->setResponsavel('Secretaria Municipal Modelo');
-
-        return $instituicao;
     }
 
 }

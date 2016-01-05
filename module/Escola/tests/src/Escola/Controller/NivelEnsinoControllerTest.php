@@ -231,17 +231,8 @@ class NivelEnsinoControllerTest extends \Core\Test\ControllerTestCase
         $nivelEnsino = new \Escola\Entity\NivelEnsino();
         $nivelEnsino->setNome('Habilitacao 1');
         $nivelEnsino->setDescricao('Descricao');
-        $nivelEnsino->setInstituicao($instituicao);
 
         return $nivelEnsino;
     }
 
-    private function buildInstituicao()
-    {
-        $instituicao = new \Escola\Entity\Instituicao();
-        $instituicao->setNome('Prefeitura Municipial Modelo');
-        $instituicao->setResponsavel('Secretaria Municipal Modelo');
-
-        return $instituicao;
-    }
 }

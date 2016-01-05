@@ -227,21 +227,11 @@ class HabilitacaoControllerTest extends \Core\Test\ControllerTestCase
 
     private function buildHabilitacao()
     {
-        $instituicao = $this->buildInstituicao();
         $habilitacao = new Habilitacao();
         $habilitacao->setNome('Habilitacao 1');
         $habilitacao->setDescricao('Descricao');
-        $habilitacao->setInstituicao($instituicao);
 
         return $habilitacao;
     }
 
-    private function buildInstituicao()
-    {
-        $instituicao = new \Escola\Entity\Instituicao();
-        $instituicao->setNome('Prefeitura Municipial Modelo');
-        $instituicao->setResponsavel('Secretaria Municipal Modelo');
-
-        return $instituicao;
-    }
 }

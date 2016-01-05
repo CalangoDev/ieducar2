@@ -37,7 +37,7 @@ class Curso extends Form
                 'required' => 'required',
             ),
             'options' => array(
-                'label' => 'Nome:'
+                'label' => 'Nome: '
             ),
         ));
 
@@ -48,9 +48,75 @@ class Curso extends Form
                 'class' => 'form-control',
             ),
             'options' => array(
-                'label' => 'Sigla',
+                'label' => 'Sigla: ',
             )
         ));
+
+        $this->add(array(
+            'name' => 'quantidadeEtapa',
+            'attributes' => array(
+                'type' => 'text',
+                'class' => 'form-control',
+                'required' => 'required',
+            ),
+            'options' => array(
+                'label' =>  'Quantidade de Etapas: '
+            ),
+        ));
+
+        $this->add(array(
+            'name' => 'horaFalta',
+            'attributes' => array(
+                'type' => 'text',
+                'class' => 'form-control',
+            ),
+            'options' => array(
+                'label' => 'Hora Falta: '
+            )
+        ));
+
+        $this->add(array(
+            'name' => 'cargaHoraria',
+            'attributes' => array(
+                'type' => 'text',
+                'class' => 'form-control',
+                'required' => 'required'
+            ),
+            'options' => array(
+                'label' => 'Carga Horaria: '
+            ),
+        ));
+
+        $this->add(array(
+            'name' => 'atoPoderPublico',
+            'attributes' => array(
+                'type' => 'text',
+                'class' => 'form-control',
+            ),
+            'options' => array(
+                'label' => 'Ato Poder Público: '
+            )
+        ));
+
+
+        $this->add(array(
+            'name' => 'habilitacoes',
+            'attributes' => array(
+                'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            )
+        ));
+
+        $this->add(array(
+            'name' => 'objetivo',
+            'attributes' => array(
+                'type' => 'textarea',
+                'class' => 'form-control'
+            ),
+            'options' => array(
+                'label' => 'Objetivo: '
+            )
+        ));
+
 
         $this->add(array(
             'name' => 'instituicao',
@@ -62,7 +128,7 @@ class Curso extends Form
             ),
             'type' => 'DoctrineModule\Form\Element\ObjectSelect',
             'options' => array(
-                'label' => 'Instituição:',
+                'label' => 'Instituição: ',
                 //'empty_option' => 'Selecione',
                 'allow_empty' => true,
                 'continue_if_empty' => false,
@@ -78,6 +144,90 @@ class Curso extends Form
                 ),
                 'display_empty_item' => true,
                 'empty_item_label'   => 'Selecione',
+            ),
+        ));
+
+        $this->add(array(
+            'name' => 'nivelEnsino',
+            'attributes' => array(
+                'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+                'class' => 'form-control chosen-select',
+                'style' => 'height:100px;',
+                'id' => 'nivelEnsino'
+            ),
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'options' => array(
+                'label' => 'Nivel de Ensino: ',
+                'allow_empty' => true,
+                'continue_if_empty' => false,
+                'object_manager' => $objectManager,
+                'target_class' => 'Escola\Entity\NivelEnsino',
+                'property' => 'nome',
+                'find_method' => array(
+                    'name' => 'findBy',
+                    'params' => array(
+                        'criteria' => array('ativo' => true),
+                        'orderBy' => array('nome' => 'ASC'),
+                    ),
+                ),
+                'display_empty_item' => true,
+                'empty_item_label' => 'Selecione',
+            ),
+        ));
+
+        $this->add(array(
+            'name' => 'tipoEnsino',
+            'attributes' => array(
+                'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+                'class' => 'form-control chosen-select',
+                'style' => 'height:100px;',
+                'id' => 'tipoEnsino'
+            ),
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'options' => array(
+                'label' => 'Tipo de Ensino: ',
+                'allow_empty' => true,
+                'continue_if_empty' => false,
+                'object_manager' => $objectManager,
+                'target_class' => 'Escola\Entity\TipoEnsino',
+                'property' => 'nome',
+                'find_method' => array(
+                    'name' => 'findBy',
+                    'params' => array(
+                        'criteria' => array('ativo' => true),
+                        'orderBy' => array('nome' => 'ASC'),
+                    ),
+                ),
+                'display_empty_item' => true,
+                'empty_item_label' => 'Selecione',
+            ),
+        ));
+
+        $this->add(array(
+            'name' => 'tipoRegime',
+            'attributes' => array(
+                'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+                'class' => 'form-control chosen-select',
+                'style' => 'height:100px;',
+                'id' => 'tipoRegime'
+            ),
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'options' => array(
+                'label' => 'Tipo Regime: ',
+                'allow_empty' => true,
+                'continue_if_empty' => true,
+                'object_manager' => $objectManager,
+                'target_class' => 'Escola\Entity\TipoRegime',
+                'property' => 'nome',
+                'find_method' => array(
+                    'name' => 'findBy',
+                    'params' => array(
+                        'criteria' => array('ativo' => true),
+                        'orderBy' => array('nome' => 'ASC'),
+                    ),
+                ),
+                'display_empty_item' => true,
+                'empty_item_label' => 'Selecione',
             ),
         ));
 
@@ -98,9 +248,6 @@ class Curso extends Form
             ),
         ));
 
-		$this->add(array(
-			'name' => 'quantidadeEtapa',
-		));
         $this->add(array(
             'name' => 'submit',
             'attributes' => array(

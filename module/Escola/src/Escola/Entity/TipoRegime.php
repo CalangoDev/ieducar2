@@ -59,14 +59,6 @@ class TipoRegime extends Entity
     protected $ativo = true;
 
     /**
-     * @var Int $instituicao
-     *
-     * @ORM\ManyToOne(targetEntity="Instituicao", cascade={"persist"})
-     * @ORM\JoinColumn(name="instituicao_id", referencedColumnName="id", nullable=false)
-     */
-    protected $instituicao;
-
-    /**
      * Função para gerar o timestamp para o atributo dataCadastro, é executada antes de salvar os dados no banco
      * @access  public
      * @return  void
@@ -84,16 +76,6 @@ class TipoRegime extends Entity
     public function getId()
     {
         return $this->id;
-    }
-
-    public function getInstituicao()
-    {
-        return $this->instituicao;
-    }
-
-    public function setInstituicao(Instituicao $instituicao)
-    {
-        $this->instituicao = $this->valid('instituicao', $instituicao);
     }
 
     public function getDataCadastro()
@@ -169,12 +151,6 @@ class TipoRegime extends Entity
                         ),
                     ),
                 ),
-            )));
-
-
-            $inputFilter->add($factory->createInput(array(
-                'name' => 'instituicao',
-                'required' => true,
             )));
 
             $inputFilter->add($factory->createInput(array(

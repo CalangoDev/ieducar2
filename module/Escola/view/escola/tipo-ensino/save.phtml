@@ -33,7 +33,6 @@
                             echo $this->form()->openTag($form);
                             $id = $this->form->get('id');
                             $nome = $this->form->get('nome');
-                            $instituicao = $this->form->get('instituicao');
                             $ativo = $this->form->get('ativo');
                             echo $this->formInput($id);
                             ?>
@@ -55,23 +54,6 @@
                                                 echo $this->formElementErrors($nome);
                                                 ?>
                                             </span>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="form-group required">
-                                <label for="instituicao">
-                                    <?php
-                                    echo $instituicao->getOption('label');
-                                    ?>
-                                </label>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <?php
-                                        echo $this->formSelect($instituicao);
-                                        echo $this->formElementErrors($instituicao);
-                                        ?>
                                     </div>
                                 </div>
                             </div>

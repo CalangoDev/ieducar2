@@ -15,7 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class CursoTest extends EntityTestCase
 {
-	public fuction setup()
+	public function setup()
 	{
 		parent::setup();
 	}
@@ -26,7 +26,7 @@ class CursoTest extends EntityTestCase
 	public function testGetInputFilter()
 	{
 		$curso = new Curso();
-		$if = $instituicao->getInputFilter();
+		$if = $curso->getInputFilter();
 		$this->assertInstanceOf('Zend\InputFilter\InputFilter', $if);
 
 		return $if;
@@ -85,7 +85,7 @@ class CursoTest extends EntityTestCase
 		$this->assertEquals($curso->getNivelEnsino(), $savedCurso->getNivelEnsino());
 		$this->assertEquals($curso->getTipoEnsino(), $savedCurso->getTipoEnsino());
 		$this->assertEquals($curso->getTipoRegime(), $savedCurso->getTipoRegime());
-		$this->assertEquals($curso->getCursoHabilitacao(), $savedCurso->getCursoHabilitacao());
+		$this->assertEquals($curso->getHabilitacoes(), $savedCurso->getHabilitacoes());
 		
 		//		
 	}
@@ -108,11 +108,11 @@ class CursoTest extends EntityTestCase
 		$this->em->flush();
 		$savedCurso = $this->em->find(get_class($curso), $curso->getId());
 
-		$this->assertEqual('Curso Teste', $savedCurso->getNome());
+		$this->assertEquals('Curso Teste', $savedCurso->getNome());
 		$savedCurso->setNome('Curso Outro Nome');
 		$this->em->flush();
 		$savedCurso = $this->em->find(get_class($curso), $savedCurso->getId());
-		$this->assertEqual('Curso Outro Nome', $savedCurso->getNome());
+		$this->assertEquals('Curso Outro Nome', $savedCurso->getNome());
 	}
 
 	public function testDelete()
@@ -130,22 +130,22 @@ class CursoTest extends EntityTestCase
 
 	public function testRemoveHabilitacoes()
     {
-        $habilitacoes = $this->buildCursoHabilitacoes();
         $curso = $this->buildCurso();
-        $curso->addCursoHabilitacoes($habilitacoes);
         $this->em->persist($curso);
         $this->em->flush();
         $id = $curso->getId();
 
         $savedCurso = $this->em->find('Escola\Entity\Curso', $id);
-        $savedCurso->removeCursoHabilitacoes($habilitacoes);
+        foreach($savedCurso->getHabilitacoes() as $habilitacao){
+            $savedCurso->removeHabilitacao($habilitacao);
+        }
 
         $this->em->flush();
 
         $savedCurso = $this->em->find('Escola\Entity\Curso', $id);
 
         //Verfify colletion is empty
-        $this->assertTrue($savedCurso->getCursoHabilitacoes()->isEmpty());
+        $this->assertTrue($savedCurso->getHabilitacoes()->isEmpty());
     }
 
 	private function buildCurso()
@@ -161,10 +161,10 @@ class CursoTest extends EntityTestCase
 		$curso->setAtivo(true);
 		$curso->setPadraoAnoEscolar(false);
 		$curso->setHoraFalta(50.0);
-		$curso->setMultiSeriado(false);
+		$curso->setMultiSeriado(0);
 		
 		$instituicao = $this->buildInstituicao();
-		$curso->setInstituicao($curso);
+		$curso->setInstituicao($instituicao);
 		
 		$nivelEnsino = $this->buildNivelEnsino();
 		$curso->setNivelEnsino($nivelEnsino);
@@ -175,8 +175,9 @@ class CursoTest extends EntityTestCase
 		$tipoRegime = $this->buildTipoRegime();
 		$curso->setTipoRegime($tipoRegime);
 
-		$cursoHabilitacaoes = $this->buildCursoHabilitacoes();
-		$curso->addCursoHabilitacao($cursoHabilitacoes);
+		//$cursoHabilitacoes = $this->buildCursosHabilitacoes();
+        $habilitacao = $this->buildHabilitacao();
+        $curso->addHabilitacao($habilitacao);
 
 		return $curso;
 	}
@@ -195,8 +196,6 @@ class CursoTest extends EntityTestCase
 		$nivelEnsino = new NivelEnsino();
 		$nivelEnsino->setNome('Nivel 1');
 		$nivelEnsino->setDescricao('Descricao nivel de ensino');
-		$instituicao = $this->buildInstituicao();
-		$nivelEnsino->setInstituicao($instituicao);
 
 		return $nivelEnsino;
 	}
@@ -206,8 +205,6 @@ class CursoTest extends EntityTestCase
 		$tipoEnsino = new TipoEnsino();
 		$tipoEnsino->setNome('Tipo Ensino');
 		$tipoEnsino->setAtivo(true);
-		$instituicao = $this->buildInstituicao();
-		$tipoEnsino->setInstituicao($instituicao);
 
 		return $tipoEnsino;
 	}
@@ -217,10 +214,20 @@ class CursoTest extends EntityTestCase
 		$tipoRegime = new TipoRegime();
 		$tipoRegime->setNome('Tipo Regime 1');
 		$tipoRegime->setAtivo(true);
-		$instituicao = $this->buildInstituicao();
-		$tipoRegime->setInstituicao($instituicao);
 
 		return $tipoRegime;
+	}
+
+	private function buildHabilitacao()
+	{
+		$habilitacao = new \Escola\Entity\Habilitacao();
+        $habilitacao->setNome('Habilitacao 1');
+        $habilitacao->setDescricao('Desc Habilitacao');
+        $habilitacao->setAtivo(true);
+        $instituicao = $this->buildInstituicao();
+        $habilitacao->setInstituicao($instituicao);
+
+        return $habilitacao;
 	}
 
 	private function buildCursosHabilitacoes()

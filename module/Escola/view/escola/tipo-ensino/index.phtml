@@ -40,7 +40,6 @@
                         <tr>
                             <th width="5%">#</th>
                             <th>NOME</th>
-                            <th width="10%">INSTITUIÇÃO</th>
                             <th width="5%">ATIVO</th>
                             <th width="30%">AÇÕES</th>
                         </tr>
@@ -63,11 +62,7 @@
                                         echo $tipoEnsino->getNome();
                                         ?>
                                     </td>
-                                    <td>
-                                        <?php
-                                        echo $tipoEnsino->getInstituicao()->getNome();
-                                        ?>
-                                    </td>
+
                                     <td>
                                         <?php
                                         if ($tipoEnsino->getAtivo()){

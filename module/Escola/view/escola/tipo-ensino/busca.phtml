@@ -17,11 +17,6 @@ if (count($this->dados) > 0):
             </td>
             <td>
                 <?php
-                echo $tipoEnsino->getInstituicao()->getNome();
-                ?>
-            </td>
-            <td>
-                <?php
                 if ($tipoEnsino->getAtivo()){
                     $situacao = 'Sim';
                     $label = 'success';
