@@ -115,7 +115,7 @@ class Curso extends Entity
      *
      * @ORM\Column(type="float", nullable=false)
      */
-    protected $horaFalta;
+    protected $horaFalta = 0.00;
 
     /**
      * @var boolean $multiSeriado
@@ -156,7 +156,7 @@ class Curso extends Entity
     protected $tipoRegime;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection|Habilitacao[]
+     * @var Doctrine\Common\Collections\Collection
      *
      *
      * @ORM\ManyToMany(targetEntity="Escola\Entity\Habilitacao", cascade={"persist"})
@@ -181,27 +181,24 @@ class Curso extends Entity
     }
 
     /**
-     * @param Habilitacao $habilitacao
+     * @param Collection $habilitacoes
      */
-    public function addHabilitacao(\Escola\Entity\Habilitacao $habilitacao)
+    public function addHabilitacoes(Collection $habilitacoes)
     {
-        if ($this->habilitacoes->contains($habilitacao)){
-            return;
+        foreach ($habilitacoes as $habilitacao) {
+            $this->habilitacoes->add($habilitacao);
         }
-        $this->habilitacoes->add($habilitacao);
     }
 
     /**
-     * @param Habilitacao $habilitacao
+     * @param Collection $habilitacoes
      */
-    public function removeHabilitacao(\Escola\Entity\Habilitacao $habilitacao)
+    public function removeHabilitacoes(Collection $habilitacoes)
     {
-        if (!$this->habilitacoes->contains($habilitacao)){
-            return;
+        foreach ($habilitacoes as $habilitacao){
+            $this->habilitacoes->removeElement($habilitacao);
         }
-        $this->habilitacoes->removeElement($habilitacao);
     }
-
 
     /**
      * Função para gerar o timestamp para o atributo dataCadastro, é executada antes de salvar os dados no banco
@@ -494,12 +491,12 @@ class Curso extends Entity
 
 			$inputFilter->add($factory->createInput(array(
 				'name' => 'objetivo',
-				'required' => 'false',
+				'required' => false,
 			)));
 
 			$inputFilter->add($factory->createInput(array(
 				'name' => 'publicoAlvo',
-				'required' => 'false',
+				'required' => false,
 			)));
 
 			$inputFilter->add($factory->createInput(array(
@@ -520,7 +517,7 @@ class Curso extends Entity
 
 			$inputFilter->add($factory->createInput(array(
                 'name' => 'horaFalta',
-                'required' => true,
+                'required' => false,
                 'validators' => array(
                     array(
                         'name' => 'Float',
@@ -560,7 +557,7 @@ class Curso extends Entity
 			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name' => 'cursoHabilitacoes',
+				'name' => 'habilitacoes',
 				'required' => false,
 			)));
 

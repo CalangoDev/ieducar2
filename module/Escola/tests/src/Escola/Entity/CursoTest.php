@@ -54,8 +54,7 @@ class CursoTest extends EntityTestCase
 		$this->assertTrue($if->has('nivelEnsino'));
 		$this->assertTrue($if->has('tipoEnsino'));
 		$this->assertTrue($if->has('tipoRegime'));
-		$this->assertTrue($if->has('cursoHabilitacoes'));
-		// TODO: continue this
+		$this->assertTrue($if->has('habilitacoes'));
 	}
 
 	public function testInsert()
@@ -136,9 +135,8 @@ class CursoTest extends EntityTestCase
         $id = $curso->getId();
 
         $savedCurso = $this->em->find('Escola\Entity\Curso', $id);
-        foreach($savedCurso->getHabilitacoes() as $habilitacao){
-            $savedCurso->removeHabilitacao($habilitacao);
-        }
+
+		$savedCurso->removeHabilitacoes($savedCurso->getHabilitacoes());
 
         $this->em->flush();
 
@@ -175,9 +173,9 @@ class CursoTest extends EntityTestCase
 		$tipoRegime = $this->buildTipoRegime();
 		$curso->setTipoRegime($tipoRegime);
 
-		//$cursoHabilitacoes = $this->buildCursosHabilitacoes();
-        $habilitacao = $this->buildHabilitacao();
-        $curso->addHabilitacao($habilitacao);
+		$cursoHabilitacoes = $this->buildCursosHabilitacoes();
+        //$habilitacao = $this->buildHabilitacao();
+        $curso->addHabilitacoes($cursoHabilitacoes);
 
 		return $curso;
 	}
@@ -216,18 +214,6 @@ class CursoTest extends EntityTestCase
 		$tipoRegime->setAtivo(true);
 
 		return $tipoRegime;
-	}
-
-	private function buildHabilitacao()
-	{
-		$habilitacao = new \Escola\Entity\Habilitacao();
-        $habilitacao->setNome('Habilitacao 1');
-        $habilitacao->setDescricao('Desc Habilitacao');
-        $habilitacao->setAtivo(true);
-        $instituicao = $this->buildInstituicao();
-        $habilitacao->setInstituicao($instituicao);
-
-        return $habilitacao;
 	}
 
 	private function buildCursosHabilitacoes()

@@ -37,13 +37,17 @@
                             $quantidadeEtapa = $this->form->get('quantidadeEtapa');
                             $cargaHoraria = $this->form->get('cargaHoraria');
                             $atoPoderPublico = $this->form->get('atoPoderPublico');
+                            $habilitacoes = $this->form->get('habilitacoes');
                             $objetivo = $this->form->get('objetivo');
+                            $publicoAlvo = $this->form->get('publicoAlvo');
 
                             $instituicao = $this->form->get('instituicao');
                             $nivelEnsino = $this->form->get('nivelEnsino');
                             $tipoEnsino = $this->form->get('tipoEnsino');
                             $tipoRegime = $this->form->get('tipoRegime');
                             $horaFalta = $this->form->get('horaFalta');
+                            $padraoAnoEscolar = $this->form->get('padraoAnoEscolar');
+                            $multiSeriado = $this->form->get('multiSeriado');
                             $ativo = $this->form->get('ativo');
                             echo $this->formInput($id);
                             ?>
@@ -183,8 +187,65 @@
                             </div>
 
 
+                            <div class="form-group">
+                                <label for="habilitacaoes"><?php echo $habilitacoes->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <?php echo $this->formSelect($habilitacoes);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($habilitacoes);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
 
+                            <div class="form-group">
+                                <label for="padraoAnoEscolar"><?php echo $padraoAnoEscolar->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <?php echo $this->formCheckbox($padraoAnoEscolar);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($padraoAnoEscolar);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
 
+                            <div class="form-group">
+                                <label for="multiSeriado"><?php echo $multiSeriado->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <?php echo $this->formCheckbox($multiSeriado);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($multiSeriado);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="objetivo"><?php echo $objetivo->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <?php echo $this->formTextArea($objetivo);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($objetivo);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="publicoAlvo"><?php echo $publicoAlvo->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <?php echo $this->formTextArea($publicoAlvo);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($publicoAlvo);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
 
 
                             <div class="form-group">
@@ -244,4 +305,6 @@ echo $this->headScript()->prependFile($this->basePath()
     for (var selector in config) {
         $(selector).chosen(config[selector]);
     }
+    //$("ul.chosen-choices").css({'overflow': auto', 'max-height': '100px'});
+    $(".habilitacoes").css("height", parseInt($(".habilitacoes option").length) * 20);
 </script>

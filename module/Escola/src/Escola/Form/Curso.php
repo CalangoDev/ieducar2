@@ -103,7 +103,29 @@ class Curso extends Form
             'name' => 'habilitacoes',
             'attributes' => array(
                 'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-            )
+                'multiple' => true,
+                'class' => 'habilitacoes chosen-select',
+                'style' => 'height:100px; width:100%',
+                'id' => 'habilitacoes',
+                'data-placeholder' => 'data-placeholder',
+            ),
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'options' => array(
+                'label' => 'Habilitação: ',
+                //'empty_option' => 'Selecione',
+                'allow_empty' => true,
+                'continue_if_empty' => false,
+                'object_manager' => $objectManager,
+                'target_class' => 'Escola\Entity\Habilitacao',
+                'property' => 'nome',
+                'find_method' => array(
+                    'name' => 'findBy',
+                    'params' => array(
+                        'criteria' => array('ativo' => true),
+                        'orderBy' => array('nome' => 'ASC')
+                    ),
+                ),
+            ),
         ));
 
         $this->add(array(
@@ -113,7 +135,18 @@ class Curso extends Form
                 'class' => 'form-control'
             ),
             'options' => array(
-                'label' => 'Objetivo: '
+                'label' => 'Objetivo Curso: '
+            )
+        ));
+
+        $this->add(array(
+            'name' => 'publicoAlvo',
+            'attributes' => array(
+                'type' => 'textarea',
+                'class' => 'form-control'
+            ),
+            'options' => array(
+                'label' => 'Público Alvo: '
             )
         ));
 
@@ -234,7 +267,7 @@ class Curso extends Form
         $this->add(array(
             'name' => 'ativo',
             'options' => array(
-                'label' => 'Ativo',
+                'label' => 'Ativo: ',
                 'value_options' => array(
                     '1'	=> 'Sim',
                     '0' => 'Não',
@@ -245,6 +278,34 @@ class Curso extends Form
                 'type' => 'Zend\Form\Element\Select',
                 'value' => '1',
                 'class' => 'form-control'
+            ),
+        ));
+
+        $this->add(array(
+            'name' => 'padraoAnoEscolar',
+            'attributes' => array(
+                'type' => 'Zend\Form\Element\Checkbox',
+                'class' => 'form-control'
+            ),
+            'type' => 'Zend\Form\Element\Checkbox',
+            'options' => array(
+                'label' => 'Padrão Ano Escolar: ',
+                'checked_value' => '1',
+                'unchecked_value' => '0'
+            ),
+        ));
+
+        $this->add(array(
+            'name' => 'multiSeriado',
+            'attributes' => array(
+                'type' => 'Zend\Form\Element\Checkbox',
+                'class' => 'form-control'
+            ),
+            'type' => 'Zend\Form\Element\Checkbox',
+            'options' => array(
+                'label' => 'Multi Seriado: ',
+                'checked_value' => '1',
+                'unchecked_value' => '0'
             ),
         ));
 
