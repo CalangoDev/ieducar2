@@ -115,16 +115,6 @@ class Habilitacao extends Entity
         $this->ativo = $this->valid('ativo', $ativo);
     }
 
-    public function getInstituicao()
-    {
-        return $this->instituicao;
-    }
-
-    public function setInstituicao(\Escola\Entity\Instituicao $instituicao)
-    {
-        $this->instituicao = $this->valid('instituicao', $instituicao);
-    }
-
     public function getDescricao()
     {
         return $this->descricao;

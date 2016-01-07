@@ -106,7 +106,7 @@ class FormulaMediaControllerTest extends \Core\Test\ControllerTestCase
     /**
      * testa ta tela de alteracoes de um registro
      */
-    public function testFormulaMediaControllerTest()
+    public function testFormulaMediaUpdateControllerTest()
     {
         $formulaMedia = $this->buildFormulaMedia();
         $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
