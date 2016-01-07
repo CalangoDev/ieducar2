@@ -87,5 +87,7 @@ class FormulaMedia extends Form
                 'class' => 'btn btn-lg btn-primary'
             ),
         ));
+
+        // TODO: se tiver rc e a escolha for media final nao validar
     }
 }

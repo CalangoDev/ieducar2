@@ -137,6 +137,7 @@ class FormulaMedia extends Entity
             $inputFilter->add($factory->createInput(array(
                 'name' => 'formulaMedia',
                 'required' => true,
+                'error_message' => 'Token inválido.',
                 'filters' => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
@@ -180,7 +181,4 @@ class FormulaMedia extends Entity
 
         return $this->inputFilter;
     }
-/*
-tipo_formula   | smallint              | default 1
-*/
 }

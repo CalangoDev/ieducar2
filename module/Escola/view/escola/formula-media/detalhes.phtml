@@ -1,0 +1,27 @@
+<div class="row">
+	<dl class="dl-horizontal">
+		
+		<dt>Nome:</dt>
+		<dd><?php echo $data->getNome();?></dd>
+
+		<?php
+        if ($data->getFormulaMedia()):
+        ?>
+            <dt>Fórmula de cálculo:</dt>
+            <dd><?php echo $data->getFormulaMedia();?></dd>
+        <?php
+        endif;
+        ?>
+
+		<?php
+		if ($data->getTipoFormula()):
+		?>
+			<dt>Tipo de Fórmula</dt>
+            <dd>
+                <?php echo ($data->getTipoFormula() == 1) ? 'Média Final' : 'Média para Recuperação';?>
+            </dd>
+        <?php
+        endif;
+        ?>
+	</dl>
+</div>

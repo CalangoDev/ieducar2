@@ -113,7 +113,9 @@ class FormulaMediaTest extends EntityTestCase
     {
         $formulaMedia = new FormulaMedia();
         $formulaMedia->setNome('nome da formula');
-        $formulaMedia->setFormulaMedia('Se / Et');
+        //$formulaMedia->setFormulaMedia('Se / Et');
+        //$formulaMedia->setFormulaMedia('(Rc * 0.4) + ((Se / Et) * 0.6)');
+        $formulaMedia->setFormulaMedia('(Rc * 4) + ((Se / Et) * 6)');
         $formulaMedia->setTipoFormula(1);
 
         return $formulaMedia;

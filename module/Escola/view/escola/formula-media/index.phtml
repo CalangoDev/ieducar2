@@ -67,7 +67,8 @@
                                         <?php echo $formulaMedia->getFormulaMedia();?>
                                     </td>
                                     <td>
-                                        <?php echo $formulaMedia->getTipoFormula();?>
+                                        <?php echo ($formulaMedia->getTipoFormula() == 1) ? 'Média Final' :
+                                            'Média para Recuperação';?>
                                     </td>
                                     <td>
                                         <a href="#<?php echo $formulaMedia->getId()?>"

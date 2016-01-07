@@ -9,6 +9,7 @@ namespace Escola\Filter;
 
 use Zend\Filter\AbstractFilter;
 use Zend\Filter\FilterInterface;
+use Zend\Filter\Exception;
 
 class FormulaMedia extends AbstractFilter implements FilterInterface
 {
@@ -51,16 +52,31 @@ class FormulaMedia extends AbstractFilter implements FilterInterface
         $this->list = $list;
     }
 
+    /**
+     * @param $formula
+     * @return mixed
+     */
+    public function replaceAliasTokens($formula)
+    {
+        return preg_replace(array('/\(/', '/\)/', '/x/'), array(' ( ', ' ) ', '*'), $formula);
+    }
+
     public function filter($value)
     {
         //tenho uma lista
         //se passar alguma palavra fora da lista retorna null
+        $value = self::replaceAliasTokens($value);//coloca espaco nos parenteses
         $tokens = array_map(null, explode(' ', $value));
 
         foreach ($tokens as $token){
-            $check = in_array($token, $this->getList());
-            if (!$check)
-                return null;
+            if ($token != ""){
+                if (!is_numeric($token)){
+                    $check = in_array($token, $this->getList());
+                    if (!$check)
+                        //throw new Exception\RuntimeException(sprintf("Token '%s' inválido", $value));
+                        return null;
+                }
+            }
         }
 
         return $value;
