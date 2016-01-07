@@ -19,7 +19,7 @@ class HabilitacaoControllerTest extends \Core\Test\ControllerTestCase
     protected $controllerFQDN = 'Escola\Controller\HabilitacaoController';
 
     /**
-     * Nome da rota. geralmente o nome do moulo
+     * Nome da rota. geralmente o nome do modulo
      * @var string escola
      */
     protected $controllerRoute = 'escola';
@@ -224,6 +224,8 @@ class HabilitacaoControllerTest extends \Core\Test\ControllerTestCase
             'Location: /escola/habilitacao', $headers->get('Location')
         );
     }
+
+    // TODO: ta faltando algo aqui
 
     private function buildHabilitacao()
     {

@@ -46,6 +46,7 @@ return array(
             'Escola\Controller\Habilitacao' => 'Escola\Controller\HabilitacaoController',
 			'Escola\Controller\NivelEnsino' => 'Escola\Controller\NivelEnsinoController',
 			'Escola\Controller\Curso' => 'Escola\Controller\CursoController',
+            'Escola\Controller\FormulaMedia' => 'Escola\Controller\FormulaMediacontroller'
         ),
     ),
     'view_manager' => array(
