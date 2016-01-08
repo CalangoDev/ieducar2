@@ -223,8 +223,6 @@ class CursoTest extends EntityTestCase
         $habilitacao->setNome('Habilitacao Nome');
 		$habilitacao->setDescricao('Desc Habilitacao');
 		$habilitacao->setAtivo(true);
-		$instituicao = $this->buildInstituicao();
-		$habilitacao->setInstituicao($instituicao);
 
         $cursoHabilitacoes->add($habilitacao);
 

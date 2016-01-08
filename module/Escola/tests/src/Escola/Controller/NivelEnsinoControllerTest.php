@@ -32,10 +32,10 @@ class NivelEnsinoControllerTest extends \Core\Test\ControllerTestCase
         $nivelEnsinoA = $this->buildNivelEnsino();
         $nivelEnsinoB = $this->buildNivelEnsino();
         $nivelEnsinoB->setNome('Medio');
-        $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-        $em->persist($nivelEnsinoA);
-        $em->persist($nivelEnsinoB);
-        $em->flush();
+        //$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
+        $this->em->persist($nivelEnsinoA);
+        $this->em->persist($nivelEnsinoB);
+        $this->em->flush();
 
         // invoca a rota index
         $this->routeMatch->setParam('action', 'index');
@@ -59,7 +59,172 @@ class NivelEnsinoControllerTest extends \Core\Test\ControllerTestCase
         $paginator = $variables['dados'];
         $this->assertEquals($nivelEnsinoA->getNome(), $paginator->getItem(1)->getNome());
         $this->assertEquals($nivelEnsinoB->getNome(), $paginator->getItem(2)->getNome());
+    }
 
+    /**
+     * testa a tela de inclusao de um novo registro
+     * @return void
+     */
+    public function testNivelEnsinoSaveActionNewRequest()
+    {
+        // dispara a acao
+        $this->routeMatch->setParam('action', 'save');
+        $result = $this->controller->dispatch(
+            $this->request, $this->response
+        );
+
+        // verifica a resposta
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+
+        // testa se recebeu um ViewModel
+        $this->assertInstanceOf('Zend\View\Model\ViewModel', $result);
+
+        // verifica se existe um form
+        $variables = $result->getVariables();
+        $this->assertInstanceOf('Zend\Form\Form', $variables['form']);
+        $form = $variables['form'];
+        // testa os itens do formulario
+        $id = $form->get('id');
+        $this->assertEquals('id', $id->getName());
+        $this->assertEquals('hidden', $id->getAttribute('type'));
+
+        $nome = $form->get('nome');
+        $this->assertEquals('nome', $nome->getName());
+        $this->assertEquals('text', $nome->getAttribute('type'));
+
+        $descricao = $form->get('descricao');
+        $this->assertEquals('descricao', $descricao->getName());
+        $this->assertEquals('textarea', $descricao->getAttribute('type'));
+
+        $ativo = $form->get('ativo');
+        $this->assertEquals('ativo', $ativo->getName());
+        $this->assertEquals('Zend\Form\Element\Select', $ativo->getAttribute('type'));
+    }
+
+    /**
+     * testa a tela de alteracoes de um registro
+     */
+    public function testNivelEnsinoSaveActionUpdateFormRequest()
+    {
+        $nivelEnsino = $this->buildNivelEnsino();
+        $this->em->persist($nivelEnsino);
+        $this->em->flush();
+
+        $this->routeMatch->setParam('action', 'save');
+        $this->routeMatch->setParam('id', $nivelEnsino->getId());
+        $result = $this->controller->dispatch(
+            $this->request, $this->response
+        );
+
+        // verifica a resposta
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+
+        // testa se recebeu um ViewModel
+        $this->assertInstanceOf('Zend\View\Model\ViewModel', $result);
+        $variables = $result->getVariables();
+
+        // verifica se existe um form
+        $this->assertInstanceOf('Zend\Form\Form', $variables['form']);
+        $form = $variables['form'];
+
+        // testa os itens do formulario
+        $id = $form->get('id');
+        $nome = $form->get('nome');
+        $descricao = $form->get('descricao');
+        $this->assertEquals('id', $id->getName());
+        $this->assertEquals($nivelEnsino->getId(), $id->getValue());
+        $this->assertEquals($nivelEnsino->getNome(), $nome->getValue());
+        $this->assertEquals($nivelEnsino->getDescricao(), $descricao->getValue());
+    }
+
+    /**
+     * Testa a inclusao de um novo registro
+     */
+    public function testNivelEnsinoSaveActionPostRequest()
+    {
+        // dispara a acao
+        $this->routeMatch->setParam('action', 'save');
+
+        $this->request->setMethod('post');
+        $this->request->getPost()->set('id', '');
+        $this->request->getPost()->set('nome', 'Nivel de Ensino');
+        $this->request->getPost()->set('descricao', 'Descrição');
+        $this->request->getPost()->set('ativo', true);
+
+        $result = $this->controller->dispatch(
+            $this->request, $this->response
+        );
+
+        // verifica a resposta
+        $response = $this->controller->getResponse();
+        // a pagina redireciona, entao o status = 302
+        $this->assertEquals(302, $response->getStatusCode());
+        $headers = $response->getHeaders();
+        $this->assertEquals('Location: /escola/nivel-ensino', $headers->get('Location'));
+    }
+
+    /**
+     * Testa o update de um registro
+     */
+    public function testNivelEnsinoUpdateAction()
+    {
+        $nivelEnsino = $this->buildNivelEnsino();
+        $this->em->persist($nivelEnsino);
+        $this->em->flush();
+
+        // dispara a acao
+        $this->routeMatch->setParam('action', 'save');
+
+        $this->request->setMethod('post');
+        $this->request->getPost()->set('id', $nivelEnsino->getId());
+        $this->request->getPost()->set('nome', 'Novo Nome');
+        $this->request->getPost()->set('descricao', $nivelEnsino->getDescricao());
+        $this->request->getPost()->set('ativo', $nivelEnsino->getAtivo());
+
+        $result = $this->controller->dispatch(
+            $this->request, $this->response
+        );
+
+        // verifica a resposta
+        $response = $this->controller->getResponse();
+        // a pagina redireciona, entao o status = 302
+        $this->assertEquals(302, $response->getStatusCode());
+        $headers = $response->getHeaders();
+        $this->assertEquals('Location: /escola/nivel-ensino', $headers->get('Location'));
+
+        $savedNivelEnsino = $this->em->find(get_class($nivelEnsino), $nivelEnsino->getId());
+        $this->assertEquals('Novo Nome', $savedNivelEnsino->getNome());
+    }
+
+    /**
+     * testa a inclusao, formulario invalido e nome vazio
+     */
+    public function testNivelEnsinoSaveActionInvalidFormPostRequest()
+    {
+        // dispara a acao
+        $this->routeMatch->setParam('action', 'save');
+        $this->request->setMethod('post');
+        $this->request->getPost()->set('id', '');
+        $this->request->getPost()->set('nome', '');
+        $this->request->getPost()->set('descricao', 'Descricao');
+        $this->request->getPost()->set('ativo', true);
+
+        $result= $this->controller->dispatch(
+            $this->request, $this->response
+        );
+
+        // verifica a resposta
+        $response = $this->controller->getResponse();
+
+        // a pagina nao redireciona por causa do erro, entao o status = 200
+        $this->assertEquals(200, $response->getStatusCode());
+        $headers = $response->getHeaders();
+
+        // verify filters validators
+        $msgs = $result->getVariables()['form']->getMessages();
+        $this->assertEquals('Value is required and can\'t be empty', $msgs["nome"]['isEmpty']);
     }
 
     /**
@@ -227,7 +392,6 @@ class NivelEnsinoControllerTest extends \Core\Test\ControllerTestCase
 
     private function buildNivelEnsino()
     {
-        $instituicao = $this->buildInstituicao();
         $nivelEnsino = new \Escola\Entity\NivelEnsino();
         $nivelEnsino->setNome('Habilitacao 1');
         $nivelEnsino->setDescricao('Descricao');

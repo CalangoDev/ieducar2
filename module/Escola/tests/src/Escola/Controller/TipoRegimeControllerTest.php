@@ -138,14 +138,10 @@ class TipoRegimeControllerTest extends ControllerTestCase
     }
 
     /**
-     * Testa a inclusao de uma nova instituicao
+     * Testa a inclusao de um novo registro
      */
     public function testTipoRegimeSaveActionPostRequest()
     {
-        $tipoRegime = $this->buildInstituicao();
-        $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-        $em->persist($tipoRegime);
-        $em->flush();
         //	Dispara a acao
         $this->routeMatch->setParam('action', 'save');
 
@@ -201,7 +197,7 @@ class TipoRegimeControllerTest extends ControllerTestCase
      */
     public function testTipoRegimeSaveActionInvalidFormPostRequest()
     {
-        $tipoRegime = $this->buildInstituicao();
+        $tipoRegime = $this->buildTipoRegime();
         $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
         $em->persist($tipoRegime);
         $em->flush();
