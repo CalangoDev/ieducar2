@@ -115,11 +115,11 @@ class RegraAvaliacao extends Entity
     protected $formulaRecuperacao;
 
     /**
-     * @var int $tabelaArrendondamento
+     * @var int $tabelaArredondamento
      *
-     * @ORM\ManyToOne(targetEntity="Escola\Entity\TabelaArrendondamento", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Escola\Entity\TabelaArredondamento", cascade={"persist"})
      */
-    protected $tabelaArrendondamento;
+    protected $tabelaArredondamento;
 
     /**
      *
