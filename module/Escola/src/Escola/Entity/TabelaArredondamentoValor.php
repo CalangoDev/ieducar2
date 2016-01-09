@@ -65,7 +65,7 @@ class TabelaArredondamentoValor extends Entity
     protected $valorMaximo;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Escola\Entity\TabelaArredondamento", inversedBy="notas")
+     * @ORM\ManyToOne(targetEntity="Escola\Entity\TabelaArredondamento", inversedBy="notas", cascade={"persist"})
      */
     protected $tabelaArredondamento;
 
@@ -215,6 +215,8 @@ class TabelaArredondamentoValor extends Entity
                 'name' => 'tabelaArredondamento',
                 'required' => true,
             )));
+
+            $this->inputFilter = $inputFilter;
 
         }
 
