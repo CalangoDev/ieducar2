@@ -191,7 +191,7 @@ class InstituicaoControllerTest extends ControllerTestCase
         );
         //	Verifica a resposta
         $response = $this->controller->getResponse();
-        //	a pagina redireciona, estao o status = 302
+        //	a pagina redireciona, entao o status = 302
         $this->assertEquals(302, $response->getStatusCode());
         $headers = $response->getHeaders();
         $this->assertEquals('Location: /escola/instituicao', $headers->get('Location'));
@@ -346,6 +346,7 @@ class InstituicaoControllerTest extends ControllerTestCase
         $dados = $variables["dados"];
         $this->assertEquals($instituicaoB->getNome(), $dados[0]->getNome());
     }
+
     /**
      * Testa a exclusao sem passar o id da pessoa
      * @expectedException Exception
