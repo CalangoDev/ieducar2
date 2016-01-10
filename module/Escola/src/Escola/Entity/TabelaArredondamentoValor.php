@@ -105,7 +105,10 @@ class TabelaArredondamentoValor extends Entity
 
     public function setValorMinimo($valorMinimo)
     {
-        $this->valorMinimo = $this->valid('valorMinimo', $valorMinimo);
+        if ($this->nome != "")
+            $this->valorMinimo = $this->valid('valorMinimo', $valorMinimo);
+        else
+            $this->valorMinimo = $valorMinimo;
     }
 
     public function getValorMaximo()
@@ -115,7 +118,9 @@ class TabelaArredondamentoValor extends Entity
 
     public function setValorMaximo($valorMaximo)
     {
-        $this->valorMaximo = $this->valid('valorMaximo', $valorMaximo);
+        if ($this->nome != "")
+            $this->valorMaximo = $this->valid('valorMaximo', $valorMaximo);
+        $this->valorMaximo = $valorMaximo;
     }
 
     public function getTabelaArredondamento()
@@ -156,12 +161,13 @@ class TabelaArredondamentoValor extends Entity
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
                 ),
+                'continue_if_empty' => true,
                 'validators' => array(
                     array(
                         'name' => 'StringLength',
                         'options' => array(
                             'encoding' => 'UTF-8',
-                            'min' => 1,
+                            'min' => 0,
                             'max' => 5,
                         ),
                     ),
@@ -190,13 +196,14 @@ class TabelaArredondamentoValor extends Entity
             $inputFilter->add($factory->createInput(array(
                 'name' => 'valorMinimo',
                 'required' => true,
+                'continue_if_empty' => true,
                 'validators' => array(
                     array(
                         'name' => 'Float',
-//                        'options' => array(
-//                            'min' => 0,
-//                            'locale' => 'pt_BR'
-//                        )
+                        'options' => array(
+                            'min' => 0,
+                            'locale' => 'en_US'
+                        )
                     )
                 )
             )));
@@ -204,9 +211,14 @@ class TabelaArredondamentoValor extends Entity
             $inputFilter->add($factory->createInput(array(
                 'name' => 'valorMaximo',
                 'required' => true,
+                'continue_if_empty' => true,
                 'validators' => array(
                     array(
-                        'name' => 'Float'
+                        'name' => 'Float',
+                        'options' => array(
+                            'min' => 0,
+                            'locale' => 'en_US'
+                        )
                     )
                 )
             )));

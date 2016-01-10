@@ -62,9 +62,12 @@ class TabelaArredondamento extends Form
             'type'    => 'Zend\Form\Element\Collection',
             'name' => 'notas',
             'options' => array(
-                'label' => 'Notas:',
-                'count'           => 3,
-                'target_element' => $notasFieldset
+                'label' => 'Notas para arredondamento: ',
+                'count'           => 5,
+                'target_element' => $notasFieldset,
+                //'allow_add' => true,
+                //'should_create_template' => true,
+                //'template_placeholder' => '__placeholder__',
             ),
             'attributes' => array(
                 'type'    => 'Zend\Form\Element\Collection',

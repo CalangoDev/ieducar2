@@ -35,8 +35,7 @@ class TabelaArredondamentoValorFieldset extends Fieldset implements InputFilterP
             ),
             'attributes' => array(
                 'type' => 'text',
-                'class' => 'form-control col-md-2 nome',
-                'placeholder' => 'Nome'
+                'class' => 'form-control nome',
             ),
 
         ));
@@ -50,7 +49,6 @@ class TabelaArredondamentoValorFieldset extends Fieldset implements InputFilterP
             'attributes' => array(
                 'type' => 'text',
                 'class' => 'form-control descricao',
-                'placeholder' => 'Descrição'
             ),
         ));
 
@@ -62,7 +60,6 @@ class TabelaArredondamentoValorFieldset extends Fieldset implements InputFilterP
             'attributes' => array(
                 'type' => 'text',
                 'class' => 'form-control valorMinimo',
-                'placeholder' => 'Valor Mínimo'
             )
         ));
 
@@ -74,7 +71,6 @@ class TabelaArredondamentoValorFieldset extends Fieldset implements InputFilterP
             'attributes' => array(
                 'type' => 'text',
                 'class' => 'form-control valorMaximo',
-                'placeholder' => 'Valor Máximo'
             )
         ));
     }
@@ -87,7 +83,8 @@ class TabelaArredondamentoValorFieldset extends Fieldset implements InputFilterP
             ),
 
             'nome' => array(
-                'required' => true
+                'required' => true,
+                'continue_if_empty' => true,
             ),
 
             'descricao' => array(

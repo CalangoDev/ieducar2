@@ -1,0 +1,263 @@
+
+<div class="container">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="/">Ínicio</a></li>
+            <li><a href="/escola/tabela-arredondamento">Cadastro de Tabela de Arredondamento</a></li>
+            <li class="active">Salvar</li>
+        </ol>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1><i class="icon icon-table"></i> Cadastro <small>de Tabela de Arredondamento</small></h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <b>Salvar</b>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <?php
+                            $this->form->prepare();
+                            echo $this->form()->openTag($form);
+                            $id = $this->form->get('id');
+                            $nome = $this->form->get('nome');
+                            $tipoNota = $this->form->get('tipoNota');
+                            $notas = $this->form->get('notas');
+                            echo $this->formInput($id);
+                            ?>
+                            <br>
+
+                            <div class="form-group required">
+                                <label for="nome">
+                                    <?php
+                                    echo $nome->getOption('label');
+                                    ?>
+                                </label>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <?php
+                                        echo $this->formInput($nome);
+                                        ?>
+                                        <span class="help-block">
+                                                <?php
+                                                echo $this->formElementErrors($nome);
+                                                ?>
+                                            </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group required">
+                                <label for="tipoNota"><?php echo $tipoNota->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <?php echo $this->formSelect($tipoNota);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($tipoNota);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-11">
+                                    <div class="panel panel-info">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title"><?php echo $notas->getOption('label');?></h3>
+                                        </div>
+                                        <div class="panel-body panel-notas">
+                                            <?php
+                                            $count = 1;
+                                            $estilos = array('bg-default','bg-warning');
+                                            $this->cycle()->assign($estilos);
+                                            foreach ($notas as $nota) {
+                                                echo $this->formInput($nota->get('id'));
+                                                ?>
+                                                <div class="row <?php echo $this->cycle()->next();?> notas">
+
+                                                    <div class="form-group">
+
+                                                        <div class="col-md-2 form-group">
+                                                            <label for="">&nbsp;</label>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <b>Arredondamento <?php echo $count;?>:</b>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-2 form-group">
+                                                            <label for="<?php echo $nota->get('nome')->getOption('label');?>">
+                                                                <?php echo $nota->get('nome')->getOption('label');?></label>
+
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <?php
+                                                                    echo $this->formInput($nota->get('nome'));?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-2 form-group descricao">
+                                                            <label for="<?php
+                                                            echo $nota->get('descricao')->getOption('label');?>">
+                                                                <?php echo $nota->get('descricao')->getOption('label');?>
+                                                            </label>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <?php echo $this->formInput($nota->get('descricao'));?>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="col-md-2 form-group">
+                                                            <label
+                                                                for="<?php
+                                                                echo $nota->get('valorMinimo')->getOption('label');?>">
+                                                                <?php echo $nota->get('valorMinimo')->getOption('label');?>
+                                                            </label>
+
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <?php echo $this->formInput($nota->get('valorMinimo'));?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-2 form-group">
+                                                            <label
+                                                                for="<?php
+                                                                echo $nota->get('valorMaximo')->getOption('label');?>">
+                                                                <?php echo $nota->get('valorMaximo')->getOption('label');?>
+                                                            </label>
+
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <?php echo $this->formInput($nota->get('valorMaximo'));?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                <?php
+                                                $count++;
+                                            }
+                                            ?>
+                                        </div>
+                                        <div class="panel-footer">
+                                            <button type="button" class="btn btn-info btn-inserir-nota">
+                                                <i class="icon icon-plus"></i> Inserir nova Nota
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <?php
+                                        $enviar = $this->form->get('submit');
+                                        echo $this->formElement($enviar);
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <?php
+                            echo $this->form()->closeTag();
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<?php
+echo $this->headLink()->prependStylesheet($this->basePath() . '/componentes/chosen/chosen.css');
+echo $this->headScript()->prependFile($this->basePath() . '/componentes/chosen/chosen.jquery.min.js', 'text/javascript');
+echo $this->headScript()->prependFile($this->basePath()
+    . '/componentes/jquery.masked-input/jquery.maskedinput.min.js');
+?>
+<script type="text/javascript">
+    var config = {
+        '.chosen-select'           : {},
+        '.chosen-select-deselect'  : {allow_single_deselect:true},
+        '.chosen-select-no-single' : {disable_search_threshold:10},
+        '.chosen-select-no-results': {no_results_text:'Oops, nada foi encontrado!'},
+        '.chosen-select-width'     : {width:"95%"}
+    }
+    for (var selector in config) {
+        $(selector).chosen(config[selector]);
+    }
+
+    $(document).ready(function() {
+
+        var tipoNota = $('select[name=tipoNota]').val();
+        if (tipoNota == 1)
+            $('.descricao').hide();
+
+        $('select[name=tipoNota]').on('change', function(){
+            var value = $(this).val();
+            if (value == 1)
+                $('.descricao').hide();
+            else
+                $('.descricao').show();
+        });
+
+        $('.btn-inserir-nota').on('click', function(){
+            add_nota();
+        });
+
+        function add_nota() {
+
+            var qtdNotas = $('.notas').length;
+            var estilo = 'bg-warning';
+
+            if ((qtdNotas % 2) == 0)
+                estilo = 'bg-default';
+
+            var templateNota = '<input type="hidden" name="notas[' + qtdNotas + '][id]" value>' +
+                '<div class="row ' + estilo + ' notas"><div class="form-group">' +
+                '<div class="col-md-2 form-group"><label for="">&nbsp;</label><div class="row">' +
+                '<div class="col-md-12"><b>Arredondamento ' + (qtdNotas + 1) + ':</b></div></div></div> ' +
+                '<div class="col-md-2 form-group"><label for="Rótulo da nota:">Rótulo da nota:</label><div class="row">' +
+                '<div class="col-md-12"><input type="text" name="notas[' + qtdNotas + '][nome]" ' +
+                'class="form-control nome" value=""></div></div></div>' +
+                '<div class="col-md-2 form-group descricao"><label for="Descrição:">Descrição:</label><div class="row">' +
+                '<div class="col-md-12"><input type="text" name="notas[' + qtdNotas + '][descricao]" ' +
+                'class="form-control descricao" value=""></div></div></div>' +
+                '<div class="col-md-2 form-group"><label for="Valor Mínimo:">Valor Mínimo:</label><div class="row">' +
+                '<div class="col-md-12"><input name="notas[' + qtdNotas + '][valorMinimo]" type="text" ' +
+                'class="form-control valorMinimo" value=""></div></div></div>' +
+                '<div class="col-md-2 form-group"><label for="Valor Máximo:">Valor Máximo:</label><div class="row">' +
+                '<div class="col-md-12"><input type="text" name="notas[' + qtdNotas + '][valorMaximo]" type="text" ' +
+                'class="form-control valorMaximo" value=""></div></div></div>' +
+                '</div></div>';
+
+            $('.panel-notas').append(templateNota);
+
+        }
+
+    });
+    //end document ready function
+</script>

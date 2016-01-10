@@ -101,7 +101,12 @@ class TabelaArredondamento extends Entity
      */
     public function addNotas(Collection $notas)
     {
-        foreach ($notas as $nota) $this->notas->add($nota);
+        foreach ($notas as $nota) {
+            if ($nota->getNome() != "") {
+                $nota->setTabelaArredondamento($this);
+                $this->notas->add($nota);
+            }
+        }
     }
 
     /**
@@ -109,7 +114,12 @@ class TabelaArredondamento extends Entity
      */
     public function removeNotas(Collection $notas)
     {
-        foreach ($notas as $nota) $this->notas->removeElement($nota);
+        foreach ($notas as $nota) {
+            if ($nota->getNome() != ""){
+                $nota->setTabelaArredondamento(null);
+                $this->notas->removeElement($nota);
+            }
+        }
     }
 
     public function getNotas()
@@ -167,7 +177,8 @@ class TabelaArredondamento extends Entity
 
             $inputFilter->add($factory->createInput(array(
                 'name' => 'notas',
-                'required' => false
+                'required' => false,
+                'continue_if_empty' => true,
             )));
 
             $this->inputFilter = $inputFilter;

@@ -115,8 +115,8 @@ class TabelaArredondamentoValorTest extends EntityTestCase
         $tabela = new TabelaArredondamentoValor();
         $tabela->setNome('A');
         $tabela->setDescricao('Descricao');
-        $tabela->setValorMaximo('10');
-        $tabela->setValorMinimo('8');
+        $tabela->setValorMaximo('2,9');
+        $tabela->setValorMinimo('1.9');
         $tabelaArredondamento = $this->buildTabelaArredondamento();
         $tabela->setTabelaArredondamento($tabelaArredondamento);
 

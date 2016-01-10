@@ -1,0 +1,56 @@
+<div class="row">
+    <dl class="dl-horizontal">
+
+        <dt>Nome:</dt>
+        <dd><?php echo $data->getNome();?></dd>
+
+        <?php
+        if ($data->getTipoNota()):
+        ?>
+            <dt>Sistema de Nota:</dt>
+            <dd><?php echo ($data->getTipoNota() == 1) ? 'Nota númerica' : 'Nota conceitual';?></dd>
+        <?php
+        endif;
+        if ($data->getNotas()):
+        ?>
+            <dt>Notas de Arredondamento:</dt>
+            <dd>
+                <table class="table table-bordered">
+                    <thead>
+                    <th>#</th>
+                    <th>Rótulo da Nota</th>
+                    <?php if ($data->getTipoNota() == 2){ ?>
+                        <th>Descrição</th>
+                    <?php } ?>
+                    <th>Valor Mínimo</th>
+                    <th>Valor Máximo</th>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $count = 1;
+                        $estilos = array('success','warning');
+                        $this->cycle()->assign($estilos);
+                        foreach($data->getNotas() as $nota):
+                        ?>
+                            <tr class="<?php echo $this->cycle()->next();?>">
+                                <td><?php echo $count;?></td>
+                                <td><?php echo $nota->getNome();?></td>
+                                <?php if ($data->getTipoNota() == 2){ ?>
+                                    <td><?php echo $nota->getDescricao();?></td>
+                                <?php } ?>
+                                <td><?php echo $nota->getValorMinimo();?></td>
+                                <td><?php echo $nota->getValorMaximo();?></td>
+                            </tr>
+                        <?php
+                            $count++;
+                        endforeach;
+                        ?>
+                    </tbody>
+                </table>
+            </dd>
+        <?php
+        endif;
+        ?>
+
+    </dl>
+</div>
