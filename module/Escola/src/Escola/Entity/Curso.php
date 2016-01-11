@@ -125,14 +125,6 @@ class Curso extends Entity
     protected $multiSeriado = false;
 
     /**
-     * @var int $instituicao
-     * 
-     * @ORM\ManyToOne(targetEntity="Escola\Entity\Instituicao", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    protected $instituicao;
-
-    /**
      * @var int $nivelEnsino
      *
      * @ORM\ManyToOne(targetEntity="Escola\Entity\NivelEnsino", cascade={"persist"})
@@ -534,11 +526,6 @@ class Curso extends Entity
 				'validators' => array(
 					array('name' => 'Int'),
 				),
-			)));
-
-			$inputFilter->add($factory->createInput(array(
-				'name' => 'instituicao',
-				'required' => true,
 			)));
 
 			$inputFilter->add($factory->createInput(array(

@@ -128,10 +128,6 @@ class CursoControllerTest extends \Core\Test\ControllerTestCase
         $this->assertEquals('publicoAlvo', $publicoAlvo->getName());
         $this->assertEquals('textarea', $publicoAlvo->getAttribute('type'));
 
-        $instituicao = $form->get('instituicao');
-        $this->assertEquals('instituicao', $instituicao->getName());
-        $this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $instituicao->getAttribute('type'));
-
         $nivelEnsino = $form->get('nivelEnsino');
         $this->assertEquals('nivelEnsino', $nivelEnsino->getName());
         $this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $nivelEnsino->getAttribute('type'));
@@ -212,12 +208,10 @@ class CursoControllerTest extends \Core\Test\ControllerTestCase
         $this->request->getPost()->set('atoPoderPublico', '');
 
         $habilitacao = $this->buildHabilitacao();
-        $instituicao = $this->buildInstituicao();
         $nivelEnsino = $this->buildNivelEnsino();
         $tipoEnsino = $this->buildTipoEnsino();
         $tipoRegime = $this->buildTipoRegime();
         $em->persist($habilitacao);
-        $em->persist($instituicao);
         $em->persist($nivelEnsino);
         $em->persist($tipoEnsino);
         $em->persist($tipoRegime);
@@ -226,7 +220,6 @@ class CursoControllerTest extends \Core\Test\ControllerTestCase
         $this->request->getPost()->set('habilitacoes[]', $habilitacao->getId());
         $this->request->getPost()->set('objetivo', 'Objetivo do Curso');
         $this->request->getPost()->set('publicoAlvo', 'publico alvo do curso');
-        $this->request->getPost()->set('instituicao', $instituicao->getId());
         $this->request->getPost()->set('nivelEnsino', $nivelEnsino->getId());
         $this->request->getPost()->set('tipoEnsino', $tipoEnsino->getId());
         $this->request->getPost()->set('tipoRegime', $tipoRegime->getId());
@@ -269,7 +262,6 @@ class CursoControllerTest extends \Core\Test\ControllerTestCase
         $this->request->getPost()->set('habilitacoes[]', $curso->getHabilitacoes());
         $this->request->getPost()->set('objetivo', 'Objetivo do Curso');
         $this->request->getPost()->set('publicoAlvo', 'publico alvo do curso');
-        $this->request->getPost()->set('instituicao', $curso->getInstituicao()->getId());
         $this->request->getPost()->set('nivelEnsino', $curso->getNivelEnsino()->getId());
         $this->request->getPost()->set('tipoEnsino', $curso->getTipoEnsino()->getId());
         $this->request->getPost()->set('tipoRegime', $curso->getTipoRegime()->getId());
@@ -310,12 +302,10 @@ class CursoControllerTest extends \Core\Test\ControllerTestCase
         $this->request->getPost()->set('atoPoderPublico', '');
 
         $habilitacao = $this->buildHabilitacao();
-        $instituicao = $this->buildInstituicao();
         $nivelEnsino = $this->buildNivelEnsino();
         $tipoEnsino = $this->buildTipoEnsino();
         $tipoRegime = $this->buildTipoRegime();
         $em->persist($habilitacao);
-        $em->persist($instituicao);
         $em->persist($nivelEnsino);
         $em->persist($tipoEnsino);
         $em->persist($tipoRegime);
@@ -324,7 +314,6 @@ class CursoControllerTest extends \Core\Test\ControllerTestCase
         $this->request->getPost()->set('habilitacoes[]', $habilitacao->getId());
         $this->request->getPost()->set('objetivo', 'Objetivo do Curso');
         $this->request->getPost()->set('publicoAlvo', 'publico alvo do curso');
-        $this->request->getPost()->set('instituicao', $instituicao->getId());
         $this->request->getPost()->set('nivelEnsino', $nivelEnsino->getId());
         $this->request->getPost()->set('tipoEnsino', $tipoEnsino->getId());
         $this->request->getPost()->set('tipoRegime', $tipoRegime->getId());
@@ -524,9 +513,6 @@ class CursoControllerTest extends \Core\Test\ControllerTestCase
 		$curso->setHoraFalta(50.0);
 		$curso->setMultiSeriado(0);
 		
-		$instituicao = $this->buildInstituicao();
-		$curso->setInstituicao($instituicao);
-		
 		$nivelEnsino = $this->buildNivelEnsino();
 		$curso->setNivelEnsino($nivelEnsino);
 
@@ -538,15 +524,6 @@ class CursoControllerTest extends \Core\Test\ControllerTestCase
 
 		return $curso;
 	}
-
-    private function buildInstituicao()
-    {
-        $instituicao = new \Escola\Entity\Instituicao();
-        $instituicao->setNome('Prefeitura Municipial Modelo');
-        $instituicao->setResponsavel('Secretaria Municipal Modelo');
-
-        return $instituicao;
-    }
 
 	private function buildNivelEnsino()
 	{

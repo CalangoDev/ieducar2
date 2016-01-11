@@ -37,7 +37,7 @@ class CursoTest extends EntityTestCase
 	 */
 	public function testInputFilterValid($if)
 	{
-		$this->assertEquals(17, $if->count());
+		$this->assertEquals(16, $if->count());
 		$this->assertTrue($if->has('id'));
 		$this->assertTrue($if->has('nome'));
 		$this->assertTrue($if->has('sigla'));
@@ -50,7 +50,6 @@ class CursoTest extends EntityTestCase
 		$this->assertTrue($if->has('padraoAnoEscolar'));
 		$this->assertTrue($if->has('horaFalta'));
 		$this->assertTrue($if->has('multiSeriado'));
-		$this->assertTrue($if->has('instituicao'));
 		$this->assertTrue($if->has('nivelEnsino'));
 		$this->assertTrue($if->has('tipoEnsino'));
 		$this->assertTrue($if->has('tipoRegime'));
@@ -80,7 +79,6 @@ class CursoTest extends EntityTestCase
 		$this->assertEquals(false, $savedCurso->getPadraoAnoEscolar());
 		$this->assertEquals(50.0, $savedCurso->getHoraFalta());
 		$this->assertEquals(false, $savedCurso->getMultiSeriado());
-		$this->assertEquals($curso->getInstituicao(), $savedCurso->getInstituicao());
 		$this->assertEquals($curso->getNivelEnsino(), $savedCurso->getNivelEnsino());
 		$this->assertEquals($curso->getTipoEnsino(), $savedCurso->getTipoEnsino());
 		$this->assertEquals($curso->getTipoRegime(), $savedCurso->getTipoRegime());
@@ -161,9 +159,6 @@ class CursoTest extends EntityTestCase
 		$curso->setHoraFalta(50.0);
 		$curso->setMultiSeriado(0);
 		
-		$instituicao = $this->buildInstituicao();
-		$curso->setInstituicao($instituicao);
-		
 		$nivelEnsino = $this->buildNivelEnsino();
 		$curso->setNivelEnsino($nivelEnsino);
 
@@ -180,14 +175,6 @@ class CursoTest extends EntityTestCase
 		return $curso;
 	}
 
-	private function buildInstituicao()
-    {
-        $instituicao = new Instituicao();
-        $instituicao->setNome('Prefeitura Municipal Modelo');
-        $instituicao->setResponsavel('Secretaria Municipal Modelo');
-
-        return $instituicao;
-	}
 
 	private function buildNivelEnsino()
 	{

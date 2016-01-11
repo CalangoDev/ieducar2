@@ -40,8 +40,6 @@
                             $habilitacoes = $this->form->get('habilitacoes');
                             $objetivo = $this->form->get('objetivo');
                             $publicoAlvo = $this->form->get('publicoAlvo');
-
-                            $instituicao = $this->form->get('instituicao');
                             $nivelEnsino = $this->form->get('nivelEnsino');
                             $tipoEnsino = $this->form->get('tipoEnsino');
                             $tipoRegime = $this->form->get('tipoRegime');
@@ -52,22 +50,6 @@
                             echo $this->formInput($id);
                             ?>
                             <br>
-
-                            <div class="form-group required">
-                                <label for="instituicao">
-                                    <?php
-                                    echo $instituicao->getOption('label');
-                                    ?>
-                                </label>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <?php
-                                        echo $this->formSelect($instituicao);
-                                        echo $this->formElementErrors($instituicao);
-                                        ?>
-                                    </div>
-                                </div>
-                            </div>
 
                             <div class="form-group required">
                                 <label for="nivelEnsino"><?php echo $nivelEnsino->getOption('label');?></label>
