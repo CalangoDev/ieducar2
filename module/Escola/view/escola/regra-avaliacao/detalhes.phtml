@@ -1,0 +1,102 @@
+<div class="ro">
+    <dl class="dl-horizontal">
+
+        <dt>Nome:</dt>
+        <dd>
+            <?php echo $data->getNome();?>
+        </dd>
+
+        <?php
+        if ($data->getTipoNota()):
+        ?>
+            <dt>Sistema de Nota:</dt>
+            <dd>
+                <?php echo $this->tipoNota($data->getTipoNota());?>
+            </dd>
+        <?php
+        endif;
+
+        if ($data->getTabelaArredondamento()):
+        ?>
+            <dt>Tabela de arredondamento de nota:</dt>
+            <dd>
+                <?php echo $data->getTabelaArredondamento()->getNome();?>
+            </dd>
+            <?php
+        endif;
+
+        if ($data->getTipoProgressao()):
+        ?>
+            <dt>Progressão:</dt>
+            <dd>
+                <?php echo $this->tipoProgressao($data->getTipoProgressao());?>
+            </dd>
+        <?php
+        endif;
+
+        if ($data->getMedia()):
+        ?>
+            <dt>Média final para promoção:</dt>
+            <dd>
+                <?php echo $data->getMedia();?>
+            </dd>
+        <?php
+        endif;
+
+        if ($data->getMediaRecuperacao()):
+        ?>
+            <dt>Média exame final para promoção:</dt>
+            <dd>
+                <?php echo $data->getMediaRecuperacao();?>
+            </dd>
+        <?php
+        endif;
+
+        if ($data->getFormulaMedia()):
+        ?>
+            <dt>Fórmula de cálculo da média:</dt>
+            <dd>
+                <?php echo $data->getFormulaMedia()->getNome();?>
+            </dd>
+        <?php
+        endif;
+
+        if ($data->getFormulaRecuperacao()):
+        ?>
+            <dt>Fórmula de cálculo da média de recuperação:</dt>
+            <dd>
+                <?php echo $data->getFormulaRecuperacao()->getNome();?>
+            </dd>
+        <?php
+        endif;
+
+        if ($data->getPorcentagemPresenca()):
+        ?>
+            <dt>Porcentagem de presença:</dt>
+            <dd>
+                <?php echo $data->getPorcentagemPresenca();?>
+            </dd>
+        <?php
+        endif;
+
+        if ($data->getParecerDescritivo()):
+        ?>
+            <dt>Parecer descritivo:</dt>
+            <dd>
+                <?php echo $this->parecerDescritivo($data->getParecerDescritivo());?>
+            </dd>
+        <?php
+        endif;
+
+        if ($data->getTipoPresenca()):
+        ?>
+            <dt>Apuração de presença:</dt>
+            <dd>
+                <?php echo $this->tipoPresenca($data->getTipoPresenca());?>
+            </dd>
+        <?php
+        endif;
+        ?>
+
+    </dl>
+</div>

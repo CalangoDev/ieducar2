@@ -38,6 +38,8 @@ class Module
             'invokables' => array (
                 'tipoProgressao' => 'Escola\View\Helper\TipoProgressao',
                 'tipoNota' => 'Escola\View\Helper\TipoNota',
+                'parecerDescritivo' => 'Escola\View\Helper\ParecerDescritivo',
+                'tipoPresenca' => 'Escola\View\Helper\TipoPresenca'
             ),
         );
     }
