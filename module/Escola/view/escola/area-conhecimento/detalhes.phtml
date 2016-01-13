@@ -1,0 +1,14 @@
+<div class="row">
+    <dl class="dl-horizontal">
+        <dt>Nome:</dt>
+        <dd><?php echo $data->getNome();?></dd>
+        <?php
+        if ($data->getSecao()):
+        ?>
+            <dt>Seção:</dt>
+            <dd><?php echo $data->getSecao();?></dd>
+        <?php
+        endif;
+        ?>
+    </dl>
+</div>
