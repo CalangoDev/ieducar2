@@ -31,5 +31,15 @@ class Module
             ),
         );
     }
+
+    public function getViewHelperConfig()
+    {
+        return array(
+            'invokables' => array (
+                'tipoProgressao' => 'Escola\View\Helper\TipoProgressao',
+                'tipoNota' => 'Escola\View\Helper\TipoNota',
+            ),
+        );
+    }
         
 }

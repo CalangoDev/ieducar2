@@ -13,7 +13,7 @@ return array(
         'DoctrineDataFixtureModule',
         'Core',
         'WebinoImageThumb',
-        'Sandbox',
+        //'Sandbox',
         'Escola',
         //'DoctrineORMCidadesBr',
     ),    

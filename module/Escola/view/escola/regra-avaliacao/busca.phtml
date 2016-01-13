@@ -1,0 +1,55 @@
+<?php
+if (count($this->dados) > 0):
+    $estilos = array('active','warning');
+    $this->cycle()->assign($estilos);
+    foreach ($this->dados as $regra):
+        ?>
+        <tr class="<?php echo $this->cycle()->next();?>">
+            <td>
+                <?php
+                echo $regra->getId();
+                ?>
+            </td>
+            <td>
+                <?php
+                echo $regra->getNome();
+                ?>
+            </td>
+            <td>
+                <?php
+                echo $this->tipoNota($regra->getTipoNota());
+                ?>
+            </td>
+            <td>
+                <?php
+                echo $this->tipoProgressao($regra->getTipoProgressao());
+                ?>
+            </td>
+            <td>
+
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <a href="#<?php echo $regra->getId()?>"
+                   class="btn btn-info btn-detalhes" data-toggle="modal"
+                   data-target="#detalhesModal"><i class="icon icon-list"></i> Ver detalhes</a>
+                <a href="/escola/regra-avaliacao/save/id/<?php echo $regra->getId()?>"
+                   class="btn btn-primary"><i class="icon icon-pencil"></i> Editar</a>
+                <a href="/escola/regra-avaliacao/delete/id/<?php echo $regra->getId()?>"
+                   class="btn btn-danger delete"><i class="icon icon-trash"></i> Apagar</a>
+            </td>
+        </tr>
+        <?php
+    endforeach;
+else:
+    ?>
+    <tr class="warning">
+        <td colspan="9" class="text-center">
+            <b>Nenhum registro encontrado</b>
+        </td>
+    </tr>
+    <?php
+endif;
+?>

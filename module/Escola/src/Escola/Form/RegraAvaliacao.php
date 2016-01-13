@@ -43,21 +43,37 @@ class RegraAvaliacao extends Form
 
         $this->add(array(
             'name' => 'tipoNota',
+            'type' => 'Zend\Form\Element\Radio',
             'options' => array(
                 'label' => 'Sistema de Nota:',
                 'value_options' => array(
                     '0' => 'Nenhum',
                     '1' => 'Nota numérica',
-                    '2' => 'Nota conceitual'
+                    '2' => 'Nota conceitual',
                 ),
             ),
-            'type' => 'Zend\Form\Element\Radio',
             'attributes' => array(
                 'type' => 'Zend\Form\Element\Radio',
-                'value' => '1',
-                'class' => 'form-control'
-            )
+            ),
         ));
+
+//        $this->add(
+//            [
+//                'type'       => 'Radio',
+//                'name'       => 'tiponota',
+//                'options'    => [
+//                    'label' => 'Sistema de Nota:',
+//                    'value_options' => [
+//                        '0' => 'merda',
+//                        'gold' => 'gold',
+//                        '2' => 'xuxu',
+//                    ]
+//                ],
+//                'attributes' => [
+//                    'value' => 'gold' // This set the opt 1 as selected when form is rendered
+//                ]
+//            ]
+//        );
 
         $this->add(array(
             'name' => 'tabelaArredondamento',
@@ -89,6 +105,7 @@ class RegraAvaliacao extends Form
         ));
 
         $this->add(array(
+            //'name' => 'tipoProgressao',
             'name' => 'tipoProgressao',
             'options' => array(
                 'label' => 'Progressão:',
@@ -102,8 +119,7 @@ class RegraAvaliacao extends Form
             'type' => 'Zend\Form\Element\Radio',
             'attributes' => array(
                 'type' => 'Zend\Form\Element\Radio',
-                'value' => '1',
-                'class' => 'form-control'
+                //'value' => '1',
             )
         ));
 
@@ -185,7 +201,7 @@ Desconsidere esse campo caso selecione o tipo de nota "conceitual"'
                 'find_method' => array(
                     'name' => 'findBy',
                     'params' => array(
-                        'criteria' => array('tipoNota' => 2),
+                        'criteria' => array('tipoFormula' => 2),
                         'orderBy' => array('nome' => 'ASC')
                     ),
                 ),
@@ -225,8 +241,6 @@ Em porcentagem, exemplo: 75 ou 80,750'
             'type' => 'Zend\Form\Element\Radio',
             'attributes' => array(
                 'type' => 'Zend\Form\Element\Radio',
-                'value' => '0',
-                'class' => 'form-control'
             )
         ));
 
@@ -242,8 +256,6 @@ Em porcentagem, exemplo: 75 ou 80,750'
             'type' => 'Zend\Form\Element\Radio',
             'attributes' => array(
                 'type' => 'Zend\Form\Element\Radio',
-                'value' => '1',
-                'class' => 'form-control'
             )
         ));
 

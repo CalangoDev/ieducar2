@@ -1,0 +1,239 @@
+
+<div class="container">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="/">Ínicio</a></li>
+            <li><a href="/escola/regra-avaliacao">Cadastro de Regra de Avaliação</a></li>
+            <li class="active">Salvar</li>
+        </ol>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1><i class="glyphicon glyphicon-cog"></i> Cadastro <small>de regra de avaliação</small></h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <b>Salvar</b>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <?php
+                            $this->form->prepare();
+                            echo $this->form()->openTag($form);
+                            $this->formRadio()->setSeparator('</div><div class="radio">');
+                            $id = $this->form->get('id');
+                            $nome = $this->form->get('nome');
+                            $tipoNota = $this->form->get('tipoNota');
+                            $tabelaArredondamento = $this->form->get('tabelaArredondamento');
+                            $tipoProgressao = $this->form->get('tipoProgressao');
+                            $media = $this->form->get('media');
+                            $mediaRecuperacao = $this->form->get('mediaRecuperacao');
+                            $formulaMedia = $this->form->get('formulaMedia');
+                            $formulaRecuperacao = $this->form->get('formulaRecuperacao');
+                            $porcentagemPresenca = $this->form->get('porcentagemPresenca');
+                            $parecerDescritivo = $this->form->get('parecerDescritivo');
+                            $tipoPresenca = $this->form->get('tipoPresenca');
+                            echo $this->formInput($id);
+                            ?>
+                            <br>
+
+                            <div class="form-group required">
+                                <label for="nivelEnsino"><?php echo $nome->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <?php echo $this->formInput($nome);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($nome);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tipoNota"><?php echo $tipoNota->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="radio">
+                                        <?php
+                                        echo $this->formRadio($tipoNota->setValue('1'));?>
+                                        </div>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($tipoNota);?>
+                                        </span>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tabelaArredondamento">
+                                    <?php echo $tabelaArredondamento->getOption('label');?>
+                                </label>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <?php echo $this->formSelect($tabelaArredondamento);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($tabelaArredondamento);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="tipoProgressao"><?php echo $tipoProgressao->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="radio">
+                                            <?php
+                                            echo $this->formRadio($tipoProgressao->setValue('1'));?>
+                                        </div>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($tipoProgressao);?>
+                                        </span>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="media"><?php echo $media->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <?php echo $this->formElement($media);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($media);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="mediaRecuperacao"><?php echo $mediaRecuperacao->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <?php echo $this->formElement($mediaRecuperacao);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($mediaRecuperacao);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="formulaMedia"><?php echo $formulaMedia->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <?php echo $this->formSelect($formulaMedia);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($formulaMedia);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="formulaRecuperacao"><?php echo $formulaRecuperacao->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <?php echo $this->formSelect($formulaRecuperacao);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($formulaRecuperacao);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="porcentagemPresenca"><?php echo $porcentagemPresenca->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <?php echo $this->formElement($porcentagemPresenca);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($porcentagemPresenca);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="parecerDescritivo"><?php echo $parecerDescritivo->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="radio">
+                                            <?php echo $this->formRadio($parecerDescritivo->setValue('0'));?>
+                                        </div>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($parecerDescritivo);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tipoPresenca"><?php echo $tipoPresenca->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="radio">
+                                            <?php echo $this->formRadio($tipoPresenca->setValue('1'));?>
+                                        </div>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($tipoPresenca);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <?php
+                                        $enviar = $this->form->get('submit');
+                                        echo $this->formElement($enviar);
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <?php
+                            echo $this->form()->closeTag();
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<?php
+echo $this->headLink()->prependStylesheet($this->basePath() . '/componentes/chosen/chosen.css');
+echo $this->headScript()->prependFile($this->basePath() . '/componentes/chosen/chosen.jquery.min.js', 'text/javascript');
+echo $this->headScript()->prependFile($this->basePath()
+    . '/componentes/jquery.masked-input/jquery.maskedinput.min.js');
+?>
+<script type="text/javascript">
+    var config = {
+        '.chosen-select'           : {},
+        '.chosen-select-deselect'  : {allow_single_deselect:true},
+        '.chosen-select-no-single' : {disable_search_threshold:10},
+        '.chosen-select-no-results': {no_results_text:'Oops, nada foi encontrado!'},
+        '.chosen-select-width'     : {width:"95%"}
+    }
+    for (var selector in config) {
+        $(selector).chosen(config[selector]);
+    }
+</script>

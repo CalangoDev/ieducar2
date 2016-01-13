@@ -5,7 +5,7 @@
  * Date: 27/12/15
  * Time: 23:29
  */
-use Escola\Entity\Habilitacao;
+use Escola\Entity\NivelEnsino;
 
 /**
  * @group Controller
@@ -14,7 +14,7 @@ class NivelEnsinoControllerTest extends \Core\Test\ControllerTestCase
 {
     /**
      * Namespace completa do controller
-     * @var string HabilitacaoController
+     * @var string NivelEnsinoController
      */
     protected $controllerFQDN = 'Escola\Controller\NivelEnsinoController';
 
@@ -392,7 +392,7 @@ class NivelEnsinoControllerTest extends \Core\Test\ControllerTestCase
 
     private function buildNivelEnsino()
     {
-        $nivelEnsino = new \Escola\Entity\NivelEnsino();
+        $nivelEnsino = new NivelEnsino();
         $nivelEnsino->setNome('Habilitacao 1');
         $nivelEnsino->setDescricao('Descricao');
 

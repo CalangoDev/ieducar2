@@ -47,7 +47,8 @@ return array(
 			'Escola\Controller\NivelEnsino' => 'Escola\Controller\NivelEnsinoController',
 			'Escola\Controller\Curso' => 'Escola\Controller\CursoController',
             'Escola\Controller\FormulaMedia' => 'Escola\Controller\FormulaMediaController',
-            'Escola\Controller\TabelaArredondamento' => 'Escola\Controller\TabelaArredondamentoController'
+            'Escola\Controller\TabelaArredondamento' => 'Escola\Controller\TabelaArredondamentoController',
+            'Escola\Controller\RegraAvaliacao' => 'Escola\Controller\RegraAvaliacaoController'
         ),
     ),
     'view_manager' => array(

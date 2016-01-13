@@ -34,3 +34,7 @@ PROBLEMAS COM
  $this->setUseInputFilterDefaults(false);
 
  not found yet
+
+
+ Problemas em setar o valor default de um Elemento Radio, funciona quando o nome do elemento não é camelCase, para contornar
+ isso tive que colocar ->setValue('1') diretamente na view
