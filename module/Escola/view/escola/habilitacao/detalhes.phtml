@@ -16,7 +16,7 @@
 		<dt>Ativo:</dt>
 		<dd>
 			<?php
-			echo ($data->getAtivo())? 'Sim' : 'Não';
+			echo $this->ativo($data->getAtivo());
 			?>
 		</dd>
 	</dl>

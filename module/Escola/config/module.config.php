@@ -50,6 +50,7 @@ return array(
             'Escola\Controller\TabelaArredondamento' => 'Escola\Controller\TabelaArredondamentoController',
             'Escola\Controller\RegraAvaliacao' => 'Escola\Controller\RegraAvaliacaoController',
             'Escola\Controller\AreaConhecimento' => 'Escola\Controller\AreaConhecimentoController',
+            'Escola\Controller\TipoDispensa' => 'Escola\Controller\TipoDispensaController'
         ),
     ),
     'view_manager' => array(

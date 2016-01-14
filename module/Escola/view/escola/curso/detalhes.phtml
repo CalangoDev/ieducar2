@@ -1,0 +1,115 @@
+<div class="row">
+    <dl class="dl-horizontal">
+        <dt>Nome:</dt>
+        <dd><?php echo $data->getNome();?></dd>
+        <?php
+        if ($data->getSigla()):
+        ?>
+            <dt>Sigla:</dt>
+            <dd><?php echo $data->getSigla();?></dd>
+        <?php
+        endif;
+
+        if ($data->getQuantidadeEtapa()):
+        ?>
+            <dt>Quantidade de Etapas:</dt>
+            <dd><?php echo $data->getQuantidadeEtapa();?></dd>
+        <?php
+        endif;
+
+        if ($data->getHorafalta()):
+        ?>
+            <dt>Hora Falta:</dt>
+            <dd><?php echo $data->getHoraFalta();?></dd>
+        <?php
+        endif;
+
+        if ($data->getCargaHoraria()):
+        ?>
+            <dt>Carga Horária:</dt>
+            <dd><?php echo $data->getCargaHoraria();?></dd>
+        <?php
+        endif;
+
+        if ($data->getAtoPoderPublico()):
+        ?>
+            <dt>Ato Poder Público:</dt>
+            <dd><?php echo $data->getAtoPoderPublico();?></dd>
+        <?php
+        endif;
+
+        if ($data->getHabilitacoes()):
+        ?>
+            <dt>Habilitações:</dt>
+            <dd>
+                <?php
+                foreach($data->getHabilitacoes() as $habilitacao):
+
+                    echo $habilitacao->getNome() . ' <br>';
+
+                endforeach;
+                ?>
+            </dd>
+        <?php
+        endif;
+
+        if ($data->getObjetivo()):
+        ?>
+            <dt>Objetivo:</dt>
+            <dd>
+                <?php echo $data->getObjetivo();?>
+            </dd>
+        <?php
+        endif;
+
+        if ($data->getPublicoAlvo()):
+        ?>
+            <dt>Público Alvo</dt>
+            <dd><?php echo $data->getPublicoAlvo();?></dd>
+        <?php
+        endif;
+
+        if ($data->getNivelEnsino()):
+        ?>
+            <dt>Nível de Ensino:</dt>
+            <dd><?php echo $data->getNivelEnsino()->getNome();?></dd>
+        <?php
+        endif;
+
+        if ($data->getTipoEnsino()):
+        ?>
+            <dt>Tipo de Ensino:</dt>
+            <dd><?php echo $data->getTipoEnsino()->getNome();?></dd>
+        <?php
+        endif;
+
+        if ($data->getTipoRegime()):
+        ?>
+            <dt>Tipo de Regime:</dt>
+            <dd><?php echo $data->getTipoRegime()->getNome();?></dd>
+        <?php
+        endif;
+
+        if ($data->getPadraoAnoEscolar()):
+        ?>
+            <dt>Padrão Ano Escolar:</dt>
+            <dd><?php echo ($data->getPadraoAnoEscolar()) ? 'Sim' : 'Não';?></dd>
+        <?php
+        endif;
+
+        if ($data->getMultiSeriado()):
+        ?>
+            <dt>Multi Seriado:</dt>
+            <dd><?php echo ($data->getMultiSeriado()) ? 'Sim' : 'Não';?></dd>
+        <?php
+        endif;
+
+        if ($data->getAtivo()):
+        ?>
+            <dt>Ativo:</dt>
+            <dd><?php echo $this->ativo($data->getAtivo());?></dd>
+        <?php
+        endif;
+        ?>
+    </dl>
+</div>

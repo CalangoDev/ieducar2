@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: eduardojunior
- * Date: 27/12/15
- * Time: 14:21
+ * Date: 14/01/16
+ * Time: 12:03
  */
 namespace Escola\Form;
 
@@ -11,14 +11,14 @@ use Zend\Form\Form;
 use Doctrine\Common\Persistence\ObjectManager;
 use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 
-class Habilitacao extends Form
+class TipoDispensa extends Form
 {
     public function __construct(ObjectManager $objectManager)
     {
-        parent::__construct('habilitacao');
+        parent::__construct('tipo-dispensa');
         $this->setAttribute('method', 'post');
-        $this->setAttribute('action', '/escola/habilitacao/save');
-        $this->setHydrator(new DoctrineHydrator($objectManager))->setObject(new \Escola\Entity\Habilitacao());
+        $this->setAttribute('action', '/escola/tipo-dispensa/save');
+        $this->setHydrator(new DoctrineHydrator($objectManager))->setObject(new \Escola\Entity\TipoDispensa());
 
         $this->setUseInputFilterDefaults(false);
 
@@ -26,7 +26,7 @@ class Habilitacao extends Form
             'name' => 'id',
             'attributes' => array(
                 'type' => 'hidden'
-            ),
+            )
         ));
 
         $this->add(array(
@@ -34,7 +34,7 @@ class Habilitacao extends Form
             'attributes' => array(
                 'type' => 'text',
                 'class' => 'form-control',
-                'required' => 'required',
+                'required' => 'required'
             ),
             'options' => array(
                 'label' => 'Nome:'
@@ -45,10 +45,10 @@ class Habilitacao extends Form
             'name' => 'descricao',
             'attributes' => array(
                 'type' => 'textarea',
-                'class' => 'form-control',
+                'class' => 'form-control'
             ),
             'options' => array(
-                'label' => 'Descrição:',
+                'label' => 'Descrição:'
             )
         ));
 

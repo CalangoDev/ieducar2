@@ -1,0 +1,51 @@
+<?php
+if (count($this->dados) > 0):
+    $estilos = array('active','warning');
+    $this->cycle()->assign($estilos);
+    foreach ($this->dados as $curso):
+        ?>
+        <tr class="<?php echo $this->cycle()->next();?>">
+            <td>
+                <?php
+                echo $curso->getId();
+                ?>
+            </td>
+            <td>
+                <?php
+                echo $curso->getNome();
+                ?>
+            </td>
+            <td>
+                <?php
+                if ($curso->getAtivo()){
+                    $situacao = 'Sim';
+                    $label = 'success';
+                } else {
+                    $situacao = 'Não';
+                    $label = 'default';
+                }
+                ?>
+                <span class="label label-<?php echo $label;?>"><?php echo $situacao;?></span>
+            </td>
+            <td>
+                <a href="#<?php echo $curso->getId()?>"
+                   class="btn btn-info btn-detalhes" data-toggle="modal"
+                   data-target="#detalhesModal"><i class="icon icon-list"></i> Ver detalhes</a>
+                <a href="/escola/curso/save/id/<?php echo $curso->getId()?>"
+                   class="btn btn-primary"><i class="icon icon-pencil"></i> Editar</a>
+                <a href="/escola/curso/delete/id/<?php echo $curso->getId()?>"
+                   class="btn btn-danger delete"><i class="icon icon-trash"></i> Apagar</a>
+            </td>
+        </tr>
+        <?php
+    endforeach;
+else:
+    ?>
+    <tr class="warning">
+        <td colspan="5" class="text-center">
+            <b>Nenhum registro encontrado</b>
+        </td>
+    </tr>
+    <?php
+endif;
+?>
