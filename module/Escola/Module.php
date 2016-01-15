@@ -39,7 +39,8 @@ class Module
                 'tipoProgressao' => 'Escola\View\Helper\TipoProgressao',
                 'tipoNota' => 'Escola\View\Helper\TipoNota',
                 'parecerDescritivo' => 'Escola\View\Helper\ParecerDescritivo',
-                'tipoPresenca' => 'Escola\View\Helper\TipoPresenca'
+                'tipoPresenca' => 'Escola\View\Helper\TipoPresenca',
+                'tipoBase' => 'Escola\View\Helper\TipoBase'
             ),
         );
     }

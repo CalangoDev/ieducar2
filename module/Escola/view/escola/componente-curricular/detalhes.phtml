@@ -1,0 +1,37 @@
+<div class="ro">
+    <dl class="dl-horizontal">
+
+        <dt>Nome:</dt>
+        <dd>
+            <?php echo $data->getNome();?>
+        </dd>
+
+        <?php
+        if ($data->getAbreviatura()):
+            ?>
+            <dt>Abreviatura:</dt>
+            <dd>
+                <?php echo $data->getAbreviatura();?>
+            </dd>
+            <?php
+        endif;
+
+        if ($data->getTipoBase()):
+            ?>
+            <dt>Base curricular:</dt>
+            <dd>
+                <?php echo $this->tipoBase($data->getTipoBase());?>
+            </dd>
+            <?php
+        endif;
+
+        if ($data->getAreaConhecimento()):
+            ?>
+            <dt>Área de Conhecimento:</dt>
+            <dd>
+                <?php echo $data->getAreaConhecimento()->getNome();?>
+            </dd>
+            <?php
+        endif;?>
+    </dl>
+</div>
