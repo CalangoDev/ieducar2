@@ -1,0 +1,42 @@
+<?php
+if (count($this->dados) > 0):
+    $estilos = array('active','warning');
+    $this->cycle()->assign($estilos);
+    foreach ($this->dados as $serie):
+        ?>
+        <tr class="<?php echo $this->cycle()->next();?>">
+            <td>
+                <?php
+                echo $serie->getId();
+                ?>
+            </td>
+            <td>
+                <?php
+                echo $serie->getNome();
+                ?>
+            </td>
+            <td>
+                <?php echo $serie->getCurso()->getNome();?>
+            </td>
+            <td>
+                <a href="#<?php echo $serie->getId()?>"
+                   class="btn btn-info btn-detalhes" data-toggle="modal"
+                   data-target="#detalhesModal"><i class="icon icon-list"></i> Ver detalhes</a>
+                <a href="/escola/serie/save/id/<?php echo $serie->getId()?>"
+                   class="btn btn-primary"><i class="icon icon-pencil"></i> Editar</a>
+                <a href="/escola/serie/delete/id/<?php echo $serie->getId()?>"
+                   class="btn btn-danger delete"><i class="icon icon-trash"></i> Apagar</a>
+            </td>
+        </tr>
+        <?php
+    endforeach;
+else:
+    ?>
+    <tr class="warning">
+        <td colspan="4" class="text-center">
+            <b>Nenhum registro encontrado</b>
+        </td>
+    </tr>
+    <?php
+endif;
+?>

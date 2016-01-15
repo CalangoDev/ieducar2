@@ -40,7 +40,8 @@ class Module
                 'tipoNota' => 'Escola\View\Helper\TipoNota',
                 'parecerDescritivo' => 'Escola\View\Helper\ParecerDescritivo',
                 'tipoPresenca' => 'Escola\View\Helper\TipoPresenca',
-                'tipoBase' => 'Escola\View\Helper\TipoBase'
+                'tipoBase' => 'Escola\View\Helper\TipoBase',
+                'concluinte' => 'Escola\View\Helper\Concluinte'
             ),
         );
     }

@@ -52,6 +52,7 @@ return array(
             'Escola\Controller\AreaConhecimento' => 'Escola\Controller\AreaConhecimentoController',
             'Escola\Controller\TipoDispensa' => 'Escola\Controller\TipoDispensaController',
             'Escola\Controller\ComponenteCurricular' => 'Escola\Controller\ComponenteCurricularController',
+            'Escola\Controller\Serie' => 'Escola\Controller\SerieController',
         ),
     ),
     'view_manager' => array(

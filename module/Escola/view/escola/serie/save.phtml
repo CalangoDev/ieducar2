@@ -1,0 +1,230 @@
+
+<div class="container">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="/">Ínicio</a></li>
+            <li><a href="/escola/serie">Cadastro de Série</a></li>
+            <li class="active">Salvar</li>
+        </ol>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1><i class="icon icon-group"></i> Cadastro <small>de série</small></h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <b>Salvar</b>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <?php
+                            $this->form->prepare();
+                            echo $this->form()->openTag($form);
+                            $this->formRadio()->setSeparator('</div><div class="radio">');
+                            $id = $this->form->get('id');
+                            $curso = $this->form->get('curso');
+                            $nome = $this->form->get('nome');
+                            $etapaCurso = $this->form->get('etapaCurso');
+                            $regraAvaliacao = $this->form->get('regraAvaliacao');
+                            $concluinte = $this->form->get('concluinte');
+                            $cargaHoraria = $this->form->get('cargaHoraria');
+                            $diasLetivos = $this->form->get('diasLetivos');
+                            $intervalo = $this->form->get('intervalo');
+                            $idadeInicial = $this->form->get('idadeInicial');
+                            $idadeFinal = $this->form->get('idadeFinal');
+                            $observacaoHistorico = $this->form->get('observacaoHistorico');
+                            echo $this->formInput($id);
+                            ?>
+                            <br>
+
+                            <div class="form-group required">
+                                <label for="curso"><?php echo $curso->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <?php echo $this->formSelect($curso);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($curso);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group required">
+                                <label for="nome"><?php echo $nome->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <?php echo $this->formInput($nome);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($nome);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group required">
+                                <label for="etapaCurso"><?php echo $etapaCurso->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <?php echo $this->formSelect($etapaCurso);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($etapaCurso);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group required">
+                                <label for="regraAvaliacao"><?php echo $regraAvaliacao->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <?php echo $this->formSelect($regraAvaliacao);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($regraAvaliacao);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group required">
+                                <label for="concluinte"><?php echo $concluinte->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div class="radio">
+                                            <?php echo $this->formRadio($concluinte);?>
+                                        </div>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($concluinte);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group required">
+                                <label for="cargaHoraria"><?php echo $cargaHoraria->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <?php echo $this->formInput($cargaHoraria);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($cargaHoraria);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group required">
+                                <label for="diasLetivos">
+                                    <?php echo $diasLetivos->getOption('label');?>
+                                    <span class="help"><?php echo $diasLetivos->getOption('help');?></span>
+                                </label>
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <?php echo $this->formInput($diasLetivos);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($diasLetivos);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group required">
+                                <label for="intervalo"><?php echo $intervalo->getOption('label');?>
+                                <span class="help"><?php echo $intervalo->getOption('help');?></span></label>
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <?php echo $this->formInput($intervalo);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($intervalo);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="faixaEtaria"><?php echo $idadeInicial->getOption('label');?>
+                                <span class="help"><?php echo $idadeInicial->getOption('help');?></span></label>
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <?php echo $this->formInput($idadeInicial);?>
+                                    </div>
+                                    <div class="col-md-1">
+                                        até
+                                    </div>
+                                    <div class="col-md-1">
+                                        <?php echo $this->formInput($idadeFinal);?>
+                                    </div>
+                                    <span class="help-block">
+                                        <?php echo $this->formElementErrors($idadeInicial);
+                                        echo $this->formElementErrors($idadeFinal);?>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="observacaoHistorico"><?php echo $observacaoHistorico->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <?php echo $this->formTextArea($observacaoHistorico);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($observacaoHistorico);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <?php
+                                        $enviar = $this->form->get('submit');
+                                        echo $this->formElement($enviar);
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <?php
+                            echo $this->form()->closeTag();
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<?php
+echo $this->headLink()->prependStylesheet($this->basePath() . '/componentes/chosen/chosen.css');
+echo $this->headScript()->prependFile($this->basePath() . '/componentes/chosen/chosen.jquery.min.js', 'text/javascript');
+echo $this->headScript()->prependFile($this->basePath()
+    . '/componentes/jquery.masked-input/jquery.maskedinput.min.js');
+?>
+<script type="text/javascript">
+    var config = {
+        '.chosen-select'           : {},
+        '.chosen-select-deselect'  : {allow_single_deselect:true},
+        '.chosen-select-no-single' : {disable_search_threshold:10},
+        '.chosen-select-no-results': {no_results_text:'Oops, nada foi encontrado!'},
+        '.chosen-select-width'     : {width:"95%"}
+    }
+    for (var selector in config) {
+        $(selector).chosen(config[selector]);
+    }
+    $(document).ready(function() {
+        $('.curso')
+    };
+    //$("ul.chosen-choices").css({'overflow': auto', 'max-height': '100px'});
+</script>

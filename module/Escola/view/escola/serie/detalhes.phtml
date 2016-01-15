@@ -1,0 +1,44 @@
+<div class="row">
+    <dl class="dl-horizontal">
+
+        <dt>Curso:</dt>
+        <dd><?php echo $data->getCurso()->getNome();?></dd>
+
+        <dt>Série:</dt>
+        <dd><?php echo $data->getNome();?></dd>
+
+        <dt>Etapa Curso:</dt>
+        <dd><?php echo $data->getEtapaCurso();?></dd>
+
+        <dt>Regra Avaliação:</dt>
+        <dd><?php echo $data->getRegraAvaliacao()->getNome();?></dd>
+
+        <dt>Concluinte:</dt>
+        <dd><?php echo $this->concluinte($data->getConcluinte());?></dd>
+
+        <dt>Carga Horária:</dt>
+        <dd><?php echo $data->getCargaHoraria();?></dd>
+
+        <dt>Dias Letivos:</dt>
+        <dd><?php echo $data->getDiasLetivos();?></dd>
+
+        <dt>Intervalo:</dt>
+        <dd><?php echo $data->getIntervalo();?></dd>
+
+        <?php
+        if($data->getIdadeInicial() && $data->getIdadeFinal()):
+        ?>
+            <dt>Faixa etária:</dt>
+            <dd><?php echo $data->getIdadeInicial();?> até <?php echo $data->getIdadeFinal();?></dd>
+        <?php
+        endif;
+
+        if ($data->getObservacaoHistorico()):
+        ?>
+            <dt>Observação Histórico:</dt>
+            <dd><?php echo $data->getObservacaoHistorico();?></dd>
+        <?php
+        endif;
+        ?>
+    </dl>
+</div>
