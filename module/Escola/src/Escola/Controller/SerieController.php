@@ -50,12 +50,22 @@ class SerieController extends ActionController
         $id = (int) $this->getEvent()->getRouteMatch()->getParam('id');
         if ($id > 0){
             $serie = $this->getEntityManager()->find('Escola\Entity\Serie', $id);
+            //populate etapaCurso de acordo com o curso salvo.
+            $opcoesEtapas = array();
+            for ($i = 1; $i <= $serie->getCurso()->getQuantidadeEtapa(); $i++){
+                $opcoesEtapas[$i] = 'Etapa ' . $i;
+            }
+
+            $form->get('etapaCurso')->setAttribute('options', $opcoesEtapas);
+            $form->get('etapaCurso')->setAttribute('disabled', false);
+            //$form->get('usernames')->setValueOptions($usernames
             $form->get('submit')->setAttribute('value', 'Atualizar');
         }
 
         $form->bind($serie);
 
         if ($request->isPost()){
+            $form->get('etapaCurso')->setAttribute('disabled', false);
             $form->setInputFilter($serie->getInputFilter());
             $form->setData($request->getPost());
             if ($form->isValid()){

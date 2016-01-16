@@ -61,6 +61,18 @@
                             </div>
 
                             <div class="form-group required">
+                                <label for="etapaCurso"><?php echo $etapaCurso->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <?php echo $this->formSelect($etapaCurso);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($etapaCurso);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group required">
                                 <label for="nome"><?php echo $nome->getOption('label');?></label>
                                 <div class="row">
                                     <div class="col-md-3">
@@ -72,17 +84,6 @@
                                 </div>
                             </div>
 
-                            <div class="form-group required">
-                                <label for="etapaCurso"><?php echo $etapaCurso->getOption('label');?></label>
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <?php echo $this->formSelect($etapaCurso);?>
-                                        <span class="help-block">
-                                            <?php echo $this->formElementErrors($etapaCurso);?>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
 
                             <div class="form-group required">
                                 <label for="regraAvaliacao"><?php echo $regraAvaliacao->getOption('label');?></label>
@@ -224,7 +225,43 @@ echo $this->headScript()->prependFile($this->basePath()
         $(selector).chosen(config[selector]);
     }
     $(document).ready(function() {
-        $('.curso')
-    };
+        $('#curso').change(function(){
+            var id = $(this).val();
+            $('#etapaCurso').prop('disabled', 'disabled');
+            if (id != ""){
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/escola/curso/etapa/cursoid/' + id,
+                    success: function(data){
+                        if (id != ""){
+
+                            if (data.quantidadeEtapa > 0){
+
+                                $('#etapaCurso').find('option').remove();//clear loading option
+                                $('#etapaCurso').append($('<option />').val('').text('Selecione uma etapa'));
+                                for (i = 1; i <= data.quantidadeEtapa; i++){
+                                    $('#etapaCurso').append($('<option />').val(i).text('Etapa ' + i));
+                                }
+                                $('#etapaCurso').prop('disabled', false);
+
+                            } else {
+                                alert('Curso não possui quantidade de etapas definidas.');
+                            }
+
+                        }
+                    },
+                    beforeSend: function(){
+                        $('#etapaCurso').append($('<option />').val('').text('Carregando Etapas'));
+                    }
+                });
+
+            } else {
+
+                $('#etapaCurso').find('option').remove();//clear loading option
+            }
+
+        });
+    });
     //$("ul.chosen-choices").css({'overflow': auto', 'max-height': '100px'});
 </script>

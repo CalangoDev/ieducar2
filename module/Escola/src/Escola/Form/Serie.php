@@ -76,8 +76,11 @@ class Serie extends Form
             'attributes' => array(
                 'type' => 'Zend\Form\Element\Select',
                 'class' => 'form-control',
-                'required' => 'required'
-            )
+                'required' => 'required',
+                'disabled' => 'disabled',
+                'id' => 'etapaCurso'
+            ),
+
         ));
 
         $this->add(array(

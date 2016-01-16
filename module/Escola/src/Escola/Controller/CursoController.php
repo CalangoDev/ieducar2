@@ -14,6 +14,7 @@ use Escola\Entity\Curso;
 use Zend\Paginator\Paginator;
 use Zend\View\Model\ViewModel;
 use Escola\Form\Curso as CursoForm;
+use Zend\View\Model\JsonModel;
 
 /**
  * Controlador que gerencia os cursos
@@ -126,7 +127,6 @@ class CursoController extends ActionController
         return $view;
     }
 
-
     /**
      * Excluir um curso
      * @throws \Exception If registro não encontrado
@@ -145,7 +145,27 @@ class CursoController extends ActionController
         } catch(\Exception $e){
             throw new \Exception("Registro não encontrado");
         }
+
         $this->flashMessenger()->addMessage(array("success" => "Registro Removido com sucesso!"));
+
         return $this->redirect()->toUrl('/escola/curso');
+    }
+
+    public function etapaAction()
+    {
+        $id = (int) $this->params()->fromRoute('cursoid', 0);
+        if ($id == 0)
+            throw new \Exception("Código Obrigatório");
+
+        $curso = $this->getEntityManager()->find('Escola\Entity\Curso', $id);
+
+        if (!$curso)
+            throw new \Exception("Registro não encontrado");
+
+        $etapa = array(
+            'quantidadeEtapa' => $curso->getQuantidadeEtapa()
+        );
+
+        return new JsonModel($etapa);
     }
 }
