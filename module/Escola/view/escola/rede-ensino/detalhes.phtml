@@ -1,0 +1,14 @@
+<div class="row">
+	<dl class="dl-horizontal">
+		
+		<dt>Rede de Ensino:</dt>
+		<dd><?php echo $data->getNome();?></dd>
+
+		<dt>Instituição:</dt>
+		<dd>
+			<?php
+			echo $data->getInstituicao()->getNome();
+			?>
+		</dd>
+	</dl>
+</div>

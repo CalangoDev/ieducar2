@@ -53,6 +53,7 @@ return array(
             'Escola\Controller\TipoDispensa' => 'Escola\Controller\TipoDispensaController',
             'Escola\Controller\ComponenteCurricular' => 'Escola\Controller\ComponenteCurricularController',
             'Escola\Controller\Serie' => 'Escola\Controller\SerieController',
+            'Escola\Controller\RedeEnsino' => 'Escola\Controller\RedeEnsinoController',
         ),
     ),
     'view_manager' => array(

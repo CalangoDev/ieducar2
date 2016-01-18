@@ -38,3 +38,11 @@ PROBLEMAS COM
 
  Problemas em setar o valor default de um Elemento Radio, funciona quando o nome do elemento não é camelCase, para contornar
  isso tive que colocar ->setValue('1') diretamente na view
+
+
+
+- Melhorar esse recurso, um curso pode ter n etapas. E a serie cadastrada, se baseia nessas quantidade de etapas
+para preencher seu atributo etapaCurso.
+O que pode bugar é que depois de cadastrado essa serie e o curso. A pessoa pode alterar essa quantidade de etapas
+no curso. Ficando assim sem consistencia esse dado o ideal é colocar uma validação na mudança de quantidade de etapas
+no cadastro do curso e dando a possibilidade de alterar.. ver no futuro quais relacionamentos isso pode afetar.

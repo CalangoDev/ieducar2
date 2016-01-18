@@ -221,9 +221,11 @@ echo $this->headScript()->prependFile($this->basePath()
         '.chosen-select-no-results': {no_results_text:'Oops, nada foi encontrado!'},
         '.chosen-select-width'     : {width:"95%"}
     }
+
     for (var selector in config) {
         $(selector).chosen(config[selector]);
     }
+
     $(document).ready(function() {
         $('#curso').change(function(){
             var id = $(this).val();
