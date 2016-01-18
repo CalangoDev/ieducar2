@@ -43,8 +43,15 @@ class Escola extends Entity
     /**
      * @var int $pessoa
      *
-     * @ORM\OneToOne(targetEntity="Usuario\Entity\Pessoa")
+     * @ORM\OneToOne(targetEntity="Usuario\Entity\Pessoa", cascade={"persist"})
      * @ORM\JoinColumn(referencedColumnName="idpes")
      */
     protected $pessoa;
+
+    /**
+     * @var int $redeEnsino
+     *
+     * @ORM\ManyToOne(targetEntity="Escola\Entity\RedeEnsino", cascade={"persist"})
+     */
+    protected $redeEnsino;
 }

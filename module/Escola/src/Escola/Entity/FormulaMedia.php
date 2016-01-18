@@ -167,7 +167,6 @@ class FormulaMedia extends Entity
                 )
             )));
 
-
             $inputFilter->add($factory->createInput(array(
                 'name' => 'tipoFormula',
                 'required' => false,

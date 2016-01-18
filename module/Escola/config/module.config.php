@@ -54,6 +54,7 @@ return array(
             'Escola\Controller\ComponenteCurricular' => 'Escola\Controller\ComponenteCurricularController',
             'Escola\Controller\Serie' => 'Escola\Controller\SerieController',
             'Escola\Controller\RedeEnsino' => 'Escola\Controller\RedeEnsinoController',
+            'Escola\Controller\Localizacao' => 'Escola\Controller\LocalizacaoController',
         ),
     ),
     'view_manager' => array(
