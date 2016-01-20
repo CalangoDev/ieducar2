@@ -55,6 +55,7 @@ return array(
             'Escola\Controller\Serie' => 'Escola\Controller\SerieController',
             'Escola\Controller\RedeEnsino' => 'Escola\Controller\RedeEnsinoController',
             'Escola\Controller\Localizacao' => 'Escola\Controller\LocalizacaoController',
+            'Escola\Controller\Escola' => 'Escola\Controller\EscolaController',
         ),
     ),
     'view_manager' => array(

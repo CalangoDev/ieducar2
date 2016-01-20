@@ -336,10 +336,10 @@ class Pessoa extends Entity implements EventSubscriber
 		 * verifica os campos alterados do update
 		 */
 		if (get_class($entity) == 'Usuario\Entity\Juridica'){
-			($args->hasChangedField('cnpj')) ? $this->usuario->cnpj : null;
-			($args->hasChangedField('inscEstadual')) ? $this->usuario->inscEstadual : null;
-			($args->hasChangedField('fantasia')) ? $this->usuario->fantasia : null;
-			($args->hasChangedField('capitalSocial')) ? $this->usuario->capitalSocial : null;
+//			($args->hasChangedField('cnpj')) ? $this->usuario->cnpj : null;
+//			($args->hasChangedField('inscEstadual')) ? $this->usuario->inscEstadual : null;
+//			($args->hasChangedField('fantasia')) ? $this->usuario->fantasia : null;
+//			($args->hasChangedField('capitalSocial')) ? $this->usuario->capitalSocial : null;
 		}
 	}
 	// public function postUpdate(LifecycleEventArgs $args)
@@ -452,6 +452,7 @@ class Pessoa extends Entity implements EventSubscriber
 				$historicoJuridica = new \Historico\Entity\Juridica();
 				$metadata = $em->getClassMetaData(get_class($historicoJuridica));						
 				$sequenceName = $metadata->sequenceGeneratorDefinition['sequenceName'];
+
 				// $sequenceName = 'historico.seq_juridica';
 				//$sequenceGenerator = new SeqGen($sequenceName, 1);
 				//$newId = $sequenceGenerator->generate($em, $historicoJuridica);
@@ -464,10 +465,11 @@ class Pessoa extends Entity implements EventSubscriber
 				$historicoJuridica->setCapitalSocial($this->usuario->capitalSocial);
 				$logMetadata = $em->getClassMetadata('Historico\Entity\Juridica');
 				$className = $logMetadata->name;
-				$persister = $uow->getEntityPersister($className);
-				$persister->addInsert($historicoJuridica);
-				$uow->computeChangeSet($logMetadata, $historicoJuridica);
-				$postInsertIds = $persister->executeInserts();
+
+                //$persister = $uow->getEntityPersister($className);
+				//$persister->addInsert($historicoJuridica);
+				//$uow->computeChangeSet($logMetadata, $historicoJuridica);
+				//$postInsertIds = $persister->executeInserts();
 			}
 
 			// if ($postInsertIds) {

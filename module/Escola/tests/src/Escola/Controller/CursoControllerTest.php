@@ -327,7 +327,7 @@ class CursoControllerTest extends \Core\Test\ControllerTestCase
 
         // verifica a resposta
         $response = $this->controller->getResponse();
-        // a pagina redireciona, entao o status = 302
+        // a pagina nao redireciona, entao o status = 200
         $this->assertEquals(200, $response->getStatusCode());
         $headers = $response->getHeaders();
         //	Verify Filters Validators

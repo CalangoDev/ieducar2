@@ -56,6 +56,7 @@ class JuridicaController extends ActionController
 		if ($request->isPost()){
 
 			$form->setInputFilter($juridica->getInputFilter());
+			$form->getInputFilter()->get('fantasia')->setRequired(true);
 			$form->setData($request->getPost());			
 			if ($form->isValid()){												
 				/**

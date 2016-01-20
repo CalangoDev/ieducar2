@@ -65,6 +65,11 @@ class Telefone extends Entity
     protected $instituicao;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Escola\Entity\Escola", inversedBy="telefones")
+     */
+    protected $escola;
+
+    /**
      * Função para gerar o timestamp para o atributo dataCadastro, é executada antes de salvar os dados no banco
      * @access  public
      * @return  void
@@ -130,6 +135,16 @@ class Telefone extends Entity
     public function setInstituicao(\Escola\Entity\Instituicao $instituicao = null)
     {
         $this->instituicao = $instituicao;
+    }
+
+    public function getEscola()
+    {
+        return $this->escola;
+    }
+
+    public function setEscola(\Escola\Entity\Escola $escola = null)
+    {
+        $this->escola = $escola;
     }
 
     protected $inputFilter;

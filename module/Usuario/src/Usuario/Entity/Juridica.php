@@ -44,7 +44,7 @@ class Juridica extends Pessoa
 
 	/**
 	 * @var string $fantasia
-	 * @ORM\Column(type="string", length=255, nullable=false)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
 	protected $fantasia;
 
@@ -150,7 +150,7 @@ class Juridica extends Pessoa
 
         $this->inputFilter->add($factory->createInput(array(
             'name' => 'fantasia',
-            'required' => true,
+            'required' => false,
             'filters' => array(
                 array('name' => 'StripTags'),
                 array('name' => 'StringTrim'),

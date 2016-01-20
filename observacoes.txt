@@ -46,3 +46,12 @@ para preencher seu atributo etapaCurso.
 O que pode bugar é que depois de cadastrado essa serie e o curso. A pessoa pode alterar essa quantidade de etapas
 no curso. Ficando assim sem consistencia esse dado o ideal é colocar uma validação na mudança de quantidade de etapas
 no cadastro do curso e dando a possibilidade de alterar.. ver no futuro quais relacionamentos isso pode afetar.
+
+- EducaCenso
+
+Atributos do educacenso. Acrescentarei todos os atributos necessarios as entidaces já existentes, depois farei reposito
+rios, fazendo select personalidado e buscando esses dados para posterior geração de arquivo txt que possa ser enviado para
+o educacenso, colocarei nos formularios um help, informando que o atributo é pertecente ao educacenso.
+
+
+
