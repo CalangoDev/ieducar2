@@ -1,0 +1,213 @@
+<dir class="row">
+    <dl class="dl-horizontal">
+
+        <dt>Nome:</dt>
+        <dd><?php echo $data->getJuridica()->getNome();?></dd>
+        <?php
+        if ($data->getSigla()):
+        ?>
+            <dt>Sigla:</dt>
+            <dd><?php echo $data->getSigla();?></dd>
+        <?php
+        endif;
+        ?>
+        <?php
+        if ($data->getCodigoInep()):?>
+
+            <dt>Código INEP:</dt>
+            <dd><?php echo $data->getCodigoInep();?></dd>
+
+            <?php
+        endif;
+
+        if ($data->getJuridica()->getCnpj()):
+        ?>
+
+            <dt>CNPJ:</dt>
+            <dd><?php echo $data->getJuridica()->getCnpj();?></dd>
+
+            <?php
+        endif;
+
+        if ($data->getRedeEnsino()):
+        ?>
+            <dt>Rede de Ensino:</dt>
+            <dd><?php echo $data->getRedeEnsino()->getNome();?></dd>
+        <?php
+        endif;
+
+        if ($data->getLocalizacao()):
+        ?>
+            <dt>Localização:</dt>
+            <dd><?php echo $data->getLocalizacao()->getNome();?></dd>
+        <?php
+        endif;
+        ?>
+        <?php
+        if ($data->getJuridica()->getEnderecoExterno()):
+
+            $endereco = $data->getJuridica()->getEnderecoExterno();
+
+            if ($endereco->getCep()):
+        ?>
+                <dt>CEP:</dt>
+                <dd>
+                    <?php echo $endereco->getCep();?>
+                </dd>
+
+        <?php
+            endif;
+
+            if ($endereco->getTipoLogradouro()):
+        ?>
+                <dt>Tipo de Logradouro:</dt>
+                <dd><?php echo $endereco->getTipoLogradouro()->getDescricao();?></dd>
+
+        <?php
+            endif;
+
+            if ($endereco->getLogradouro()):
+        ?>
+                <dt>Logradouro:</dt>
+                <dd><?php echo $endereco->getLogradouro();?></dd>
+
+                <?php
+            endif;
+
+            if ($endereco->getNumero()):
+            ?>
+
+                <dt>Número:</dt>
+                <dd><?php echo $endereco->getNumero();?></dd>
+
+                <?php
+            endif;
+
+            if ($endereco->getComplemento()):
+            ?>
+
+                <dt>Complemento:</dt>
+                <dd><?php echo $endereco->getComplemento();?></dd>
+
+            <?php
+            endif;
+
+            if ($endereco->getLetra()):
+            ?>
+
+                <dt>Letra:</dt>
+                <dd><?php echo $endereco->getLetra();?></dd>
+
+            <?php
+            endif;
+
+            if ($endereco->getApartamento()):
+            ?>
+                <dt>Apartamento:</dt>
+                <dd><?php echo $endereco->getApartamento();?></dd>
+
+            <?php
+            endif;
+
+            if ($endereco->getBloco()):
+            ?>
+
+                <dt>Bloco:</dt>
+                <dd><?php echo $endereco->getBloco();?></dd>
+
+            <?php
+            endif;
+
+            if ($endereco->getAndar()):
+            ?>
+
+                <dt>Andar:</dt>
+                <dd><?php echo $endereco->getAndar();?></dd>
+
+            <?php
+            endif;
+
+            if ($endereco->getBairro()):
+            ?>
+
+                <dt>Bairro:</dt>
+                <dd><?php echo $endereco->getBairro();?></dd>
+
+            <?php
+            endif;
+
+            if ($endereco->getCidade()):
+            ?>
+
+                <dt>Cidade:</dt>
+                <dd><?php echo $endereco->getCidade();?></dd>
+
+            <?php
+            endif;
+
+            if ($endereco->getSiglaUf()):
+            ?>
+
+                <dt>Estado:</dt>
+                <dd><?php echo $endereco->getSiglaUf()->getNome();?></dd>
+
+            <?php
+            endif;
+            ?>
+
+            <?php
+        endif;
+        ?>
+        <?php
+        if ($data->getTelefones()->count() > 0):
+            ?>
+
+            <dt>Telefone(s):</dt>
+            <dd>
+                <?php
+                foreach ($data->getTelefones() as $telefone):
+                    echo '(' . $telefone->getDdd() . ') ' . $telefone->getNumero() . '<br/>' ;
+                    ?>
+                    <?php
+                endforeach;
+                ?>
+            </dd>
+
+            <?php
+        endif;
+        ?>
+        <?php
+        if ($data->getBloquearLancamento()):
+        ?>
+            <dt>Bloquear Lançamento Diário:</dt>
+            <dd>Sim</dd>
+        <?php
+        endif;
+
+        if ($data->getAtivo()):
+        ?>
+            <dt>Ativo:</dt>
+            <dd><?php echo $this->ativo($data->getAtivo());?></dd>
+        <?php
+        endif;
+
+        if ($data->getCursos()->count() > 0):
+        ?>
+            <dt>Curso(s):</dt>
+            <dd>
+                <ul class="list-unstyled">
+                    <?php
+                    foreach ($data->getCursos() as $curso):
+                        echo '<li><span class="label label-primary"><b>' . $curso->getNome() . '</b></span></li>';
+                    endforeach;
+                    ?>
+                </ul>
+            </dd>
+        <?php
+        endif;
+        ?>
+
+
+
+    </dl>
+</dir>
