@@ -27,6 +27,8 @@ return array(
                             'defaults' => array(
                             ),
                         ),
+                        //add may terminate to navigator menu working
+                        'may_terminate' => true,
                         'child_routes' => array(
                             'wildcard' => array(
                                 'type' => 'Wildcard'
@@ -56,6 +58,7 @@ return array(
             'Escola\Controller\RedeEnsino' => 'Escola\Controller\RedeEnsinoController',
             'Escola\Controller\Localizacao' => 'Escola\Controller\LocalizacaoController',
             'Escola\Controller\Escola' => 'Escola\Controller\EscolaController',
+            'Escola\Controller\EscolaSerie' => 'Escola\Controller\EscolaSerieController',
         ),
     ),
     'view_manager' => array(

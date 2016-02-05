@@ -35,6 +35,7 @@ return array(
                             'defaults' => array(
                             ),
                         ),
+                        'may_terminate' => true,
                         'child_routes' => array( //permite mandar dados pela url 
                             'wildcard' => array(
                                 'type' => 'Wildcard'

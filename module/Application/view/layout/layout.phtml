@@ -70,6 +70,15 @@
                     <a class="navbar-brand" href="<?php echo $this->url('home') ?>"><img src="<?php echo $this->basePath('img/ieducar-logo.png') ?>" alt="i-Educar 2.0"/>&nbsp;<?php echo $this->translate('i-Educar') ?></a>
                 </div>
                 <div class="collapse navbar-collapse">
+                    <!-- inicio navbar menu -->
+                    <?php
+                    echo $this->navigation('portal_navigation')->menu()->setUlClass('nav navbar-nav')
+                        ->setPartial(array('partials/navigation.phtml', 'portal_navigation'))
+                        ->render();
+                    ?>
+                    <?php
+                    /*
+
                     <ul class="nav navbar-nav">
                         <li class="active">
                             <a href="<?php echo $this->url('home') ?>"><i class="icon icon-home"></i> <?php echo $this->translate('Home') ?></a>
@@ -77,9 +86,7 @@
                         <?php                        
                         if ($user = $this->identity()) {
                         ?>
-                            
-                            
-                            
+
                             <li>
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                   <i class="icon icon-pencil"></i> i-Escola <span class="caret"></span>
@@ -509,6 +516,8 @@
                         }
                         ?>
                     </ul>
+                    */?>
+                    <!-- fim navbar menu -->
                 </div><!--/.nav-collapse -->
             </div>
         </nav>

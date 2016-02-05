@@ -1,0 +1,192 @@
+<?php
+/* @var $container Zend\Navigation\Navigation */
+$container = $this->container;
+if ($this->identity()):
+?>
+    <ul class="<?php echo $this->navigation($container)->menu()->getUlClass(); ?>">
+        <?php foreach ($container as $page): ?>
+            <?php if (!$this->navigation()->accept($page)) continue; ?>
+            <?php /* @var $page Zend\Navigation\Page\Mvc */ ?>
+            <?php $hasChildren = $page->hasPages() ?>
+            <?php if (!$hasChildren): ?>
+                <li<?php if ($page->isActive()) echo ' class="active"' ?>>
+                    <a
+                        class="nav-header"
+                        href="<?php echo $page->getHref() ?>"
+                        <?php if ($page->getTarget() != ""): ?>
+                            target="<?php echo $page->getTarget(); ?>"
+                        <?php endif; ?>
+                    >
+                        <?php if ($page->get("icon") !== ""): ?>
+                            <span class="<?php echo $page->get("icon"); ?>"></span>
+                        <?php endif; ?>
+                        <?php echo $this->escapeHtml($this->translate($page->getLabel(), $this->navigation($container)->getTranslatorTextDomain())); ?>
+                    </a>
+                </li>
+            <?php else: ?>
+                <?php
+                //check if access is allowed at least one item
+                $access = false;
+                foreach ($page->getPages() as $child) {
+                    if ($this->navigation()->accept($child) && $child->get("separator") !== true) {
+                        $access = true;
+                    }
+                }
+                if ($access) :
+                    ?>
+                    <li class="dropdown<?php if ($page->isActive(true)) echo ' active' ?>">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <?php if ($page->get("icon") !== ""): ?>
+                                <span class="<?php echo $page->get("icon"); ?>"></span>
+                            <?php endif; ?>
+                            <?php echo $this->escapeHtml($this->translate($page->getLabel(),$this->navigation($container)->getTranslatorTextDomain())); ?>
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <?php foreach ($page->getPages() as $child):
+                                $hasChildren = $child->hasPages();
+                                ?>
+                                <?php if (!$this->navigation()->accept($child)) continue; ?>
+                                <?php if ($child->get("separator") === true): ?>
+                                    <li class="divider"></li>
+                                    <?php
+                                    continue;
+                                endif;
+                                ?>
+                                <?php /*<li<?php if ($child->isActive()) echo ' class="active"' ?>>*/?>
+                                <li class="<?php if ($hasChildren) echo 'dropdown-submenu';?><?php if ($child->isActive()) echo ' active' ?>">
+                                    <a
+                                        href="<?php echo $child->getHref() ?>"
+                                        <?php if ($child->getTarget() != ""): ?>
+                                            target="<?php echo $child->getTarget(); ?>"
+                                        <?php endif; ?> >
+                                        <?php if ($child->get("icon") !== ""): ?>
+                                            <span class="<?php echo $child->get("icon"); ?>"></span>
+                                        <?php endif; ?>
+                                        <?php echo $this->escapeHtml($this->translate($child->getLabel(),$this->navigation($container)->getTranslatorTextDomain())); ?>
+
+                                    </a>
+                                    <?php
+
+                                    if ($hasChildren):
+                                    ?>
+                                        <ul class="dropdown-menu">
+                                            <?php
+                                            foreach ($child->getPages() as $subChild):
+                                                $hasChildren = $subChild->hasPages();
+                                            ?>
+                                                <li class="<?php if ($hasChildren) echo 'dropdown-submenu';?><?php if ($subChild->isActive()) echo ' active' ?>">
+                                                    <a href="<?php echo $subChild->getHref() ?>"
+                                                        <?php if ($subChild->getTarget() != ""): ?>
+                                                            target="<?php echo $subChild->getTarget();?>"
+                                                        <?php endif; ?> >
+                                                        <?php if ($subChild->get("icon") !== ""): ?>
+                                                            <span class="<?php echo $subChild->get("icon"); ?>"></span>
+                                                        <?php endif; ?>
+                                                        <?php echo $this->escapeHtml($this->translate($subChild->getLabel(), $this->navigation($container)->getTranslatorTextDomain()));?>
+                                                    </a>
+                                                    <?php
+                                                    if ($hasChildren):
+                                                    ?>
+                                                        <ul class="dropdown-menu">
+                                                            <?php
+                                                            foreach($subChild->getPages() as $subSubChild):
+                                                            ?>
+                                                                <li class="<?php if ($subSubChild->isActive()) echo ' active' ?>">
+                                                                    <a href="<?php echo $subSubChild->getHref() ?>"
+                                                                        <?php if ($subSubChild->getTarget() != ""): ?>
+                                                                            target="<?php echo $subSubChild->getTarget();?>"
+                                                                        <?php endif; ?> >
+                                                                        <?php if ($subSubChild->get("icon") !== ""): ?>
+                                                                            <span class="<?php echo $subSubChild->get("icon"); ?>"></span>
+                                                                        <?php endif; ?>
+                                                                        <?php echo $this->escapeHtml($this->translate($subSubChild->getLabel(), $this->navigation($container)->getTranslatorTextDomain()));?>
+                                                                    </a>
+                                                                </li>
+
+                                                            <?php
+                                                            endforeach;
+                                                            ?>
+                                                        </ul>
+                                                    <?php
+                                                    endif;?>
+                                                </li>
+                                            <?php
+                                            endforeach;?>
+                                        </ul>
+
+                                        <?php
+                                    endif;
+                                    ?>
+                                </li>
+                            <?php endforeach ?>
+                        </ul>
+                    </li>
+                <?php endif; ?>
+            <?php endif ?>
+        <?php endforeach ?>
+    </ul>
+
+<?php
+    endif;
+    /*
+<ul class="nav navbar-nav">
+    <?php
+    foreach ($this->container as $page):
+        $liClass = null;
+        $liClasses = null;
+        $aAttribs = null;
+        $sub = $page->getPages();
+//        var_dump($page->getPages());
+        if ($page->isActive())
+            $liClasses[] = 'active';
+
+        if (count($sub) > 0):
+            $liClasses[] = 'dropdown';
+            $aAttribs = ' class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"';
+        endif;
+
+        if (count($liClasses) > 0)
+            $liClass = ' class="' . implode(' ', $liClasses) . '"';
+
+        if ($page->url):
+            echo '<li' . $liClass . '><a href="' . $page->url . '"' . $aAttribs . ' target="_blank">' . $page->getlabel() . '</a>';
+        else:
+            echo '<li' . $liClass . '><a href="' . $this->url($page->getRoute()) . '"' . $aAttribs . '>' . $page->getlabel() . '</a>';
+        endif;
+
+        if(count($sub) > 0):
+            echo '<ul class="dropdown-menu">';
+            foreach($sub as $pages):
+                $sub = $pages->getPages();
+                if (count($sub) > 0):
+                    echo '<li class="dropdown-submenu"><a href="#">' . $pages->getlabel() . '</a>';
+                    echo '<ul class="dropdown-menu">';
+                    foreach ($sub as $pages):
+                        $active = $pages->isActive() ? ' class="active"':'';
+                        //var_dump($pages->getController());
+                        //var_dump($this->url($pages->getRoute(), array('controller' => $pages->getController()), true));
+                        //var_dump($this->url($pages->getRoute(), array('controller' => $pages->getController()), array(), true));
+                        //echo '<li' . $active . '><a href="' . $this->url($pages->getRoute()) . '">' . $pages->getLabel() . '</a></li>';
+                        //echo $this->url('escola/default', array('action' => 'index', 'controller' => 'index'));
+                        echo '<li' . $active . '><a href="' . $this->url($pages->getRoute(), array('action' => $pages->getAction(), 'controller' => $pages->getController())) . '">' . $pages->getlabel() . '</a></li>';
+                    endforeach;
+                    echo '</ul></li>';
+                else:
+                    $active = $pages->isActive() ? ' class="active"':'';
+                    echo '<li' . $active . '><a href="' . $this->url($pages->getRoute(), array('action' => $pages->getAction())) . '">' . $pages->getlabel() . '</a></li>';
+                endif;
+
+            endforeach;
+            echo '</ul></li>';
+        else:
+            echo '</li>';
+        endif;
+
+        unset($aAttribs, $liClass, $liClasses);
+
+    endforeach;
+    ?>
+</ul>
+
+ */?>

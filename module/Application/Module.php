@@ -61,6 +61,15 @@ class Module
         return include __DIR__ . '/config/module.config.php';
     }
 
+    public function getServiceConfig()
+    {
+        return array(
+            'factories' => array(
+                'portal_navigation' => 'Application\Navigation\Service\PortalNavigationFactory',
+            ),
+        );
+    }
+
     public function getAutoloaderConfig()
     {
         return array(
