@@ -81,7 +81,7 @@ class SerieControllerTest extends \Core\Test\ControllerTestCase
         // testa se recebeu um ViewModel
         $this->assertInstanceOf('Zend\View\Model\ViewModel', $result);
 
-        // verifica se exite um form
+        // verifica se existe um form
         $variables = $result->getVariables();
         $this->assertInstanceOf('Zend\Form\Form', $variables['form']);
         $form = $variables['form'];
@@ -240,7 +240,7 @@ class SerieControllerTest extends \Core\Test\ControllerTestCase
         );
         //	Verifica a resposta
         $response = $this->controller->getResponse();
-        //	a pagina redireciona, estao o status = 302
+        //	a pagina redireciona, entao o status = 302
         $this->assertEquals(302, $response->getStatusCode());
         $headers = $response->getHeaders();
         $this->assertEquals('Location: /escola/serie', $headers->get('Location'));
