@@ -371,7 +371,7 @@ class EscolaControllerTest extends \Core\Test\ControllerTestCase
     }
 
     /**
-     * Testa a exlusao
+     * Testa a exclusao
      */
     public function testEscolaDeleteAction()
     {

@@ -229,7 +229,204 @@ class EscolaSerieControllerTest extends \Core\Test\ControllerTestCase
         $this->assertEquals('Location: /escola/escola-serie', $headers->get('Location'));
 
         $savedEscolaSerie = $this->em->find(get_class($escolaSerie), $escolaSerie->getId());
-        $this->assertEquals('09:00:00', $savedEscolaSerie->getHoraInicial());
+        $horaInicial = new \DateTime();
+        $horaInicial->setTime(9, 00, 00);
+        $this->assertEquals($horaInicial, $savedEscolaSerie->getHoraInicial());
+    }
+
+
+    /**
+     * Testa a inclusao, o formulario invalido
+     */
+    public function testEscolaSerieInvalidFormPostRequest()
+    {
+        $this->routeMatch->setParam('action', 'save');
+        $this->request->setMethod('post');
+        $this->request->getPost()->set('id', '');
+        $this->request->getPost()->set('escola', '');
+        $this->request->getPost()->set('serie', '');
+        $this->request->getPost()->set('horaInicial', '');
+        $this->request->getPost()->set('horaFinal', '');
+        $this->request->getPost()->set('inicioIntervalo', '');
+        $this->request->getPost()->set('fimIntervalo', '');
+        $this->request->getPost()->set('bloquearEnturmacao', '');
+        $this->request->getPost()->set('bloquearCadastroTurma', '');
+
+        $result = $this->controller->dispatch(
+            $this->request, $this->response
+        );
+
+        // verifica a resposta
+        $response = $this->controller->getResponse();
+        // a pagina nao redireciona, entao o status = 200
+        $this->assertEquals(200, $response->getStatusCode());
+        $headers = $response->getHeaders();
+        //verify filters validators
+        $msgs = $result->getVariables()['form']->getMessages();
+        $this->assertEquals('Value is required and can\'t be empty', $msgs['escola']['isEmpty']);
+        $this->assertEquals('Value is required and can\'t be empty', $msgs['serie']['isEmpty']);
+    }
+
+    /**
+     * testa a busca com resultados
+     */
+    public function testEscolaSerieBuscaPostRequest()
+    {
+        $escolaSerieA = $this->buildEscolaSerie();
+        $escolaSerieB = $this->buildEscolaSerie();
+        $serie = $this->buildSerie();
+        $serie->setNome('2 ano');
+        $escolaSerieB->getSerie()->setNome('2 ano');
+        $this->em->persist($escolaSerieA);
+        $this->em->persist($escolaSerieB);
+        $this->em->flush();
+
+        // invoca a rota index
+        $this->routeMatch->setParam('action', 'busca');
+        $this->request->getPost()->set('q', '2 ano');
+
+        $result = $this->controller->dispatch(
+            $this->request, $this->response
+        );
+
+        // verifica o response
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+
+        // testa os dados da View
+        $variables = $result->getVariables();
+
+        // faz a comparacao dos dados
+        $dados = $variables['dados'];
+        $this->assertEquals($escolaSerieB->getSerie()->getNome(), $dados[0]->getSerie()->getNome());
+    }
+
+
+    /**
+     * Testa a exclusao sem passar o id
+     * @expectedException Exception
+     * @expectedExceptionMessage Código Obrigatório
+     */
+    public function testEscolaSerieInvalidDeleteAction()
+    {
+        //dispara a acao
+        $this->routeMatch->setParam('action', 'delete');
+
+        $result = $this->controller->dispatch(
+            $this->request, $this->response
+        );
+
+        // verifica a resposta
+        $response = $this->controller->getResponse();
+    }
+
+    /**
+     * testa a exclusao
+     */
+    public function testEscolaSerieDeleteAction()
+    {
+        $escolaSerie = $this->buildEscolaSerie();
+        $this->em->persist($escolaSerie);
+        $this->em->flush();
+
+        // dispara a acao
+        $this->routeMatch->setParam('action', 'delete');
+        $this->routeMatch->setParam('id', $escolaSerie->getId());
+
+        $result = $this->controller->dispatch(
+            $this->request, $this->response
+        );
+
+        // verifica a resposta
+        $response = $this->controller->getResponse();
+
+        // a pagina redireciona, entao o status = 302
+        $this->assertEquals(302, $response->getStatusCode());
+        $headers = $response->getHeaders();
+        $this->assertEquals('Location: /escola/escola-serie', $headers->get('Location'));
+    }
+
+    /**
+     * Testa a tela de detalhes
+     */
+    public function testEscolaSerieDetalhesAction()
+    {
+        $escolaSerie = $this->buildEscolaSerie();
+        $this->em->persist($escolaSerie);
+        $this->em->flush();
+
+        // dispara a acao
+        $this->routeMatch->setParam('action', 'detalhes');
+        $this->routeMatch->setParam('id', $escolaSerie->getId());
+
+        $result = $this->controller->dispatch(
+            $this->request, $this->response
+        );
+
+        // verifica a resposta
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+
+        // testa se um ViewModel foi retornado
+        $this->assertInstanceOf('Zend\View\Model\ViewModel', $result);
+
+        // testa os dados da View
+        $variables = $result->getVariables();
+        $this->assertArrayHasKey('data', $variables);
+
+        // faz a comparacao dos dados
+        $data = $variables['data'];
+        $this->assertEquals($escolaSerie->getEscola()->getJuridica()->getNome(), $data->getEscola()->getJuridica()->getNome());
+    }
+
+
+    /**
+     * Testa visualizacao de detalhes de um id inexistente
+     * @expectedException Exception
+     * @expectedExceptionMessage Registro não encontrado
+     */
+    public function testEscolaSerieDetalhesInvalidIdAction()
+    {
+        $this->routeMatch->setParam('action', 'detalhes');
+        $this->routeMatch->setParam('id', -1);
+
+        $result = $this->controller->dispatch(
+            $this->request, $this->response
+        );
+
+        // verifica a resposta
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+    }
+
+    /**
+     * Testa a exclusao passando um id inexistente
+     * @expectedException Exception
+     * @expectedExceptionMessage Registro não encontrado
+     */
+    public function testEscolaSerieInvalidIdDeleteAction()
+    {
+        $escolaSerie = $this->buildEscolaSerie();
+        $this->em->persist($escolaSerie);
+        $this->em->flush();
+
+        // dispara a acao
+        $this->routeMatch->setParam('action', 'delete');
+        $this->routeMatch->setParam('id', 2);
+
+        $result = $this->controller->dispatch(
+            $this->request, $this->response
+        );
+
+        // verifica a resposta
+        $response = $this->controller->getResponse();
+
+        // a pagina redireciona, entao o status = 302
+        $this->assertEquals(302, $response->getStatusCode());
+        $headers = $response->getHeaders();
+        $this->assertEquals(
+            'Location: /escola/escola-serie', $headers->get('Location')
+        );
     }
 
 

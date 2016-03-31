@@ -111,9 +111,10 @@ class EscolaSerieController extends ActionController
     public function buscaAction()
     {
         $q = (string) $this->params()->fromPost('q');
+        //SELECT es, e, s FROM Escola\Entity\EscolaSerie es JOIN es.escola e JOIN es.serie s WHERE e.nome LIKE :query OR s.nome LIKE :query"
         $query = $this->getEntityManager()->createQuery("
-          SELECT es, e, s FROM Escola\Entity\EscolaSerie es JOIN es.escola e JOIN es.serie s WHERE e.nome LIKE :query
-          OR s.nome LIKE :query");
+            SELECT es, e, s FROM Escola\Entity\EscolaSerie es JOIN es.escola e JOIN es.serie s WHERE s.nome LIKE :query 
+        ");
         $query->setParameter('query', "%".$q."%");
         $dados = $query->getResult();
 
