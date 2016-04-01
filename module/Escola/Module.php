@@ -41,7 +41,8 @@ class Module
                 'parecerDescritivo' => 'Escola\View\Helper\ParecerDescritivo',
                 'tipoPresenca' => 'Escola\View\Helper\TipoPresenca',
                 'tipoBase' => 'Escola\View\Helper\TipoBase',
-                'concluinte' => 'Escola\View\Helper\Concluinte'
+                'concluinte' => 'Escola\View\Helper\Concluinte',
+                'booleanHelper' => 'Escola\View\Helper\BooleanHelper'
             ),
         );
     }

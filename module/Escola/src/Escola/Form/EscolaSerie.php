@@ -42,14 +42,17 @@ class EscolaSerie extends Form
                 'empty_option' => 'Selecione',
                 'object_manager' => $objectManager,
                 'target_class' => 'Escola\Entity\Escola',
-                'property' => 'nome',
-                'find_method' => array(
-                    'name' => 'findBy',
-                    'params' => array(
-                        'criteria' => array(),
-                        'orderBy' => array('nome' => 'ASC')
-                    )
-                )
+                //'property' => 'sigla',
+//                'find_method' => array(
+//                    'name' => 'findBy',
+//                    'params' => array(
+//                        'criteria' => array(),
+//                        'orderBy' => array('sigla' => 'ASC')
+//                    )
+//                )
+                'label_generator' => function($targetEntity) {
+                    return $targetEntity->getJuridica()->getNome() . ' (' . $targetEntity->getSigla() . ')';
+                },
             )
         ));
 

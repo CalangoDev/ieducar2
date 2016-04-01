@@ -1,0 +1,57 @@
+<div class="row">
+    <dl class="dl-horizontal">
+
+        <dt>Escola:</dt>
+        <dd>
+            <?php if ($data->getEscola()) echo $data->getEscola()->getJuridica()->getNome() . ' (' . $data->getEscola()->getSigla() . ')';?>
+        </dd>
+        <dt>Série:</dt>
+        <dd>
+            <?php if ($data->getSerie()) echo $data->getSerie()->getNome();?>
+        </dd>
+
+        <?php
+        if ($data->getHoraInicial()):?>
+            <dt>Hora Inicial:</dt>
+            <dd><?php echo $data->getHoraInicial()->format('H:m');?></dd>
+        <?php
+        endif;
+
+        if ($data->getHoraFinal()):
+        ?>
+            <dt>Hora Final:</dt>
+            <dd><?php echo $data->getHoraFinal()->format('H:m');?></dd>
+        <?php
+        endif;
+
+        if ($data->getInicioIntervalo()):
+        ?>
+            <dt>Inicio Intervalo:</dt>
+            <dd><?php echo $data->getInicioIntervalo()->format('H:m');?></dd>
+        <?php
+        endif;
+
+        if ($data->getFimIntervalo()):
+        ?>
+            <dt>Fim Intervalo:</dt>
+            <dd><?php echo $data->getFimIntervalo()->format('H:m');?></dd>
+        <?php
+        endif;
+
+        if ($data->getBloquearEnturmacao()):
+        ?>
+            <dt>Bloquear Enturmação:</dt>
+            <dd><?php echo $this->booleanHelper($data->getBloquearEnturmacao());?></dd>
+        <?php
+        endif;
+
+        if ($data->getBloquearCadastroTurma()):
+        ?>
+            <dt>Bloquear Cadastro de Turma:</dt>
+            <dd><?php echo $this->booleanHelper($data->getBloquearCadastroTurma());?></dd>
+        <?php
+        endif;
+        ?>
+
+    </dl>
+</div>

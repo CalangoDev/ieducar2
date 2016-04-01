@@ -126,7 +126,9 @@ return array(
                                     ),
                                     array(
                                         'label' => 'Escola-Série',
-                                        'uri' => '#'
+                                        'route' => 'escola/default',
+                                        'controller' => 'escolaserie',
+                                        'action' => 'index'
                                     )
                                 )
                             ),

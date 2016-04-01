@@ -1,0 +1,296 @@
+
+<div class="container">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="/">Ínicio</a></li>
+            <li><a href="/escola/escola-serie">Cadastro de Escola-Série</a></li>
+            <li class="active">Salvar</li>
+        </ol>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1><i class="icon icon-home"></i> Cadastro <small>de escola-série</small></h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <b>Salvar</b>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <?php
+                            $this->form->prepare();
+                            echo $this->form()->openTag($form);
+                            $id = $this->form->get('id');
+                            $escola = $this->form->get('escola');
+                            $serie = $this->form->get('serie');
+                            $horaInicial = $this->form->get('horaInicial');
+                            $horaFinal = $this->form->get('horaFinal');
+                            $inicioIntervalo = $this->form->get('inicioIntervalo');
+                            $fimIntervalo = $this->form->get('fimIntervalo');
+                            $bloquearEnturmacao = $this->form->get('bloquearEnturmacao');
+                            $bloquearCadastroTurma = $this->form->get('bloquearCadastroTurma');
+                            echo $this->formInput($id);
+                            ?>
+                            <br>
+
+                            <div class="form-group required">
+                                <label for="escola"><?php echo $escola->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <?php echo $this->formSelect($escola);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($escola);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group required">
+                                <label for="serie"><?php echo $serie->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <?php echo $this->formSelect($serie);?>
+                                        <span class="help-block"><?php echo $this->formElementErrors($serie)?></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="horaInicial"><?php echo $horaInicial->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <?php echo $this->formInput($horaInicial);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($horaInicial);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="horaFinal"><?php echo $horaFinal->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <?php echo $this->formInput($horaFinal);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($horaFinal);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inicioIntervalo"><?php echo $inicioIntervalo->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <?php echo $this->formElement($inicioIntervalo);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($inicioIntervalo);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fimIntervalo"><?php echo $fimIntervalo->getOption('label')?></label>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <?php echo $this->formElement($fimIntervalo)?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($fimIntervalo);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="bloquearEnturmacao"><?php echo $bloquearEnturmacao->getOption('label')?></label>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <?php echo $this->formCheckbox($bloquearEnturmacao);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($bloquearEnturmacao);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="bloquearCadastroTurma"><?php echo $bloquearCadastroTurma->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <?php echo $this->formCheckbox($bloquearCadastroTurma);?>
+                                        <span class="help-block">
+                                            <?php echo $this->formElementErrors($bloquearCadastroTurma);?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <?php
+                                        $enviar = $this->form->get('submit');
+                                        echo $this->formElement($enviar);
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <?php
+                            echo $this->form()->closeTag();
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<?php
+echo $this->headLink()->prependStylesheet($this->basePath() . '/componentes/chosen/chosen.css');
+echo $this->headScript()->prependFile($this->basePath() . '/componentes/chosen/chosen.jquery.min.js', 'text/javascript');
+echo $this->headScript()->prependFile($this->basePath()
+    . '/componentes/jquery.masked-input/jquery.maskedinput.min.js');
+?>
+<script type="text/javascript">
+    var config = {
+        '.chosen-select'           : {},
+        '.chosen-select-deselect'  : {allow_single_deselect:true},
+        '.chosen-select-no-single' : {disable_search_threshold:10},
+        '.chosen-select-no-results': {no_results_text:'Oops, nada foi encontrado!'},
+        '.chosen-select-width'     : {width:"95%"}
+    }
+    for (var selector in config) {
+        $(selector).chosen(config[selector]);
+    }
+
+    $('#enderecoCollapse .chosen-container-single').attr('style', 'width: 95%');
+    $(document).ready(function() {
+
+
+        jQuery(function($){
+
+            $(".cep").mask("99999-999");
+            //mask data documento
+            $(".ddd").mask("99?9");
+
+            //$(".numero").mask('9999-9999');
+            $('.numero-telefone').focusout(function(){
+                var phone, element;
+                element = $(this);
+                element.unmask();
+                phone = element.val().replace(/\D/g, '');
+                if(phone.length > 8) {
+                    element.mask("99999-999?9");
+                } else {
+                    element.mask("9999-9999?9");
+                }
+            }).trigger('focusout');
+
+
+        });
+
+        var last_cep = 0;
+
+        $('.cep').on('keyup', function(){
+            var cep = $.trim($('.cep').val()).replace('_','');
+            if(cep.length >= 9){
+                if(cep != last_cep){
+                    busca();
+                    last_cep = cep;
+                }
+            }
+        });
+
+        function busca(){
+            var cep = $('.cep').val();
+            $.ajax({
+                url: '/core/cep/index/value/' + cep,
+                dataType: "json",
+                beforeSend : function(){
+                    $(".ceploading").show();
+                },
+                success : function(data){
+                    $(".cidade").val("");
+                    $(".logradouro").val("");
+                    $(".bairro").val("");
+                    $('.uf').val('').trigger('chosen:updated');
+                    $('.tipoLogradouro').val('').trigger('chosen:updated');
+                    //$('.uf').find('option:first-child').prop('selected', true).end().trigger('liszt:updated');
+                    if (typeof data.length == "undefined"){
+                        //limpando os dados
+
+                        if (data.id){
+                            // console.log(data.id);
+                        }
+                        if (data.cep){
+                            // console.log(data.cep);
+                        }
+                        if (data.nome){
+                            $(".cidade").val(data.nome);
+                            //$(".logradouro").focus();
+                            $(".tipoLogradouro").trigger('chosen:activate');
+                        }
+                        if (data.cidade){
+                            $(".cidade").val(data.cidade);
+                        }
+                        if (data.logradouro){
+                            $(".logradouro").val(data.logradouro);
+                            $(".numero").focus();
+                        }
+                        if (data.bairro){
+                            $(".bairro").val(data.bairro);
+                        }
+                        if (data.tipoLogradouro){
+
+                        }
+                        if (data.uf){
+
+                        }
+                        if (data.nomeSemAcento){
+
+                        }
+                        if (data.idEstado){
+                            //tem estado escolher o estado no select :D
+                            $('.uf').val(data.idEstado).trigger('chosen:updated');
+                        }
+                        if (data.idTipoLogradouro) {
+                            $('.tipoLogradouro').val(data.idTipoLogradouro).trigger('chosen:updated');
+                        }
+                    } else {
+                        decisao = confirm("CEP! Não encontrado na base de dados!, Deseja digitar novamente o CEP? Clique no botão OK");
+                        if (decisao){
+                            $(".cep").val("");
+                            $(".cep").focus();
+                            last_cep = 0;
+                        } else {
+                            $(".logradouro").focus();
+                        }
+                    }
+                },
+                complete: function(){
+                    $(".ceploading").hide();
+                }
+            });
+
+        }
+
+    });
+    //end document ready function
+</script>
