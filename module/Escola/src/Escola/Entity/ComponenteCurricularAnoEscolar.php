@@ -143,7 +143,11 @@ class ComponenteCurricularAnoEscolar extends Entity
                 'name' => 'componenteCurricular',
                 'required' => true
             )));
+            
+            $this->inputFilter = $inputFilter;
+
         }
+
         return $this->inputFilter;
     }
 }
