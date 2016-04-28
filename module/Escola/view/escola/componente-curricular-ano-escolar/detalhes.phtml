@@ -1,0 +1,24 @@
+<div class="ro">
+    <dl class="dl-horizontal">
+
+        <dt>Componente Curricular:</dt>
+        <dd>
+            <?php echo $data->getComponenteCurricular()->getNome();?>
+        </dd>
+
+        <dt>Série:</dt>
+        <dd>
+            <?php echo $data->getSerie()->getNome();?>
+        </dd>
+        <?php
+        if ($data->getCargaHoraria()):
+            ?>
+            <dt>Carga Horária:</dt>
+            <dd>
+                <?php echo $data->getCargaHoraria();?>
+            </dd>
+            <?php
+        endif;
+        ?>
+    </dl>
+</div>

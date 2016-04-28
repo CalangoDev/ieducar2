@@ -182,10 +182,11 @@ class ComponenteCurricularAnoEscolarControllerTest extends \Core\Test\Controller
         $this->em->flush();
         // dispara a acao
         $this->routeMatch->setParam('action', 'save');
+        $this->request->setMethod('post');
         $this->request->getPost()->set('id', $componente->getId());
         $this->request->getPost()->set('cargaHoraria', '500');
-        $this->request->getPost()->set('serie', $componente->getSerie());
-        $this->request->getPost()->set('componenteCurricular', $componente->getComponenteCurricular());
+        $this->request->getPost()->set('serie', $componente->getSerie()->getId());
+        $this->request->getPost()->set('componenteCurricular', $componente->getComponenteCurricular()->getId());
         $result = $this->controller->dispatch(
             $this->request, $this->response
         );
@@ -197,7 +198,7 @@ class ComponenteCurricularAnoEscolarControllerTest extends \Core\Test\Controller
         $this->assertEquals('Location: /escola/componente-curricular-ano-escolar', $headers->get('Location'));
 
         $savedComponente = $this->em->find(get_class($componente), $componente->getId());
-        $this->assertEquals('500', $savedComponente->getNome());
+        $this->assertEquals('500', $savedComponente->getCargaHoraria());
     }
 
     /**
@@ -210,8 +211,9 @@ class ComponenteCurricularAnoEscolarControllerTest extends \Core\Test\Controller
         $this->em->flush();
         // dispara a acao
         $this->routeMatch->setParam('action', 'save');
+        $this->request->setMethod('post');
         $this->request->getPost()->set('id', '');
-        $this->request->getPost()->set('cargaHoraria', '');
+        $this->request->getPost()->set('cargaHoraria', 'abcdf');
         $this->request->getPost()->set('serie', '');
         $this->request->getPost()->set('componenteCurricular', $componenteCurricular->getId());
 
@@ -227,8 +229,166 @@ class ComponenteCurricularAnoEscolarControllerTest extends \Core\Test\Controller
 
         // verify filters validators
         $msgs = $result->getVariables()['form']->getMessages();
-        var_dump($msgs);
-        // TODO Parou aqui, terminar, mas antes criar o controller
+        $this->assertEquals('Value is required and can\'t be empty', $msgs['serie']['isEmpty']);
+        $this->assertEquals('The input does not appear to be a float', $msgs['cargaHoraria']['notFloat']);
+    }
+
+    /**
+     * Testa a busca com resultados
+     */
+    public function testComponenteCurricularAnoEscolarBuscaPostActionRequest()
+    {
+        $componenteA = $this->buildComponenteCurricularAnoEscolar();
+        $componenteB = $this->buildComponenteCurricularAnoEscolar();
+        $componenteB->setCargaHoraria('500');
+        $this->em->persist($componenteA);
+        $this->em->persist($componenteB);
+        $this->em->flush();
+
+        // invoca a rota index
+        $this->routeMatch->setParam('action', 'busca');
+        $this->request->getPost()->set('q', '500');
+
+        $result = $this->controller->dispatch(
+            $this->request, $this->response
+        );
+
+        // verifica o response
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+
+        // testa os dados da View
+        $variables = $result->getVariables();
+
+        // faz a comparacao dos dados
+        $dados = $variables['dados'];
+        $this->assertEquals($componenteB->getCargaHoraria(), $dados[0]->getCargaHoraria());
+    }
+
+    /**
+     * Testa a exclusao sem passar o id
+     * @expectedException Exception
+     * @expectedExceptionMessage Código Obrigatório
+     */
+    public function testComponenteCurricularAnoEscolarInvalidDeleteAction()
+    {
+        // dispara a acao
+        $this->routeMatch->setParam('action', 'delete');
+
+        $result = $this->controller->dispatch(
+            $this->request, $this->response
+        );
+
+        // verifica a resposta
+        $response = $this->controller->getResponse();
+    }
+
+    /**
+     * Testa a exclusao
+     */
+    public function testComponenteCurricularAnoEscolarDeleteAction()
+    {
+        $componente = $this->buildComponenteCurricularAnoEscolar();
+        $this->em->persist($componente);
+        $this->em->flush();
+
+        // dispara a acao
+        $this->routeMatch->setParam('action', 'delete');
+        $this->routeMatch->setParam('id', $componente->getId());
+
+        $result = $this->controller->dispatch(
+            $this->request, $this->response
+        );
+
+        // verifica a resposta
+        $response = $this->controller->getResponse();
+
+        // a pagina redireciona, entao o status = 302
+        $this->assertEquals(302, $response->getStatusCode());
+        $headers = $response->getHeaders();
+        $this->assertEquals('Location: /escola/componente-curricular-ano-escolar', $headers->get('Location'));
+    }
+
+    /**
+     * Testa a tela de detalhes
+     */
+    public function testComponenteCurricularAnoEscolarDetalhesAction()
+    {
+        $componente = $this->buildComponenteCurricularAnoEscolar();
+        $this->em->persist($componente);
+        $this->em->flush();
+
+        // Dispara a acao
+        $this->routeMatch->setParam('action', 'detalhes');
+        $this->routeMatch->setParam('id', $componente->getId());
+
+        $result = $this->controller->dispatch(
+            $this->request, $this->response
+        );
+
+        // Verifica a resposta
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+
+        //	Testa se um ViewModel foi retornado
+        $this->assertInstanceOf('Zend\View\Model\ViewModel', $result);
+
+
+        //	Testa os dados da View
+        $variables = $result->getVariables();
+        $this->assertArrayHasKey('data', $variables);
+
+        //	Faz a comparação dos dados
+        $data = $variables["data"];
+        $this->assertEquals($componente->getCargaHoraria(), $data->getCargaHoraria());
+    }
+
+    /**
+     * Testa visualizaçao de detalhes de um id inexistente
+     * @expectedException Exception
+     * @expectedExceptionMessage Registro não encontrado
+     */
+    public function testComponenteCurricularAnoEscolarDetalhesInvalidIdAction()
+    {
+        $this->routeMatch->setParam('action', 'detalhes');
+        $this->routeMatch->setParam('id', -1);
+
+        $result = $this->controller->dispatch(
+            $this->request, $this->response
+        );
+        //	Verifica a resposta
+        $response = $this->controller->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+    }
+
+    /**
+     * Testa a exlusao passando um id inexistente
+     * @expectedException Exception
+     * @expectedExceptionMessage Registro não encontrado
+     */
+    public function testComponenteCurricularAnoEscolarInvalidIdDeleteAction()
+    {
+        $componente = $this->buildComponenteCurricularAnoEscolar();
+        $this->em->persist($componente);
+        $this->em->flush();
+
+        //	Dispara a acao
+        $this->routeMatch->setParam('action', 'delete');
+        $this->routeMatch->setParam('id', 2);
+
+        $result = $this->controller->dispatch(
+            $this->request, $this->response
+        );
+
+        //	Verifica a resposta
+        $response = $this->controller->getResponse();
+
+        //	A pagina redireciona, entao o status = 302
+        $this->assertEquals(302, $response->getStatusCode());
+        $headers = $response->getHeaders();
+        $this->assertEquals(
+            'Location: /escola/componente-curricular-ano-escolar', $headers->get('Location')
+        );
     }
 
 

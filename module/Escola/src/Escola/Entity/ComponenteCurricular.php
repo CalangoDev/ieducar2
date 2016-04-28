@@ -8,6 +8,8 @@
 namespace Escola\Entity;
 
 use Core\Entity\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\Factory as InputFactory;
@@ -65,6 +67,12 @@ class ComponenteCurricular extends Entity
      * @ORM\JoinColumn(nullable=false)
      */
     protected $areaConhecimento;
+    
+
+    public function __construct()
+    {
+        $this->anosEscolares = new ArrayCollection();
+    }
 
     /**
      * getters and setters
@@ -113,6 +121,12 @@ class ComponenteCurricular extends Entity
     {
         $this->areaConhecimento = $areaConhecimento;
     }
+
+    public function getAnosEscolares()
+    {
+        return $this->anosEscolares;
+    }
+
 
     protected $inputFilter;
 

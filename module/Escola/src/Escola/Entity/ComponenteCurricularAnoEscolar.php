@@ -55,11 +55,12 @@ class ComponenteCurricularAnoEscolar extends Entity
     protected $serie;
 
     /**
-     * @var int $componenteCurricular
+     * @var int $serie (ano escolar)
      *
      * @ORM\ManyToOne(targetEntity="Escola\Entity\ComponenteCurricular", cascade={"persist"})
      */
     protected $componenteCurricular;
+    
 
     /**
      * getters and setters
@@ -137,6 +138,11 @@ class ComponenteCurricularAnoEscolar extends Entity
             $inputFilter->add($factory->createInput(array(
                 'name' => 'serie',
                 'required' => true,
+//                'validators' => [
+//                    [
+//                        'name' => 'not_empty'
+//                    ]
+//                ]
             )));
 
             $inputFilter->add($factory->createInput(array(

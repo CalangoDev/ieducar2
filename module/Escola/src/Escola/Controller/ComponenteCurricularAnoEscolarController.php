@@ -2,27 +2,27 @@
 /**
  * Created by PhpStorm.
  * User: eduardojunior
- * Date: 28/01/16
- * Time: 22:51
+ * Date: 05/04/16
+ * Time: 23:19
  */
 namespace Escola\Controller;
 
 use Core\Controller\ActionController;
 use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
-use Escola\Entity\EscolaSerie;
-use Escola\Form\EscolaSerie as EscolaSerieForm;
+use Escola\Entity\ComponenteCurricularAnoEscolar;
 use Zend\Paginator\Paginator;
 use Zend\View\Model\ViewModel;
+use Escola\Form\ComponenteCurricularAnoEscolar as ComponenteCurricularAnoEscolarForm;
 
 /**
- * Controlador que gerencia as escolas series
+ * Controlador que gerencia os componentes curriculares ano escolar
  *
- * @category EscolaSerie
+ * @category Escola
  * @package Controller
  * @author Eduardo Junior <ej@calangodev.com.br>
  */
-class EscolaSerieController extends ActionController
+class ComponenteCurricularAnoEscolarController extends ActionController
 {
     /**
      * Lista os dados
@@ -30,7 +30,7 @@ class EscolaSerieController extends ActionController
      */
     public function indexAction()
     {
-        $query = $this->getEntityManager()->createQuery('SELECT es FROM Escola\Entity\EscolaSerie es');
+        $query = $this->getEntityManager()->createQuery('SELECT c FROM Escola\Entity\ComponenteCurricularAnoEscolar c');
 
         $dados = new Paginator(
             new DoctrinePaginator(new ORMPaginator($query))
@@ -43,60 +43,49 @@ class EscolaSerieController extends ActionController
 
     public function saveAction()
     {
-        $escolaSerie = new EscolaSerie();
-        $form = new EscolaSerieForm($this->getEntityManager());
+        $componente = new ComponenteCurricularAnoEscolar();
+        $form = new ComponenteCurricularAnoEscolarForm($this->getEntityManager());
         $request = $this->getRequest();
 
         $id = (int) $this->getEvent()->getRouteMatch()->getParam('id');
         if ($id > 0){
-
-            $escolaSerie = $this->getEntityManager()->find('Escola\Entity\EscolaSerie', $id);
-
-            if ($escolaSerie->getHoraInicial())
-                $escolaSerie->setHoraInicial($escolaSerie->getHoraInicial()->format('h:m:s'));
-
-            if ($escolaSerie->getHoraFinal())
-                $escolaSerie->setHoraFinal($escolaSerie->getHoraFinal()->format('h:m:s'));
-
-            if ($escolaSerie->getInicioIntervalo())
-                $escolaSerie->setInicioIntervalo($escolaSerie->getInicioIntervalo()->format('h:m:s'));
-
-            if ($escolaSerie->getFimIntervalo())
-                $escolaSerie->setFimIntervalo($escolaSerie->getFimIntervalo()->format('h:m:s'));
-
+            $componente = $this->getEntityManager()->find('Escola\Entity\ComponenteCurricularAnoEscolar', $id);
             $form->get('submit')->setAttribute('value', 'Atualizar');
         }
 
-        $form->bind($escolaSerie);
+        $form->bind($componente);
 
         if ($request->isPost()){
-
-            $form->setInputFilter($escolaSerie->getInputFilter());
+            $form->setInputFilter($componente->getInputFilter());
             $form->setData($request->getPost());
-
             if ($form->isValid()){
                 /**
-                 * Persistindo os dados
+                 * persistindo os dados
                  */
                 $id = (int) $this->params()->fromPost('id', 0);
                 if ($id == 0){
-                    $this->getEntityManager()->persist($escolaSerie);
-                    $this->flashMessenger()->addMessage(array('success' => 'Escola Série Salva!'));
+                    $this->getEntityManager()->persist($componente);
+                    $this->flashMessenger()->addMessage(
+                        array('success' => 'Componente Curricular Ano Escolar Salvo!')
+                    );
                 } else {
-                    $this->flashMessenger()->addMessage(array('success' => 'Escola Série Alterada!'));
+                    $this->flashMessenger()->addMessage(
+                        array('success' => 'Componente Curricular Ano Escolar Alterado!')
+                    );
                 }
 
                 $this->getEntityManager()->flush();
                 /**
-                 * Redirecionando
+                 * redirecionando
                  */
-                return $this->redirect()->toUrl('/escola/escola-serie');
+                return $this->redirect()->toUrl('/escola/componente-curricular-ano-escolar');
             }
         }
 
         return new ViewModel(array(
             'form' => $form
         ));
+
     }
 
     /**
@@ -104,22 +93,24 @@ class EscolaSerieController extends ActionController
      */
     public function detalhesAction()
     {
+
         $id = (int) $this->params()->fromRoute('id', 0);
         if ($id == 0)
             throw new \Exception("Código Obrigatório");
 
-        $escolaSerie = $this->getEntityManager()->find('Escola\Entity\EscolaSerie', $id);
+        $componente = $this->getEntityManager()->find('Escola\Entity\ComponenteCurricularAnoEscolar', $id);
 
-        if (!$escolaSerie)
+        if (!$componente)
             throw new \Exception("Registro não encontrado");
 
         $view = new ViewModel(array(
-            'data' => $escolaSerie
+            'data' => $componente
         ));
 
         $view->setTerminal(true);
 
         return $view;
+
     }
 
     /**
@@ -127,13 +118,15 @@ class EscolaSerieController extends ActionController
      */
     public function buscaAction()
     {
+        // busca por nome do componente, carga horaria e nome da serie
         $q = (string) $this->params()->fromPost('q');
-        //SELECT es, e, s FROM Escola\Entity\EscolaSerie es JOIN es.escola e JOIN es.serie s WHERE e.nome LIKE :query OR s.nome LIKE :query"
         $query = $this->getEntityManager()->createQuery("
-            SELECT es, e, s, ej FROM Escola\Entity\EscolaSerie es JOIN es.escola e JOIN es.serie s JOIN e.juridica ej WHERE s.nome LIKE :query 
-            OR ej.nome LIKE :query
-        ");
-        $query->setParameter('query', "%".$q."%");
+          SELECT c, cc, s  
+          FROM Escola\Entity\ComponenteCurricularAnoEscolar c
+          JOIN c.componenteCurricular cc
+          JOIN c.serie s
+          WHERE c.cargaHoraria LIKE :query OR cc.nome LIKE :query OR s.nome LIKE :query");
+        $query->setParameter('query', "%" . $q . "%");
         $dados = $query->getResult();
 
         $view = new ViewModel(array(
@@ -143,7 +136,6 @@ class EscolaSerieController extends ActionController
 
         return $view;
     }
-
 
     /**
      * Excluir um registro
@@ -157,16 +149,13 @@ class EscolaSerieController extends ActionController
             throw new \Exception("Código Obrigatório");
 
         try{
-            $escolaSerie = $this->getEntityManager()->find('Escola\Entity\EscolaSerie', $id);
-            $this->getEntityManager()->remove($escolaSerie);
+            $componente = $this->getEntityManager()->find('Escola\Entity\ComponenteCurricularAnoEscolar', $id);
+            $this->getEntityManager()->remove($componente);
             $this->getEntityManager()->flush();
         } catch(\Exception $e){
             throw new \Exception("Registro não encontrado");
         }
         $this->flashMessenger()->addMessage(array("success" => "Registro Removido com sucesso!"));
-        return $this->redirect()->toUrl('/escola/escola-serie');
+        return $this->redirect()->toUrl('/escola/componente-curricular-ano-escolar');
     }
-
-
-
 }

@@ -97,6 +97,17 @@ class ComponenteCurricular extends Form
             ),
         ));
 
+        $anosEscolaresFieldset = new ComponenteCurricularAnoEscolarFieldset($objectManager);
+        $this->add(array(
+            'type'    => 'Zend\Form\Element\Collection',
+            'name'    => 'anosEscolares',
+            'options' => array(
+//                'count'           => 2,
+                'target_element' => $anosEscolaresFieldset,
+                'label' => 'Anos Escolares'
+            )
+        ));
+
         $this->add(array(
             'name' => 'submit',
             'attributes' => array(

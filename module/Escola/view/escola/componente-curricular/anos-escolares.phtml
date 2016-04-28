@@ -1,0 +1,147 @@
+
+<div class="container">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="/">Ínicio</a></li>
+            <li><a href="/escola/componente-curricular">Cadastro de Componentes Curriculares</a></li>
+            <li class="active">Configurar anos escolares</li>
+        </ol>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1><i class="icon icon-cog"></i> Configuração <small>de anos escolares</small></h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <b>Configurar</b>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <?php
+                            //$this->form->prepare();
+                            //echo $this->form()->openTag($form);
+                            //$this->formRadio()->setSeparator('</div><div class="radio">');
+                            //echo $this->formInput($id);
+                            ?>
+                            <form action="" method="post">
+                                <input type="hidden" name="componenteCurricular" value="<?php echo $id;?>">
+                            <br>
+
+                            <div class="row">
+                                <div class="col-md-11">
+
+                                    <?php
+
+                                    $cursos = array();
+
+                                    foreach ($series as $serie):
+                                        ?>
+
+                                        <?php
+                                        if(!in_array($serie->getCurso()->getNome(), $cursos, true)){
+                                            //array_push($cursos, $serie->getCurso()->getNome());
+                                            $cursos[$serie->getCurso()->getNome()][]  = array(
+                                                'nome' => $serie->getNome(),
+                                                'serie_id' => $serie->getId()
+                                            );
+                                            //$cursos[$serie->getCurso()->getNome()][] = $serie;
+                                        }
+
+                                    endforeach;
+                                    //var_dump($cursos);
+                                    ?>
+                                    <?php
+                                    foreach ($cursos as $key => $value):
+
+                                        ?>
+                                        <div class="panel panel-info">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title"><?php echo $key;?></h3>
+                                            </div>
+                                            <div class="panel-body">
+                                                <?php
+                                                $estilos = array('bg-default','bg-warning');
+                                                $this->cycle()->assign($estilos);
+                                                foreach ($value as $serie):
+                                                    ?>
+                                                    <div class="row <?php echo $this->cycle()->next();?>">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="nome">Série:</label>
+                                                                <div class="row">
+                                                                    <div class="col-md-3">
+                                                                        <input type="checkbox" name="serie[<?php echo $serie['serie_id'];?>]" <?php
+                                                                        foreach ($dados as $key => $dado){
+                                                                            if ($serie['serie_id'] == $dado->getSerie()->getId()){
+                                                                                echo 'checked';
+                                                                                $cargaHoraria = $dado->getCargaHoraria();
+                                                                                unset($dados[$key]);
+                                                                            }
+                                                                        }
+                                                                        ?>>
+                                                                        <?php echo $serie['nome'];?>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="nome">Carga Horária:</label>
+                                                                <div class="row">
+                                                                    <div class="col-md-3">
+                                                                        <input type="text" name="cargaHoraria[<?php echo $serie['serie_id'];?>]" class="form-control" value="<?php if (isset($cargaHoraria)) { echo $cargaHoraria;unset($cargaHoraria); }?>">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <?php
+                                                endforeach;
+                                                ?>
+                                            </div>
+
+                                        </div>
+                                        <?php
+                                    endforeach;
+                                    ?>
+
+                                </div>
+                            </div>
+
+                                <br>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <?php
+                                        //$enviar = $this->form->get('submit');
+                                        //echo $this->formElement($enviar);
+                                        ?>
+                                        <input name="submit" type="submit" id="submitbutton"
+                                               class="btn btn-lg btn-primary" value="Salvar">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <?php
+                            //echo $this->form()->closeTag();
+                            ?>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -2,13 +2,13 @@
     <ol class="breadcrumb">
         <li><a href="/">Ínicio</a></li>
         <li><a href="/escola">Escola</a></li>
-        <li class="active">Cadastro de Componente Curricular</li>
+        <li class="active">Cadastro de Componente Curricular Ano Escolar</li>
     </ol>
 </div>
 <div class="row">
     <div class="col-md-12">
         <div class="page-header">
-            <h1><i class="icon icon-group"></i> Cadastro <small>de Componente Curricular</small></h1>
+            <h1><i class="icon icon-group"></i> Cadastro <small>de Componente Curricular Ano Escolar</small></h1>
         </div>
     </div>
 </div>
@@ -16,16 +16,16 @@
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <b>Lista de componentes curriculares</b>
+                <b>Lista de componentes curriculares ano escolar</b>
             </div>
             <div class="row">
                 <div class="col-md-4 p-20">
-                    <a href="/escola/componente-curricular/save" class="btn btn-primary">
-                        <i class="icon icon-plus"></i> Novo Componente
+                    <a href="/escola/componente-curricular-ano-escolar/save" class="btn btn-primary">
+                        <i class="icon icon-plus"></i> Novo Componente Curricular Ano Escolar
                     </a>
                 </div>
                 <div class="col-md-4 col-md-offset-4 p-20">
-                    <form id="busca" method="post" action="/escola/componente-curricular/busca">
+                    <form id="busca" method="post" action="/escola/componente-curricular-ano-escolar/busca">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="icon icon-search"></i></span>
                             <input type="text" class="form-control" name="q" placeholder="Pesquisar">
@@ -39,11 +39,10 @@
                         <thead>
                         <tr>
                             <th width="5%">#</th>
-                            <th>NOME</th>
-                            <th>ABREVIATURA</th>
-                            <th>BASE</th>
-                            <th>ÁREA DE CONHECIMENTO</th>
-                            <th width="50%">AÇÕES</th>
+                            <th>COMPONENTE CURRICULAR</th>
+                            <th>SÉRIE</th>
+                            <th>CARGA HORÁRIA</th>
+                            <th width="30%">AÇÕES</th>
                         </tr>
                         </thead>
                         <tbody class="dados">
@@ -61,28 +60,22 @@
                                     </td>
                                     <td>
                                         <?php
-                                        echo $componente->getNome();
+                                        echo $componente->getComponenteCurricular()->getNome();
                                         ?>
                                     </td>
                                     <td>
-                                        <?php echo $componente->getAbreviatura();?>
+                                        <?php echo $componente->getSerie()->getNome();?>
                                     </td>
                                     <td>
-                                        <?php echo $this->tipoBase($componente->getTipoBase());?>
+                                        <?php echo $componente->getCargaHoraria();?>
                                     </td>
                                     <td>
-                                        <?php echo $componente->getAreaConhecimento()->getNome();?>
-                                    </td>
-                                    <td>
-                                        <a href="/escola/componente-curricular/anos-escolares/id/<?php echo $componente->getId();?>" class="btn btn-info">
-                                            <i class="icon icon-cog"> Configurar Anos Escolares</i>
-                                        </a>
                                         <a href="#<?php echo $componente->getId()?>"
                                            class="btn btn-info btn-detalhes" data-toggle="modal"
                                            data-target="#detalhesModal"><i class="icon icon-list"></i> Ver detalhes</a>
-                                        <a href="/escola/componente-curricular/save/id/<?php echo $componente->getId()?>"
+                                        <a href="/escola/componente-curricular-ano-escolar/save/id/<?php echo $componente->getId()?>"
                                            class="btn btn-primary"><i class="icon icon-pencil"></i> Editar</a>
-                                        <a href="/escola/componente-curricular/delete/id/<?php echo $componente->getId()?>"
+                                        <a href="/escola/componente-curricular-ano-escolar/delete/id/<?php echo $componente->getId()?>"
                                            class="btn btn-danger delete"><i class="icon icon-trash"></i> Apagar</a>
                                     </td>
                                 </tr>
@@ -174,9 +167,9 @@
             var id = $(this).attr('href').split('#')[1];
             $.ajax({
                 type: "GET",
-                url: '/escola/componente-curricular/detalhes/id/' + id,
+                url: '/escola/componente-curricular-ano-escolar/detalhes/id/' + id,
                 success: function(data){
-                    $('#detalhesModalLabel').html('Detalhes Componente Curricular ID#' + id);
+                    $('#detalhesModalLabel').html('Detalhes Componente Curricular Ano Escolar ID#' + id);
                     $('#detalhesModal .modal-body').html(data);
                 },
                 beforeSend: function(){

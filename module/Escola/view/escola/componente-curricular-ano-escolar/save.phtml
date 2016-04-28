@@ -3,7 +3,7 @@
     <div class="row">
         <ol class="breadcrumb">
             <li><a href="/">Ínicio</a></li>
-            <li><a href="/escola/componente-curricular">Cadastro de Componentes Curriculares</a></li>
+            <li><a href="/escola/componente-curricular-ano-escolar">Cadastro de Componentes Curriculares Ano Escolar</a></li>
             <li class="active">Salvar</li>
         </ol>
     </div>
@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="page-header">
-                <h1><i class="icon icon-group"></i> Cadastro <small>de componente curricular</small></h1>
+                <h1><i class="icon icon-group"></i> Cadastro <small>de componente curricular ano Escolar</small></h1>
             </div>
         </div>
     </div>
@@ -33,30 +33,28 @@
                             echo $this->form()->openTag($form);
                             $this->formRadio()->setSeparator('</div><div class="radio">');
                             $id = $this->form->get('id');
-                            $nome = $this->form->get('nome');
-                            $abreviatura = $this->form->get('abreviatura');
-                            $tipoBase = $this->form->get('tipoBase');
-                            $areaConhecimento = $this->form->get('areaConhecimento');
-                            $anosEscolares = $this->form->get('anosEscolares');
+                            $cargaHoraria = $this->form->get('cargaHoraria');
+                            $serie = $this->form->get('serie');
+                            $componenteCurricular = $this->form->get('componenteCurricular');
                             echo $this->formInput($id);
                             ?>
                             <br>
 
-                            <div class="form-group required">
-                                <label for="nome">
+                            <div class="form-group">
+                                <label for="cargaHoraria">
                                     <?php
-                                    echo $nome->getOption('label');
+                                    echo $cargaHoraria->getOption('label');
                                     ?>
-                                    <span class="help"><?php echo $nome->getOption('help');?></span>
+                                    <span class="help"><?php echo $cargaHoraria->getOption('help');?></span>
                                 </label>
                                 <div class="row">
                                     <div class="col-md-3">
                                         <?php
-                                        echo $this->formInput($nome);
+                                        echo $this->formInput($cargaHoraria);
                                         ?>
                                         <span class="help-block">
                                                 <?php
-                                                echo $this->formElementErrors($nome);
+                                                echo $this->formElementErrors($cargaHoraria);
                                                 ?>
                                             </span>
                                     </div>
@@ -64,42 +62,30 @@
                             </div>
 
                             <div class="form-group required">
-                                <label for="abreviatura">
-                                    <?php echo $abreviatura->getOption('label');?>
-                                    <span class="help"><?php echo $abreviatura->getOption('help');?></span>
+                                <label for="componenteCurricular">
+                                    <?php echo $componenteCurricular->getOption('label');?>
+                                    <span class="help"><?php echo $componenteCurricular->getOption('help');?></span>
                                 </label>
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <?php echo $this->formInput($abreviatura);?>
+                                        <?php echo $this->formSelect($componenteCurricular);?>
                                         <span class="help-block">
-                                            <?php echo $this->formElementErrors($abreviatura);?>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="tipoBase"><?php echo $tipoBase->getOption('label');?></label>
-                                <div class="row">
-
-                                    <div class="col-md-12">
-                                        <div class="radio">
-                                            <?php echo $this->formRadio($tipoBase);?>
-                                        </div>
-                                        <span class="help-block">
-                                            <?php echo $this->formElementErrors($tipoBase);?>
+                                            <?php echo $this->formElementErrors($componenteCurricular);?>
                                         </span>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-group required">
-                                <label for="areaConhecimento"><?php echo $areaConhecimento->getOption('label');?></label>
+                                <label for="componenteCurricular">
+                                    <?php echo $serie->getOption('label');?>
+                                    <span class="help"><?php echo $serie->getOption('help');?></span>
+                                </label>
                                 <div class="row">
-                                    <div class="col-md-3">
-                                        <?php echo $this->formSelect($areaConhecimento);?>
+                                    <div class="col-md-2">
+                                        <?php echo $this->formSelect($serie);?>
                                         <span class="help-block">
-                                            <?php echo $this->formElementErrors($areaConhecimento);?>
+                                            <?php echo $this->formElementErrors($serie);?>
                                         </span>
                                     </div>
                                 </div>

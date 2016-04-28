@@ -1,0 +1,45 @@
+<?php
+if (count($this->dados) > 0):
+    $estilos = array('active','warning');
+    $this->cycle()->assign($estilos);
+    foreach ($this->dados as $componente):
+        ?>
+        <tr class="<?php echo $this->cycle()->next();?>">
+            <td>
+                <?php
+                echo $componente->getId();
+                ?>
+            </td>
+            <td>
+                <?php
+                echo $componente->getComponenteCurricular()->getNome();
+                ?>
+            </td>
+            <td>
+                <?php echo $componente->getSerie()->getNome();?>
+            </td>
+            <td>
+                <?php echo $componente->getCargaHoraria();?>
+            </td>
+            <td>
+                <a href="#<?php echo $componente->getId()?>"
+                   class="btn btn-info btn-detalhes" data-toggle="modal"
+                   data-target="#detalhesModal"><i class="icon icon-list"></i> Ver detalhes</a>
+                <a href="/escola/componente-curricular-ano-escolar/save/id/<?php echo $componente->getId()?>"
+                   class="btn btn-primary"><i class="icon icon-pencil"></i> Editar</a>
+                <a href="/escola/componente-curricular-ano-escolar/delete/id/<?php echo $componente->getId()?>"
+                   class="btn btn-danger delete"><i class="icon icon-trash"></i> Apagar</a>
+            </td>
+        </tr>
+        <?php
+    endforeach;
+else:
+    ?>
+    <tr class="warning">
+        <td colspan="6" class="text-center">
+            <b>Nenhum registro encontrado</b>
+        </td>
+    </tr>
+    <?php
+endif;
+?>

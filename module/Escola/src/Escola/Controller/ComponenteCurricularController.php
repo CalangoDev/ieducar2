@@ -14,6 +14,7 @@ use Escola\Entity\ComponenteCurricular;
 use Zend\Paginator\Paginator;
 use Zend\View\Model\ViewModel;
 use Escola\Form\ComponenteCurricular as ComponenteCurricularForm;
+use Escola\Entity\Serie;
 
 /**
  * Controlador que gerencia os componentes curriculares
@@ -124,6 +125,163 @@ class ComponenteCurricularController extends ActionController
         $view->setTerminal(true);
 
         return $view;
+    }
+
+    /**
+     * configurar anos escolares
+     */
+    public function anosEscolaresAction()
+    {
+        $id = (int) $this->params()->fromRoute('id', 0);
+
+        if ($id == 0)
+            throw new \Exception("Código Obrigatório");
+
+        $query = $this->getEntityManager()->createQuery("SELECT s, c FROM Escola\Entity\Serie s JOIN s.curso c ORDER BY c.nome ASC ");
+        $series = $query->getResult();
+        $request = $this->getRequest();
+
+        $query_componente_ano_escolar = $this->getEntityManager()->createQuery(
+            "SELECT cae, c FROM Escola\Entity\ComponenteCurricularAnoEscolar cae JOIN cae.componenteCurricular c WHERE c.id = :id"
+        );
+        $query_componente_ano_escolar->setParameter('id', $id);
+        $dados_save = $query_componente_ano_escolar->getResult();
+//        foreach ($dados as $dado):
+//            var_dump($dado->getId());
+//            var_dump($dado->getSerie()->getNome());
+//        endforeach;
+
+        if ($request->isPost()){
+            //var_dump($request->getPost());
+            $dados = $request->getPost()->toArray();
+            unset($dados['submit']);
+            // fazer a varredura no array procurando alguma serie "marcada"
+            //var_dump($dados);
+
+
+            // se tem dados salvados e estou em um post é um update, se nao é um novo registro
+
+            if (count($dados_save) > 0){
+
+                // se é uma edicao e nao veio nenhum $dados['serie'] devemos excluir todos os registros salvos
+                if (!isset($dados['serie'])){
+
+                    //nao veio dados novos,,, apagar os que ja existem no banco
+                    foreach ($dados_save as $data){
+                        $componente = $this->getEntityManager()->find('Escola\Entity\ComponenteCurricularAnoEscolar',
+                            $data->getId());
+                        $this->getEntityManager()->remove($componente);
+                    }
+                    $this->getEntityManager()->flush();
+                    return $this->redirect()->toUrl('/escola/componente-curricular');
+
+                } else {
+
+                    //é uma edicao e veio algo para fazer update ou excluir
+                    //var_export($dados['serie']);
+
+                    array (
+                        'componenteCurricular' => '2',
+                        'serie' => array (
+                            1 => 'on',
+                        ),
+                        'cargaHoraria' => array (
+                            1 => '300', 2 => '', 3 => '90',
+                        ),
+                    );
+
+                    foreach ($dados_save as $data){
+                        //var_dump($data->getSerie()->getId());
+                        $id_serie = $data->getSerie()->getId();
+                        if (array_key_exists($id_serie, $dados['serie'])){
+                            //echo 'achou ' . $id_serie . ' = ' . $dados['serie'][$id_serie] . ' => ' . $dados['cargaHoraria'][$id_serie];
+                            // tenho que fazer um update no componente curricular.. preciso do id dele
+                            $componente = $this->getEntityManager()->find('Escola\Entity\ComponenteCurricularAnoEscolar',
+                                $data->getId());
+                            $componente->setCargaHoraria($dados['cargaHoraria'][$id_serie]);
+                            $this->getEntityManager()->flush();
+                            //unset($dados[$id_serie]);
+                            unset($dados['serie'][$id_serie]);
+                            unset($dados['cargaHoraria'][$id_serie]);
+                            //unset($dados['componenteCurricular'][$id_serie]);
+                        } else {
+                            //nao achou nada remove
+                            $componente = $this->getEntityManager()->find('Escola\Entity\ComponenteCurricularAnoEscolar', $data->getId());
+                            $this->getEntityManager()->remove($componente);
+                            $this->getEntityManager()->flush();
+                            //var_dump($dados['serie'][$id_serie]);
+                            //var_dump($dados['cargaHoraria'][$id_serie]);
+                            //unset($dados[$id_serie]);
+                        }
+                    }
+
+                    //var_export($dados['serie']);
+
+
+                    //var_dump($dados);
+
+
+
+                    foreach ($dados['serie'] as $key => $value){
+                        //var_dump($value->getId());
+                        $componenteAnoEscolar = new \Escola\Entity\ComponenteCurricularAnoEscolar();
+                        try {
+
+                            $serie = $this->getEntityManager()->find('Escola\Entity\Serie', $key);
+                            $componenteAnoEscolar->setSerie($serie);
+                            $componenteCurricular = $this->getEntityManager()->find('Escola\Entity\ComponenteCurricular',
+                                $dados['componenteCurricular']);
+                            $componenteAnoEscolar->setComponenteCurricular($componenteCurricular);
+                            $componenteAnoEscolar->setCargaHoraria($dados['cargaHoraria'][$key]);
+
+                            $this->getEntityManager()->persist($componenteAnoEscolar);
+                            $this->getEntityManager()->flush();
+                        } catch (\Exception $e){
+                            throw new \Exception("Não foi possível inserir");
+                        }
+                    }
+
+                    $this->flashMessenger()->addMessage(array('success' => 'Componente Atualizado!'));
+                    return $this->redirect()->toUrl('/escola/componente-curricular');
+                }
+
+            } else {
+
+                if (isset($dados['serie'])){
+
+                    if (count($dados['serie']) > 0){
+
+                        foreach ($dados['serie'] as $key => $value){
+
+                            $componenteAnoEscolar = new \Escola\Entity\ComponenteCurricularAnoEscolar();
+                            try {
+
+                                $serie = $this->getEntityManager()->find('Escola\Entity\Serie', $key);
+                                $componenteAnoEscolar->setSerie($serie);
+                                $componenteCurricular = $this->getEntityManager()->find('Escola\Entity\ComponenteCurricular',
+                                    $dados['componenteCurricular']);
+                                $componenteAnoEscolar->setComponenteCurricular($componenteCurricular);
+                                $componenteAnoEscolar->setCargaHoraria($dados['cargaHoraria'][$key]);
+
+                                $this->getEntityManager()->persist($componenteAnoEscolar);
+                                $this->getEntityManager()->flush();
+                            } catch (\Exception $e){
+                                throw new \Exception("Não foi possível inserir");
+                            }
+
+                        }
+
+                        return $this->redirect()->toUrl('/escola/componente-curricular');
+                    }
+                }
+            }
+        }
+
+        return new ViewModel(array(
+            'series' => $series,
+            'id' => $id,
+            'dados' => $dados_save
+        ));
     }
 
 
