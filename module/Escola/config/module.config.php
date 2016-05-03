@@ -59,7 +59,8 @@ return array(
             'Escola\Controller\Localizacao' => 'Escola\Controller\LocalizacaoController',
             'Escola\Controller\Escola' => 'Escola\Controller\EscolaController',
             'Escola\Controller\EscolaSerie' => 'Escola\Controller\EscolaSerieController',
-            'Escola\Controller\ComponenteCurricularAnoEscolar' => 'Escola\Controller\ComponenteCurricularAnoEscolarController'
+            'Escola\Controller\ComponenteCurricularAnoEscolar' => 'Escola\Controller\ComponenteCurricularAnoEscolarController',
+            'Escola\Controller\SequenciaSerie' => 'Escola\Controller\SequenciaSerieController'
         ),
     ),
     'view_manager' => array(

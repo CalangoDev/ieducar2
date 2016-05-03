@@ -134,7 +134,10 @@ return array(
                             ),
                             array(
                                 'label' => 'Sequência de Enturmação',
-                                'uri' => '#'
+                                #'uri' => '#'
+                                'route' => 'escola/default',
+                                'controller' => 'sequenciaserie',
+                                'action' => 'index'
                             ),
                             array(
                                 'label' => 'Módulos',
