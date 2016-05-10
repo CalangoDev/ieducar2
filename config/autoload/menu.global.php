@@ -141,7 +141,9 @@ return array(
                             ),
                             array(
                                 'label' => 'Módulos',
-                                'uri' => '#'
+                                'route' => 'escola/default',
+                                'controller' => 'modulo',
+                                'action' => 'index'
                             ),
                             array(
                                 'label' => 'Escola',

@@ -60,7 +60,8 @@ return array(
             'Escola\Controller\Escola' => 'Escola\Controller\EscolaController',
             'Escola\Controller\EscolaSerie' => 'Escola\Controller\EscolaSerieController',
             'Escola\Controller\ComponenteCurricularAnoEscolar' => 'Escola\Controller\ComponenteCurricularAnoEscolarController',
-            'Escola\Controller\SequenciaSerie' => 'Escola\Controller\SequenciaSerieController'
+            'Escola\Controller\SequenciaSerie' => 'Escola\Controller\SequenciaSerieController',
+            'Escola\Controller\Modulo' => 'Escola\Controller\ModuloController'
         ),
     ),
     'view_manager' => array(

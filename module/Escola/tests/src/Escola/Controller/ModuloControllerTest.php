@@ -2,24 +2,24 @@
 /**
  * Created by PhpStorm.
  * User: eduardojunior
- * Date: 27/12/15
- * Time: 23:29
+ * Date: 04/05/16
+ * Time: 10:00
  */
-use Escola\Entity\NivelEnsino;
+use Escola\Entity\Modulo;
 
 /**
  * @group Controller
  */
-class NivelEnsinoControllerTest extends \Core\Test\ControllerTestCase
+class ModuloControllerTest extends \Core\Test\ControllerTestCase
 {
     /**
      * Namespace completa do controller
-     * @var string NivelEnsinoController
+     * @var string ModuloController
      */
-    protected $controllerFQDN = 'Escola\Controller\NivelEnsinoController';
+    protected $controllerFQDN = 'Escola\Controller\ModuloController';
 
     /**
-     * Nome da rota. geralmente o nome do modulo
+     * Nome da rota, geralmente o nome do modulo
      * @var string escola
      */
     protected $controllerRoute = 'escola';
@@ -27,14 +27,13 @@ class NivelEnsinoControllerTest extends \Core\Test\ControllerTestCase
     /**
      * testa a pagina inicial, listando os dados
      */
-    public function testNivelEnsinoIndexAction()
+    public function testModuloIndexAction()
     {
-        $nivelEnsinoA = $this->buildNivelEnsino();
-        $nivelEnsinoB = $this->buildNivelEnsino();
-        $nivelEnsinoB->setNome('Medio');
-        //$em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-        $this->em->persist($nivelEnsinoA);
-        $this->em->persist($nivelEnsinoB);
+        $moduloA = $this->buildModulo();
+        $moduloB = $this->buildModulo();
+        $moduloB->setNome('Outro Modulo');
+        $this->em->persist($moduloA);
+        $this->em->persist($moduloB);
         $this->em->flush();
 
         // invoca a rota index
@@ -57,15 +56,15 @@ class NivelEnsinoControllerTest extends \Core\Test\ControllerTestCase
 
         // faz a comparacao dos dados
         $paginator = $variables['dados'];
-        $this->assertEquals($nivelEnsinoA->getNome(), $paginator->getItem(1)->getNome());
-        $this->assertEquals($nivelEnsinoB->getNome(), $paginator->getItem(2)->getNome());
+        $this->assertEquals($moduloA->getNome(), $paginator->getItem(1)->getNome());
+        $this->assertEquals($moduloB->getNome(), $paginator->getItem(2)->getNome());
     }
 
     /**
      * testa a tela de inclusao de um novo registro
      * @return void
      */
-    public function testNivelEnsinoSaveActionNewRequest()
+    public function testModuloSaveActionNewRequest()
     {
         // dispara a acao
         $this->routeMatch->setParam('action', 'save');
@@ -97,6 +96,14 @@ class NivelEnsinoControllerTest extends \Core\Test\ControllerTestCase
         $this->assertEquals('descricao', $descricao->getName());
         $this->assertEquals('textarea', $descricao->getAttribute('type'));
 
+        $numeroMeses = $form->get('numeroMeses');
+        $this->assertEquals('numeroMeses', $numeroMeses->getName());
+        $this->assertEquals('text', $numeroMeses->getAttribute('type'));
+
+        $numeroSemanas = $form->get('numeroSemanas');
+        $this->assertEquals('numeroSemanas', $numeroSemanas->getName());
+        $this->assertEquals('text', $numeroSemanas->getAttribute('type'));
+
         $ativo = $form->get('ativo');
         $this->assertEquals('ativo', $ativo->getName());
         $this->assertEquals('Zend\Form\Element\Select', $ativo->getAttribute('type'));
@@ -104,24 +111,21 @@ class NivelEnsinoControllerTest extends \Core\Test\ControllerTestCase
 
     /**
      * testa a tela de alteracoes de um registro
+     * @return void
      */
-    public function testNivelEnsinoSaveActionUpdateFormRequest()
+    public function testModuloSaveActionUpdateFormRequest()
     {
-        $nivelEnsino = $this->buildNivelEnsino();
-        $this->em->persist($nivelEnsino);
+        $modulo = $this->buildModulo();
+        $this->em->persist($modulo);
         $this->em->flush();
 
         $this->routeMatch->setParam('action', 'save');
-        $this->routeMatch->setParam('id', $nivelEnsino->getId());
+        $this->routeMatch->setParam('id', $modulo->getId());
         $result = $this->controller->dispatch(
             $this->request, $this->response
         );
 
         // verifica a resposta
-        $response = $this->controller->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
-
-        // testa se recebeu um ViewModel
         $this->assertInstanceOf('Zend\View\Model\ViewModel', $result);
         $variables = $result->getVariables();
 
@@ -133,26 +137,33 @@ class NivelEnsinoControllerTest extends \Core\Test\ControllerTestCase
         $id = $form->get('id');
         $nome = $form->get('nome');
         $descricao = $form->get('descricao');
+        $numeroMeses = $form->get('numeroMeses');
+        $numeroSemanas = $form->get('numeroSemanas');
+        $ativo = $form->get('ativo');
         $this->assertEquals('id', $id->getName());
-        $this->assertEquals($nivelEnsino->getId(), $id->getValue());
-        $this->assertEquals($nivelEnsino->getNome(), $nome->getValue());
-        $this->assertEquals($nivelEnsino->getDescricao(), $descricao->getValue());
+        $this->assertEquals($modulo->getId(), $id->getValue());
+        $this->assertEquals($modulo->getNome(), $nome->getValue());
+        $this->assertEquals($modulo->getDescricao(), $descricao->getValue());
+        $this->assertEquals($modulo->getNumeroMeses(), $numeroMeses->getValue());
+        $this->assertEquals($modulo->getNumeroSemanas(), $numeroSemanas->getValue());
+        $this->assertEquals($modulo->isAtivo(), $ativo->getValue());
     }
 
     /**
-     * Testa a inclusao de um novo registro
+     * testa a inclusao de um novo registro
+     * @return void
      */
-    public function testNivelEnsinoSaveActionPostRequest()
+    public function testModuloSaveActionPostRequest()
     {
         // dispara a acao
         $this->routeMatch->setParam('action', 'save');
-
         $this->request->setMethod('post');
         $this->request->getPost()->set('id', '');
-        $this->request->getPost()->set('nome', 'Nivel de Ensino');
-        $this->request->getPost()->set('descricao', 'Descrição');
+        $this->request->getPost()->set('nome', 'Modulo X');
+        $this->request->getPost()->set('descricao', 'Descrição do Modulo');
+        $this->request->getPost()->set('numeroMeses', '10');
+        $this->request->getPost()->set('numeroSemanas', '30');
         $this->request->getPost()->set('ativo', true);
-
         $result = $this->controller->dispatch(
             $this->request, $this->response
         );
@@ -162,26 +173,27 @@ class NivelEnsinoControllerTest extends \Core\Test\ControllerTestCase
         // a pagina redireciona, entao o status = 302
         $this->assertEquals(302, $response->getStatusCode());
         $headers = $response->getHeaders();
-        $this->assertEquals('Location: /escola/nivel-ensino', $headers->get('Location'));
+        $this->assertEquals('Location: /escola/modulo', $headers->get('Location'));
     }
 
     /**
-     * Testa o update de um registro
+     * testa o update de um registro
      */
-    public function testNivelEnsinoUpdateAction()
+    public function testModuloUpdateAction()
     {
-        $nivelEnsino = $this->buildNivelEnsino();
-        $this->em->persist($nivelEnsino);
+        $modulo = $this->buildModulo();
+        $this->em->persist($modulo);
         $this->em->flush();
 
         // dispara a acao
         $this->routeMatch->setParam('action', 'save');
-
         $this->request->setMethod('post');
-        $this->request->getPost()->set('id', $nivelEnsino->getId());
-        $this->request->getPost()->set('nome', 'Novo Nome');
-        $this->request->getPost()->set('descricao', $nivelEnsino->getDescricao());
-        $this->request->getPost()->set('ativo', $nivelEnsino->getAtivo());
+        $this->request->getPost()->set('id', $modulo->getId());
+        $this->request->getPost()->set('nome', 'Outro Nome');
+        $this->request->getPost()->set('descricao', $modulo->getDescricao());
+        $this->request->getPost()->set('numeroMeses', $modulo->getNumeroMeses());
+        $this->request->getPost()->set('numeroSemanas', $modulo->getNumeroSemanas());
+        $this->request->getPost()->set('ativo', $modulo->isAtivo());
 
         $result = $this->controller->dispatch(
             $this->request, $this->response
@@ -192,26 +204,28 @@ class NivelEnsinoControllerTest extends \Core\Test\ControllerTestCase
         // a pagina redireciona, entao o status = 302
         $this->assertEquals(302, $response->getStatusCode());
         $headers = $response->getHeaders();
-        $this->assertEquals('Location: /escola/nivel-ensino', $headers->get('Location'));
+        $this->assertEquals('Location: /escola/modulo', $headers->get('Location'));
 
-        $savedNivelEnsino = $this->em->find(get_class($nivelEnsino), $nivelEnsino->getId());
-        $this->assertEquals('Novo Nome', $savedNivelEnsino->getNome());
+        $savedModulo = $this->em->find(get_class($modulo), $modulo->getId());
+        $this->assertEquals('Outro Nome', $savedModulo->getNome());
     }
 
     /**
      * testa a inclusao, formulario invalido e nome vazio
      */
-    public function testNivelEnsinoSaveActionInvalidFormPostRequest()
+    public function testModuloSaveActionInvalidFormPostRequest()
     {
         // dispara a acao
         $this->routeMatch->setParam('action', 'save');
         $this->request->setMethod('post');
         $this->request->getPost()->set('id', '');
         $this->request->getPost()->set('nome', '');
-        $this->request->getPost()->set('descricao', 'Descricao');
+        $this->request->getPost()->set('descricao', '');
+        $this->request->getPost()->set('numeroMeses', '');
+        $this->request->getPost()->set('numeroSemanas', '');
         $this->request->getPost()->set('ativo', true);
 
-        $result= $this->controller->dispatch(
+        $result = $this->controller->dispatch(
             $this->request, $this->response
         );
 
@@ -228,21 +242,20 @@ class NivelEnsinoControllerTest extends \Core\Test\ControllerTestCase
     }
 
     /**
-     * Testa a busca com resultados
+     * testa a busca com resultados
      */
-    public function testNivelEnsinoBuscaPostActionRequest()
+    public function testModuloPostActionRequest()
     {
-        $nivelEnsinoA = $this->buildNivelEnsino();
-        $nivelEnsinoB = $this->buildNivelEnsino();
-        $nivelEnsinoB->setNome('GOLD');
-        $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-        $em->persist($nivelEnsinoA);
-        $em->persist($nivelEnsinoB);
-        $em->flush();
+        $moduloA = $this->buildModulo();
+        $moduloB = $this->buildModulo();
+        $moduloB->setNome('Modulo B');
+        $this->em->persist($moduloA);
+        $this->em->persist($moduloB);
+        $this->em->flush();
 
         // invoca a rota index
         $this->routeMatch->setParam('action', 'busca');
-        $this->request->getPost()->set('q', 'GOLD');
+        $this->request->getPost()->set('q', 'Modulo B');
 
         $result = $this->controller->dispatch(
             $this->request, $this->response
@@ -257,19 +270,18 @@ class NivelEnsinoControllerTest extends \Core\Test\ControllerTestCase
 
         // faz a comparacao dos dados
         $dados = $variables['dados'];
-        $this->assertEquals($nivelEnsinoB->getNome(), $dados[0]->getNome());
+        $this->assertEquals($moduloB->getNome(), $dados[0]->getNome());
     }
 
     /**
-     * Testa a exclusao sem passar o id
+     * testa a exclusao sem passar o id
      * @expectedException Exception
-     * @expectedExceptionMessage Código Obrigatório
+     * @expectedExceptionMesage Código Obrigatório
      */
-    public function testNivelEnsinoInvalidDeleteAction()
+    public function testModuloInvalidDeleteAction()
     {
-        // dispara a acao
+        // dispara aa acao
         $this->routeMatch->setParam('action', 'delete');
-
         $result = $this->controller->dispatch(
             $this->request, $this->response
         );
@@ -279,18 +291,17 @@ class NivelEnsinoControllerTest extends \Core\Test\ControllerTestCase
     }
 
     /**
-     * Testa a exclusao
+     * testa a exclusao
      */
-    public function testNivelEnsinoDeleteAction()
+    public function testModuloDeleteAction()
     {
-        $nivelEnsino = $this->buildNivelEnsino();
-        $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-        $em->persist($nivelEnsino);
-        $em->flush();
+        $modulo = $this->buildModulo();
+        $this->em->persist($modulo);
+        $this->em->flush();
 
         // dispara a acao
         $this->routeMatch->setParam('action', 'delete');
-        $this->routeMatch->setParam('id', $nivelEnsino->getId());
+        $this->routeMatch->setParam('id', $modulo->getId());
 
         $result = $this->controller->dispatch(
             $this->request, $this->response
@@ -302,22 +313,22 @@ class NivelEnsinoControllerTest extends \Core\Test\ControllerTestCase
         // a pagina redireciona, entao o status = 302
         $this->assertEquals(302, $response->getStatusCode());
         $headers = $response->getHeaders();
-        $this->assertEquals('Location: /escola/nivel-ensino', $headers->get('Location'));
+        $this->assertEquals('Location: /escola/modulo', $headers->get('Location'));
     }
 
     /**
      * Testa a tela de detalhes
      */
-    public function testNivelEnsinoDetalhesAction()
+    public function testModuloDetalhesAction()
     {
-        $nivelEnsino = $this->buildNivelEnsino();
-        $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-        $em->persist($nivelEnsino);
-        $em->flush();
+        $modulo = $this->buildModulo();
+
+        $this->em->persist($modulo);
+        $this->em->flush();
 
         // Dispara a acao
         $this->routeMatch->setParam('action', 'detalhes');
-        $this->routeMatch->setParam('id', $nivelEnsino->getId());
+        $this->routeMatch->setParam('id', $modulo->getId());
 
         $result = $this->controller->dispatch(
             $this->request, $this->response
@@ -337,7 +348,7 @@ class NivelEnsinoControllerTest extends \Core\Test\ControllerTestCase
 
         //	Faz a comparação dos dados
         $data = $variables["data"];
-        $this->assertEquals($nivelEnsino->getNome(), $data->getNome());
+        $this->assertEquals($modulo->getNome(), $data->getNome());
 
     }
 
@@ -346,7 +357,7 @@ class NivelEnsinoControllerTest extends \Core\Test\ControllerTestCase
      * @expectedException Exception
      * @expectedExceptionMessage Registro não encontrado
      */
-    public function testNivelEnsinoDetalhesInvalidIdAction()
+    public function testModuloDetalhesInvalidIdAction()
     {
         $this->routeMatch->setParam('action', 'detalhes');
         $this->routeMatch->setParam('id', -1);
@@ -364,12 +375,11 @@ class NivelEnsinoControllerTest extends \Core\Test\ControllerTestCase
      * @expectedException Exception
      * @expectedExceptionMessage Registro não encontrado
      */
-    public function testNivelEnsinoInvalidIdDeleteAction()
+    public function testModuloInvalidIdDeleteAction()
     {
-        $nivelEnsino = $this->buildNivelEnsino();
-        $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-        $em->persist($nivelEnsino);
-        $em->flush();
+        $modulo = $this->buildModulo();
+        $this->em->persist($modulo);
+        $this->em->flush();
 
         //	Dispara a acao
         $this->routeMatch->setParam('action', 'delete');
@@ -386,17 +396,23 @@ class NivelEnsinoControllerTest extends \Core\Test\ControllerTestCase
         $this->assertEquals(302, $response->getStatusCode());
         $headers = $response->getHeaders();
         $this->assertEquals(
-            'Location: /escola/nivel-ensino', $headers->get('Location')
+            'Location: /escola/modulo', $headers->get('Location')
         );
     }
 
-    private function buildNivelEnsino()
+
+    /**
+     * @return Modulo
+     */
+    private function buildModulo()
     {
-        $nivelEnsino = new NivelEnsino();
-        $nivelEnsino->setNome('Habilitacao 1');
-        $nivelEnsino->setDescricao('Descricao');
+        $modulo = new Modulo();
+        $modulo->setNome('Modulo X');
+        $modulo->setDescricao('Descrição');
+        $modulo->setNumeroMeses(10);
+        $modulo->setNumeroSemanas(30);
+        $modulo->setAtivo(true);
 
-        return $nivelEnsino;
+        return $modulo;
     }
-
 }

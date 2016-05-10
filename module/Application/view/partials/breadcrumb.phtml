@@ -1,0 +1,19 @@
+<?php
+if (count($this->pages) > 0) :
+    ?>
+    <ol class="breadcrumb">
+        <?php
+        for ($i = 0, $iend = count($this->pages); $i < $iend; $i++) :
+            $a=$this->pages[$i];
+            $label = $this->translate($a->getLabel());
+            ?>
+            <li <?php if ($i + 1 == $iend) : ?> class="active" <?php endif ?> >
+                <?php if ($i + 1 != $iend) : ?>
+                    <a href="<?php echo $a->getHref(); ?>"><?php echo $label ?></a>
+                <?php else : ?>
+                    <?php echo $label ?>
+                <?php endif ?>
+            </li>
+        <?php endfor ?>
+    </ol>
+<?php endif ?>

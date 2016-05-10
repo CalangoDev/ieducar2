@@ -1,0 +1,260 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <?php echo $this->headTitle('i-Educar 2.0 - Sistema de Gerenciamento Escolar')->setSeparator(' - ')->setAutoEscape(false) ?>
+
+    <?php echo $this->headMeta()
+        ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+        ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+    ?>
+
+    <!-- Le styles -->
+    <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+        ->prependStylesheet($this->basePath()
+            . '/componentes/jquery-ui-1.10.4.custom/css/cupertino/jquery-ui-1.10.4.custom.min.css')
+        ->prependStylesheet($this->basePath() . '/css/style.css')
+        ->prependStylesheet($this->basePath() . '/css/font-awesome.min.css')
+        ->prependStylesheet($this->basePath() . '/css/bootstrap-theme.min.css')
+        ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css') ?>
+
+    <!-- Scripts -->
+    <?php echo $this->headScript()
+        ->prependFile($this->basePath() . '/componentes/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js')
+        ->prependFile($this->basePath() . '/js/modernizr.custom.js')
+        ->prependFile($this->basePath() . '/js/bootstrap.min.js')
+        ->prependFile($this->basePath() . '/js/jquery.min.js')
+        ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+        ->prependFile($this->basePath() . '/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
+    ; ?>
+
+    <script type="text/javascript">
+        var initDatepicker = function() {
+            $('input[type=date]').each(function() {
+                var $input = $(this);
+                $input.datepicker({
+                    minDate: $input.attr('min'),
+                    maxDate: $input.attr('max'),
+                    changeMonth: true,
+                    changeYear: true,
+                    dateFormat: 'dd-mm-yy',
+                    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+                    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+                    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+                    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto',
+                        'Setembro','Outubro','Novembro','Dezembro'],
+                    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+                    nextText: 'Próximo',
+                    prevText: 'Anterior',
+                    yearRange: "1950:<?php echo date('Y');?>"
+                });
+            });
+        };
+
+        if(!Modernizr.inputtypes.date){
+            $(document).ready(initDatepicker);
+        };
+    </script>
+
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="<?php echo $this->url('home') ?>"><img src="<?php echo $this->basePath('img/ieducar-logo.png') ?>" alt="i-Educar 2.0"/>&nbsp;<?php echo $this->translate('i-Educar') ?></a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <!-- inicio navbar menu -->
+            <?php
+            echo $this->navigation('portal_navigation')->menu()->setUlClass('nav navbar-nav')
+                ->setPartial(array('partials/navigation.phtml', 'portal_navigation'))
+                ->render();
+            ?>
+            <!-- fim navbar menu -->
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+<?php if(isset($flashMessages)):
+    $array = (array) $flashMessages[0];
+    $class = key($array);
+    ?>
+    <div class="container">
+        <div class="row">
+            <div class="alert alert-<?php if ($class == 'success') { echo "success"; } else if ($class == 'error'){ echo 'danger'; }?>">
+                <?php
+                foreach ($flashMessages as $key => $flashMessage) : ?>
+                    <?php
+                    $array = (array) $flashMessage;
+                    $message = current($array);
+                    echo $message;?>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
+
+<div class="container">
+    <div class="row">
+        <?php echo $this->navigation()->breadcrumbs()->setIndent(8)->setPartial('partials/breadcrumb.phtml');?>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1><i class="icon icon-home"></i> Cadastro <small>de escola</small></h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <b>Lista de Escolas</b>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 p-20">
+                        <?php echo $this->route;?>
+                        <?php echo $this->url(); ?>
+                        
+                        <a href="/escola/modulo/save" class="btn btn-primary">
+                            <i class="icon icon-plus"></i> Nova Escola
+                        </a>
+                    </div>
+                    <div class="col-md-4 col-md-offset-4 p-20">
+                        <form id="busca" method="post" action="/escola/escola/busca">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="icon icon-search"></i></span>
+                                <input type="text" class="form-control" name="q" placeholder="Pesquisar">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <?php echo $this->content; ?>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Apagar?</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger">
+                        <p>Tem certeza que deseja remover esse registro?</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Não</button>
+                    <button type="button" class="btn btn-primary confirmation">Sim</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="detalhesModal" tabindex="-1" role="dialog" aria-labelledby="detalhesModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" area-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="detalhesModalLabel">Detalhes</h4>
+                </div>
+
+                <div class="modal-body">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            url = null;
+            $('.dados').on("click", ".delete", function(event){
+                event.preventDefault();
+                url = $(this).attr('href');
+                $("#deleteModal").modal();
+            });
+
+            $('.dados').on('click', '.btn-detalhes', function(event){
+                event.preventDefault();
+                var id = $(this).attr('href').split('#')[1];
+                $.ajax({
+                    type: "GET",
+                    url: '/escola/escola/detalhes/id/' + id,
+                    success: function(data){
+                        $('#detalhesModalLabel').html('Detalhes Escola ID#' + id);
+                        $('#detalhesModal .modal-body').html(data);
+                    },
+                    beforeSend: function(){
+                        $('#detalhesModalLabel').html('Detalhes');
+                        $('#detalhesModal .modal-body').html("<p class='text-center'> <i class='glyphicon icon-spinner icon-spin icon-large'></i> Carregando...</p>");
+                    }
+                });
+                //$('#detalhesModal').modal();
+            });
+
+            $(".confirmation").click(function(event){
+                $("#deleteModal").modal('hide');
+                window.location.href = url;
+            });
+            $( "#busca" ).submit(function( event ) {
+                event.preventDefault();
+                // var query = $(this).serialize();
+                var query = $("input[name=q]").val();
+                $.ajax({
+                    type : "POST",
+                    data : { q:query },
+                    url : $(this).attr('action'),
+                    success : function(result){
+                        $(".dados").html(result);
+                    },
+                    beforeSend : function(){
+                        $(".dados").html('');
+                        $(".dados").hide();
+                        $(".loading").show();
+                    },
+                    complete : function(msg){
+                        $(".loading").hide();
+                        $(".dados").show();
+                    }
+                })
+            });
+
+            $("#go").click(function(event) {
+                $("#busca").submit();
+            });
+        });
+    </script>
+
+
+</div> <!-- /container -->
+<div class="container">
+    <div class="row">
+        <hr>
+        <footer>
+            <p>&copy; <?php echo date('Y') ?> por
+                <a href="http://www.calangodev.com.br" target="_blank">CalangoDev</a>.
+                <?php echo $this->translate('All rights reserved.') ?></p>
+        </footer>
+    </div>
+</div>
+<?php echo $this->inlineScript() ?>
+</body>
+</html>

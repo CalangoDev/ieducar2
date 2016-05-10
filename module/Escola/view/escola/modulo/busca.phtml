@@ -1,0 +1,50 @@
+<?php
+if (count($this->dados) > 0):
+    $estilos = array('active','warning');
+    $this->cycle()->assign($estilos);
+    foreach ($this->dados as $data):
+        ?>
+        <tr class="<?php echo $this->cycle()->next();?>">
+            <td>
+                <?php
+                echo $data->getId();
+                ?>
+            </td>
+            <td>
+                <?php
+                echo $data->getNome();
+                ?>
+            </td>
+            <td>
+                <?php echo $data->getDescricao();?>
+            </td>
+            <td>
+                <?php
+                echo $data->getNumeroMeses();
+                ?>
+            </td>
+            <td>
+                <?php echo $data->getNumeroSemanas();?>
+            </td>
+            <td>
+                <a href="#<?php echo $data->getId()?>"
+                   class="btn btn-info btn-detalhes" data-toggle="modal"
+                   data-target="#detalhesModal"><i class="icon icon-list"></i> Ver detalhes</a>
+                <a href="/escola/modulo/save/id/<?php echo $data->getId()?>"
+                   class="btn btn-primary"><i class="icon icon-pencil"></i> Editar</a>
+                <a href="/escola/modulo/delete/id/<?php echo $data->getId()?>"
+                   class="btn btn-danger delete"><i class="icon icon-trash"></i> Apagar</a>
+            </td>
+        </tr>
+        <?php
+    endforeach;
+else:
+    ?>
+    <tr class="warning">
+        <td colspan="6" class="text-center">
+            <b>Nenhum registro encontrado</b>
+        </td>
+    </tr>
+    <?php
+endif;
+?>
