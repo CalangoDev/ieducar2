@@ -175,7 +175,9 @@ return array(
                                 'pages' => array(
                                     array(
                                         'label' => 'Prédios',
-                                        'uri' => '#'
+                                        'route' => 'escola/default',
+                                        'controller' => 'predio',
+                                        'action' => 'index'
                                     ),
                                     array(
                                         'label' => 'Comodo Prédio',
