@@ -12,6 +12,11 @@ if (count($this->dados) > 0):
             </td>
             <td>
                 <?php
+                echo $data->getEscola()->getJuridica()->getNome();
+                ?>
+            </td>
+            <td>
+                <?php
                 echo $data->getNome();
                 ?>
             </td>

@@ -32,12 +32,33 @@
                             $this->form->prepare();
                             echo $this->form()->openTag($form);
                             $id = $this->form->get('id');
+                            $escola = $this->form->get('escola');
                             $nome = $this->form->get('nome');
                             $descricao = $this->form->get('descricao');
                             $endereco = $this->form->get('endereco');
                             echo $this->formInput($id);
                             ?>
                             <br>
+
+                            <div class="form-group required">
+                                <label for="escola">
+                                    <?php
+                                    echo $escola->getOption('label');
+                                    ?>
+                                </label>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <?php
+                                        echo $this->formSelect($escola);
+                                        ?>
+                                        <span class="help-block">
+                                                <?php
+                                                echo $this->formElementErrors($escola);
+                                                ?>
+                                            </span>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="form-group required">
                                 <label for="nome">

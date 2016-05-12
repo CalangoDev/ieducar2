@@ -1,6 +1,15 @@
 <div class="row">
     <dl class="dl-horizontal">
 
+        <?php
+        if ($data->getEscola()):
+        ?>
+            <dt>Escola</dt>
+            <dd><?php echo $data->getEscola()->getJuridica()->getNome();?></dd>
+        <?php
+        endif;
+        ?>
+
         <dt>Nome:</dt>
         <dd><?php echo $data->getNome();?></dd>
 

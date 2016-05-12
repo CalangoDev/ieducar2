@@ -37,9 +37,10 @@ class PredioTest extends EntityTestCase
      */
     public function testInputFilterValid($if)
     {
-        $this->assertEquals(5, $if->count());
+        $this->assertEquals(6, $if->count());
         $this->assertTrue($if->has('id'));
         $this->assertTrue($if->has('nome'));
+        $this->assertTrue($if->has('escola'));
         $this->assertTrue($if->has('descricao'));
         $this->assertTrue($if->has('endereco'));
         $this->assertTrue($if->has('ativo'));
@@ -111,10 +112,68 @@ class PredioTest extends EntityTestCase
 
     }
 
+    private function buildInstituicao()
+    {
+        $instituicao = new \Escola\Entity\Instituicao();
+        $instituicao->setNome('Prefeitura Municipal de Irecê');
+        $instituicao->setResponsavel('Secretaria de Educação');
+
+        return $instituicao;
+    }
+
+    private function buildRedeEnsino()
+    {
+        $rede = new \Escola\Entity\RedeEnsino();
+        $rede->setNome('Muincipal');
+        $instituicao = $this->buildInstituicao();
+        $rede->setInstituicao($instituicao);
+
+        return $rede;
+    }
+
+    private function buildLocalizacao()
+    {
+        $localizacao = new \Escola\Entity\Localizacao();
+        $localizacao->setNome('Urbana');
+
+        return $localizacao;
+    }
+
+    private function buildJuridica()
+    {
+        $juridica = new \Usuario\Entity\Juridica();
+        $juridica->setNome('Escola Modelo');
+        $juridica->setFantasia('Escola Modelo');
+        $juridica->setSituacao('A');
+
+        return $juridica;
+    }
+
+    private function buildEscola()
+    {
+        $escola = new Escola();
+        $escola->setAtivo(true);
+        $escola->setBloquearLancamento(false);
+        $escola->setCodigoInep('12345678');
+        $escola->setSigla('EM');
+        $juridica = $this->buildJuridica();
+        $escola->setJuridica($juridica);
+        $localizacao = $this->buildLocalizacao();
+        $escola->setLocalizacao($localizacao);
+        $rede = $this->buildRedeEnsino();
+        $escola->setRedeEnsino($rede);
+
+        return $escola;
+    }
+
     private function buildPredio()
     {
         $predio = new Predio();
         $predio->setNome('Predio Figueredo');
+        $escola = $this->buildEscola();
+        $this->em->persist($escola);
+        $this->em->flush();
+        $predio->setEscola($escola);
         $predio->setDescricao('Descrição do prédio');
         $predio->setEndereco('Rua XYZ');
         $predio->setAtivo(true);

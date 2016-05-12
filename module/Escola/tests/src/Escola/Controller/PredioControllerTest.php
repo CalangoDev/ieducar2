@@ -93,6 +93,10 @@ class PredioControllerTest extends \Core\Test\ControllerTestCase
         $this->assertEquals('nome', $nome->getName());
         $this->assertEquals('text', $nome->getAttribute('type'));
 
+        $escola = $form->get('escola');
+        $this->assertEquals('escola', $escola->getName());
+        $this->assertEquals('DoctrineModule\Form\Element\ObjectSelect', $escola->getAttribute('type'));
+
         $descricao = $form->get('descricao');
         $this->assertEquals('descricao', $descricao->getName());
         $this->assertEquals('textarea', $descricao->getAttribute('type'));
@@ -133,12 +137,14 @@ class PredioControllerTest extends \Core\Test\ControllerTestCase
         // testa os itens do formulario
         $id = $form->get('id');
         $nome = $form->get('nome');
+        $escola = $form->get('escola');
         $descricao = $form->get('descricao');
         $endereco = $form->get('endereco');
         $ativo = $form->get('ativo');
         $this->assertEquals('id', $id->getName());
         $this->assertEquals($entity->getId(), $id->getValue());
         $this->assertEquals($entity->getNome(), $nome->getValue());
+        $this->assertEquals($entity->getEscola()->getId(), $escola->getValue());
         $this->assertEquals($entity->getDescricao(), $descricao->getValue());
         $this->assertEquals($entity->getEndereco(), $endereco->getValue());
         $this->assertEquals($entity->isAtivo(), $ativo->getValue());
@@ -154,6 +160,10 @@ class PredioControllerTest extends \Core\Test\ControllerTestCase
         $this->routeMatch->setParam('action', 'save');
         $this->request->setMethod('post');
         $this->request->getPost()->set('id', '');
+        $escola = $this->buildEscola();
+        $this->em->persist($escola);
+        $this->em->flush();
+        $this->request->getPost()->set('escola', $escola->getId());
         $this->request->getPost()->set('nome', 'Nome');
         $this->request->getPost()->set('descricao', 'Descrição');
         $this->request->getPost()->set('endereco', 'Rua do Endereço');
@@ -184,6 +194,7 @@ class PredioControllerTest extends \Core\Test\ControllerTestCase
         $this->routeMatch->setParam('action', 'save');
         $this->request->setMethod('post');
         $this->request->getPost()->set('id', $entity->getId());
+        $this->request->getPost()->set('escola', $entity->getEscola()->getId());
         $this->request->getPost()->set('nome', 'Outro Nome');
         $this->request->getPost()->set('descricao', $entity->getDescricao());
         $this->request->getPost()->set('endereco', $entity->getEndereco());
@@ -213,6 +224,7 @@ class PredioControllerTest extends \Core\Test\ControllerTestCase
         $this->routeMatch->setParam('action', 'save');
         $this->request->setMethod('post');
         $this->request->getPost()->set('id', '');
+        $this->request->getPost()->set('escola', '');
         $this->request->getPost()->set('nome', '');
         $this->request->getPost()->set('descricao', '');
         $this->request->getPost()->set('endereco', '');
@@ -395,7 +407,59 @@ class PredioControllerTest extends \Core\Test\ControllerTestCase
         );
     }
 
+    private function buildInstituicao()
+    {
+        $instituicao = new \Escola\Entity\Instituicao();
+        $instituicao->setNome('Prefeitura Municipal de Irecê');
+        $instituicao->setResponsavel('Secretaria de Educação');
 
+        return $instituicao;
+    }
+
+    private function buildRedeEnsino()
+    {
+        $rede = new \Escola\Entity\RedeEnsino();
+        $rede->setNome('Muincipal');
+        $instituicao = $this->buildInstituicao();
+        $rede->setInstituicao($instituicao);
+
+        return $rede;
+    }
+
+    private function buildLocalizacao()
+    {
+        $localizacao = new \Escola\Entity\Localizacao();
+        $localizacao->setNome('Urbana');
+
+        return $localizacao;
+    }
+
+    private function buildJuridica()
+    {
+        $juridica = new \Usuario\Entity\Juridica();
+        $juridica->setNome('Escola Modelo');
+        $juridica->setFantasia('Escola Modelo');
+        $juridica->setSituacao('A');
+
+        return $juridica;
+    }
+
+    private function buildEscola()
+    {
+        $escola = new \Escola\Entity\Escola();
+        $escola->setAtivo(true);
+        $escola->setBloquearLancamento(false);
+        $escola->setCodigoInep('12345678');
+        $escola->setSigla('EM');
+        $juridica = $this->buildJuridica();
+        $escola->setJuridica($juridica);
+        $localizacao = $this->buildLocalizacao();
+        $escola->setLocalizacao($localizacao);
+        $rede = $this->buildRedeEnsino();
+        $escola->setRedeEnsino($rede);
+
+        return $escola;
+    }
 
     /**
      * @return Predio
@@ -404,6 +468,10 @@ class PredioControllerTest extends \Core\Test\ControllerTestCase
     {
         $predio = new Predio();
         $predio->setNome('Predio Figueredo');
+        $escola = $this->buildEscola();
+        $this->em->persist($escola);
+        $this->em->flush();
+        $predio->setEscola($escola);
         $predio->setDescricao('Descrição do prédio');
         $predio->setEndereco('Rua XYZ');
         $predio->setAtivo(true);

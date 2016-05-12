@@ -57,6 +57,13 @@ class Predio extends Entity
     protected $endereco;
 
     /**
+     * @var int $escola;
+     *
+     * @ORM\ManyToOne(targetEntity="Escola\Entity\Escola", cascade={"persist"})
+     */
+    protected $escola;
+
+    /**
      * @var bool $ativo
      *
      * @ORM\Column(type="boolean")
@@ -69,6 +76,16 @@ class Predio extends Entity
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getEscola()
+    {
+        return $this->escola;
+    }
+
+    public function setEscola(\Escola\Entity\Escola $escola)
+    {
+        $this->escola = $this->valid('escola', $escola);
     }
 
     public function getNome()
@@ -133,6 +150,11 @@ class Predio extends Entity
                 'filters' => array(
                     array('name' => 'Int')
                 )
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'escola',
+                'required' => true,
             )));
 
             $inputFilter->add($factory->createInput(array(

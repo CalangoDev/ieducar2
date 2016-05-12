@@ -115,8 +115,8 @@ class PredioController extends ActionController
     {
         $q = (string) $this->params()->fromPost('q');
         $query = $this->getEntityManager()->createQuery("
-          SELECT p FROM Escola\Entity\Predio p WHERE p.nome LIKE :query OR p.descricao LIKE :query OR 
-          p.endereco LIKE :query ");
+          SELECT p FROM Escola\Entity\Predio p JOIN p.escola e JOIN e.juridica ej WHERE p.nome LIKE :query 
+          OR p.descricao LIKE :query OR p.endereco LIKE :query OR ej.nome LIKE :query");
         $query->setParameter('query', "%".$q."%");
         $dados = $query->getResult();
 

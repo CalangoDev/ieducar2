@@ -39,6 +39,7 @@
                         <thead>
                         <tr>
                             <th width="5%">#</th>
+                            <th width="15%">ESCOLA</th>
                             <th>NOME</th>
                             <th>DESCRIÇÃO</th>
                             <th width="10%">ENDEREÇO</th>
@@ -56,6 +57,11 @@
                                     <td>
                                         <?php
                                         echo $data->getId();
+                                        ?>
+                                    </td>
+                                    <td>
+                                        <?php
+                                        echo $data->getEscola()->getJuridica()->getNome();
                                         ?>
                                     </td>
                                     <td>

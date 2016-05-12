@@ -29,6 +29,34 @@ class Predio extends Form
         ));
 
         $this->add(array(
+            'name' => 'escola',
+            'attributes' => array(
+                'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+                'class' => 'form-control chosen-select',
+                'stype' => 'height:100px',
+                'id' => 'escola'
+            ),
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'options' => array(
+                'label' => 'Escola:',
+                'empty_option' => 'Selecione',
+                'object_manager' => $objectManager,
+                'target_class' => 'Escola\Entity\Escola',
+                //'property' => 'sigla',
+//                'find_method' => array(
+//                    'name' => 'findBy',
+//                    'params' => array(
+//                        'criteria' => array(),
+//                        'orderBy' => array('sigla' => 'ASC')
+//                    )
+//                )
+                'label_generator' => function($targetEntity) {
+                    return $targetEntity->getJuridica()->getNome() . ' (' . $targetEntity->getSigla() . ')';
+                },
+            )
+        ));
+
+        $this->add(array(
             'name' => 'nome',
             'attributes' => array(
                 'type' => 'text',
