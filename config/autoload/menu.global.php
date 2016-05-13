@@ -185,7 +185,9 @@ return array(
                                     ),
                                     array(
                                         'label' => 'Função Cômodo',
-                                        'uri' => '#'
+                                        'route' => 'escola/default',
+                                        'controller' => 'comodofuncao',
+                                        'action' => 'index'
                                     )
                                 )
                             ),

@@ -62,7 +62,8 @@ return array(
             'Escola\Controller\ComponenteCurricularAnoEscolar' => 'Escola\Controller\ComponenteCurricularAnoEscolarController',
             'Escola\Controller\SequenciaSerie' => 'Escola\Controller\SequenciaSerieController',
             'Escola\Controller\Modulo' => 'Escola\Controller\ModuloController',
-            'Escola\Controller\Predio' => 'Escola\Controller\PredioController'
+            'Escola\Controller\Predio' => 'Escola\Controller\PredioController',
+            'Escola\Controller\ComodoFuncao' => 'Escola\Controller\ComodoFuncaoController',
         ),
     ),
     'view_manager' => array(
