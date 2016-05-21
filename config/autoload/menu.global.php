@@ -181,7 +181,9 @@ return array(
                                     ),
                                     array(
                                         'label' => 'Comodo Prédio',
-                                        'uri' => '#'
+                                        'route' => 'escola/default',
+                                        'controller' => 'comodopredio',
+                                        'action' => 'index'
                                     ),
                                     array(
                                         'label' => 'Função Cômodo',

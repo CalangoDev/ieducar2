@@ -1,0 +1,25 @@
+<div class="row">
+    <dl class="dl-horizontal">
+
+        <dt>Prédio:</dt>
+        <dd><?php echo $data->getPredio()->getNome();?></dd>
+
+        <dt>Cômodo Função:</dt>
+        <dd><?php echo $data->getComodoFuncao()->getNome();?></dd>
+
+        <dt>Nome:</dt>
+        <dd><?php echo $data->getNome();?></dd>
+
+        <dt>Área:</dt>
+        <dd><?php echo $data->getArea();?></dd>
+
+        <?php
+        if ($data->getDescricao()):
+            ?>
+            <dt>Descrição:</dt>
+            <dd><?php echo $data->getDescricao();?></dd>
+            <?php
+        endif;
+        ?>
+    </dl>
+</div>
