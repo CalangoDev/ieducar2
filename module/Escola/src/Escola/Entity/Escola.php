@@ -115,12 +115,20 @@ class Escola extends Entity
 
 
     /**
+     * @var Entity $anosLetivos
+     * @ORM\OneToMany(targetEntity="Escola\Entity\AnoLetivo", mappedBy="escola", cascade={"all"}, orphanRemoval=true, fetch="LAZY")
+     */
+    protected $anosLetivos;
+
+
+    /**
      * default constructor, initializes collections
      */
     public function __construct()
     {
         $this->cursos = new ArrayCollection();
         $this->telefones = new ArrayCollection();
+        $this->anosLetivos = new ArrayCollection();
     }
 
     /**
@@ -248,6 +256,37 @@ class Escola extends Entity
     }
 
     /**
+     * @return Entity
+     */
+    public function getAnosLetivos()
+    {
+        return $this->anosLetivos;
+    }
+
+    /**
+     * @param Collection $anosLetivos
+     */
+    public function addAnosLetivos(Collection $anosLetivos)
+    {
+        foreach ($anosLetivos as $anoLetivo){
+            if ($anoLetivo->getAno() != ""){
+                $anoLetivo->setEscola($this);
+                $this->anosLetivos->add($anoLetivo);
+            }
+        }
+    }
+
+    public function removeAnosLetivos(Collection $anosLetivos)
+    {
+        foreach ($anosLetivos as $anosLetivo){
+            if ($anosLetivo->getAno() != ""){
+                $anosLetivo->setEscola(null);
+                $this->anosLetivos->removeElement($anosLetivo);
+            }
+        }
+    }
+
+    /**
      * @var Zend\InputFilter\InputFilter $inputFilter
      */
     protected $inputFilter;
@@ -348,6 +387,11 @@ class Escola extends Entity
 
             $inputFilter->add($factory->createInput(array(
                 'name' => 'telefones',
+                'required' => false
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'anosLetivos',
                 'required' => false
             )));
 

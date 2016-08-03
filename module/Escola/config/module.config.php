@@ -65,6 +65,7 @@ return array(
             'Escola\Controller\Predio' => 'Escola\Controller\PredioController',
             'Escola\Controller\ComodoFuncao' => 'Escola\Controller\ComodoFuncaoController',
             'Escola\Controller\ComodoPredio' => 'Escola\Controller\ComodoPredioController',
+            'Escola\Controller\AnoLetivo' => 'Escola\Controller\AnoLetivoController',
         ),
     ),
     'view_manager' => array(

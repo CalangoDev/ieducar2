@@ -42,7 +42,8 @@ class Module
                 'tipoPresenca' => 'Escola\View\Helper\TipoPresenca',
                 'tipoBase' => 'Escola\View\Helper\TipoBase',
                 'concluinte' => 'Escola\View\Helper\Concluinte',
-                'booleanHelper' => 'Escola\View\Helper\BooleanHelper'
+                'booleanHelper' => 'Escola\View\Helper\BooleanHelper',
+                'tipoBoletim' => 'Escola\View\Helper\TipoBoletim'
             ),
         );
     }

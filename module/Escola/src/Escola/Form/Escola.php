@@ -83,7 +83,7 @@ class Escola extends Form
             'attributes' => array(
                 'type' => 'DoctrineModule\Form\Element\ObjectSelect',
                 'class' => 'form-control chosen-select',
-                'stype' => 'height:100px',
+                'style' => 'height:100px',
                 'id' => 'localizacao'
             ),
             'type' => 'DoctrineModule\Form\Element\ObjectSelect',

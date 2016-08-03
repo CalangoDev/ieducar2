@@ -1,0 +1,164 @@
+<?php
+$this->inlineScript()->appendFile('/js/anoletivo.js');
+?>
+<div class="container">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="/">Ínicio</a></li>
+            <li><a href="/escola/ano-letivo">Cadastro de Ano Letivo</a></li>
+            <li class="active">Salvar</li>
+        </ol>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1><i class="icon icon-calendar"></i> Cadastro <small>de ano letivo</small></h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <b>Salvar</b>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <?php
+                            $this->form->prepare();
+                            echo $this->form()->openTag($form);
+                            $id = $this->form->get('id');
+                            $ano = $this->form->get('ano');
+                            $escola = $this->form->get('escola');
+                            $anoLetivoModulos = $this->form->get('anoLetivoModulos');
+                            echo $this->formInput($id);
+                            echo $this->formInput($escola);
+                            ?>
+                            <br>
+
+                            <div class="form-group required">
+                                <label for="ano">
+                                    <?php
+                                    echo $ano->getOption('label');
+                                    ?>
+                                </label>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <?php
+                                        echo $this->formSelect($ano);
+                                        ?>
+                                        <span class="help-block">
+                                                <?php
+                                                echo $this->formElementErrors($ano);
+                                                ?>
+                                            </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-11">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                Módulos
+                                            </h4>
+                                        </div>
+                                        <div class="panel-body">
+
+                                            <?php
+                                            //echo $this->formCollection($anoLetivoModulos);
+                                            $estilos = array('bg-default', 'bg-warning');
+                                            $this->cycle()->assign($estilos);
+                                            foreach ($anoLetivoModulos as $anoLetivoModulo):
+                                                echo $this->formInput($anoLetivoModulo->get('id'));
+                                                echo $this->formInput($anoLetivoModulo->get('anoLetivo'));
+                                                ?>
+                                                <div class="row <?php echo $this->cycle()->next();?> anoLetivoModulos">
+                                                    <div class="form-group">
+                                                        <div class="col-md-1">
+                                                            <label
+                                                                for="<?php
+                                                                echo $anoLetivoModulo->get('modulo')->getOption('label');
+                                                                ?>"><?php
+                                                                echo $anoLetivoModulo->get('modulo')->getOption('label'); ?>
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <?php echo $this->formSelect($anoLetivoModulo->get('modulo'));?>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <label
+                                                                for="<?php
+                                                                echo $anoLetivoModulo->get('dataInicio')->getOption('label');
+                                                                ?>"><?php
+                                                                echo $anoLetivoModulo->get('dataInicio')->getOption('label'); ?>
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <?php echo $this->formInput($anoLetivoModulo->get('dataInicio'));?>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <label for="<?php
+                                                            echo $anoLetivoModulo->get('dataFim')->getOption('label'); ?>"><?php
+                                                                echo $anoLetivoModulo->get('dataFim')->getOption('label'); ?></label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <?php echo $this->formInput($anoLetivoModulo->get('dataFim'));?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <?php
+                                            endforeach;
+                                            ?>
+
+                                        </div>
+                                        <div class="panel-footer">
+                                            <button type="button" class="btn btn-info btn-inserir-modulo">
+                                                <i class="icon icon-plus"></i> Inserir novo módulo
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <?php
+                                        $enviar = $this->form->get('submit');
+                                        echo $this->formElement($enviar);
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <?php
+                            echo $this->form()->closeTag();
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php
+echo $this->headScript()->prependFile($this->basePath()
+    . '/componentes/jquery.masked-input/jquery.maskedinput.min.js');
+?>
+<script type="text/javascript">
+    $(".dataInicio").mask("99-99-9999");
+    $(".dataFim").mask("99-99-9999");
+</script>
