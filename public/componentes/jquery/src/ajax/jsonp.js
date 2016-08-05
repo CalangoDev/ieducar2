@@ -1,75 +1,86 @@
+define( [
+	"../core",
+	"./var/nonce",
+	"./var/rquery",
+	"../ajax"
+], function( jQuery, nonce, rquery ) {
+
 var oldCallbacks = [],
-	rquestion = /\?/,
-	rjsonp = /(=)\?(?=&|$)|\?\?/,
-	nonce = jQuery.now();
+	rjsonp = /(=)\?(?=&|$)|\?\?/;
 
 // Default jsonp settings
-jQuery.ajaxSetup({
+jQuery.ajaxSetup( {
 	jsonp: "callback",
 	jsonpCallback: function() {
 		var callback = oldCallbacks.pop() || ( jQuery.expando + "_" + ( nonce++ ) );
 		this[ callback ] = true;
 		return callback;
 	}
-});
+} );
 
 // Detect, normalize options and install callbacks for jsonp requests
 jQuery.ajaxPrefilter( "json jsonp", function( s, originalSettings, jqXHR ) {
 
 	var callbackName, overwritten, responseContainer,
-		data = s.data,
-		url = s.url,
-		hasCallback = s.jsonp !== false,
-		replaceInUrl = hasCallback && rjsonp.test( url ),
-		replaceInData = hasCallback && !replaceInUrl && typeof data === "string" &&
-			!( s.contentType || "" ).indexOf("application/x-www-form-urlencoded") &&
-			rjsonp.test( data );
+		jsonProp = s.jsonp !== false && ( rjsonp.test( s.url ) ?
+			"url" :
+			typeof s.data === "string" &&
+				( s.contentType || "" )
+					.indexOf( "application/x-www-form-urlencoded" ) === 0 &&
+				rjsonp.test( s.data ) && "data"
+		);
 
 	// Handle iff the expected data type is "jsonp" or we have a parameter to set
-	if ( s.dataTypes[ 0 ] === "jsonp" || replaceInUrl || replaceInData ) {
+	if ( jsonProp || s.dataTypes[ 0 ] === "jsonp" ) {
 
 		// Get callback name, remembering preexisting value associated with it
 		callbackName = s.jsonpCallback = jQuery.isFunction( s.jsonpCallback ) ?
 			s.jsonpCallback() :
 			s.jsonpCallback;
-		overwritten = window[ callbackName ];
 
 		// Insert callback into url or form data
-		if ( replaceInUrl ) {
-			s.url = url.replace( rjsonp, "$1" + callbackName );
-		} else if ( replaceInData ) {
-			s.data = data.replace( rjsonp, "$1" + callbackName );
-		} else if ( hasCallback ) {
-			s.url += ( rquestion.test( url ) ? "&" : "?" ) + s.jsonp + "=" + callbackName;
+		if ( jsonProp ) {
+			s[ jsonProp ] = s[ jsonProp ].replace( rjsonp, "$1" + callbackName );
+		} else if ( s.jsonp !== false ) {
+			s.url += ( rquery.test( s.url ) ? "&" : "?" ) + s.jsonp + "=" + callbackName;
 		}
 
 		// Use data converter to retrieve json after script execution
-		s.converters["script json"] = function() {
+		s.converters[ "script json" ] = function() {
 			if ( !responseContainer ) {
 				jQuery.error( callbackName + " was not called" );
 			}
 			return responseContainer[ 0 ];
 		};
 
-		// force json dataType
+		// Force json dataType
 		s.dataTypes[ 0 ] = "json";
 
 		// Install callback
+		overwritten = window[ callbackName ];
 		window[ callbackName ] = function() {
 			responseContainer = arguments;
 		};
 
 		// Clean-up function (fires after converters)
-		jqXHR.always(function() {
-			// Restore preexisting value
-			window[ callbackName ] = overwritten;
+		jqXHR.always( function() {
+
+			// If previous value didn't exist - remove it
+			if ( overwritten === undefined ) {
+				jQuery( window ).removeProp( callbackName );
+
+			// Otherwise restore preexisting value
+			} else {
+				window[ callbackName ] = overwritten;
+			}
 
 			// Save back as free
 			if ( s[ callbackName ] ) {
-				// make sure that re-using the options doesn't screw things around
+
+				// Make sure that re-using the options doesn't screw things around
 				s.jsonpCallback = originalSettings.jsonpCallback;
 
-				// save the callback name for future use
+				// Save the callback name for future use
 				oldCallbacks.push( callbackName );
 			}
 
@@ -79,9 +90,11 @@ jQuery.ajaxPrefilter( "json jsonp", function( s, originalSettings, jqXHR ) {
 			}
 
 			responseContainer = overwritten = undefined;
-		});
+		} );
 
 		// Delegate to script
 		return "script";
 	}
-});
+} );
+
+} );

@@ -1,63 +1,32 @@
-// Limit scope pollution from any deprecated API
-(function() {
+define( [
+	"./core"
+], function( jQuery ) {
 
-var matched, browser;
+jQuery.fn.extend( {
 
-// Use of jQuery.browser is frowned upon.
-// More details: http://api.jquery.com/jQuery.browser
-// jQuery.uaMatch maintained for back-compat
-jQuery.uaMatch = function( ua ) {
-	ua = ua.toLowerCase();
+	bind: function( types, data, fn ) {
+		return this.on( types, null, data, fn );
+	},
+	unbind: function( types, fn ) {
+		return this.off( types, null, fn );
+	},
 
-	var match = /(chrome)[ \/]([\w.]+)/.exec( ua ) ||
-		/(webkit)[ \/]([\w.]+)/.exec( ua ) ||
-		/(opera)(?:.*version|)[ \/]([\w.]+)/.exec( ua ) ||
-		/(msie) ([\w.]+)/.exec( ua ) ||
-		ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec( ua ) ||
-		[];
+	delegate: function( selector, types, data, fn ) {
+		return this.on( types, selector, data, fn );
+	},
+	undelegate: function( selector, types, fn ) {
 
-	return {
-		browser: match[ 1 ] || "",
-		version: match[ 2 ] || "0"
-	};
-};
-
-matched = jQuery.uaMatch( navigator.userAgent );
-browser = {};
-
-if ( matched.browser ) {
-	browser[ matched.browser ] = true;
-	browser.version = matched.version;
-}
-
-// Chrome is Webkit, but Webkit is also Safari.
-if ( browser.chrome ) {
-	browser.webkit = true;
-} else if ( browser.webkit ) {
-	browser.safari = true;
-}
-
-jQuery.browser = browser;
-
-jQuery.sub = function() {
-	function jQuerySub( selector, context ) {
-		return new jQuerySub.fn.init( selector, context );
+		// ( namespace ) or ( selector, types [, fn] )
+		return arguments.length === 1 ?
+			this.off( selector, "**" ) :
+			this.off( types, selector || "**", fn );
+	},
+	size: function() {
+		return this.length;
 	}
-	jQuery.extend( true, jQuerySub, this );
-	jQuerySub.superclass = this;
-	jQuerySub.fn = jQuerySub.prototype = this();
-	jQuerySub.fn.constructor = jQuerySub;
-	jQuerySub.sub = this.sub;
-	jQuerySub.fn.init = function init( selector, context ) {
-		if ( context && context instanceof jQuery && !(context instanceof jQuerySub) ) {
-			context = jQuerySub( context );
-		}
+} );
 
-		return jQuery.fn.init.call( this, selector, context, rootjQuerySub );
-	};
-	jQuerySub.fn.init.prototype = jQuerySub.fn;
-	var rootjQuerySub = jQuerySub(document);
-	return jQuerySub;
-};
+jQuery.fn.andSelf = jQuery.fn.addBack;
 
-})();
+} );
+

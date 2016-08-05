@@ -1,2 +1,2 @@
-
-})( window );
+return jQuery;
+}));

@@ -1,5 +1,8 @@
 <?php
-$this->inlineScript()->appendFile('/js/anoletivo.js');
+$this->inlineScript()->appendFile('/js/anoletivo.js')
+                     ->appendFile('/componentes/moment/min/moment.min.js')
+                     ->appendFile('/componentes/moment/locale/pt-br.js')
+                     ->appendFile('/componentes/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js');
 ?>
 <div class="container">
     <div class="row">
@@ -81,7 +84,7 @@ $this->inlineScript()->appendFile('/js/anoletivo.js');
                                             $this->cycle()->assign($estilos);
                                             foreach ($anoLetivoModulos as $anoLetivoModulo):
                                                 echo $this->formInput($anoLetivoModulo->get('id'));
-                                                echo $this->formInput($anoLetivoModulo->get('anoLetivo'));
+                                                //echo $this->formInput($anoLetivoModulo->get('anoLetivo'));
                                                 ?>
                                                 <div class="row <?php echo $this->cycle()->next();?> anoLetivoModulos">
                                                     <div class="form-group">
@@ -105,7 +108,12 @@ $this->inlineScript()->appendFile('/js/anoletivo.js');
                                                             </label>
                                                         </div>
                                                         <div class="col-md-2">
-                                                            <?php echo $this->formInput($anoLetivoModulo->get('dataInicio'));?>
+                                                            <div class="input-group date">
+                                                                <?php echo $this->formInput($anoLetivoModulo->get('dataInicio'));?>
+                                                                <span class="input-group-addon">
+                                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                                </span>
+                                                            </div>
                                                         </div>
                                                         <div class="col-md-1">
                                                             <label for="<?php
@@ -113,7 +121,11 @@ $this->inlineScript()->appendFile('/js/anoletivo.js');
                                                                 echo $anoLetivoModulo->get('dataFim')->getOption('label'); ?></label>
                                                         </div>
                                                         <div class="col-md-2">
-                                                            <?php echo $this->formInput($anoLetivoModulo->get('dataFim'));?>
+                                                            <div class="input-group date">
+                                                                <?php echo $this->formInput($anoLetivoModulo->get('dataFim'));?>
+                                                                <span class="input-group-addon"><span
+                                                                        class="glyphicon glyphicon-calendar"></span></span>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -154,11 +166,15 @@ $this->inlineScript()->appendFile('/js/anoletivo.js');
         </div>
     </div>
 </div>
-<?php
-echo $this->headScript()->prependFile($this->basePath()
-    . '/componentes/jquery.masked-input/jquery.maskedinput.min.js');
-?>
+
+<?php echo $this->headLink()->prependStylesheet($this->basePath()
+    . "/componentes/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css") ?>
+
 <script type="text/javascript">
-    $(".dataInicio").mask("99-99-9999");
-    $(".dataFim").mask("99-99-9999");
+    $(function () {
+        $('.dataInicio, .dataFim').datetimepicker({
+            locale: 'pt-br',
+            format: 'DD-MM-YYYY'
+        });
+    })
 </script>

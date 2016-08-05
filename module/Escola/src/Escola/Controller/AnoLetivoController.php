@@ -49,25 +49,60 @@ class AnoLetivoController extends ActionController
      */
     private function getAnos($escola){
 
-        $anos = array(
-            date('Y') => date('Y'),
-            date('Y', strtotime('+1 year')) => date('Y', strtotime('+1 year')),
-            date('Y', strtotime('+2 year')) => date('Y', strtotime('+2 year')),
-            date('Y', strtotime('+3 year')) => date('Y', strtotime('+3 year')),
-            date('Y', strtotime('+4 year')) => date('Y', strtotime('+4 year')),
-        );
+        $quantidadeMinimaAnos = 5;
+
+        // objetivo sempre 5 anos a partir do ano atual, tirando os anos que ja existem no banco de dados
+
+        $anos = array();
 
         $escola = $this->getEntityManager()->find('Escola\Entity\Escola', $escola);
-        foreach ($escola->getAnosLetivos() as $ano){
-            unset($anos[$ano->getAno()]);
+
+        if ($escola->getAnosLetivos()->count() > 0){
+
+            // ja existe anos inseridos, esses anos inseridos nao podem fazer parte dos 5 proximos exibidos
+
+            for ($i = 0; $i < $quantidadeMinimaAnos; $i++){
+
+                $ano = date("Y", strtotime("+" . $i . " year"));
+
+                $checkAno = false;
+
+                foreach ($escola->getAnosLetivos() as $a){
+
+                    if ($a->getAno() == $ano){
+                        $checkAno = true;
+                        break;
+                    }
+                }
+
+                if ($checkAno){
+                    $quantidadeMinimaAnos++;
+                    $ano = null;
+                }
+
+                $anos += array(
+                    $ano => $ano
+                );
+            }
+
+            return $anos;
         }
 
+        for ($i = 0; $i < $quantidadeMinimaAnos; $i++){
+            $anos += array(
+                date('Y', strtotime('+' . $i . ' year')) => date('Y', strtotime('+' . $i . ' year'))
+            );
+        }
 
         return $anos;
     }
 
     public function saveAction()
     {
+        /*
+         * TODO fazendo os tratamentos ainda de validacao e inserção de dados, depois ajustar os testes unitarios
+         *
+         */
         $escola = (int) $this->params()->fromRoute('escola', 0);
         if ($escola == 0)
             throw new \Exception("Código da Escola Obrigatório");
@@ -82,6 +117,8 @@ class AnoLetivoController extends ActionController
 
         if ($id > 0){
             $entity = $this->getEntityManager()->find('Escola\Entity\AnoLetivo', $id);
+
+            // modificar as datas inicio e fim para poder ser exibidos com qualidade no formulario
             $form->get('submit')->setAttribute('value', 'Atualizar');
         }
 
@@ -90,34 +127,40 @@ class AnoLetivoController extends ActionController
 
         if ($request->isPost()){
 
-            //$date = new \DateTime($this->params()->fromPost('dataNasc'), new \DateTimeZone('America/Sao_Paulo'));
-            //$entity->setDataNasc($date->format('Y-m-d'));
-            //$request->getPost()->set('dataNasc', $fisica->getDataNasc());
 
             $form->setInputFilter($entity->getInputFilter());
             $form->setData($request->getPost());
-            //var_dump($request->getPost());
-            if ($form->isValid()){
-                /**
-                 * persistindo os dados
-                 */
-                $id = (int) $this->params()->fromPost('id', 0);
-                if ($id == 0){
-                    $this->getEntityManager()->persist($entity);
-                    $this->flashMessenger()->addMessage(array('success' => 'Ano Letivo Salvo!'));
-                } else {
-                    $this->flashMessenger()->addMessage(array('success' => 'Ano Letivo Alterado!'));
+
+
+            try {
+                if ($form->isValid()){
+                    /**
+                     * persistindo os dados
+                     */
+                    $id = (int) $this->params()->fromPost('id', 0);
+                    $msg = 'Ano Letivo Alterado!';
+
+                    if ($id == 0){
+
+                        $this->getEntityManager()->persist($entity);
+                        $msg = 'Ano Letivo Salvo!';
+
+                    }
+
+                    $this->flashMessenger()->addMessage(array('success' => $msg));
+                    $this->getEntityManager()->flush();
+
+
+
+                    /**
+                     * Redirecionando
+                     */
+                    return $this->redirect()->toUrl('/escola/escola');
                 }
-
-                $this->getEntityManager()->flush();
-
-                /**
-                 * Redirecionando
-                 */
-                return $this->redirect()->toUrl('/escola/ano-letivo');
-            } else {
-                //var_dump($form->getInputFilter());
+            } catch (\Exception $e){
+                $this->flashMessenger()->addMessage(array('error' => '<i class="glyphicon glyphicon-alert"></i> ' . $e->getMessage()));
             }
+
         }
 
         return new ViewModel(array(

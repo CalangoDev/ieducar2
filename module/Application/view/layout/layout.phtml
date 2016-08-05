@@ -16,15 +16,15 @@
                             . '/componentes/jquery-ui-1.10.4.custom/css/cupertino/jquery-ui-1.10.4.custom.min.css')
                         ->prependStylesheet($this->basePath() . '/css/style.css')
                         ->prependStylesheet($this->basePath() . '/css/font-awesome.min.css')
-                        ->prependStylesheet($this->basePath() . '/css/bootstrap-theme.min.css')
-                        ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css') ?>
+                        ->prependStylesheet($this->basePath() . '/componentes/bootstrap/dist/css/bootstrap-theme.min.css')
+                        ->prependStylesheet($this->basePath() . '/componentes/bootstrap/dist/css/bootstrap.min.css') ?>
 
         <!-- Scripts -->
         <?php echo $this->headScript()
             ->prependFile($this->basePath() . '/componentes/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js')
             ->prependFile($this->basePath() . '/js/modernizr.custom.js')
-            ->prependFile($this->basePath() . '/js/bootstrap.min.js')
-            ->prependFile($this->basePath() . '/js/jquery.min.js')
+            ->prependFile($this->basePath() . '/componentes/bootstrap/dist/js/bootstrap.min.js')
+            ->prependFile($this->basePath() . '/componentes/jquery/dist/jquery.min.js')
             ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
             ->prependFile($this->basePath() . '/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
         ; ?>        
@@ -67,7 +67,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="<?php echo $this->url('home') ?>"><img src="<?php echo $this->basePath('img/ieducar-logo.png') ?>" alt="i-Educar 2.0"/>&nbsp;<?php echo $this->translate('i-Educar') ?></a>
+                    <a class="navbar-brand" href="<?php echo $this->url('home') ?>"><img src="<?php echo $this->basePath('img/ieducar-logo-new.png') ?>" alt="i-Educar 2.0"/>&nbsp;</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <!-- inicio navbar menu -->

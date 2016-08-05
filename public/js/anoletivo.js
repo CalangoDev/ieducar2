@@ -3,13 +3,56 @@
  */
 $(document).ready(function (){
 
-    $('.btn-inserir-modulo').click(function () {
-        add_modulo();
+
+    function validaDatas(dataFim, dataInicio){
+
+        var dataInicio = new Date(dataInicio.split('-')[2], dataInicio.split('-')[1], dataInicio.split('-')[0]);
+        var dataFim = new Date(dataFim.split('-')[2], dataFim.split('-')[1], dataFim.split('-')[0]);
+
+        if (dataInicio > dataFim){
+            return false;
+        }
+
+        return true;
+    }
+
+    /*
+
+     <div class="form-group has-error">
+     <label class="control-label" for="inputError1">Input with error</label>
+     <input type="text" class="form-control" id="inputError1">
+     </div>
+
+     */
+
+    $('.dataFim').on('focusout', function () {
+        var dataFim = $(this).val();
+        var dataInicio = $(this).parent().parent().prev().prev().find('.dataInicio').val();
+        if (!validaDatas(dataFim, dataInicio)){
+            alert('Atenção! Data Fim não pode ser menor que a Data Inicial');
+            // mostrar na tela que tem um erro no input
+            $(this).parent().addClass('has-error');
+        } else {
+            $(this).parent().removeClass('has-error');
+        }
+    });
+
+    $('.dataInicio').on('focusout', function () {
+        // verificar se tem dataFIm já preenchido se tiver chama a funcao validaDatas
+        var dataInicio = $(this).val();
+        var dataFim = $(this).parent().parent().next().next().find('.dataFim').val();
+        if (dataFim != '')
+            if (!validaDatas(dataFim, dataInicio)){
+                alert('Atenção! Data Fim não pode ser menor que a Data Inicial');
+                $(this).parent().addClass('has-error');
+            } else {
+                $(this).parent().removeClass('has-error');
+            }
     });
 
     function add_modulo(){
 
-        var qtdAnosLetivosModulos = $('.anoLetivoModulos').length;
+        var qtdAnosLetivosModulos = $(".anoLetivoModulos").length;
         var options_qtd = $(".modulo > option").clone().length;
 
         var original = $('select.modulo:eq(0)');
@@ -20,15 +63,15 @@ $(document).ready(function (){
 
         if (qtdAnosLetivosModulos < quantidade_options){
 
-            var estilo = 'bg-warning';
+            var estilo = "bg-warning";
             if ((qtdAnosLetivosModulos %2 ) == 0)
-                estilo = 'bg-default';
+                estilo = "bg-default";
 
             var template;
-            var inputId = $('<input type="hidden" name="anoLetivoModulos[' + qtdAnosLetivosModulos + '][id]" value>');
-            var inputAnoLetivo = $('<input type="hidden" name="anoLetivoModulos[' + qtdAnosLetivosModulos + '][anoLetivo]" value>');
-            var div_estilo = $('<div class="row ' + estilo + ' anoLetivoModulos">');
-            var div_form_group = $('<div class="form-group">');
+            var inputId = $("<input type='hidden' name='anoLetivoModulos[" + qtdAnosLetivosModulos + "][id]' value>");
+            var inputAnoLetivo = $("<input type='hidden' name='anoLetivoModulos[" + qtdAnosLetivosModulos + "][anoLetivo]' value>");
+            var div_estilo = $("<div class='row " + estilo + " anoLetivoModulos'>");
+            var div_form_group = $("<div class='form-group'>");
             var select_modulos = $('<select name="anoLetivoModulos[' + qtdAnosLetivosModulos + '][modulo]" ' +
                 'class="form-control">');
             var data_inicio = $('<input type="text" name="anoLetivoModulos[' + qtdAnosLetivosModulos + '][dataInicio]" ' +
@@ -66,13 +109,23 @@ $(document).ready(function (){
                         $('<label>').append('Data Início:')
                     ),
                     $('<div class="col-md-2">').append(
-                        data_inicio
+                        $("<div class='input-group date'>").append(
+                            data_inicio,
+                            $("<span class='input-group-addon'>").append(
+                                $("<span class='glyphicon glyphicon-calendar'>")
+                            )
+                        )
                     ),
                     $('<div class="col-md-1">').append(
                         $('<label>').append('Data Fim:')
                     ),
                     $('<div class="col-md-2">').append(
-                        data_fim
+                        $("<div class='input-group date'>").append(
+                            data_fim,
+                            $("<span class='input-group-addon'>").append(
+                                $("<span class='glyphicon glyphicon-calendar'>")
+                            )
+                        )
                     )
                 )
             );
@@ -80,12 +133,38 @@ $(document).ready(function (){
             $('.panel-body').append(template);
 
             try {
-                $(".dataInicio").mask("99-99-9999");
-                $(".dataFim").mask("99-99-9999");
+                $('.dataInicio, .dataFim').datetimepicker({
+                    locale: 'pt-br',
+                    format: 'DD-MM-YYYY'
+                });
             }
             catch(err) {
-                alert('Biblioteca Masked Input não carregada');
+                alert('Biblioteca DateTimePicker não carregada');
             }
+
+            $('.dataFim').on('focusout', function () {
+                var dataFim = $(this).val();
+                var dataInicio = $(this).parent().parent().prev().prev().find('.dataInicio').val();
+                if (!validaDatas(dataFim, dataInicio)){
+                    alert('Atenção! Data Fim não pode ser menor que a Data Inicial');
+                    // mostrar na tela que tem um erro no input
+                    $(this).parent().addClass('has-error');
+                } else {
+                    $(this).parent().removeClass('has-error');
+                }
+            });
+
+            $('.dataInicio').on('focusout', function () {
+                var dataInicio = $(this).val();
+                var dataFim = $(this).parent().parent().next().next().find('.dataFim').val();
+                if (dataFim != '')
+                    if (!validaDatas(dataFim, dataInicio)){
+                        alert('Atenção! Data Fim não pode ser menor que a Data Inicial');
+                        $(this).parent().addClass('has-error');
+                    } else {
+                        $(this).parent().removeClass('has-error');
+                    }
+            });
 
 
             var qtdAnosLetivosModulos = $('.anoLetivoModulos').length;
@@ -95,5 +174,9 @@ $(document).ready(function (){
 
         }
     }
+
+    $(".btn-inserir-modulo").click(function () {
+        add_modulo();
+    });
 
 });

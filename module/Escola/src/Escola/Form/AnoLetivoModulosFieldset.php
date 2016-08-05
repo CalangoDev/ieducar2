@@ -26,10 +26,10 @@ class AnoLetivoModulosFieldset extends Fieldset implements InputFilterProviderIn
             'name' => 'id'
         ));
 
-        $this->add(array(
-            'type' => 'hidden',
-            'name' => 'anoLetivo'
-        ));
+//        $this->add(array(
+//            'type' => 'hidden',
+//            'name' => 'anoLetivo'
+//        ));
 
         $this->add(array(
             'name' => 'modulo',
