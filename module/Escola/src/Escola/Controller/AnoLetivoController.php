@@ -127,7 +127,6 @@ class AnoLetivoController extends ActionController
 
         if ($request->isPost()){
 
-
             $form->setInputFilter($entity->getInputFilter());
             $form->setData($request->getPost());
 
@@ -156,9 +155,21 @@ class AnoLetivoController extends ActionController
                      * Redirecionando
                      */
                     return $this->redirect()->toUrl('/escola/escola');
+                } else {
+
+                    if (count($form->getInputFilter()->getMessages()) > 0){
+                        foreach ($form->getInputFilter()->getMessages() as $key => $value){
+                            if (is_array($value)){
+                                foreach ($value as $message){
+                                    $this->flashMessenger()->addMessage(array('error' => "<i class='glyphicon glyphicon-alert'></i> " . $message . "<br>"));
+                                }
+                            }
+                        }
+                    }
+
                 }
             } catch (\Exception $e){
-                $this->flashMessenger()->addMessage(array('error' => '<i class="glyphicon glyphicon-alert"></i> ' . $e->getMessage()));
+                $this->flashMessenger()->addMessage(array('error' => '<i class="glyphicon glyphicon-alert"></i> ' . $e->getMessage() . "<br>"));
             }
 
         }

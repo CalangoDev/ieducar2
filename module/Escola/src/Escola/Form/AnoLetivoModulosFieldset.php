@@ -88,7 +88,12 @@ class AnoLetivoModulosFieldset extends Fieldset implements InputFilterProviderIn
                 'required' => false
             ),
             'dataInicio' => array(
-                'required' => true
+                'required' => true,
+//                'validators' => array(
+//                    array(
+//                        'name' => 'Escola\Validator\AnoLetivoModulo'
+//                    )
+//                )
             ),
             'dataFim' => array(
                 'required' => true

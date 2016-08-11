@@ -100,5 +100,5 @@ return array(
         // 'data-fixture' => array(
         //     'location' => __DIR__ . '/../src/' . __NAMESPACE__ . '/Fixture',
         // ),
-    ),    
+    ),
 );

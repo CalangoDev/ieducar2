@@ -234,7 +234,18 @@ class AnoLetivo extends Entity
 
             $inputFilter->add($factory->createInput(array(
                 'name' => 'anoLetivoModulos',
-                'required' => true
+                'required' => true,
+                'validators' => array(
+                    array(
+                        //'name' => new \Escola\Validator\AnoLetivoModulo(),
+                        'name' => 'Escola\Validator\AnoLetivoModulo',
+//                        'options' => array(
+//                            'messages' => array(
+//                                //'dataInicioEmpty' => 'teste'
+//                            )
+//                        )
+                    ),
+                ),
             )));
 
             $this->inputFilter = $inputFilter;

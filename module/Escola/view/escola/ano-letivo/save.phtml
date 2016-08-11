@@ -84,6 +84,9 @@ $this->inlineScript()->appendFile('/js/anoletivo.js')
                                             $this->cycle()->assign($estilos);
                                             foreach ($anoLetivoModulos as $anoLetivoModulo):
                                                 echo $this->formInput($anoLetivoModulo->get('id'));
+                                                $modulo = $anoLetivoModulo->get('modulo');
+                                                $dataInicio = $anoLetivoModulo->get('dataInicio');
+                                                $dataFim = $anoLetivoModulo->get('dataFim');
                                                 //echo $this->formInput($anoLetivoModulo->get('anoLetivo'));
                                                 ?>
                                                 <div class="row <?php echo $this->cycle()->next();?> anoLetivoModulos">
@@ -114,6 +117,13 @@ $this->inlineScript()->appendFile('/js/anoletivo.js')
                                                                     <span class="glyphicon glyphicon-calendar"></span>
                                                                 </span>
                                                             </div>
+                                                            <span class="help-block">
+                                                                <?php
+                                                                //var_dump($dataInicio);
+                                                                echo $this->formElementErrors($dataInicio, array('class' => 'inline'));
+                                                                echo $this->formElementErrors($anoLetivoModulo->get('dataInicio'));
+                                                                ?>
+                                                            </span>
                                                         </div>
                                                         <div class="col-md-1">
                                                             <label for="<?php
@@ -126,8 +136,14 @@ $this->inlineScript()->appendFile('/js/anoletivo.js')
                                                                 <span class="input-group-addon"><span
                                                                         class="glyphicon glyphicon-calendar"></span></span>
                                                             </div>
+                                                            <span class="help-block">
+                                                                <?php
+                                                                echo $this->formElementErrors($anoLetivoModulo->get('dataFim'));
+                                                                ?>
+                                                            </span>
                                                         </div>
                                                     </div>
+
                                                 </div>
                                                 <?php
                                             endforeach;
