@@ -99,10 +99,6 @@ class AnoLetivoController extends ActionController
 
     public function saveAction()
     {
-        /*
-         * TODO fazendo os tratamentos ainda de validacao e inserção de dados, depois ajustar os testes unitarios
-         *
-         */
         $escola = (int) $this->params()->fromRoute('escola', 0);
         if ($escola == 0)
             throw new \Exception("Código da Escola Obrigatório");
@@ -111,14 +107,15 @@ class AnoLetivoController extends ActionController
         $request = $this->getRequest();
 
         $id = (int) $this->getEvent()->getRouteMatch()->getParam('id');
+        if ($id == ''){
+            $id = (int) $this->params()->fromPost('id', 0);
+        }
 
         $form = new AnoLetivoForm($this->getEntityManager(), $id, $this->getAnos($escola));
         $form->setAttribute('action', '/escola/ano-letivo/save/escola/' . $escola);
 
         if ($id > 0){
             $entity = $this->getEntityManager()->find('Escola\Entity\AnoLetivo', $id);
-
-            // modificar as datas inicio e fim para poder ser exibidos com qualidade no formulario
             $form->get('submit')->setAttribute('value', 'Atualizar');
         }
 
@@ -129,7 +126,6 @@ class AnoLetivoController extends ActionController
 
             $form->setInputFilter($entity->getInputFilter());
             $form->setData($request->getPost());
-
 
             try {
                 if ($form->isValid()){
@@ -169,6 +165,7 @@ class AnoLetivoController extends ActionController
 
                 }
             } catch (\Exception $e){
+
                 $this->flashMessenger()->addMessage(array('error' => '<i class="glyphicon glyphicon-alert"></i> ' . $e->getMessage() . "<br>"));
             }
 

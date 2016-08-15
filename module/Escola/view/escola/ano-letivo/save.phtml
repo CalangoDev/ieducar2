@@ -57,7 +57,11 @@ $this->inlineScript()->appendFile('/js/anoletivo.js')
                                 <div class="row">
                                     <div class="col-md-2">
                                         <?php
-                                        echo $this->formSelect($ano);
+                                        if ($id->getValue() > 0){
+                                            echo $this->formElement($ano);
+                                        } else {
+                                            echo $this->formSelect($ano);
+                                        }
                                         ?>
                                         <span class="help-block">
                                                 <?php

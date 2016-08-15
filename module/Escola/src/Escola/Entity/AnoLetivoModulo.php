@@ -92,6 +92,13 @@ class AnoLetivoModulo extends Entity
 
     public function getDataInicio()
     {
+        if (!empty($this->dataInicio)){
+
+            $dataInicio = $this->dataInicio->format('d-m-Y');
+            return $dataInicio;
+
+        }
+
         return $this->dataInicio;
     }
 
@@ -102,6 +109,11 @@ class AnoLetivoModulo extends Entity
 
     public function getDataFim()
     {
+        if (!empty($this->dataFim)){
+            $dataFim = $this->dataFim->format('d-m-Y');
+            return $dataFim;
+        }
+
         return $this->dataFim;
     }
 

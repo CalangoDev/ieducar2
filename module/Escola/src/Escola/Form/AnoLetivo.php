@@ -30,28 +30,43 @@ class AnoLetivo extends Form
         ));
 
         if ($id > 0 ){
-            var_dump($id);
+
+            $this->add(array(
+                'name' => 'ano',
+                'attributes' => array(
+                    'type' => 'text',
+                    'class' => 'form-control ano',
+                    'readonly' => 'readonly'
+                ),
+                'options' => array(
+                    'label' => 'Ano:',
+                )
+            ));
+
         } else {
-            $ano;
+
+            /**
+             * Select quando for um ano letivo novo, quando ja existir o ano letivo,
+             * aparecera um input com o ano escolhido porem o input estara desativado
+             */
+            $this->add(array(
+                'name' => 'ano',
+                'type' => 'Zend\Form\Element\Select',
+                'attributes' => array(
+                    'type' => 'Zend\Form\Element\Select',
+                    'class' => 'form-control ano'
+                ),
+                'options' => array(
+                    'empty_option' => 'Selecione',
+                    'label' => 'Ano:',
+                    'value_options' => $ano,
+                ),
+            ));
+
+
         }
 
-        /**
-         * Select quando for um ano letivo novo, quando ja existir o ano letivo,
-         * aparecera um input com o ano escolhido porem o input estara desativado
-         */
-        $this->add(array(
-            'name' => 'ano',
-            'type' => 'Zend\Form\Element\Select',
-            'attributes' => array(
-                'type' => 'Zend\Form\Element\Select',
-                'class' => 'form-control ano'
-            ),
-            'options' => array(
-                'empty_option' => 'Selecione',
-                'label' => 'Ano:',
-                'value_options' => $ano,
-            ),
-        ));
+
 
         $this->add(array(
             'name' => 'escola',
