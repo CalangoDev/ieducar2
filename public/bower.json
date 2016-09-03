@@ -1,0 +1,24 @@
+{
+  "name": "ieducar2",
+  "homepage": "https://githu.com/CalangoDev/ieducar2",
+  "authors": [
+    "Eduardo Junior <ej@calangodev.com.br>"
+  ],
+  "description": "sistema de gerenciamento de educacao",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "componentes/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.37",
+    "jquery": "^3.1.0"
+  },
+  "directory": "componentes/"
+}
