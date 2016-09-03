@@ -66,8 +66,14 @@ class AnoLetivoControllerTest extends \Core\Test\ControllerTestCase
      */
     public function testAnoLetivoSaveActionNewRequest()
     {
+
+        $escola = $this->buildEscola();
+        $this->em->persist($escola);
+        $this->em->flush();
+
         // dispara a acao
         $this->routeMatch->setParam('action', 'save');
+        $this->routeMatch->setParam('escola', $escola->getId());
         $result = $this->controller->dispatch(
             $this->request, $this->response
         );
@@ -108,11 +114,14 @@ class AnoLetivoControllerTest extends \Core\Test\ControllerTestCase
     public function testAnoLetivoSaveActionUpdateFormRequest()
     {
         $entity = $this->buildAnoLetivo();
+        $escola = $this->buildEscola();
+        $entity->setEscola($escola);
         $this->em->persist($entity);
         $this->em->flush();
         
         $this->routeMatch->setParam('action', 'save');
         $this->routeMatch->setParam('id', $entity->getId());
+        $this->routeMatch->setParam('escola', $entity->getEscola()->getId());
         $result = $this->controller->dispatch(
             $this->request, $this->response
         );
@@ -131,7 +140,7 @@ class AnoLetivoControllerTest extends \Core\Test\ControllerTestCase
         $this->assertEquals('id', $id->getName());
         $this->assertEquals($entity->getId(), $id->getValue());
         $this->assertEquals($entity->getAno(), $ano->getValue());
-        $this->assertEquals($entity->getEscola(), $escola->getValue());
+        $this->assertEquals($entity->getEscola()->getId(), $escola->getValue());
     }
 
     /**
@@ -141,12 +150,13 @@ class AnoLetivoControllerTest extends \Core\Test\ControllerTestCase
     public function testAnoLetivoSaveActionPostRequest()
     {
         // dispara a acao
-        $this->routeMatch->setParam('action', 'save');
-        $this->request->setMethod('post');
-        $this->request->getPost()->set('id', '');
         $escola = $this->buildEscola();
         $this->em->persist($escola);
         $this->em->flush();
+        $this->routeMatch->setParam('action', 'save');
+        $this->routeMatch->setParam('escola', $escola->getId());
+        $this->request->setMethod('post');
+        $this->request->getPost()->set('id', '');
         $this->request->getPost()->set('ano', 2017);
         $this->request->getPost()->set('escola', $escola->getId());
         $modulo = $this->buildModulo();
@@ -156,37 +166,38 @@ class AnoLetivoControllerTest extends \Core\Test\ControllerTestCase
             'dataFim' => '10/12/2016',
             'modulo' => $modulo->getId(),
         ));
-        $this->request->getPost()->set('anosLetivosModulos', $anosLetivosModulos);
+        $this->request->getPost()->set('anoLetivoModulos', $anosLetivosModulos);
         $result = $this->controller->dispatch(
             $this->request, $this->response
         );
+
 
         // verifica a resposta
         $response = $this->controller->getResponse();
         // a pagina redireciona, entao o status = 302
         $this->assertEquals(302, $response->getStatusCode());
         $headers = $response->getHeaders();
-        $this->assertEquals('Location: /escola/ano-letivo', $headers->get('Location'));
+        $this->assertEquals('Location: /escola/escola', $headers->get('Location'));
     }
 
     public function testAnoLetivoUpdateAction()
     {
+        $escola = $this->buildEscola();
         $entity = $this->buildAnoLetivo();
+        $entity->setEscola($escola);
         $this->em->persist($entity);
         $this->em->flush();
 
         // dispara a acao
         $this->routeMatch->setParam('action', 'save');
+        $this->routeMatch->setParam('escola', $entity->getEscola()->getId());
         $this->request->setMethod('post');
         $this->request->getPost()->set('id', $entity->getId());
-        $escola = $this->buildEscola();
         $juridica = $this->buildJuridica();
         $juridica->setNome('Novo Nome');
         $escola->setJuridica($juridica);
-        $this->em->persist($escola);
-        $this->em->flush();
-        $this->request->getPosT()->set('ano', 2018);
-        $this->request->getPost()->set('escola', $escola->getId());
+        $this->request->getPost()->set('ano', 2018);
+        $this->request->getPost()->set('escola', $entity->getEscola()->getId());
         $modulo = $this->buildModulo();
         $anosLetivosModulos = array(array(
             'id' => '',
@@ -194,7 +205,7 @@ class AnoLetivoControllerTest extends \Core\Test\ControllerTestCase
             'dataFim' => '10/12/2016',
             'modulo' => $modulo->getId(),
         ));
-        $this->request->getPost()->set('anosLetivosModulos', $anosLetivosModulos);
+        $this->request->getPost()->set('anoLetivoModulos', $anosLetivosModulos);
 
         $result = $this->controller->dispatch(
             $this->request, $this->response
@@ -205,7 +216,7 @@ class AnoLetivoControllerTest extends \Core\Test\ControllerTestCase
         // a pagina redireciona, entao o status = 302
         $this->assertEquals(302, $response->getStatusCode());
         $headers = $response->getHeaders();
-        $this->assertEquals('Location: /escola/ano-letivo', $headers->get('Location'));
+        $this->assertEquals('Location: /escola/escola', $headers->get('Location'));
 
         $savedEntity = $this->em->find(get_class($entity) ,$entity->getId());
         $this->assertEquals('Novo Nome', $savedEntity->getEscola()->getJuridica()->getNome());
@@ -218,13 +229,14 @@ class AnoLetivoControllerTest extends \Core\Test\ControllerTestCase
      */
     public function testAnoLetivoInvalidFormPostRequest()
     {
-        // dispara a acao
-        $this->routeMatch->setParam('action', 'save');
-        $this->request->setMethod('post');
-        $this->request->getPost()->set('id', '');
         $escola = $this->buildEscola();
         $this->em->persist($escola);
         $this->em->flush();
+        // dispara a acao
+        $this->routeMatch->setParam('action', 'save');
+        $this->routeMatch->setParam('escola', $escola->getId());
+        $this->request->setMethod('post');
+        $this->request->getPost()->set('id', '');
         $this->request->getPost()->set('ano', '');
         $this->request->getPost()->set('escola', $escola->getId());
         $modulo = $this->buildModulo();
@@ -234,7 +246,7 @@ class AnoLetivoControllerTest extends \Core\Test\ControllerTestCase
             'dataFim' => '10/12/2016',
             'modulo' => $modulo->getId(),
         ));
-        $this->request->getPost()->set('anosLetivosModulos', $anosLetivosModulos);
+        $this->request->getPost()->set('anoLetivoModulos', $anosLetivosModulos);
 
         $result = $this->controller->dispatch(
             $this->request, $this->response
@@ -325,7 +337,7 @@ class AnoLetivoControllerTest extends \Core\Test\ControllerTestCase
         // a pagina redireciona, entao o status = 302
         $this->assertEquals(302, $response->getStatusCode());
         $headers = $response->getHeaders();
-        $this->assertEquals('Location: /escola/ano-letivo', $headers->get('Location'));
+        $this->assertEquals('Location: /escola/escola', $headers->get('Location'));
     }
 
     /**

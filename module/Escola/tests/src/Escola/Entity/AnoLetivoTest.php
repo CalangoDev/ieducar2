@@ -42,7 +42,7 @@ class AnoLetivoTest extends EntityTestCase
         $this->assertTrue($if->has('ativo'));
         $this->assertTrue($if->has('turmasPorAno'));
         $this->assertTrue($if->has('escola'));
-        $this->assertTrue($if->has('anosLetivosModulos'));
+        $this->assertTrue($if->has('anoLetivoModulos'));
     }
 
     /**

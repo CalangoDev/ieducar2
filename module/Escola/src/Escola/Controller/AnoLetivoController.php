@@ -153,10 +153,13 @@ class AnoLetivoController extends ActionController
                     return $this->redirect()->toUrl('/escola/escola');
                 } else {
 
+
+
                     if (count($form->getInputFilter()->getMessages()) > 0){
                         foreach ($form->getInputFilter()->getMessages() as $key => $value){
                             if (is_array($value)){
                                 foreach ($value as $message){
+
                                     $this->flashMessenger()->addMessage(array('error' => "<i class='glyphicon glyphicon-alert'></i> " . $message . "<br>"));
                                 }
                             }
@@ -244,6 +247,65 @@ class AnoLetivoController extends ActionController
 
         $this->flashMessenger()->addMessage(array("success" => "Registro Removido com sucesso!"));
 
-        return $this->redirect()->toUrl('/escola/ano-letivo');
+        return $this->redirect()->toUrl('/escola/escola');
     }
+
+
+
+    public function andamentoAction()
+    {
+        $id = (int) $this->params()->fromRoute('id', 0);
+        if ($id == 0)
+            throw new \Exception("Código do Ano Letivo Obrigatório");
+
+        $entity = $this->getEntityManager()->find('Escola\Entity\AnoLetivo', $id);
+
+        $status = (string) $this->params()->fromRoute('status');
+
+        if ($status == 'iniciar'){
+            # iniciar ano letivo
+            if ($entity->getAndamento() != 0){
+                $this->flashMessenger()->addMessage(
+                    array("error" => "Não foi possível iniciar ano letivo, já existe ano em andamento!")
+                );
+                return $this->redirect()->toUrl('/escola/escola');
+            }
+
+            // @TODO Config global para verificar se ta ativado ou nao a rematricula automatica, se tiver executar as funcoes abaixo
+            $this->rematricularAlunosAprovados();
+            $this->rematricularAlunosReprovados();
+
+            // update entity
+            try {
+                $entity->setAndamento(1);
+                $this->getEntityManager()->flush();
+            } catch (\Exception $e){
+                throw new \Exception("Não foi possível inicializar o ano letivo");
+            }
+            $this->flashMessenger()->addMessage(array("success" => "Ano Letivo Inicializado com sucesso!"));
+
+
+
+        }
+
+        if ($status == 'finalizar'){
+            // finalizar ano letivo
+            // @todo verificar se nao existem matriculas abertas
+            // @todo só finaliza depois que as matriculas poderem ser feitas
+        }
+
+        return $this->redirect()->toUrl('/escola/escola');
+
+    }
+
+    private function rematricularAlunosAprovados()
+    {
+
+    }
+
+    private function rematricularAlunosReprovados()
+    {
+
+    }
+
 }

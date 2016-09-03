@@ -1,5 +1,7 @@
 # I-Educar v2.0
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e97d607b6422498083ba6e1c2ed079f3)](https://www.codacy.com/app/goldblade/ieducar2?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CalangoDev/ieducar2&amp;utm_campaign=Badge_Grade)
+
 ## Introdução  
   
 	I-Educar v2.0 é um sistema baseado na Versão 1.0 do IEducar, porem totalmente reprogramado em Zend Framework 2.0 com Doctrine 2.0  

@@ -40,8 +40,8 @@
                         <tr>
                             <th width="5%">#</th>
                             <th>NOME</th>
-                            <th width="15%">REDE DE ENSINO</th>
-                            <th width="15%">ANOS LETIVOS</th>
+<!--                            <th width="10%">REDE DE ENSINO</th>-->
+                            <th width="40%">ANOS LETIVOS</th>
                             <th width="30%">AÇÕES</th>
                         </tr>
                         </thead>
@@ -61,12 +61,77 @@
                                     <td>
                                         <?php
                                         echo $escola->getJuridica()->getNome();
+                                        ?> (<?php echo $escola->getRedeEnsino()->getNome();?>)
+                                    </td>
+<!--                                    <td>-->
+<!--                                        --><?php //echo $escola->getRedeEnsino()->getNome();?>
+<!--                                    </td>-->
+                                    <td>
+                                        <?php
+                                        if ($escola->getAnosLetivos()->count() > 0):
                                         ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $escola->getRedeEnsino()->getNome();?>
-                                    </td>
-                                    <td>
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ANO</th>
+                                                        <th>AÇÕES</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php
+                                                foreach ($escola->getAnosLetivos() as $anoLetivo):
+                                                ?>
+                                                    <tr>
+                                                        <td><?php echo $anoLetivo->getAno();?></td>
+                                                        <td>
+                                                            <?php if ($anoLetivo->getAndamento() == 2):
+                                                            ?>
+                                                                <i class="glyphicon glyphicon-ok"></i> <br>
+                                                                Ano Finalizado
+                                                                <?php
+                                                            else:
+                                                                //@TODO Arquivo que inicializa o ano letivo : educar_iniciar_ano_letivo.php
+                                                            ?>
+                                                                <a href="<?php echo $this->url('escola/default',
+                                                                    array(
+                                                                        'controller' => 'anoLetivo',
+                                                                        'action' => 'andamento'
+                                                                    ), true);?>/id/<?php echo $anoLetivo->getId();?>/status/iniciar"
+                                                                   class="btn btn-success btn-sm"
+                                                                <?php if ($anoLetivo->getAndamento() == 1):?>disabled="disabled"
+                                                                <?php endif ?>>
+                                                                    <i class="glyphicon glyphicon-play"></i>
+                                                                     INICIAR
+                                                                </a>
+                                                                <a href="<?php echo $this->url('escola/default', array(
+                                                                    'controller' => 'anoLetivo',
+                                                                    'action' => 'andamento'
+                                                                ), true);?>/id/<?php echo $anoLetivo->getId();?>/status/finalizar"
+                                                                   class="btn btn-danger btn-sm"
+                                                                <?php if ($anoLetivo->getAndamento() == 0): ?>disabled="disabled"
+                                                                    <?php endif ?>>
+                                                                    <i class="glyphicon glyphicon-stop"></i>
+                                                                     FINALIZAR</a>
+                                                                <a href="<?php echo $this->url('escola/default', array('controller'=> 'anoletivo', 'action' => 'save'), true); ?>/escola/<?php echo $escola->getId();?>/id/<?php echo $anoLetivo->getId();?>" class="btn btn-primary btn-sm">
+                                                                    <i class="icon icon-pencil"></i> EDITAR</a>
+                                                                <a href="<?php echo $this->url('escola/default', array(
+                                                                    'controller' => 'anoLetivo',
+                                                                    'action' => 'delete'
+                                                                ), true);?>/id/<?php echo $anoLetivo->getId();?>"
+                                                                   class="btn btn-danger delete btn-sm">
+                                                                    <i class="icon icon-trash"></i> APAGAR</a>
+
+                                                            <?php endif ?>
+                                                        </td>
+                                                    </tr>
+                                                <?php
+                                                endforeach;
+                                                ?>
+                                                </tbody>
+                                            </table>
+                                        <?php
+                                        endif;
+                                        ?>
                                         <a href="/escola/ano-letivo/save/escola/<?php echo $escola->getId();?>"
                                            class="btn btn-info"><i class="icon icon-cog"></i> Definir ano letivo</a>
                                     </td>
