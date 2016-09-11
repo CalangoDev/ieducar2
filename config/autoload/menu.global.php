@@ -203,7 +203,9 @@ return array(
                                     ),
                                     array(
                                         'label' => 'Tipo',
-                                        'uri' => '#'
+                                        'route' => 'escola/default',
+                                        'controller' => 'tipoturma',
+                                        'action' => 'index'
                                     )
                                 )
                             ),
