@@ -2,42 +2,37 @@
 /**
  * Created by PhpStorm.
  * User: eduardojunior
- * Date: 16/12/15
- * Time: 09:48
+ * Date: 10/09/16
+ * Time: 11:37
  */
 use Core\Test\ControllerTestCase;
-use Escola\Entity\TipoRegime;
+use Escola\Entity\TipoTurma;
 
 /**
  * @group Controller
  */
-class TipoRegimeControllerTest extends ControllerTestCase
+class TipoTurmaControllerTest extends ControllerTestCase
 {
     /**
      * Namespace completa do Controller
-     * @var string TipoRegimeController
+     * @var string TipoTurmaController
      */
-    protected $controllerFQDN = 'Escola\Controller\TipoRegimeController';
+    protected $controllerFQDN = 'Escola\Controller\TipoTurmaController';
 
     /**
-     * Nome da rota. geralmente o nome do modulo
+     * Nome da rota, geralmente o nome do modulo
      * @var string escola
      */
     protected $controllerRoute = 'escola';
 
-    /**
-     * testa a pagina inicial
-     */
-    public function testTipoRegimeIndexAction()
+    public function testTipoTurmaIndexAction()
     {
-        $tipoRegimeA = $this->buildTipoRegime();
-        $tipoRegimeB = $this->buildTipoRegime();
-        $tipoRegimeB->setNome('Medio');
-
-        $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-        $em->persist($tipoRegimeA);
-        $em->persist($tipoRegimeB);
-        $em->flush();
+        $entityA = $this->buildTipoTurma();
+        $entityB = $this->buildTipoTurma();
+        $entityB->setNome('Outro Tipo de Turma');
+        $this->em->persist($entityA);
+        $this->em->persist($entityB);
+        $this->em->flush();
 
         // invoca a rota index
         $this->routeMatch->setParam('action', 'index');
@@ -52,41 +47,37 @@ class TipoRegimeControllerTest extends ControllerTestCase
         // testa se um ViewModel foi retornado
         $this->assertInstanceOf('Zend\View\Model\ViewModel', $result);
 
-        //	Testa os dados da View
+        // testa os dados da View
         $variables = $result->getVariables();
 
         $this->assertArrayHasKey('dados', $variables);
 
-        //	Faz a comparacao dos dados
+        // faz a comparacao dos dados
         $paginator = $variables['dados'];
-        $this->assertEquals($tipoRegimeA->getNome(), $paginator->getItem(1)->getNome());
-        $this->assertEquals($tipoRegimeB->getNome(), $paginator->getItem(2)->getNome());
+        $this->assertEquals($entityA->getNome(), $paginator->getItem(1)->getNome());
+        $this->assertEquals($entityB->getNome(), $paginator->getItem(2)->getNome());
     }
 
-    /**
-     * Testa a tela de inclusao de um novo registro
-     * @return void
-     */
-    public function testTipoRegimeSaveActionNewRequest()
+    public function testTipoTurmaSaveActionNewRequest()
     {
-        //	Dispara a acao
+        // dispara a acao
         $this->routeMatch->setParam('action', 'save');
         $result = $this->controller->dispatch(
             $this->request, $this->response
         );
 
-        //	Verifica a resposta
+        // verifica a resposta
         $response = $this->controller->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
 
-        //	Testa se recebeu um ViewModel
+        // testa se recebeu um ViewModel
         $this->assertInstanceOf('Zend\View\Model\ViewModel', $result);
 
-        //	Verifica se existe um form
+        // verifica se exite um form
         $variables = $result->getVariables();
         $this->assertInstanceOf('Zend\Form\Form', $variables['form']);
         $form = $variables['form'];
-        //	Testa os itens do formulario
+        // testa os itens do formulario
         $id = $form->get('id');
         $this->assertEquals('id', $id->getName());
         $this->assertEquals('hidden', $id->getAttribute('type'));
@@ -95,118 +86,117 @@ class TipoRegimeControllerTest extends ControllerTestCase
         $this->assertEquals('nome', $nome->getName());
         $this->assertEquals('text', $nome->getAttribute('type'));
 
-        $ativo = $form->get('ativo');
-        $this->assertEquals('ativo', $ativo->getName());
-        $this->assertEquals('Zend\Form\Element\Select', $ativo->getAttribute('type'));
+        $sigla = $form->get('sigla');
+        $this->assertEquals('sigla', $sigla->getName());
+        $this->assertEquals('text', $sigla->getAttribute('type'));
 
     }
 
     /**
      * testa a tela de alteracoes de um registro
      */
-    public function testTipoRegimeSaveActionUpdateFormRequest()
+    public function testTipoTurmaSaveActionUpdateFormRequest()
     {
-        $tipoRegime = $this->buildTipoRegime();
-        $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-        $em->persist($tipoRegime);
-        $em->flush();
+        $entity = $this->buildTipoTurma();
+        $this->em->persist($entity);
+        $this->em->flush();
 
+        // dispara a acao
         $this->routeMatch->setParam('action', 'save');
-        $this->routeMatch->setParam('id', $tipoRegime->getId());
+        $this->routeMatch->setParam('id', $entity->getId());
         $result = $this->controller->dispatch(
             $this->request, $this->response
         );
 
-        //	Verifica a resposta
+        // verifica a resposta
         $response = $this->controller->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
 
-        //	Testa se recebeu um ViewModel
+        // testa se recebeu um ViewModel
         $this->assertInstanceOf('Zend\View\Model\ViewModel', $result);
         $variables = $result->getVariables();
-
-        //	Verifica se existe um form
+        //verifica se existe um form
         $this->assertInstanceOf('Zend\Form\Form', $variables['form']);
         $form = $variables['form'];
 
-        //	Testa os itens do formulario
+        // testa os itens do formulario
         $id = $form->get('id');
         $nome = $form->get('nome');
+        $sigla = $form->get('sigla');
         $this->assertEquals('id', $id->getName());
-        $this->assertEquals($tipoRegime->getId(), $id->getValue());
-        $this->assertEquals($tipoRegime->getNome(), $nome->getValue());
+        $this->assertEquals($entity->getNome(), $nome->getValue());
+        $this->assertEquals($entity->getSigla(), $sigla->getValue());
     }
 
     /**
-     * Testa a inclusao de um novo registro
+     * testa a inclusao de um novo registro
      */
-    public function testTipoRegimeSaveActionPostRequest()
+    public function testTipoTurmaSaveActionPostRequest()
     {
-        //	Dispara a acao
+        // dispara a acao
         $this->routeMatch->setParam('action', 'save');
-
         $this->request->setMethod('post');
         $this->request->getPost()->set('id', '');
-        $this->request->getPost()->set('nome', 'Garrincha');
-        $this->request->getPost()->set('ativo', true);
+        $this->request->getPost()->set('nome', 'Tipo de Turma');
+        $this->request->getPost()->set('sigla', 'TT');
 
         $result = $this->controller->dispatch(
             $this->request, $this->response
         );
-        //	Verifica a resposta
+
+        // verifica a resposta
         $response = $this->controller->getResponse();
-        //	a pagina redireciona, estao o status = 302
+        // a pagina redireciona entao o status = 302
         $this->assertEquals(302, $response->getStatusCode());
         $headers = $response->getHeaders();
-        $this->assertEquals('Location: /escola/tipo-regime', $headers->get('Location'));
+        $this->assertEquals('Location: /escola/tipo-turma', $headers->get('Location'));
     }
 
     /**
-     * Testa o update
+     * testa o update
      */
-    public function testTipoRegimeUpdateAction()
+    public function testTipoTurmaUpdateAction()
     {
-        $tipoRegime = $this->buildTipoRegime();
-        $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-        $em->persist($tipoRegime);
-        $em->flush();
-        //	Dispara a acao
+        $entity = $this->buildTipoTurma();
+        $this->em->persist($entity);
+        $this->em->flush();
+        // dispara a acao
         $this->routeMatch->setParam('action', 'save');
-
         $this->request->setMethod('post');
-        $this->request->getPost()->set('id', $tipoRegime->getId());
-        $this->request->getPost()->set('nome', 'Medio');
-        $this->request->getPost()->set('ativo', true);
+        $this->request->getPost()->set('id', $entity->getId());
+        $this->request->getPost()->set('nome', 'Novo nome');
+        $this->request->getPost()->set('sigla', 'NN');
 
         $result = $this->controller->dispatch(
             $this->request, $this->response
         );
-        //	Verifica a resposta
+
+        // verifica a resposta
         $response = $this->controller->getResponse();
-        //	a pagina redireciona, entao o status = 302
+        // a pagina redireciona, entao o status = 302
         $this->assertEquals(302, $response->getStatusCode());
         $headers = $response->getHeaders();
-        $this->assertEquals('Location: /escola/tipo-regime', $headers->get('Location'));
+        $this->assertEquals('Location: /escola/tipo-turma', $headers->get('Location'));
 
-        $savedTipoRegime = $em->find(get_class($tipoRegime), $tipoRegime->getId());
-        $this->assertEquals('Medio', $savedTipoRegime->getNome());
+        $savedEntity = $this->em->find(get_class($entity), $entity->getId());
+        $this->assertEquals('Novo nome', $savedEntity->getNome());
+        $this->assertEquals('NN', $savedEntity->getSigla());
     }
 
     /**
      * testa a inclusao, formulario invalido e nome vazio
      */
-    public function testTipoRegimeSaveActionInvalidFormPostRequest()
+    public function testTipoTurmaSaveActionInvalidFormPostRequest()
     {
-        $tipoRegime = $this->buildTipoRegime();
-        $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-        $em->persist($tipoRegime);
-        $em->flush();
+        $entity = $this->buildTipoTurma();
+        $this->em->persist($entity);
+        $this->em->flush();
         // dispara a acao
         $this->routeMatch->setParam('action', 'save');
         $this->request->setMethod('post');
         $this->request->getPost()->set('id', '');
         $this->request->getPost()->set('nome', '');
-        $this->request->getPost()->set('ativo', true);
+        $this->request->getPost()->set('sigla', '');
 
         $result = $this->controller->dispatch(
             $this->request, $this->response
@@ -215,136 +205,124 @@ class TipoRegimeControllerTest extends ControllerTestCase
         // verifica a resposta
         $response = $this->controller->getResponse();
 
-        //	a pagina nao redireciona por causa do erro, estao o status = 200
+        // a pagina nao redireciona por causa do erro entao o status = 200
         $this->assertEquals(200, $response->getStatusCode());
         $headers = $response->getHeaders();
 
-        //	Verify Filters Validators
-        $msgs = $result->getVariables()['form']->getMessages();
-        $this->assertEquals('Value is required and can\'t be empty', $msgs["nome"]['isEmpty']);
+        // verify filters validators
+        $msgs = $result->getVariables()['form']->getMessageS();
+        $this->assertEquals('Value is required and can\'t be empty', $msgs['nome']['isEmpty']);
     }
 
-
     /**
-     * Testa a busca com resultados
+     * testa a busca com resultados
      */
-    public function testTipoRegimeBuscaPostActionRequest()
+    public function testTipoTurmaBuscaPostActionRequest()
     {
-        $tipoRegimeA = $this->buildTipoRegime();
-        $tipoRegimeB = $this->buildTipoRegime();
-        $tipoRegimeB->setNome("GOLD");
-        $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-        $em->persist($tipoRegimeA);
-        $em->persist($tipoRegimeB);
-        $em->flush();
+        $entityA = $this->buildTipoTurma();
+        $entityB = $this->buildTipoTurma();
+        $entityB->setNome('Outra Turma');
+        $this->em->persist($entityA);
+        $this->em->persist($entityB);
+        $this->em->flush();
 
-        //	Invoca a rota index
+        // invoca a rota index
         $this->routeMatch->setParam('action', 'busca');
-        $this->request->getPost()->set('q', 'GOLD');
+        $this->request->getPost()->set('q', 'Outra Turma');
 
         $result = $this->controller->dispatch(
             $this->request, $this->response
         );
 
-        //	Verifica o response
+        // verifica o response
         $response = $this->controller->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
 
-        //	Testa se um ViewModel foi retornado
+        // testa se um ViewModel foi retornado
         $this->assertInstanceOf('Zend\View\Model\ViewModel', $result);
 
-
-        //	Testa os dados da View
+        // testa os dados da View
         $variables = $result->getVariables();
 
         $this->assertArrayHasKey('dados', $variables);
 
-        //	Faz a comparação dos dados
+        // faz a comparação dos dados
         $dados = $variables["dados"];
-        $this->assertEquals($tipoRegimeB->getNome(), $dados[0]->getNome());
+        $this->assertEquals($entityB->getNome(), $dados[0]->getNome());
     }
+
     /**
-     * Testa a exclusao sem passar o id
+     * testa a exclusao sem passar o id
      * @expectedException Exception
      * @expectedExceptionMessage Código Obrigatório
      */
-    public function testTipoRegimeInvalidDeleteAction()
+    public function testTipoTurmaInvalidDeleteAction()
     {
-        //	Dispara a acao
+        // Dispara a acao
         $this->routeMatch->setParam('action', 'delete');
 
         $result = $this->controller->dispatch(
             $this->request, $this->response
         );
 
-        //	Verifica a resposta
+        // verifica a resposta
         $response = $this->controller->getResponse();
     }
 
-
     /**
-     * Testa a exclusao
+     * testa a exclusao
      */
-    public function testTipoRegimeDeleteAction()
+    public function testTipoTurmaDeleteAction()
     {
-        $tipoRegime = $this->buildTipoRegime();
-        $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-        $em->persist($tipoRegime);
-        $em->flush();
+        $entity = $this->buildTipoTurma();
+        $this->em->persist($entity);
+        $this->em->flush();
 
-        //	Dispara a acao
+        // dispara a acao
         $this->routeMatch->setParam('action', 'delete');
-        $this->routeMatch->setParam('id', $tipoRegime->getId());
+        $this->routeMatch->setParam('id', $entity->getId());
 
         $result = $this->controller->dispatch(
             $this->request, $this->response
         );
 
-        //	Verifica a reposta
+        // verifica a resposta
         $response = $this->controller->getResponse();
 
-        //	A pagina redireciona, entao o status = 302
+        // a pagina redireciona, entao o status = 302
         $this->assertEquals(302, $response->getStatusCode());
         $headers = $response->getHeaders();
-        $this->assertEquals(
-            'Location: /escola/tipo-regime', $headers->get('Location')
-        );
+        $this->assertEquals('Location: /escola/tipo-turma', $headers->get('Location'));
     }
 
     /**
-     * Testa a tela de detalhes
+     * testa a tela de detalhes
      */
-    public function testTipoRegimeDetalhesAction()
+    public function testTipoTurmaDetalhesAction()
     {
-        $tipoRegime = $this->buildTipoRegime();
-        $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-        $em->persist($tipoRegime);
-        $em->flush();
+        $entity = $this->buildTipoTurma();
+        $this->em->persist($entity);
+        $this->em->flush();
 
-        // Dispara a acao
+        // dispara a acao
         $this->routeMatch->setParam('action', 'detalhes');
-        $this->routeMatch->setParam('id', $tipoRegime->getId());
+        $this->routeMatch->setParam('id', $entity->getId());
 
         $result = $this->controller->dispatch(
             $this->request, $this->response
         );
 
-        // Verifica a resposta
+        // verifica a resposta
         $response = $this->controller->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
 
-        //	Testa se um ViewModel foi retornado
-        $this->assertInstanceOf('Zend\View\Model\ViewModel', $result);
-
-
-        //	Testa os dados da View
+        // testa os dados da View
         $variables = $result->getVariables();
         $this->assertArrayHasKey('data', $variables);
 
-        //	Faz a comparação dos dados
+        // faz a comparacao dos dados
         $data = $variables["data"];
-        $this->assertEquals($tipoRegime->getNome(), $data->getNome());
-
+        $this->assertEquals($entity->getNome(), $data->getNome());
     }
 
     /**
@@ -365,17 +343,18 @@ class TipoRegimeControllerTest extends ControllerTestCase
         $this->assertEquals(200, $response->getStatusCode());
     }
 
+
     /**
      * Testa a exlusao passando um id inexistente
      * @expectedException Exception
      * @expectedExceptionMessage Registro não encontrado
      */
-    public function testTipoRegimeInvalidIdDeleteAction()
+    public function testTipoTurmaInvalidIdDeleteAction()
     {
-        $tipoRegime = $this->buildTipoRegime();
-        $em = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-        $em->persist($tipoRegime);
-        $em->flush();
+        $entity = $this->buildTipoTurma();
+
+        $this->em->persist($entity);
+        $this->em->flush();
 
         //	Dispara a acao
         $this->routeMatch->setParam('action', 'delete');
@@ -392,18 +371,16 @@ class TipoRegimeControllerTest extends ControllerTestCase
         $this->assertEquals(302, $response->getStatusCode());
         $headers = $response->getHeaders();
         $this->assertEquals(
-            'Location: /escola/tiporegime', $headers->get('Location')
+            'Location: /escola/tipo-turma', $headers->get('Location')
         );
     }
 
-
-
-    private function buildTipoRegime()
+    private function buildTipoTurma()
     {
-        $tipoRegime = new TipoRegime();
-        $tipoRegime->setNome('Integral');
+        $entity = new TipoTurma();
+        $entity->setNome('Tipo de Turma');
+        $entity->setSigla('TT');
 
-        return $tipoRegime;
+        return $entity;
     }
-
 }
