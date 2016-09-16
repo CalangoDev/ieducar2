@@ -429,6 +429,138 @@ class Turma extends Entity
         if (!$this->inputFilter){
             $inputFilter = new InputFilter();
             $factory = new InputFactory();
+
+            $inputFilter->add($factory->createInput([
+                'name' => 'id',
+                'required' => true,
+                'filters' => [
+                    ['name' => 'Int']
+                ]
+            ]));
+
+            $inputFilter->add($factory->createInput([
+                'name' => 'nome',
+                'required' => true,
+                'filters' => [
+                    ['name' => 'StripTags'],
+                    ['name' => 'StringTrim']
+                ],
+                'validators' => [
+                    [
+                        'name' => 'StringLength',
+                        'options' => [
+                            'encoding' => 'UTF-8',
+                            'min' => 1,
+                            'max' => 255,
+                        ]
+                    ]
+                ]
+            ]));
+
+            $inputFilter->add($factory->createInput([
+                'name' => 'sigla',
+                'required' => false,
+                'filters' => [
+                    ['name' => 'StripTags'],
+                    ['name' => 'StringTrim']
+                ],
+                'validators' => [
+                    [
+                        'name' => 'StringLength',
+                        'options' => [
+                            'encoding' => 'UTF-8',
+                            'min' => 1,
+                            'max' => 15
+                        ]
+                    ]
+                ]
+            ]));
+
+            $inputFilter->add($factory->createInput([
+                'name' => 'maximoAluno',
+                'required' => false,
+                'filters' => [
+                    ['name' => 'Int']
+                ]
+            ]));
+
+            $inputFilter->add($factory->createInput([
+                'name' => 'multiSeriada',
+                'required' => false,
+                'filters' => [
+                    ['name' => 'Int']
+                ]
+            ]));
+
+            $inputFilter->add($factory->createInput([
+                'name' => 'ativo',
+                'required' => false,
+                'filters' => [
+                    ['name' => 'Int']
+                ]
+            ]));
+
+            $inputFilter->add($factory->createInput([
+                'name' => 'horaInicial',
+                'required' => false
+            ]));
+
+            $inputFilter->add($factory->createInput([
+                'name' => 'horaFinal',
+                'required' => false
+            ]));
+
+            $inputFilter->add($factory->createInput([
+                'name' => 'horaInicioIntervalo',
+                'required' => false
+            ]));
+
+            $inputFilter->add($factory->createInput([
+                'name' => 'horaFimIntervalo',
+                'required' => false
+            ]));
+
+            $inputFilter->add($factory->createInput([
+                'name' => 'visivel',
+                'required' => false,
+                'filters' => [
+                    ['name' => 'Int']
+                ]
+            ]));
+
+            $inputFilter->add($factory->createInput([
+                'name' => 'tipoBoletim',
+                'required' => false,
+                'filters' => [
+                    ['name' => 'Int']
+                ]
+            ]));
+
+            $inputFilter->add($factory->createInput([
+                'name' => 'anoLetivo',
+                'required' => false
+            ]));
+
+            $inputFilter->add($factory->createInput([
+                'name' => 'dataFechamento',
+                'required' => false
+            ]));
+
+            $inputFilter->add($factory->createInput([
+                'name' => 'comodoPredio',
+                'required' => false
+            ]));
+
+            $inputFilter->add($factory->createInput([
+                'name' => 'turmaTurno',
+                'required' => false
+            ]));
+
+            $inputFilter->add($factory->createInput([
+                'name' => 'escolaSerie',
+                'required' => false
+            ]));
+
             $this->inputFilter = $inputFilter;
         }
         return $this->inputFilter;
