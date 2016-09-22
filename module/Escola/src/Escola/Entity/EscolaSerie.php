@@ -167,7 +167,7 @@ class EscolaSerie extends Entity
         return $this->serie;
     }
 
-    public function setSerie(\Escola\Entity\Serie $serie)
+    public function setSerie(Serie $serie)
     {
         $this->serie = $this->valid('serie', $serie);
     }

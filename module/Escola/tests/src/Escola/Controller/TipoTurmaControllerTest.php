@@ -73,7 +73,7 @@ class TipoTurmaControllerTest extends ControllerTestCase
         // testa se recebeu um ViewModel
         $this->assertInstanceOf('Zend\View\Model\ViewModel', $result);
 
-        // verifica se exite um form
+        // verifica se existe um form
         $variables = $result->getVariables();
         $this->assertInstanceOf('Zend\Form\Form', $variables['form']);
         $form = $variables['form'];
@@ -210,7 +210,7 @@ class TipoTurmaControllerTest extends ControllerTestCase
         $headers = $response->getHeaders();
 
         // verify filters validators
-        $msgs = $result->getVariables()['form']->getMessageS();
+        $msgs = $result->getVariables()['form']->getMessages();
         $this->assertEquals('Value is required and can\'t be empty', $msgs['nome']['isEmpty']);
     }
 
@@ -330,7 +330,7 @@ class TipoTurmaControllerTest extends ControllerTestCase
      * @expectedException Exception
      * @expectedExceptionMessage Registro não encontrado
      */
-    public function testTipoRegimeDetalhesInvalidIdAction()
+    public function testTipoTurmaDetalhesInvalidIdAction()
     {
         $this->routeMatch->setParam('action', 'detalhes');
         $this->routeMatch->setParam('id', -1);

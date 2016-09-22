@@ -103,7 +103,7 @@ class Turma extends Entity
      *
      * @ORM\Column(type="boolean")
      */
-    protected $visivel;
+    protected $visivel = true;
 
     /**
      * @var int $tipoBoletim
@@ -244,11 +244,19 @@ class Turma extends Entity
      */
     public function getDataFechamento()
     {
+        if (!empty($this->dataFechamento)) {
+
+            $dataFechamento = $this->dataFechamento->format('d-m-Y');
+
+            return $dataFechamento;
+        }
+
         return $this->dataFechamento;
     }
 
     /**
-     * @param Date $dataFechamento
+     * @param $dataFechamento
+     * @return mixed
      */
     public function setDataFechamento($dataFechamento)
     {
@@ -277,6 +285,12 @@ class Turma extends Entity
      */
     public function getHoraFimIntervalo()
     {
+        if (!empty($this->horaFimIntervalo)){
+
+            $horaFimIntervalo = $this->horaFimIntervalo->format('h:i');
+
+            return $horaFimIntervalo;
+        }
         return $this->horaFimIntervalo;
     }
 
@@ -293,6 +307,14 @@ class Turma extends Entity
      */
     public function getHoraFinal()
     {
+        if (!empty($this->horaFinal)){
+
+            $horaFinal = $this->horaFinal->format('h:i');
+
+            return $horaFinal;
+
+        }
+
         return $this->horaFinal;
     }
 
@@ -309,6 +331,12 @@ class Turma extends Entity
      */
     public function getHoraInicial()
     {
+        if (!empty($this->horaInicial)){
+
+            $horaInicial = $this->horaInicial->format('h:i');
+
+            return $horaInicial;
+        }
         return $this->horaInicial;
     }
 
@@ -325,6 +353,15 @@ class Turma extends Entity
      */
     public function getHoraInicioIntervalo()
     {
+
+        if (!empty($this->horaInicioIntervalo)){
+
+            $horaInicioIntervalo = $this->horaInicioIntervalo->format('h:i');
+
+            return $horaInicioIntervalo;
+
+        }
+
         return $this->horaInicioIntervalo;
     }
 

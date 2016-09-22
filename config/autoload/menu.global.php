@@ -199,7 +199,9 @@ return array(
                                 'pages' => array(
                                     array(
                                         'label' => 'Cadastrar',
-                                        'uri' => '#'
+                                        'route' => 'escola/default',
+                                        'controller' => 'turma',
+                                        'action' => 'index'
                                     ),
                                     array(
                                         'label' => 'Tipo',

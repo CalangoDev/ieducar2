@@ -1,0 +1,377 @@
+
+<div class="container">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="/">Ínicio</a></li>
+            <li><a href="/escola/turma">Cadastro de Turma</a></li>
+            <li class="active">Salvar</li>
+        </ol>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1><i class="icon icon-group"></i> Cadastro <small>de turma</small></h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <b>Salvar</b>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <?php
+                            $this->form->prepare();
+                            echo $this->form()->openTag($form);
+                            $id = $this->form->get('id');
+                            $nome = $this->form->get('nome');
+                            $sigla = $this->form->get('sigla');
+                            $maximoAluno = $this->form->get('maximoAluno');
+                            $multiSeriada = $this->form->get('multiSeriada');
+                            $ativo = $this->form->get('ativo');
+                            $horaInicial = $this->form->get('horaInicial');
+                            $horaFinal = $this->form->get('horaFinal');
+                            $horaInicioIntervalo = $this->form->get('horaInicioIntervalo');
+                            $horaFimIntervalo = $this->form->get('horaFimIntervalo');
+                            $tipoBoletim = $this->form->get('tipoBoletim');
+                            $anoLetivo = $this->form->get('anoLetivo');
+                            $dataFechamento = $this->form->get('dataFechamento');
+                            $comodoPredio = $this->form->get('comodoPredio');
+                            $turmaTurno = $this->form->get('turmaTurno');
+                            $escolaSerie = $this->form->get('escolaSerie');
+                            echo $this->formInput($id);
+                            ?>
+                            <br>
+
+                            <div class="form-group required">
+                                <label for="escolaSerie"><?php echo $escolaSerie->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <?php
+                                        echo $this->formSelect($escolaSerie);
+                                        echo $this->formElementErrors($escolaSerie);
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group required">
+                                <label for="anoLetivo"><?php echo $anoLetivo->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <?php
+                                        echo $this->formSelect($anoLetivo);
+                                        echo $this->formElementErrors($anoLetivo);
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="comodoPredio"><?php echo $comodoPredio->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <?php
+                                        echo $this->formSelect($comodoPredio);
+                                        echo $this->formElementErrors($comodoPredio);
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group required">
+                                <label for="nome">
+                                    <?php
+                                    echo $nome->getOption('label');
+                                    ?>
+                                </label>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <?php
+                                        echo $this->formInput($nome);
+                                        ?>
+                                        <span class="help-block">
+                                                <?php
+                                                echo $this->formElementErrors($nome);
+                                                ?>
+                                            </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="sigla">
+                                    <?php
+                                    echo $sigla->getOption('label');
+                                    ?>
+                                </label>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <?php
+                                        echo $this->formInput($sigla);
+                                        echo $this->formElementErrors($sigla);
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group required">
+                                <label for="maximoAluno">
+                                    <?php echo $maximoAluno->getOption('label');?>
+                                </label>
+                                <p class="help-block">
+                                    <?php echo $maximoAluno->getOption('help');?>
+                                </p>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <?php
+                                        echo $this->formInput($maximoAluno);
+                                        echo $this->formElementErrors($maximoAluno);
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="dataFechamento"><?php echo $dataFechamento->getOption('label');?></label>
+                                <p class="help-block">
+                                    <?php echo $dataFechamento->getOption('help');?>
+                                </p>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <?php
+                                        echo $this->formInput($dataFechamento);
+                                        echo $this->formElementErrors($dataFechamento);
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="multiSeriada"><?php echo $multiSeriada->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <?php
+                                        echo $this->formCheckBox($multiSeriada);
+                                        echo $this->formElementErrors($multiSeriada);
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ativo"><?php echo $ativo->getOption('label');?></label>
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <?php
+                                        echo $this->formCheckBox($ativo);
+                                        echo $this->formElementErrors($ativo);
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <fieldset>
+                    <legend>Horários:</legend>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="horaInicial"><?php echo $horaInicial->getOption('label');?></label>
+                                    <p class="help-block">
+                                        <?php echo $horaInicial->getOption('help');?>
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <?php
+                                            echo $this->formInput($horaInicial);
+                                            echo $this->formElementErrors($horaInicial);
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="horaFinal"><?php echo $horaFinal->getOption('label');?></label>
+                                    <p class="help-block">
+                                        <?php echo $horaFinal->getOption('help');?>
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <?php
+                                            echo $this->formInput($horaFinal);
+                                            echo $this->formElementErrors($horaFinal);
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="horaInicioIntervalo">
+                                        <?php echo $horaInicioIntervalo->getOption('label');?>
+                                    </label>
+                                    <p class="help-block">
+                                        <?php echo $horaInicioIntervalo->getOption('help');?>
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <?php
+                                            echo $this->formInput($horaInicioIntervalo);
+                                            echo $this->formElementErrors($horaInicioIntervalo);
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="horaFimIntervalo">
+                                        <?php echo $horaFimIntervalo->getOption('label');?>
+                                    </label>
+                                    <p class="help-block">
+                                        <?php echo $horaFimIntervalo->getOption('help');?>
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <?php
+                                            echo $this->formInput($horaFimIntervalo);
+                                            echo $this->formElementErrors($horaFimIntervalo);
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group required">
+                                    <label for="turmaTurno">
+                                        <?php echo $turmaTurno->getOption('label');?>
+                                    </label>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <?php
+                                            echo $this->formSelect($turmaTurno);
+                                            echo $this->formElementErrors($turmaTurno);
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group required">
+                                    <label for="tipoBoletim"><?php echo $tipoBoletim->getOption('label');?></label>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <?php
+                                            echo $this->formSelect($tipoBoletim);
+                                            echo $this->formElementErrors($tipoBoletim);
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </fieldset>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <br>
+
+                            <div class="form-group required">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <?php
+                                        $enviar = $this->form->get('submit');
+                                        echo $this->formElement($enviar);
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <?php
+                            echo $this->form()->closeTag();
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<?php
+echo $this->headLink()->prependStylesheet($this->basePath() . '/componentes/chosen/chosen.css');
+echo $this->headScript()->prependFile($this->basePath() . '/componentes/chosen/chosen.jquery.min.js', 'text/javascript');
+echo $this->headScript()->prependFile($this->basePath()
+    . '/componentes/jquery.masked-input/jquery.maskedinput.min.js');
+?>
+<script type="text/javascript">
+    var config = {
+        '.chosen-select'           : {},
+        '.chosen-select-deselect'  : {allow_single_deselect:true},
+        '.chosen-select-no-single' : {disable_search_threshold:10},
+        '.chosen-select-no-results': {no_results_text:'Oops, nada foi encontrado!'},
+        '.chosen-select-width'     : {width:"95%"}
+    };
+    for (var selector in config) {
+        $(selector).chosen(config[selector]);
+    }
+
+    $( document ).ready(function() {
+
+        $('.escolaSerie').on('change', function(){
+
+            var escolaSerie = $(this).val();
+            if (escolaSerie > 0 || escolaSerie != ''){
+
+                $.ajax({
+                    type: 'get',
+                    url: '/escola/comodo-predio/salas/escola/' + escolaSerie,
+                    dataType: 'json',
+                    success: function(data){
+                        console.log(data);
+                        $('.comodoPredio').empty();
+                        var newOption = $('<option value="">Selecione uma escola</option>');
+                        $('.comodoPredio').append(newOption);
+                        $.each(data, function(k, v){
+                            var option = $('<option value=' + k.id + '>' + v.nome + '</option>');
+                            $('.comodoPredio').append(option);
+                        });
+                        $('.comodoPredio').trigger("chosen:updated");
+                    },
+                    beforeSend: function () {
+
+                    },
+                    complete: function (msg) {
+
+                    }
+                });
+
+            } else {
+                // zerar o chosen comodoPredio
+                $('.comodoPredio').empty();
+                var newOption = $('<option value="">Selecione uma escola</option>');
+                $('.comodoPredio').append(newOption);
+                $('.comodoPredio').trigger("chosen:updated");
+            }
+
+        });
+
+    });
+
+</script>

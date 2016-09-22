@@ -14,6 +14,7 @@ use Zend\Paginator\Paginator;
 use Zend\View\Model\ViewModel;
 use Escola\Entity\ComodoPredio;
 use Escola\Form\ComodoPredio as ComodoPredioForm;
+use Zend\View\Model\JsonModel;
 
 /**
  * Controlador que gerencia os comodos dos predios
@@ -114,8 +115,8 @@ class ComodoPredioController extends ActionController
     public function buscaAction()
     {
         $q = (string) $this->params()->fromPost('q');
-        $query = $this->getEntityManager()->createQuery("
-          SELECT cp FROM Escola\Entity\ComodoPredio cp  WHERE cp.nome LIKE :query OR cp.descricao LIKE :query");
+        $query = $this->getEntityManager()->createQuery("SELECT cp FROM Escola\Entity\ComodoPredio cp  "
+            . "WHERE cp.nome LIKE :query OR cp.descricao LIKE :query");
         $query->setParameter('query', "%".$q."%");
         $dados = $query->getResult();
 
@@ -147,6 +148,34 @@ class ComodoPredioController extends ActionController
         }
         $this->flashMessenger()->addMessage(array("success" => "Registro Removido com sucesso!"));
         return $this->redirect()->toUrl('/escola/comodo-predio');
+    }
+
+    /**
+     * @return JsonModel
+     * @throws \Exception
+     */
+    public function salasAction()
+    {
+        $escolaSerieId = (int) $this->params()->fromRoute('escola', 0); // id da escola serie
+        if ($escolaSerieId == 0)
+            throw new \Exception("Código Obrigatório");
+        // preciso verificar se tem escola serie
+        $escolaSerie = $this->getEntityManager()->find('Escola\Entity\EscolaSerie', $escolaSerieId);
+        $query = $this->getEntityManager()->createQuery("SELECT cp, p, e FROM Escola\Entity\ComodoPredio cp "
+            . "JOIN cp.predio p JOIN p.escola e WHERE e.id = :idEscola");
+        $query->setParameter('idEscola', $escolaSerie->getEscola()->getId());
+        $dados = $query->getResult();
+
+        $data = [];
+        foreach ($dados as $sala){
+            $data[] = [
+                'id' => $sala->getId(),
+                'nome' => $sala->getNome()
+            ];
+        }
+
+        return new JsonModel($data);
+
     }
 
 }

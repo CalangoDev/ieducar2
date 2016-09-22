@@ -31,6 +31,7 @@ matriculaNew, $tipoMenu, $email, statusToken, refSec, sequencial, refCodSetorNew
 - Entidade Drh\Entity\Funcionario, Atributo refCodSetor muda para codigoSetor e aponta para entidade Drh\Entity\Setor
 - Entidade Drh\Entity\Funcionario - Atributo $refCodFuncionarioVinculo mudado para $vinculo
 - Entidade Drh\Entity\Funcionario - Atributo $proibido mudado para $banido
+- Entidate Escola\Entity\ComponenteCurricularTurma - Removido atributo $escola, pois na entidade turma já tem uma associação a Escola
 
 
 i-Educar 1.1.0 2010-02-15

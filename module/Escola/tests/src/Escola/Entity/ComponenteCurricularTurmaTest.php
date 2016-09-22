@@ -2,18 +2,19 @@
 /**
  * Created by PhpStorm.
  * User: eduardojunior
- * Date: 15/09/16
- * Time: 17:43
+ * Date: 21/09/16
+ * Time: 15:24
  */
 namespace Escola\Entity;
 
 use Core\Test\EntityTestCase;
-use Usuario\Entity\Juridica;
 use Doctrine\Common\Collections\ArrayCollection;
+use Usuario\Entity\Juridica;
+
 /**
  * @group Entity
  */
-class TurmaTest extends EntityTestCase
+class ComponenteCurricularTurmaTest extends EntityTestCase
 {
     public function setup()
     {
@@ -22,12 +23,10 @@ class TurmaTest extends EntityTestCase
 
     /**
      * Check if filters exists
-     *
-     * @return Zend\InputFilter\InputFilter
      */
     public function testGetInputFilter()
     {
-        $entity = new Turma();
+        $entity = new ComponenteCurricularTurma();
         $if = $entity->getInputFilter();
         $this->assertInstanceOf('Zend\InputFilter\InputFilter', $if);
 
@@ -39,29 +38,17 @@ class TurmaTest extends EntityTestCase
      */
     public function testInputFilterValid($if)
     {
-        $this->assertEquals(17, $if->count());
+        $this->assertEquals(5, $if->count());
         $this->assertTrue($if->has('id'));
-        $this->assertTrue($if->has('nome'));
-        $this->assertTrue($if->has('sigla'));
-        $this->assertTrue($if->has('maximoAluno'));
-        $this->assertTrue($if->has('multiSeriada'));
-        $this->assertTrue($if->has('ativo'));
-        $this->assertTrue($if->has('horaInicial'));
-        $this->assertTrue($if->has('horaFinal'));
-        $this->assertTrue($if->has('horaInicioIntervalo'));
-        $this->assertTrue($if->has('horaFimIntervalo'));
-        $this->assertTrue($if->has('visivel'));
-        $this->assertTrue($if->has('tipoBoletim'));
-        $this->assertTrue($if->has('anoLetivo'));
-        $this->assertTrue($if->has('dataFechamento'));
-        $this->assertTrue($if->has('comodoPredio'));
-        $this->assertTrue($if->has('turmaTurno'));
-        $this->assertTrue($if->has('escolaSerie'));
+        $this->assertTrue($if->has('cargaHoraria'));
+        $this->assertTrue($if->has('turma'));
+        $this->assertTrue($if->has('componenteCurricular'));
+        $this->assertTrue($if->has('serie'));
     }
 
     public function testInsert()
     {
-        $entity = $this->buildTurma();
+        $entity = $this->buildComponenteCurricularTurma();
         $this->em->persist($entity);
         $this->em->flush();
 
@@ -73,25 +60,40 @@ class TurmaTest extends EntityTestCase
          */
         $savedEntity = $this->em->find(get_class($entity), $entity->getId());
         $this->assertEquals(1, $savedEntity->getId());
+
+    }
+
+    /**
+     * @expectedException Core\Entity\EntityException
+     */
+    public function testInputFilterInvalidCargaoraria()
+    {
+        $entity = $this->buildComponenteCurricularTurma();
+        $entity->setCargaHoraria('teste');
+
+        $this->em->persist($entity);
+        $this->em->flush();
     }
 
     public function testUpdate()
     {
-        $entity = $this->buildTurma();
+        $entity = $this->buildComponenteCurricularTurma();
         $this->em->persist($entity);
         $this->em->flush();
 
         $savedEntity = $this->em->find(get_class($entity), $entity->getId());
-        $this->assertEquals('4 ano', $savedEntity->getNome());
-        $savedEntity->setNome('5 ano');
+        $this->assertEquals(200, $savedEntity->getCargaHoraria());
+
+        $savedEntity->setCargaHoraria('800');
         $this->em->flush();
+
         $savedEntity = $this->em->find(get_class($entity), $entity->getId());
-        $this->assertEquals('5 ano', $savedEntity->getNome());
+        $this->assertEquals('800', $savedEntity->getCargaHoraria());
     }
 
     public function testDelete()
     {
-        $entity = $this->buildTurma();
+        $entity = $this->buildComponenteCurricularTurma();
         $this->em->persist($entity);
         $this->em->flush();
 
@@ -99,9 +101,161 @@ class TurmaTest extends EntityTestCase
         $savedEntity = $this->em->find(get_class($entity), $id);
         $this->em->remove($savedEntity);
         $this->em->flush();
-
         $savedEntity = $this->em->find(get_class($entity), $id);
         $this->assertNull($savedEntity);
+
+    }
+
+    private function buildAreaConhecimento()
+    {
+        $entity = new AreaConhecimento();
+        $entity->setNome('Nome da area');
+        $entity->setSecao('Seção da area');
+
+        return $entity;
+    }
+
+    private function buildComponenteCurricular()
+    {
+        $entity = new ComponenteCurricular();
+        $entity->setNome('Integral');
+        $entity->setAbreviatura('Int');
+        $entity->setTipoBase(1);
+        $area = $this->buildAreaConhecimento();
+        $entity->setAreaConhecimento($area);
+
+        return $entity;
+    }
+
+    private function buildCurso()
+    {
+        $entity = new Curso();
+        $entity->setNome('Curso teste');
+        $entity->setSigla('CT');
+        $entity->setQuantidadeEtapa(4);
+        $entity->setCargaHoraria(60.0);
+        $entity->setAtoPoderPublico('ato');
+        $entity->setObjetivo('Objetivo do curso');
+        $entity->setPublicoAlvo('Infantil');
+        $entity->setAtivo(true);
+        $entity->setPadraoAnoEscolar(false);
+        $entity->setHoraFalta(50.0);
+        $entity->setMultiSeriado(0);
+
+        $nivelEnsino = $this->buildNivelEnsino();
+        $entity->setNivelEnsino($nivelEnsino);
+
+        $tipoEnsino = $this->buildTipoEnsino();
+        $entity->setTipoEnsino($tipoEnsino);
+
+        $tipoRegime = $this->buildTipoRegime();
+        $entity->setTipoRegime($tipoRegime);
+
+        $cursoHabilitacoes = $this->buildCursosHabilitacoes();
+        $entity->addHabilitacoes($cursoHabilitacoes);
+
+        return $entity;
+
+    }
+
+    private function buildNivelEnsino()
+    {
+        $entity = new NivelEnsino();
+        $entity->setNome('Nível 1');
+        $entity->setDescricao('Descricao nivel de ensino');
+
+        return $entity;
+    }
+
+    private function buildTipoEnsino()
+    {
+        $entity = new TipoEnsino();
+        $entity->setNome('Tipo Ensino');
+        $entity->setAtivo(true);
+
+        return $entity;
+    }
+
+    private function buildTipoRegime()
+    {
+        $entity = new TipoRegime();
+        $entity->setNome('Tipo Regime 1');
+        $entity->setAtivo(true);
+
+        return $entity;
+    }
+
+    private function buildCursosHabilitacoes()
+    {
+        $collection = new ArrayCollection();
+        $entity = new Habilitacao();
+        $entity->setNome('Habilitação Nome');
+        $entity->setDescricao('Descricao Habilitação');
+        $entity->setAtivo(true);
+
+        $collection->add($entity);
+
+        return $collection;
+    }
+
+    private function buildRegraAvaliacao()
+    {
+        $entity = new RegraAvaliacao();
+        $entity->setNome('Nome da Regra');
+        $entity->setTipoNota(1);
+        $entity->setTipoProgressao(1);
+        $entity->setMedia('10');
+        $entity->setPorcentagemPresenca(45);
+        $entity->setParecerDescritivo(1);
+        $entity->setTipoPresenca(1);
+        $entity->setMediaRecuperacao(50);
+        $formulaMedia = $this->buildFormulaMedia();
+        $entity->setFormulaMedia($formulaMedia);
+        $entity->setFormulaRecuperacao($formulaMedia);
+        $tabela = $this->buildTabelaArredondamento();
+        $entity->setTabelaArredondamento($tabela);
+
+        return $entity;
+    }
+
+    private function buildFormulaMedia()
+    {
+        $entity = new FormulaMedia();
+        $entity->setNome('Nome da formula');
+        $entity->setTipoFormula(1);
+        $entity->setFormulaMedia('Se');
+
+        return $entity;
+    }
+
+    private function buildTabelaArredondamento()
+    {
+        $entity = new TabelaArredondamento();
+        $entity->setNome('Tabela de arredondamento');
+        $entity->setTipoNota(1);
+
+        return $entity;
+    }
+
+    private function buildSerie()
+    {
+        $entity = new Serie();
+        $entity->setNome('1 ano');
+        $entity->setEtapaCurso('1');
+        $entity->setConcluinte(true);
+        $entity->setCargaHoraria(60);
+        $entity->setAtivo(true);
+        $entity->setIntervalo(15);
+        $entity->setIdadeInicial(5);
+        $entity->setIdadeFinal(7);
+        $entity->setObservacaoHistorico('Apenas uma observação');
+        $entity->setDiasLetivos('200');
+        $curso = $this->buildCurso();
+        $entity->setCurso($curso);
+        $regra = $this->buildRegraAvaliacao();
+        $entity->setRegraAvaliacao($regra);
+
+        return $entity;
     }
 
     private function buildInstituicao()
@@ -131,32 +285,6 @@ class TurmaTest extends EntityTestCase
         return $localizacao;
     }
 
-    private function buildJuridica()
-    {
-        $juridica = new Juridica();
-        $juridica->setNome('Escola Modelo');
-        $juridica->setFantasia('Escola Modelo');
-        $juridica->setSituacao('A');
-
-        return $juridica;
-    }
-
-    private function buildEscola()
-    {
-        $entity = new Escola();
-        $entity->setAtivo(true);
-        $entity->setBloquearLancamento(false);
-        $entity->setCodigoInep('12345678');
-        $entity->setSigla('EM');
-        $juridica = $this->buildJuridica();
-        $entity->setJuridica($juridica);
-        $localizacao = $this->buildLocalizacao();
-        $entity->setLocalizacao($localizacao);
-        $rede = $this->buildRedeEnsino();
-        $entity->setRedeEnsino($rede);
-
-        return $entity;
-    }
 
     private function buildAnoLetivo()
     {
@@ -214,134 +342,29 @@ class TurmaTest extends EntityTestCase
         return $entity;
     }
 
-    private function buildNivelEnsino()
+    private function buildJuridica()
     {
-        $entity = new NivelEnsino();
-        $entity->setNome('Nivel 1');
-        $entity->setDescricao('Descricao nivel de ensino');
+        $juridica = new Juridica();
+        $juridica->setNome('Escola Modelo');
+        $juridica->setFantasia('Escola Modelo');
+        $juridica->setSituacao('A');
 
-        return $entity;
+        return $juridica;
     }
 
-    private function buildTipoEnsino()
+    private function buildEscola()
     {
-        $entity = new TipoEnsino();
-        $entity->setNome('Tipo Ensino');
+        $entity = new Escola();
         $entity->setAtivo(true);
-
-        return $entity;
-    }
-
-    private function buildTipoRegime()
-    {
-        $entity = new TipoRegime();
-        $entity->setNome('Tipo Regime 1');
-        $entity->setAtivo(true);
-
-        return $entity;
-    }
-
-    private function buildCursosHabilitacoes()
-    {
-        $cursoHabilitacoes = new ArrayCollection();
-        $habilitacao = new \Escola\Entity\Habilitacao();
-        $habilitacao->setNome('Habilitacao Nome');
-        $habilitacao->setDescricao('Desc Habilitacao');
-        $habilitacao->setAtivo(true);
-
-        $cursoHabilitacoes->add($habilitacao);
-
-        return $cursoHabilitacoes;
-    }
-
-    private function buildRegraAvaliacao()
-    {
-        $entity = new RegraAvaliacao();
-        $entity->setNome('Nome da Regra');
-        $entity->setTipoNota(1);
-        $entity->setTipoProgressao(1);
-        $entity->setMedia('10');
-        $entity->setPorcentagemPresenca(45);
-        $entity->setParecerDescritivo(1);
-        $entity->setTipoPresenca(1);
-        $entity->setMediaRecuperacao(50);
-        $formulaMedia = $this->buildFormulaMedia();
-        $entity->setFormulaMedia($formulaMedia);
-        $entity->setFormulaRecuperacao($formulaMedia);
-        $tabela = $this->buildTabelaArredondamento();
-        $entity->setTabelaArredondamento($tabela);
-
-        return $entity;
-
-    }
-
-    private function buildCurso()
-    {
-        $entity = new Curso();
-        $entity->setNome('Curso Teste');
-        $entity->setSigla('CT');
-        $entity->setQuantidadeEtapa(4);
-        $entity->setCargaHoraria(60.0);
-        $entity->setAtoPoderPublico('ato');
-        $entity->setObjetivo('Objetivo do curso');
-        $entity->setPublicoAlvo('Infantil');
-        $entity->setAtivo(true);
-        $entity->setPadraoAnoEscolar(false);
-        $entity->setHoraFalta(50.0);
-        $entity->setMultiSeriado(0);
-
-        $nivelEnsino = $this->buildNivelEnsino();
-        $entity->setNivelEnsino($nivelEnsino);
-
-        $tipoEnsino = $this->buildTipoEnsino();
-        $entity->setTipoEnsino($tipoEnsino);
-
-        $tipoRegime = $this->buildTipoRegime();
-        $entity->setTipoRegime($tipoRegime);
-
-        $cursoHabilitacoes = $this->buildCursosHabilitacoes();
-        $entity->addHabilitacoes($cursoHabilitacoes);
-
-        return $entity;
-    }
-
-    private function buildFormulaMedia()
-    {
-        $entity = new \Escola\Entity\FormulaMedia();
-        $entity->setNome('Nome da formula');
-        $entity->setTipoFormula(1);
-        $entity->setFormulaMedia('Se');
-
-        return $entity;
-    }
-
-    private function buildTabelaArredondamento()
-    {
-        $entity = new \Escola\Entity\TabelaArredondamento();
-
-        $entity->setNome('Tabela de arredondamento');
-        $entity->setTipoNota(1);
-
-        return $entity;
-    }
-
-    private function buildSerie()
-    {
-        $entity = new Serie();
-        $entity->setNome('1 ano');
-        $entity->setEtapaCurso('1');
-        $entity->setConcluinte(true);
-        $entity->setCargaHoraria(60);
-        $entity->setAtivo(true);
-        $entity->setIntervalo(15);
-        $entity->setIdadeInicial(5);
-        $entity->setIdadeFinal(7);
-        $entity->setObservacaoHistorico('Apenas uma observação');
-        $entity->setDiasLetivos('200');
-        $curso = $this->buildCurso();
-        $entity->setCurso($curso);
-        $regra = $this->buildRegraAvaliacao();
-        $entity->setRegraAvaliacao($regra);
+        $entity->setBloquearLancamento(false);
+        $entity->setCodigoInep('12345678');
+        $entity->setSigla('EM');
+        $juridica = $this->buildJuridica();
+        $entity->setJuridica($juridica);
+        $localizacao = $this->buildLocalizacao();
+        $entity->setLocalizacao($localizacao);
+        $rede = $this->buildRedeEnsino();
+        $entity->setRedeEnsino($rede);
 
         return $entity;
     }
@@ -396,6 +419,20 @@ class TurmaTest extends EntityTestCase
         $entity->setTurmaTurno($turmaTurno);
         $escolaSerie = $this->buildEscolaSerie();
         $entity->setEscolaSerie($escolaSerie);
+
+        return $entity;
+    }
+
+    private function buildComponenteCurricularTurma()
+    {
+        $entity = new ComponenteCurricularTurma();
+        $entity->setCargaHoraria('200');
+        $serie = $this->buildSerie();
+        $entity->setSerie($serie);
+        $turma = $this->buildTurma();
+        $entity->setTurma($turma);
+        $componente = $this->buildComponenteCurricular();
+        $entity->setComponenteCurricular($componente);
 
         return $entity;
     }
