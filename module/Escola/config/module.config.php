@@ -3,7 +3,7 @@ namespace Escola;
 
 return array(
     'router' => array(
-        'routes' => array(            
+        'routes' => array(
             'escola' => array(
                 'type'    => 'Literal',
                 'options' => array(

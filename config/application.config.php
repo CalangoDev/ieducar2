@@ -16,6 +16,7 @@ return array(
         //'Sandbox',
         'Escola',
         //'DoctrineORMCidadesBr',
+        'Api'
     ),    
     'module_listener_options' => array(
         'module_paths' => array(
