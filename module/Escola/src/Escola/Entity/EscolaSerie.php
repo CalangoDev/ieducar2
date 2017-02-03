@@ -8,6 +8,8 @@
 namespace Escola\Entity;
 
 use Core\Entity\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\Factory as InputFactory;
@@ -103,6 +105,33 @@ class EscolaSerie extends Entity
     protected $serie;
 
     // todo falta relacionamento com componentes curriculares
+    /**
+     * @var Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="Escola\Entity\EscolaSerieDisciplina", mappedBy="escolaSerie", cascade={"all"}, orphanRemoval=true, fetch="LAZY")
+     */
+    protected $disciplinas;
+
+    public function __construct()
+    {
+        $this->disciplinas = new ArrayCollection();
+    }
+
+    public function addDisciplinas(Collection $disciplinas)
+    {
+        foreach ($disciplinas as $disciplina){
+            $disciplina->setEscolaSerie($this);
+            $this->disciplinas->add($disciplina);
+        }
+    }
+
+    public function removeDisciplinas(Collection $disciplinas)
+    {
+        foreach ($disciplinas as $disciplina){
+            $disciplina->setEscolaSerie(null);
+            $this->disciplinas->removeElement($disciplina);
+        }
+    }
 
     /**
      * getters and setters
@@ -201,6 +230,23 @@ class EscolaSerie extends Entity
     {
         $this->bloquearEnturmacao = $this->valid('bloquearEnturmacao', $bloquearEnturmacao);
     }
+
+    /**
+     * @return Doctrine\Common\Collections\Collection
+     */
+    public function getDisciplinas()
+    {
+        return $this->disciplinas;
+    }
+
+    /**
+     * @param Doctrine\Common\Collections\Collection $disciplinas
+     */
+    public function setDisciplinas($disciplinas)
+    {
+        $this->disciplinas = $this->valid('disciplinas', $disciplinas);
+    }
+
 
     /**
      * @var Zend\InputFilter\InputFilter $inputFilter

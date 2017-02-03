@@ -39,7 +39,8 @@
                             $inicioIntervalo = $this->form->get('inicioIntervalo');
                             $fimIntervalo = $this->form->get('fimIntervalo');
                             $bloquearEnturmacao = $this->form->get('bloquearEnturmacao');
-                            $bloquearCadastroTurma = $this->form->get('bloquearCadastroTurma');
+							$bloquearCadastroTurma = $this->form->get('bloquearCadastroTurma');
+							$disciplinas = $this->form->get('disciplinas');
                             echo $this->formInput($id);
                             ?>
                             <br>
@@ -136,7 +137,35 @@
                                         </span>
                                     </div>
                                 </div>
-                            </div>
+							</div>
+
+							<div class="col-md-11">
+								<div class="panel panel-info">
+									<div class="panel-heading">Componentes curriculares:</div>
+									<div class="panel-body componente-curriculares">
+<?php
+							/*
+										$estilos = array('bg-default', 'bg-warning');
+                                        $this->cycle()->assign($estilos);
+										foreach ($disciplinas as $disciplina):
+											echo $this->formInput($disciplina->get('id'));
+											echo $disciplina->get('componenteCurricular')->getOption('label');
+											echo $this->formCheckbox($disciplina->get('componenteCurricular'));?>
+											<div class="row <?php echo $this->cycle()->next();?>">
+												<div class="form-group">
+													<div class="col-md-1">
+														<label for="">aaaa</label>
+													</div>
+													<div class="col-md-3">
+														aaa
+                                                    </div>
+                                                </div>
+											</div>
+										<?php
+											endforeach;*/ ?>
+									</div>
+								</div>
+							</div>
 
                             <br>
 
@@ -289,8 +318,26 @@ echo $this->headScript()->prependFile($this->basePath()
                 }
             });
 
-        }
+		}
 
-    });
+	// verificando se exite algo em componentes curriculares
+	var componente_curriculares = $('componente_curriculares');
+	if (componente_curriculares.length == 0 && $('#serie').val() == ""){
+		$(".componente-curriculares").text('Nenhuma série selecionada');
+	}
+	
+	$('#serie').on('change', function(){
+	    var id_serie = $(this).val();
+		console.log(id_serie);
+		if (id_serie != "") {
+			console.log('escolheu uma serie');
+			$(".componente-curriculares").text("AAAA");
+		} else {
+			console.log('Serie não selecionada');
+			$(".componente-curriculares").text("Nenhuma série selecionada");
+		}
+	});
+	
+});
     //end document ready function
 </script>

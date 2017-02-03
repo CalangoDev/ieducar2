@@ -92,7 +92,18 @@ class EscolaSerieController extends ActionController
                  */
                 return $this->redirect()->toUrl('/escola/escola-serie');
             }
-        }
+		}
+
+
+		/**
+		 * @TODO Selecionar Componentes Curriculares
+		 * @since 28/01/2017
+		 * 
+		 * Preciso listar os componentes (disciplinas cadastradas), com opção de selecionar as disciplinas escolher a carga horaria, caso não escolha a carga horaria,
+		 * O sistema identifica que a escola serie deve usar o padrão da disciplina(componente)
+		 *
+		 * carrega de acordo com a escolha ... adicionar ao formulario via ajax 
+		 */ 
 
         return new ViewModel(array(
             'form' => $form

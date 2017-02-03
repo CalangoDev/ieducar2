@@ -155,7 +155,21 @@ class EscolaSerie extends Form
                 'checked_value' => '1',
                 'unchecked_value' => '0'
             ),
-        ));
+		));
+
+		$escolaSerieDisciplinaFieldset = new \Escola\Form\EscolaSerieDisciplinaFieldset($objectManager);
+		$this->add([
+			'type' => 'Zend\Form\Element\Collection',
+			'name' => 'disciplinas',
+			'options' => [
+				'label' => 'Componentes Curriculares:',
+				'target_element' => $escolaSerieDisciplinaFieldset,
+			],
+			'attributes' => [
+				'type' => 'Zend\Form\Element\Collection',
+			]
+		]);
+
 
         $this->add(array(
             'name' => 'submit',

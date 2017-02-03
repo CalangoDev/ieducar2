@@ -14,6 +14,8 @@ use Escola\Entity\ComponenteCurricularAnoEscolar;
 use Zend\Paginator\Paginator;
 use Zend\View\Model\ViewModel;
 use Escola\Form\ComponenteCurricularAnoEscolar as ComponenteCurricularAnoEscolarForm;
+use Zend\View\Model\JsonModel;
+
 
 /**
  * Controlador que gerencia os componentes curriculares ano escolar
@@ -157,5 +159,41 @@ class ComponenteCurricularAnoEscolarController extends ActionController
         }
         $this->flashMessenger()->addMessage(array("success" => "Registro Removido com sucesso!"));
         return $this->redirect()->toUrl('/escola/componente-curricular-ano-escolar');
-    }
+	}
+
+
+	public function serieAction()
+	{
+		$id = (int) $this->params()->fromRoute('id', 0);
+		if ($id == 0)
+			throw new \Exception("Código Obrigatório");
+
+		$query = $this->getEntityManager()->createQuery("
+			SELECT cca, s FROM Escola\Entity\ComponenteCurricularAnoEscolar cca
+			JOIN cca.serie s
+			WHERE s.id = :idSerie
+			");
+		$query->setParameter('idSerie', $id);
+		$results = $query->getResult();
+
+        $data = [];
+		foreach ($results as $componente){
+            $data[] = [
+				'id' => $componente->getId(),
+				'cargaHoraria' => $componente->getCargaHoraria(),
+				'serie' => [
+					'id' => $componente->getSerie()->getId(),
+					'nome' => $componente->getSerie()->getNome(),
+				],
+				'componenteCurricular' => [
+					'id' => $componente->getComponenteCurricular()->getId(),
+					'nome' => $componente->getComponenteCurricular()->getNome(),
+				]
+            ];
+		}
+
+
+		return new JsonModel($data);
+
+	}
 }
